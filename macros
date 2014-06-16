@@ -21,6 +21,7 @@
 %_lib64dir		/usr/lib64
 %_libexecdir		/usr/libexec
 %_datadir		/usr/share
+%_docdir		/usr/share/doc
 %_includedir		/usr/include
 %_infodir		/usr/share/info
 %_mandir		/usr/share/man
