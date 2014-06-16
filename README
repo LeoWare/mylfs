@@ -1,0 +1,156 @@
+
+This build tracks linux from scratch version 7.5
+
+This build system requires the following:
+	Partition for LFS under build,	mounted at /mnt/lfs
+	Fetch build system from https://www.github.com/baho-utot/LFS-RPM
+	
+	This system was designed and debugged on an AMD64 {x86_64} system and
+	I have not tested it on a i686 system as I no longer have or use such
+	systems.  I have tried to keep it compatable with i686 but I may have
+	missed some thing, so you may need to address some issues with 
+	building/using this system.  Also there is no current configuration
+	file for i686 and you will need to provide that and make the changes
+	needed in the chapter-08 function as it is hardwired to AMD64
+
+	You will need some understanding of shell scripting as you will
+	need to alter some of the parameters in script builder.
+
+Notes:
+	This build system uses su.
+	If you don't want to enter the root password on every step then
+	you can temporary modify /etc/passwd and remove the x in the
+	root user entry.
+	sed -i 's/root:x/root:/' /etc/passwd
+	
+	The build system installs to /mnt/lfs/usr/src/Octothorpe
+
+WARNING:
+	This build system can trash your host.  
+
+The script to build LFS has changed
+It now consists of just one bash script that has the following options:
+$ ./builder -h
+Usage: builder <options>
+        -c - create filesystem(s)
+        -m - mount filesystem(s)
+        -u - unmount filesystem(s)
+        -f - fetch source packages using wget
+        -i - install build system to /mnt/lfs
+        -l - creates lfs user and sets environment
+        -r - removes lfs user
+        -t - build toolchain
+        -s - build final system
+        -h - this info
+
+Procedure to build in steps:
+	Edit builder and change the layout to suit your system and build.
+
+WARNING:	If you don't understand the following DON'T use it and make
+		the partition for LFS manually.
+		
+		I added this part so it would be convient when I was developing
+		this build system.
+	
+	The info is in columns so that the first column describes the mount
+	point for /mnt/lfs which in this case is using partition sdxx mounted
+	at /mnt/lfs with the filesystem type being ext4.  You can use any 
+	filesystem type that is currently on you host.  For example on my host
+	system I have  mkfs.cramfs, mkfs.ext3, mkfs.ext4dev, mkfs.minix, 
+	mkfs.xfs, mkfs.bfs, mkfs.ext2, mkfs.ext4, mkfs.jfs and mkfs.reiserfs.
+	I could change the ext4 to jfs if I wanted to build the LFS system 
+	on the jfs file system.
+	
+	Edit partition and mnt_point for the correct values for your system
+	Failing to do so can/and will cause you grief as in overwriting your
+	system.
+	You have been warned
+	
+	PARTITION=(	sdxx	sdxx	sdxx	sdxx	sdxx	sdxx	)
+	MNT_POINT=(	lfs	boot	home	usr	swap	usr/src	)
+	FILSYSTEM=(	ext4	ext4	ext4	ext4	swap	ext4	)
+
+	#	the partition line is above the mount point ie sda6 mounted
+		at /mnt/lfs
+
+	Change the first entry in PARTITION from sdxx to the partition you
+	created for the build
+	EXAMPLE:
+		You have created the partition for the build on the first 
+		hard drive ( /dev/sda ) and you will be using the fifth 
+		partition ie sda5. You will be using the ext4 file system.
+		The layout then looks like the following
+
+	PARTITION=(	sda6	sdxx	sdxx	sdxx	sdxx	sdxx	)
+	MNT_POINT=(	lfs	boot	home	usr	swap	usr/src	)
+	FILSYSTEM=(	ext4	ext4	ext4	ext4	swap	ext4	)
+
+	You can also mount other partitions under /mnt/lfs by changing the
+	values in the proper colummn(s).
+	
+	When using a kernel configuration files different from the supplied
+	kernel configuration file it must be symlinked to config in the 
+	parent directory.  It comes symlinked to a kernel configuration for
+	the AMD64 platform (x86_64).
+
+Build Procedure goes as follows:
+	
+command to run			These are just comments don't enter these
+------------------------------	----------------------------------------- 
+su -c './builder -cml'		creates, mounts and adds lfs user
+./builder -f			fetch all the source packages
+su -c './builder -i'		installs the build system to:
+				/mnt/lfs/usr/src/Octothorpe
+su -				switch to root user
+su - lfs			switch to lfs user
+cd ${LFS}/usr/src/Octothorpe	goto build directory
+./builder -t			build tool chain
+logout				log out of lfs user and goto root user
+logout				log out of root user goto original user
+su -c './builder -s'		build chapter 6, and configure
+install grub 			if needed
+create grub/grub.cfg in /boot	add the LFS menu entry
+	
+Installing grub:
+
+Notes:
+	This is one way to install grub,
+	You will need to edit the set root=(hdx,x) and
+	root=/dev/sdxx lines to suit.
+	If you don't have a boot partition you will need to
+	change: linux /vmlinuz-<VERSION> root=/dev/sdxx ro
+	to:	linux /boot/vmlinux-<VERSION> root=/dev/sdxx> ro
+
+	grub-install --force --boot-directory=/mnt/lfs/boot /dev/sda
+
+	cat > /boot/grub/grub.cfg << "EOF"
+	# Begin /boot/grub/grub.cfg
+	set default=0
+	set timeout=5
+
+	menuentry "GNU/Linux Linux from scratch" {
+		insmod ext2
+		set root=(hdx,x)
+		linux /vmlinuz-<VERSION> root=</dev/sdxx ro
+	 }
+	# 	Uncomment this if you have Win what-ever installed
+	#	change set root=(hdx,x) to where you have win installed
+	#	set root=(hd0,1) usually
+ 	#menuentry "Windows" {
+	#	insmod ntfs
+	#	set root=(hdx,x)
+	#	chainloader +1
+	# }
+	# End /boot/grub/grub.cfg
+	 EOF
+
+Post setup:
+	reboot		- reboot and run
+	login root
+	passwd		- set root password
+
+This completes the build.
+
+You can now remove build system and tool chain if desired.
+	rm -rf /usr/src/Octothorpe
+	rm -rf /tools
