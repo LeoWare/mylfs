@@ -19,7 +19,7 @@ MKFLAGS="-j $(getconf _NPROCESSORS_ONLN)"
 #	Failing to do so will cause you grief as in overwriting your system
 #	You have been warned
 #	the partition line is above the mount point ie sdb6 mounted at /
-PARTITION=(	'sdb3'	'sdxx'		) #sdxx	sdxx	sdxx	sdxx	sdxx	sdxx	)
+PARTITION=(	'sdxx'	'sdxx'		) #sdxx	sdxx	sdxx	sdxx	sdxx	sdxx	)
 MNT_POINT=(	'lfs'	'lfs/boot'	) #home	opt	tmp	usr	swap	usr/src	)
 FILSYSTEM=(	'ext4'	'ext4'		) #ext4	ext4	ext4	ext4	swap	ext4	)
 #
