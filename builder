@@ -18,7 +18,8 @@ MKFLAGS="-j $(getconf _NPROCESSORS_ONLN)"
 #	Edit partition and mnt_point for the correct values for your system
 #	Failing to do so will cause you grief as in overwriting your system
 #	You have been warned
-#	the partition line is above the mount point ie sdb6 mounted at /
+#	the partition line is above the mount point ie sdz9 mounted at / and
+#	uses ext4 filesystem.
 PARTITION=(	'sdxx'	'sdxx'		) #sdxx	sdxx	sdxx	sdxx	sdxx	sdxx	)
 MNT_POINT=(	'lfs'	'lfs/boot'	) #home	opt	tmp	usr	swap	usr/src	)
 FILSYSTEM=(	'ext4'	'ext4'		) #ext4	ext4	ext4	ext4	swap	ext4	)
@@ -76,7 +77,6 @@ build() {	# $1 = message
 	local _cmd="${2}"
 	local _logfile="${3}"
 	if [ "/dev/null" == "${_logfile}" ]; then
-		#	Discard output no log file
 		eval ${_cmd} >> ${_logfile} 2>&1
 	else
 		msg_line "       ${_msg}: "
@@ -219,7 +219,6 @@ chapter-5-07() {
 	${LFS_TGT}-gcc dummy.c
 	retval=$(readelf -l a.out | grep ': /tools')
 	rm dummy.c a.out
-	#	[Requesting program interpreter: /tools/lib64/ld-linux-x86-64.so.2]
 	retval=${retval##*: }	# strip [Requesting program interpreter: 
 	retval=${retval%]}	# strip ]
 	case "${retval}" in
@@ -312,7 +311,6 @@ chapter-5-10() {
 	${LFS_TGT}-gcc dummy.c
 	retval=$(readelf -l a.out | grep ': /tools')
 	rm dummy.c a.out
-	#	[Requesting program interpreter: /tools/lib64/ld-linux-x86-64.so.2]
 	retval=${retval##*: }	# strip [Requesting program interpreter: 
 	retval=${retval%]}	# strip ]
 	case "${retval}" in
@@ -811,11 +809,9 @@ chapter-5-36() {
 	>  ${_complete}
 	return 0
 }
-
 #
 #	Add rpm to tool chain
 #
-
 chapter-5-zlib() {
 	local	_pkgname="zlib"
 	local	_pkgver="1.2.8"
@@ -946,25 +942,6 @@ chapter-5-elfutils() {
 	>  ${_complete}
 	return 0
 }
-chapter-5-lua() {
-	local _pkgname="lua"
-	local _pkgver="5.2.3"
-      	local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
-	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
-	> ${_logfile}
-	build "Clean build directory" 'rm -rf BUILD/*' ${_logfile}
-	build "Change directory: BUILD" "pushd BUILD" ${_logfile}
-	unpack "${PWD}" "${_pkgname}-${_pkgver}"
-	build "Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
-	build "Patch" "patch -Np1 -i ../../SOURCES/lua-5.2.3-shared_library-1.patch" ${_logfile}
-	build "Make" "make ${MKFLAGS} linux" ${_logfile}
-	build "Install" "make INSTALL_TOP=/tools TO_LIB='liblua.so liblua.so.5.2 liblua.so.5.2.3' INSTALL_DATA='cp -d' INSTALL_MAN=/tools/share/man/man1 install" ${_logfile}
-	build "Restore directory" "popd " /dev/null
-	build "Restore directory" "popd " /dev/null
-	>  ${_complete}
-	return 0
-}
 chapter-5-rpm() {
 	local _pkgname="rpm"
 	local _pkgver="4.11.2"
@@ -1012,7 +989,6 @@ chapter-config(){
 	> ${_logfile}
 	build '/sbin/locale-gen.sh' '/sbin/locale-gen.sh' ${_logfile}
 	build '/sbin/ldconfig' '/sbin/ldconfig' ${_logfile}
-	#	enable shadowed passwords and group passwords
 	build '/usr/sbin/pwconv' '/usr/sbin/pwconv' ${_logfile}
 	build '/usr/sbin/grpconv' '/usr/sbin/grpconv' ${_logfile}
 	build '/sbin/udevadm hwdb --update' '/sbin/udevadm hwdb --update' ${_logfile}
@@ -1073,7 +1049,6 @@ cmd_filesystem() {
 cmd_fetch() {
 	msg_line "Fetching source packages: "
 	[ -d SOURCES ] || install -dm755 SOURCES
-	#	fetch and check LFS source packages
 	wget -nc -i wget-list -P SOURCES > /dev/null 2>&1 || die "${FUNCNAME}: FAILURE"
 	wget -nc -i wget-rpm -P SOURCES > /dev/null 2>&1 || die "${FUNCNAME}: Fetch rpm packages: FAILURE"
 	pushd SOURCES > /dev/null 2>&1;
@@ -1101,7 +1076,6 @@ cmd_install() {
 	}
 	msg_line "       Installing build system to ${LFS}${PARENT}: "
 	install -dm 755 ${LFS}/${PARENT}/{BOOK,BUILD,BUILDROOT,LOGS,RPMS,SOURCES,SPECS} || die "${FUNCNAME}: Can not create directories"
-	#	copy file to system under build
 	for i in ${list}; do
 		cp -ar "${i}" "${LFS}/${PARENT}" || die "${FUNCNAME}: Error trying to copy build system to ${LFS}/${PARENT}"
 	done
@@ -1183,7 +1157,6 @@ cmd_tools() {
 	chapter-5-popt		#
 	chapter-5-readline	#
 	chapter-5-elfutils	#
-#	chapter-5-lua		#	Not needed is optional
 	chapter-5-rpm		#
 #	The following are not used
 #	chapter-5-35	#	5.35. Stripping
@@ -1195,26 +1168,21 @@ cmd_system() {
 	local list=""
 	local i=""
 	[ ${EUID} -eq 0 ] || die "${FUNCNAME}: Need to be root user: FAILURE"
-	if [ -d /mnt/lfs/tools ]; then 	#	We are not in chroot so set this up
+	if [ -d "${LFS}" ]; then 	#	We are not in chroot so set this up
 		cd ${LFS}${PARENT}
-		# rm -rf BUILD/* BUILDROOT/*
 		#	Setup the default filesystem
 		[ -e "LOGS/filesystem.completed" ] || {
 			RPMPKG="$(find RPMS -name 'filesystem-[0-9]*.rpm' -print)"
-			[ -z ${RPMPKG} ] && PATH="/tools/bin:${PATH}" rpmbuild -ba --nocheck --define "_topdir ${LFS}/${PARENT}" --define "_dbpath ${LFS}/var/lib/rpm" SPECS/filesystem.spec > "LOGS/filesystem.log" 
+			BLD="/tools/bin/rpmbuild -ba --nocheck --define \"_topdir ${LFS}/${PARENT}\" --define \"_dbpath ${LFS}/var/lib/rpm\" SPECS/filesystem.spec"
+			[ -z ${RPMPKG} ] && build "Building filesystem" "${BLD}" "LOGS/filesystem.log" 
 			RPMPKG="$(find RPMS -name 'filesystem-[0-9]*.rpm' -print)"
 			[ -z ${RPMPKG} ] && die "Filesystem rpm package missing: Can not continue"
-			PATH="/tools/bin:${PATH}" rpm -Uvh --nodeps --root /mnt/lfs --replacepkgs ${RPMPKG} > "LOGS/filesystem.completed"
-			build "Creating symlinks: /tools/bin/{bash,cat,echo,pwd,stty}" \
-				"ln -fsv /tools/bin/{bash,cat,echo,pwd,stty} ${LFS}/bin"   "LOGS/filesystem.completed"
-			build "Creating symlinks: /tools/bin/perl /usr/bin" \
-				"ln -fsv /tools/bin/perl ${LFS}/usr/bin" "LOGS/filesystem.completed"
-			build "Creating symlinks: /tools/lib/libgcc_s.so{,.1}" \
-				"ln -fsv /tools/lib/libgcc_s.so{,.1} ${LFS}/usr/lib" "LOGS/filesystem.completed"
-			build "Creating symlinks: /tools/lib/libstdc++.so{,.6} /usr/lib" \
-				"ln -fsv /tools/lib/libstdc++.so{,.6} ${LFS}/usr/lib"	 "LOGS/filesystem.completed"
-			build "Sed: /usr/lib/libstdc++.la" \
-				"sed 's/tools/usr/' /tools/lib/libstdc++.la > ${LFS}/usr/lib/libstdc++.la" "LOGS/filesystem.completed"
+			build "Installing filesystem" "/tools/bin/rpm -Uvh --nodeps --root /mnt/lfs --replacepkgs ${RPMPKG}" "LOGS/filesystem.completed"
+			build "Creating symlinks: /tools/bin/{bash,cat,echo,pwd,stty}" "ln -fsv /tools/bin/{bash,cat,echo,pwd,stty} ${LFS}/bin"   "LOGS/filesystem.completed"
+			build "Creating symlinks: /tools/bin/perl /usr/bin" "ln -fsv /tools/bin/perl ${LFS}/usr/bin" "LOGS/filesystem.completed"
+			build "Creating symlinks: /tools/lib/libgcc_s.so{,.1}" "ln -fsv /tools/lib/libgcc_s.so{,.1} ${LFS}/usr/lib" "LOGS/filesystem.completed"
+			build "Creating symlinks: /tools/lib/libstdc++.so{,.6} /usr/lib" "ln -fsv /tools/lib/libstdc++.so{,.6} ${LFS}/usr/lib"	 "LOGS/filesystem.completed"
+			build "Sed: /usr/lib/libstdc++.la" "sed 's/tools/usr/' /tools/lib/libstdc++.la > ${LFS}/usr/lib/libstdc++.la" "LOGS/filesystem.completed"
 			build "Creating symlinks: bash /bin/sh" "ln -fsv bash ${LFS}/bin/sh" "LOGS/filesystem.completed"
 			#	Ommited in the filesystem.spec file - not needed for booting
 			[ -e ${LFS}/dev/console ]	|| mknod -m 600 ${LFS}/dev/console c 5 1
@@ -1232,16 +1200,9 @@ cmd_system() {
 			PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin \
 			/tools/bin/bash --login +h -c "/usr/src/Octothorpe/builder -s"
 		unmount_filesystems			
-	else
+	else	#	we are chrooted
 		msg "Building System"
 		cd ${PARENT}
-		# add 	--disable-silent-rules to configure for the following
-		# e2fsprogs perl sysklogd <-- problem children
-		#
-		#	Test gcc compile without /lib64
-		#	sed doesn't work because [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
-		#	Fix that at gcc build stage
-		#
 		list="linux-api-headers man-pages glibc tzdata adjust-tool-chain zlib file "
 		list+="binutils gmp mpfr mpc gcc test-gcc "
 		list+="sed bzip2 pkg-config ncurses shadow psmisc procps-ng e2fsprogs "
@@ -1249,11 +1210,9 @@ cmd_system() {
 		list+="gdbm inetutils perl autoconf automake diffutils gawk findutils "
 		list+="gettext groff xz grub less gzip iproute2 kbd kmod libpipeline "
 		list+="make patch sysklogd sysvinit tar texinfo udev util-linux man-db vim "
-		#	eudev - this is for later
 		list+="bootscripts linux "
 		#	The following packages comprise the package management system RPM
 		list+="elfutils nspr nss popt lua rpm chapter-config" 
-		#udev
 		for i in ${list}; do
 			RPMPKG=""
 			case ${i} in
@@ -1300,8 +1259,8 @@ cmd_system() {
 					[ -z $RPMPKG ] && die "installation error: rpm package not found\n"
 					case ${i} in
 						glibc | gmp | gcc | bzip2 | ncurses | util-linux | e2fsprogs | shadow | bison | perl | texinfo | vim | linux | udev | rpm)
-							build "Installing: ${i}" "rpm -Uvh --nodeps --replacepkgs ${RPMPKG}" "LOGS/${i}.completed" ;;
-						*)	build "Installing: ${i}" "rpm -Uvh --replacepkgs ${RPMPKG}" "LOGS/${i}.completed" ;;
+							build "Installing: ${i}" "rpm -Uvh --nodeps ${RPMPKG}" "LOGS/${i}.completed" ;;
+						*)	build "Installing: ${i}" "rpm -Uvh ${RPMPKG}" "LOGS/${i}.completed" ;;
 					esac
 				;;
 			esac
