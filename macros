@@ -5,8 +5,8 @@
 #
 #	Build flags
 #
-%_optflags_i686		-march=i486 -mtune=i686 -O2 -pipe
-%_optflags_x86_64	-march=x86-64 -mtune=generic -O2 -pipe -fno-strict-aliasing
+#%_optflags_i686	-march=i486 -mtune=i686 -O2 -pipe
+#%_optflags_x86_64	-march=x86-64 -mtune=generic -O2 -pipe -fno-strict-aliasing
 #
 #	Some standard locations
 #
