@@ -1,7 +1,7 @@
 Summary:	Data for network services and protocols
 Name:		iana-etc
 Version:	2.30
-Release:	0
+Release:	1
 License:	OSLv3
 URL:		http://freshmeat.net/projects/iana-etc
 Group:		System Environment/Base
@@ -22,5 +22,5 @@ make DESTDIR=%{buildroot} install
 %config %_sysconfdir/protocols
 %config %_sysconfdir/services
 %changelog
-*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.30-0
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.30-1
 -	Initial build.	First version

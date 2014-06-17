@@ -1,7 +1,7 @@
 Summary:	Displays information about running processes
 Name:		psmisc
 Version:	22.20
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://psmisc.sourceforge.net/
 Group:		Applications/System
@@ -32,5 +32,5 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_bindir}/*
 %{_mandir}/*/*
 %changelog
-*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 22.20-0
+*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 22.20-1
 -	Upgrade version

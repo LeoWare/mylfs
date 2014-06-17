@@ -1,7 +1,7 @@
 Summary:	Programs for basic networking
 Name:		inetutils
 Version:	1.9.2
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/inetutils
 Group:		Applications/Communications
@@ -36,6 +36,6 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_bindir}/*
 %{_mandir}/man1/*
 %changelog
-*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 1.9.2-0
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 1.9.2-1
 *	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 1.9.1-1
 -	Initial build.	First version

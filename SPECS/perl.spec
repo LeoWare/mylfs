@@ -1,7 +1,7 @@
 Summary:	Practical Extraction and Report Language
 Name:		perl
 Version:	5.18.2
-Release:	0
+Release:	1
 License:	GPLv1
 URL:		http://www.perl.org/
 Group:		Development/Languages
@@ -40,7 +40,7 @@ make DESTDIR=%{buildroot} install
 %{_libdir}/perl5/%{version}/*
 %{_mandir}/*/*
 %changelog
-*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 5.18.2-0
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 5.18.2-1
 *	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 5.18.1-1
 *	Fri Jun 28 2013 baho-utot <baho-utot@columbus.rr.com> 5.18.0-1
 *	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 5.16.3-1

@@ -1,7 +1,7 @@
 Summary:	Programs that show the differences between files or directories
 Name:		diffutils
 Version:	3.3
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/diffutils
 Group:		LFS/Base
@@ -30,7 +30,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_bindir}/*
 %{_mandir}/*/*
 %changelog
-*	Mon Apr 01 2013 baho-utot <baho-utot@columbus.rr.com> 3.3-0
+*	Mon Apr 01 2013 baho-utot <baho-utot@columbus.rr.com> 3.3-1
 -	Initial build.	First version
 *	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.6.1-1
 -	Initial build.	First version

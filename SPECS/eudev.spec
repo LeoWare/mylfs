@@ -1,7 +1,7 @@
 Summary:	Programs for dynamic creation of device nodes
 Name:		eudev
 Version:	1.6
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://www.gentoo.org/proj/en/eudev
 Group:		Applications/System
@@ -103,5 +103,5 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/libudev.pc
 %{_libdir}/pkgconfig/udev.pc
 %changelog
-*	Sat Jun 06 2014 baho-utot <baho-utot@columbus.rr.com> 1.6-0
+*	Sat Jun 06 2014 baho-utot <baho-utot@columbus.rr.com> 1.6-1
 -	initial version

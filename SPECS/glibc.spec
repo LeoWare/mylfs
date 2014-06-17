@@ -1,7 +1,7 @@
 Summary:	Main C library
 Name:		glibc
 Version:	2.19
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/libc
 Group:		Applications/System
@@ -127,7 +127,7 @@ printf "Creating locale files\n";/sbin/locale-gen.sh
 %lang(zh_TW) %{_datarootdir}/locale/zh_TW/LC_MESSAGES/libc.mo
 %{_localstatedir}/lib/nss_db/Makefile
 %changelog
-*	Sat Mar 22 2014 baho-utot <baho-utot@columbus.rr.com> 2.19-0
+*	Sat Mar 22 2014 baho-utot <baho-utot@columbus.rr.com> 2.19-1
 *	Sun Sep 01 2013 baho-utot <baho-utot@columbus.rr.com> 2.18-2
 *	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 2.18-1
 *	Sun Mar 24 2013 baho-utot <baho-utot@columbus.rr.com> 2.17-1

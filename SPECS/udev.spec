@@ -1,7 +1,7 @@
 Summary:	Programs for dynamic creation of device nodes
 Name:		udev
 Version:	208
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://www.freedesktop.org/wiki/Software/systemd/
 Group:		Applications/System
@@ -44,6 +44,7 @@ bash /lib/udev/init-net-rules.sh || true
 %{_datarootdir}/gtk-doc/html/libudev/*
 %{_mandir}/*/*
 %changelog
+*	Tue Jun 17 2014 baho-utot <baho-utot@columbus.rr.com> 208-1
 *	Fri Aug 30 2013 baho-utot <baho-utot@columbus.rr.com> 206-2
 -	fix perms on /lib/usev/init-net-rules.sh
 *	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 206-1

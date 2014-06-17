@@ -1,7 +1,7 @@
 Summary:	Utilities for internationalization and localization
 Name:		gettext
 Version:	0.18.3.2
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/gettext
 Group:		Applications/System
@@ -115,6 +115,6 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %lang(zh_TW) %{_datarootdir}/locale/zh_TW/LC_MESSAGES/gettext-tools.mo
 %{_mandir}/*/*
 %changelog
-*	Tue Jun 10 2014 baho-utot <baho-utot@columbus.rr.com> 0.18.3.2-0
+*	Tue Jun 10 2014 baho-utot <baho-utot@columbus.rr.com> 0.18.3.2-1
 *	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 0.18.3-1
 -	Upgrade version

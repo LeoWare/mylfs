@@ -1,7 +1,7 @@
 Summary:	Command-line editing and history capabilities
 Name:		readline
 Version:	6.2
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html
 Group:		Applications/System
@@ -42,5 +42,5 @@ rm -rf %{buildroot}%{_infodir}
 %{_defaultdocdir}/%{name}-%{version}/*
 %{_datarootdir}/%{name}/*
 %changelog
-*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 6.2-0
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 6.2-1
 -	Initial build.	First version

@@ -1,7 +1,7 @@
 Summary:	Build tool
 Name:		pkg-config
 Version:	0.28
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://www.freedesktop.org/wiki/Software/pkg-config
 Group:		Development/Tools
@@ -32,5 +32,5 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_defaultdocdir}/%{name}-%{version}/*
 %{_mandir}/*/*
 %changelog
-*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 0.28-0
+*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 0.28-1
 -	Upgrade version

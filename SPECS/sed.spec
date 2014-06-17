@@ -1,7 +1,7 @@
 Summary:	Stream editor
 Name:		sed
 Version:	4.2.2
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/sed
 Group:		Applications/Editors
@@ -30,5 +30,5 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 /bin/*
 %{_mandir}/man1/*
 %changelog
-*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 4.2.2-0
+*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 4.2.2-1
 -	Upgrade version

@@ -1,7 +1,7 @@
 Summary:	Contains programs for compressing and decompressing files
 Name:		bzip2
 Version:	1.0.6
-Release:	0
+Release:	1
 License:	BSD
 URL:		http://www.bzip.org/
 Group:		LFS/Base
@@ -48,5 +48,5 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_defaultdocdir}/%{name}-%{version}/*
 %{_mandir}/*/*
 %changelog
-*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 1.0.6-0
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 1.0.6-1
 -	Initial build.	First version

@@ -1,7 +1,7 @@
 Summary:	Security client
 Name:		nss
 Version:	3.15.4
-Release:	0
+Release:	1
 License:	MPLv2.0
 URL:		http://ftp.mozilla.org/pub/mozilla.org/security/nss
 Group:		Applications/System
@@ -48,6 +48,6 @@ install -vm 644 Linux*/lib/pkgconfig/nss.pc %{buildroot}%{_libdir}/pkgconfig
 %{_includedir}/*
 %{_libdir}/*
 %changelog
-*	Thu Apr 10 2014 baho-utot <baho-utot@columbus.rr.com> 3.15.4-0
+*	Thu Apr 10 2014 baho-utot <baho-utot@columbus.rr.com> 3.15.4-1
 *	Sun Aug 25 2013 baho-utot <baho-utot@columbus.rr.com> 3.15.1-1
 -	Upgrade version

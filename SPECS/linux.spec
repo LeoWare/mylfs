@@ -1,7 +1,7 @@
 Summary:	Kernel
 Name:		linux
 Version:	3.13.3
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/
 Group:		System Environment/Kernel
@@ -52,7 +52,7 @@ rm -rf %{buildroot}/lib/modules/%{version}/build
 /lib/modules/*
 %{_defaultdocdir}/%{name}-%{version}/*
 %changelog
-*	Wed Apr 09 2014 baho-utot <baho-utot@columbus.rr.com> 3.13.3-0
+*	Wed Apr 09 2014 baho-utot <baho-utot@columbus.rr.com> 3.13.3-1
 *	Sat Aug 31 2013 baho-utot <baho-utot@columbus.rr.com> 3.10.10-1
 *	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 3.10.9-1
 *	Fri Jun 28 2013 baho-utot <baho-utot@columbus.rr.com> 3.9.7-1

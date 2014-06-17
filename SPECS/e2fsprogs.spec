@@ -1,7 +1,7 @@
 Summary:	Contains the utilities for the ext2 file system
 Name:		e2fsprogs
 Version:	1.42.9
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://e2fsprogs.sourceforge.net
 Group:		LFS/Base
@@ -67,7 +67,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_datarootdir}/ss/*
 %{_mandir}/*/*
 %changelog
-*	Sat Apr 05 2014 baho-utot <baho-utot@columbus.rr.com> 1.42.9-0
+*	Sat Apr 05 2014 baho-utot <baho-utot@columbus.rr.com> 1.42.9-1
 *	Fri Jun 28 2013 baho-utot <baho-utot@columbus.rr.com> 1.42.8-1
 -	Upgrade version
 #

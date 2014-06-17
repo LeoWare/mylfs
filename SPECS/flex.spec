@@ -1,7 +1,7 @@
 Summary:	A utility for generating programs that recognize patterns in text
 Name:		flex
 Version:	2.5.38
-Release:	0
+Release:	1
 License:	BSD
 URL:		http://flex.sourceforge.net
 Group:		Applications/System
@@ -47,6 +47,6 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_defaultdocdir}/%{name}-%{version}/*
 %{_mandir}/*/*
 %changelog
-*	Sat Apr 05 2014 baho-utot <baho-utot@columbus.rr.com> 2.5.38-0
+*	Sat Apr 05 2014 baho-utot <baho-utot@columbus.rr.com> 2.5.38-1
 *	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.5.37-1
 -	Initial build.	First version

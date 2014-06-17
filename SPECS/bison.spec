@@ -1,7 +1,7 @@
 Summary:	Contains a parser generator
 Name:		bison
 Version:	3.0.2
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/bison
 Group:		LFS/Base
@@ -69,7 +69,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %lang(zh_TW) %{_datarootdir}/locale/zh_TW/LC_MESSAGES/bison-runtime.mo
 %{_mandir}/*/*
 %changelog
-*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 3.0.2-0
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 3.0.2-1
 *	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 3.0-1
 *	Fri May 10 2013 baho-utot <baho-utot@columbus.rr.com> 2.7.1-1
 *	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 2.7-1

@@ -1,7 +1,7 @@
 Summary:	Contains a linker, an assembler, and other tools
 Name:		binutils
 Version:	2.24
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://www.gnu.org/software/binutils
 Group:		LFS/Base
@@ -75,6 +75,6 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
  #	Manpages
 %{_mandir}/man1/*.gz
 %changelog
-*	Tue Apr 01 2014 baho-utot <baho-utot@columbus.rr.com> 2.24-0
+*	Tue Apr 01 2014 baho-utot <baho-utot@columbus.rr.com> 2.24-1
 *	Mon Apr 01 2013 baho-utot <baho-utot@columbus.rr.com> 2.23.2-1
 -	Upgrade version

@@ -1,7 +1,7 @@
 Summary:	Contains the GNU compiler collection
 Name:		gcc
 Version:	4.8.2
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://gcc.gnu.org
 Group:		Development/Tools
@@ -113,7 +113,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_mandir}/man7/*.gz
 %{_datadir}/gdb/*
 %changelog
-*	Tue Apr 01 2014 baho-utot <baho-utot@columbus.rr.com> 4.8.2-0
+*	Tue Apr 01 2014 baho-utot <baho-utot@columbus.rr.com> 4.8.2-1
 *	Fri Jun 28 2013 baho-utot <baho-utot@columbus.rr.com> 4.8.1-1
 *	Mon Apr 1 2013 baho-utot <baho-utot@columbus.rr.com> 4.8.0-1
 *	Thu Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 4.7.2-1

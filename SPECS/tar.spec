@@ -1,7 +1,7 @@
 Summary:	Archiving program
 Name:		tar
 Version:	1.27.1
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/tar
 Group:		Applications/System
@@ -37,7 +37,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_defaultdocdir}/%{name}-%{version}/*
 %{_mandir}/*/*
 %changelog
-*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 1.27.1-0
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 1.27.1-1
 *	Mon Sep 02 2013 baho-utot <baho-utot@columbus.rr.com> 1.26-3
 -	Add man directory
 *	Sun Sep 01 2013 baho-utot <baho-utot@columbus.rr.com> 1.26-2

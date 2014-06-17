@@ -1,7 +1,7 @@
 Summary:	Basic system utilities
 Name:		coreutils
 Version:	8.22
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/coreutils
 Group:		LFS/Base
@@ -47,6 +47,6 @@ make -k NON_ROOT_USERNAME=nobody check |& tee %{_specdir}/%{name}-check-log || %
 %{_sbindir}/*
 %{_mandir}/*/*
 %changelog
-*	Sat Apr 05 2014 baho-utot <baho-utot@columbus.rr.com> 8.22-0
+*	Sat Apr 05 2014 baho-utot <baho-utot@columbus.rr.com> 8.22-1
 *	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 8.21-1
 -	Upgrade version

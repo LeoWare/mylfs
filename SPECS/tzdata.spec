@@ -1,7 +1,7 @@
 Summary:	Time zone data
 Name:		tzdata
 Version:	2013i
-Release:	0
+Release:	1
 URL:		http://www.iana.org/time-zones
 License:	GPLv3
 Group:		Applications/System
@@ -37,7 +37,7 @@ install -vm 555 %{buildroot}/%{_datarootdir}/zoneinfo/America/New_York %{buildro
 %{_sysconfdir}/localtime
 %{_datadir}/*
 %changelog
-*	Sat Mar 22 2014 baho-utot <baho-utot@columbus.rr.com> 2013i-0
+*	Sat Mar 22 2014 baho-utot <baho-utot@columbus.rr.com> 2013i-1
 *	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 2013d-1
 *	Fri May 10 2013 baho-utot <baho-utot@columbus.rr.com> 2013c-1
 *	Sun Mar 24 2013 baho-utot <baho-utot@columbus.rr.com> 2013b-1

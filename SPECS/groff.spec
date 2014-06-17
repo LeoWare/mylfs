@@ -1,7 +1,7 @@
 Summary:	Programs for processing and formatting text
 Name:		groff
 Version:	1.22.2
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/groff
 Group:		Applications/Text
@@ -33,5 +33,5 @@ rm -rf %{buildroot}%{_infodir}
 %{_datarootdir}/%{name}/*
 %{_mandir}/*/*
 %changelog
-*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 1.22.2-0
+*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 1.22.2-1
 -	Upgrade version

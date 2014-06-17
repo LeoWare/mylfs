@@ -1,7 +1,7 @@
 Summary:	Package manager
 Name:		rpm
 Version:	4.11.2
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://rpm.org
 Group:		Applications/System
@@ -66,6 +66,6 @@ rm -rf %{buildroot}
 %{_mandir}/ru/man8/*.gz
 %{_mandir}/sk/man8/*.gz
 %changelog
-*	Thu Apr 10 2014 baho-utot <baho-utot@columbus.rr.com> 4.11.2-0
+*	Thu Apr 10 2014 baho-utot <baho-utot@columbus.rr.com> 4.11.2-1
 *	Thu Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 4.11.0.1-1
 -	Upgrade version

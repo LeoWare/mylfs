@@ -1,7 +1,7 @@
 Summary:	Contains a utility for determining file types
 Name:		file
 Version:	5.17
-Release:	0
+Release:	1
 License:	Other
 URL:		http://www.darwinsys.com/file
 Group:		Applications/File
@@ -33,6 +33,6 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_mandir}/*/*
 %{_datarootdir}/misc/magic.mgc
 %changelog
-*	Thu May 01 2014 baho-utot <baho-utot@columbus.rr.com> 5.17-0
+*	Thu May 01 2014 baho-utot <baho-utot@columbus.rr.com> 5.17-1
 *	Mon Apr 01 2013 baho-utot <baho-utot@columbus.rr.com> 5.14-1
 -	Initial version

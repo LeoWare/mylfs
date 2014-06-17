@@ -1,7 +1,7 @@
 Summary:	Platform-neutral API
 Name:		nspr
 Version:	4.10.3
-Release:	0
+Release:	1
 License:	MPLv2.0
 URL:		http://ftp.mozilla.org/pub/mozilla.org
 Group:		Applications/System
@@ -38,7 +38,7 @@ make DESTDIR=%{buildroot} install
 %{_libdir}/*
 %{_datarootdir}/aclocal/*
 %changelog
-*	Thu Apr 10 2014 baho-utot <baho-utot@columbus.rr.com> 4.10.3-0
+*	Thu Apr 10 2014 baho-utot <baho-utot@columbus.rr.com> 4.10.3-1
 *	Sun Aug 25 2013 baho-utot <baho-utot@columbus.rr.com> 4.10-1
 *	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 4.9.6-1
 -	Upgrade version

@@ -1,7 +1,7 @@
 Summary:	Libraries for terminal handling of character screens
 Name:		ncurses
 Version:	5.9
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://www.gnu.org/software/ncurses
 Group:		Applications/System
@@ -55,5 +55,5 @@ cp -v -R doc/* %{buildroot}%{_defaultdocdir}/%{name}-%{version}
 %{_datarootdir}/tabset/*
 %{_datarootdir}/terminfo/*
 %changelog
-*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 5.9-0
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 5.9-1
 -	Initial build.	First version

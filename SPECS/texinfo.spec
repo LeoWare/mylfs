@@ -1,7 +1,7 @@
 Summary:	Reading, writing, and converting info pages
 Name:		texinfo
 Version:	5.2
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/texinfo/
 Group:		Applications/System
@@ -45,7 +45,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %lang(pt.us-ascii) %{_datarootdir}/locale/pt.us-ascii/LC_MESSAGES/texinfo_document.mo
 %lang(pt_BR.us-ascii) %{_datarootdir}/locale/pt_BR.us-ascii/LC_MESSAGES/texinfo_document.mo
 %changelog
-*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 5.2-0
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 5.2-1
 *	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 5.1-1
 *	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 5.0-1
 -	Upgrade version

@@ -1,7 +1,7 @@
 Summary:	Compression and decompression routines
 Name:		zlib
 Version:	1.2.8
-Release:	0
+Release:	1
 URL:		http://www.zlib.net/
 License:	MIT
 Group:		Applications/System
@@ -35,5 +35,5 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_libdir}/pkgconfig/zlib.pc
 %{_mandir}/man3/zlib.3.gz
 %changelog
-*	Sat Mar 22 2014 baho-utot <baho-utot@columbus.rr.com> 1.2.8-0
+*	Sat Mar 22 2014 baho-utot <baho-utot@columbus.rr.com> 1.2.8-1
 *	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 1.2.7-1

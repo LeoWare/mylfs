@@ -1,7 +1,7 @@
 Name:		elfutils
 Summary:	A collection of utilities and DSOs to handle compiled objects
 Version:	0.158
-Release:	0
+Release:	1
 URL:		https://fedorahosted.org/elfutils/
 License:	GPLv3+ and (GPLv2+ or LGPLv3+)
 Group:		Development/Tools
@@ -36,7 +36,7 @@ make -s check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_libdir}/*
 %{_includedir}/*
 %changelog
-*	Thu Apr 10 2014 baho-utot <baho-utot@columbus.rr.com> 0.158-0
+*	Thu Apr 10 2014 baho-utot <baho-utot@columbus.rr.com> 0.158-1
 *	Sun Aug 25 2013 baho-utot <baho-utot@columbus.rr.com> 0.156-1
 *	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 0.155-1
 -	Initial build.	First version

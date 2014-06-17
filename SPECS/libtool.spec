@@ -1,7 +1,7 @@
 Summary:	Shared libraries, portable interface
 Name:		libtool
 Version:	2.4.2
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://www.gnu.org/software/libtool
 Group:		Development/Tools
@@ -35,5 +35,5 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_datarootdir}/%{name}/*
 %{_mandir}/*/*
 %changelog
-*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.4.2-0
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.4.2-1
 -	Initial build.	First version	

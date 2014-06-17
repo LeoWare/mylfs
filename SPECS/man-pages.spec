@@ -1,7 +1,7 @@
 Summary:	Man pages
 Name:		man-pages
 Version:	3.59
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/doc/man-pages
 Group:		System Environment/Base
@@ -30,7 +30,7 @@ rm -vf %{buildroot}%{_mandir}/man5/passwd.5
 %{_mandir}/man7/*
 %{_mandir}/man8/*
 %changelog
-*	Sat Mar 22 2014 baho-utot <baho-utot@columbus.rr.com> 3.59-0
+*	Sat Mar 22 2014 baho-utot <baho-utot@columbus.rr.com> 3.59-1
 *	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 3.53-1
 *	Fri May 10 2013 baho-utot <baho-utot@columbus.rr.com> 3.51-1
 *	Sun Mar 24 2013 baho-utot <baho-utot@columbus.rr.com> 3.50-1

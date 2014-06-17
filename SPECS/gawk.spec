@@ -1,7 +1,7 @@
 Summary:	Contains programs for manipulating text files
 Name:		gawk
 Version:	4.1.0
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/gawk
 Group:		Applications/File
@@ -38,7 +38,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_defaultdocdir}/%{name}-%{version}/*
 %{_mandir}/*/*
 %changelog
-*	Sat May 11 2013 baho-utot <baho-utot@columbus.rr.com> 4.1.0-0
+*	Sat May 11 2013 baho-utot <baho-utot@columbus.rr.com> 4.1.0-1
 -	Upgrade version
 *	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 4.0.2-1
 -	Upgrade version

@@ -1,7 +1,7 @@
 Summary:	GRand Unified Bootloader
 Name:		grub
 Version:	2.00
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/grub
 Group:		Applications/System
@@ -47,5 +47,5 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_libdir}/*
 %{_datarootdir}/%{name}/*
 %changelog
-*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.00-0
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.00-1
 -	Initial build.	First version

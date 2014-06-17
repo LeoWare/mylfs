@@ -1,7 +1,7 @@
 Summary:	Programs for monitoring processes
 Name:		procps-ng
 Version:	3.3.9
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://procps.sourceforge.net/
 Group:		Applications/System
@@ -43,7 +43,7 @@ find %{buildroot} -name '*.la' -delete
 %{_defaultdocdir}/*
 %{_mandir}/*/*
 %changelog
-*	Sat Apr 05 2014 baho-utot <baho-utot@columbus.rr.com> 3.3.9-0
+*	Sat Apr 05 2014 baho-utot <baho-utot@columbus.rr.com> 3.3.9-1
 *	Fri Jun 28 2013 baho-utot <baho-utot@columbus.rr.com> 3.3.8-1
 *	Mon Apr 1 2013 baho-utot <baho-utot@columbus.rr.com> 3.3.7-1
 *	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 0:3.3.6-1

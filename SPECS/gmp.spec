@@ -1,7 +1,7 @@
 Summary:	Math libraries
 Name:		gmp
 Version:	5.1.3
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/gmp
 Group:		Applications/System
@@ -42,5 +42,5 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_libdir}/*
 %{_defaultdocdir}/%{name}-%{version}/*
 %changelog
-*	Tue Apr 01 2014 baho-utot <baho-utot@columbus.rr.com> 5.1.3-0
+*	Tue Apr 01 2014 baho-utot <baho-utot@columbus.rr.com> 5.1.3-1
 *	Fri Jun 28 2013 baho-utot <baho-utot@columbus.rr.com> 5.1.2-1

@@ -1,7 +1,7 @@
 Summary:	Text editor
 Name:		vim
 Version:	7.4
-Release:	0
+Release:	1
 License:	Charityware
 URL:		http://www.vim.org
 Group:		Applications/Editors
@@ -111,9 +111,9 @@ EOF
 %lang(uk.cp1251)  %{_datarootdir}/vim/vim74/lang/uk.cp1251/LC_MESSAGES/vim.mo
 %lang(zh_CN.cp936) %{_datarootdir}/vim/vim74/lang/zh_CN.cp936/LC_MESSAGES/vim.mo
 %changelog
-*	Fri Aug 30 2013 baho-utot <baho-utot@columbus.rr.com> 7.4-0
+*	Fri Aug 30 2013 baho-utot <baho-utot@columbus.rr.com> 7.4-1
 -	Fixed vi sym link
-*	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 7.4-1
+*	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 7.4-0
 -	Update version
 *	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 7.3-1
 -	Initial build.	First version

@@ -1,7 +1,7 @@
 Summary:	Key table files, console fonts, and keyboard utilities
 Name:		kbd
 Version:	2.0.1
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://ftp.altlinux.org/pub/people/legion/kbd
 Group:		Applications/System
@@ -42,6 +42,6 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_datarootdir}/unimaps/*
 %{_mandir}/*/*
 %changelog
-*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 2.0.1-0
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 2.0.1-1
 *	Thu Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 1.15.5-1
 -	Upgrade version

@@ -1,7 +1,7 @@
 Summary:	Programs for handling passwords in a secure way
 Name:		shadow
 Version:	4.1.5.1
-Release:	0
+Release:	1
 URL:		http://pkg-shadow.alioth.debian.org/
 License:	BSD
 Group:		Applications/System
@@ -43,5 +43,5 @@ sed -i 's/yes/no/' %{buildroot}/etc/default/useradd
 %{_sbindir}/*
 %{_mandir}/*/*
 %changelog
-*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 4.1.5.1-0
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 4.1.5.1-1
 -	Initial build.	First version

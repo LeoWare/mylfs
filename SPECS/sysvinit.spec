@@ -1,7 +1,7 @@
 Summary:	Controls the start up, running and shutdown of the system
 Name:		sysvinit
 Version:	2.88dsf
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://savannah.nongnu.org/projects/sysvinit
 Group:		System Environment/Daemons
@@ -30,5 +30,5 @@ make -C src ROOT=%{buildroot}\
 %{_includedir}/*
 %{_mandir}/*/*
 %changelog
-*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.88dsf-0
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.88dsf-1
 -	Initial build.	First version

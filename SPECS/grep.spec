@@ -1,7 +1,7 @@
 Summary:	Programs for searching through files
 Name:		grep
 Version:	2.16
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/grep
 Group:		Applications/File
@@ -29,5 +29,5 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 /bin/*
 %{_mandir}/*/*
 %changelog
-*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 2.16-0
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 2.16-1
 *	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.14-1

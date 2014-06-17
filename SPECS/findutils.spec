@@ -1,7 +1,7 @@
 Summary:	This package contains programs to find files
 Name:		findutils
 Version:	4.4.2
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/findutils
 Group:		Applications/File
@@ -39,5 +39,5 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_libexecdir}/*
 %{_mandir}/*/*
 %changelog
-*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 4.4.2-0
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 4.4.2-1
 -	Initial build.	First version

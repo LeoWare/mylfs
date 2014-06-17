@@ -1,7 +1,7 @@
 Summary:	Basic and advanced IPV4-based networking
 Name:		iproute2
 Version:	3.12.0
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/pub/linux/utils/net/iproute2
 Group:		Applications/System
@@ -33,7 +33,7 @@ make	DESTDIR=%{buildroot} \
 %{_defaultdocdir}/%{name}-%{version}/*
 %{_mandir}/*/*
 %changelog
-*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 3.12.0-0
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 3.12.0-1
 *	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 3.10.0-1
 *	Fri May 10 2013 baho-utot <baho-utot@columbus.rr.com> 3.9.0-1
 *	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 3.8.0-1

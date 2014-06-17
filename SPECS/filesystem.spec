@@ -1,7 +1,7 @@
 Summary:	Default file system
 Name:		filesystem
 Version:	7.5
-Release:	0
+Release:	1
 License:	GPLv3
 Group:		System Environment/Base
 Vendor:		Bildanet
@@ -390,5 +390,6 @@ EOF
 /usr/local/lib64
 %endif
 %changelog
+*	Tue Jun 17 2014 baho-utot <baho-utot@columbus.rr.com> 7.5-1
 *	Fri Apr 19 2013 baho-utot <baho-utot@columbus.rr.com> 20130401-1
 -	Upgrade version

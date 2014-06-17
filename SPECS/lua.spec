@@ -1,7 +1,7 @@
 Summary:	Programming language
 Name:		lua
 Version:	5.2.3
-Release:	0
+Release:	1
 License:	MIT
 URL:		http://www.lua.org
 Group:		Development/Tools
@@ -60,7 +60,7 @@ rm -rf %{buildroot}
 %{_libdir}/*
 %{_mandir}/*/*
 %changelog
-*	Thu Apr 10 2014 GangGreene <GangGreene@bildanet.com> 5.2.3-0
+*	Thu Apr 10 2014 GangGreene <GangGreene@bildanet.com> 5.2.3-1
 *	Tue Jul 02 2013 GangGreene <GangGreene@bildanet.com> 5.2.2-1
 *	Wed Jan 30 2013 GangGreene <GangGreene@bildanet.com> 5.1.5-1
 -	Initial build.	First version

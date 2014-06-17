@@ -1,7 +1,7 @@
 Summary:	Utilities for file systems, consoles, partitions, and messages
 Name:		util-linux
 Version:	2.24.1
-Release:	0
+Release:	1
 URL:		http://www.kernel.org/pub/linux/utils/util-linux
 License:	GPLv2
 Group:		Applications/System
@@ -40,7 +40,7 @@ find %{buildroot} -name '*.la' -delete
 %{_datadir}/bash-completion/completions/*
 %{_datadir}/doc/util-linux/getopt/*
 %changelog
-*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 2.24.1-0
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 2.24.1-1
 *	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 2.23.2-1
 *	Fri May 10 2013 baho-utot <baho-utot@columbus.rr.com> 2.23-1
 *	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.22.2-1

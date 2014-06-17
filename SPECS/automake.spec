@@ -1,7 +1,7 @@
 Summary:	Programs for generating Makefiles
 Name:		automake
 Version:	1.14.1
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://www.gnu.org/software/automake/
 Group:		LFS/Base
@@ -33,6 +33,6 @@ rm -rf %{buildroot}%{_infodir}
 %{_defaultdocdir}/%{name}-%{version}/*
 %{_mandir}/*/*
 %changelog
-*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 1.14.1-0
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 1.14.1-1
 *	Fri Jun 28 2013 baho-utot <baho-utot@columbus.rr.com> 1.14-1
 -	Upgrade version

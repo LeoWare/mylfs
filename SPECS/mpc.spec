@@ -1,7 +1,7 @@
 Summary:	Library for the arithmetic of complex numbers
 Name:		mpc
 Version:	1.0.2
-Release:	0
+Release:	1
 License:	LGPLv3
 URL:		http://www.multiprecision.org
 Group:		Applications/System
@@ -32,6 +32,6 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_includedir}/*
 %{_libdir}/*
 %changelog
-*	Tue Apr 01 2014 baho-utot <baho-utot@columbus.rr.com> 1.0.2-0
+*	Tue Apr 01 2014 baho-utot <baho-utot@columbus.rr.com> 1.0.2-1
 *	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 1.0.1-1
 -	Upgrade version

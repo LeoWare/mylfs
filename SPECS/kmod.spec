@@ -1,7 +1,7 @@
 Summary:	Utilities for loading kernel modules
 Name:		kmod
 Version:	16
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/pub/linux/utils/kernel/kmod
 Group:		Applications/System
@@ -44,7 +44,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_includedir}/*
 %{_datadir}/bash-completion/completions/kmod
 %changelog
-*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 16-0
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 16-1
 *	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 14-1
 *	Fri May 10 2013 baho-utot <baho-utot@columbus.rr.com> 13-1
 -	Initial version	

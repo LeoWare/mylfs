@@ -1,7 +1,7 @@
 Summary:	Programs for finding and viewing man pages
 Name:		man-db
 Version:	2.6.6
-Release:	0
+Release:	1
 License:	GPLv2
 URL:		http://www.nongnu.org/man-db
 Group:		Applications/System
@@ -79,7 +79,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %lang(zh_CN) %{_datarootdir}/locale/zh_CN/LC_MESSAGES/man-db-gnulib.mo
 %lang(zh_TW) %{_datarootdir}/locale/zh_TW/LC_MESSAGES/man-db-gnulib.mo
 %changelog
-*	Wed Apr 09 2014 baho-utot <baho-utot@columbus.rr.com> 2.6.6-0
+*	Wed Apr 09 2014 baho-utot <baho-utot@columbus.rr.com> 2.6.6-1
 *	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 2.6.5-1
 *	Fri Jun 28 2013 baho-utot <baho-utot@columbus.rr.com> 2.6.4-1
 *	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 2.6.3-1

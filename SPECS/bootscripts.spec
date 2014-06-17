@@ -1,7 +1,7 @@
 Summary:	Scripts for booting system
 Name:		bootscripts
 Version:	20130821
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.linuxfromscratch.org/lfs
 Group:		LFS/Base
@@ -63,7 +63,7 @@ make DESTDIR=%{buildroot} install
 /sbin/*
 %{_mandir}/*/*
 %changelog
-*	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 20130821-0
+*	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 20130821-1
 *	Thu May 16 2013 baho-utot <baho-utot@columbus.rr.com> 20130515-1
 *	Wed May 15 2013 baho-utot <baho-utot@columbus.rr.com> 20130511-1
 *	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 20130123-1

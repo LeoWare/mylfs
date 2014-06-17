@@ -1,7 +1,7 @@
 Summary:	Bourne-Again SHell
 Name:		bash
 Version:	4.2
-Release:	0
+Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/bash/
 Group:		LFS/Base
@@ -36,6 +36,6 @@ rm -rf %{buildroot}/%{_infodir}
 %{_defaultdocdir}/%{name}-%{version}/*
 %{_mandir}/*/*
 %changelog
-*	Sun May 19 2013 baho-utot <baho-utot@columbus.rr.com> 4.2-0
+*	Sun May 19 2013 baho-utot <baho-utot@columbus.rr.com> 4.2-1
 -	Upgrade version
 
