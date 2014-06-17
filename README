@@ -14,7 +14,7 @@ This build system requires the following:
 	needed in the chapter-08 function as it is hardwired to AMD64
 
 	You will need some understanding of shell scripting as you will
-	need to alter some of the parameters in script builder.
+	need to alter some of the parameters in script lfs.
 
 Notes:
 	This build system uses su.
@@ -30,8 +30,8 @@ WARNING:
 
 The script to build LFS has changed
 It now consists of just one bash script that has the following options:
-$ ./builder -h
-Usage: builder <options>
+$ ./lfs -h
+Usage: lfs <options>
         -c - create filesystem(s)
         -m - mount filesystem(s)
         -u - unmount filesystem(s)
@@ -44,7 +44,7 @@ Usage: builder <options>
         -h - this info
 
 Procedure to build in steps:
-	Edit builder and change the layout to suit your system and build.
+	Edit lfs and change the layout to suit your system and build.
 
 WARNING:	If you don't understand the following DON'T use it and make
 		the partition for LFS manually.
@@ -97,17 +97,17 @@ Build Procedure goes as follows:
 	
 command to run			These are just comments don't enter these
 ------------------------------	----------------------------------------- 
-su -c './builder -cml'		creates, mounts and adds lfs user
-./builder -f			fetch all the source packages
-su -c './builder -i'		installs the build system to:
+su -c './lfs -cml'		creates, mounts and adds lfs user
+./lfs -f			fetch all the source packages
+su -c './lfs -i'		installs the build system to:
 				/mnt/lfs/usr/src/Octothorpe
 su -				switch to root user
 su - lfs			switch to lfs user
 cd ${LFS}/usr/src/Octothorpe	goto build directory
-./builder -t			build tool chain
+./lfs -t			build tool chain
 logout				log out of lfs user and goto root user
 logout				log out of root user goto original user
-su -c './builder -s'		build chapter 6, and configure
+su -c './lfs -s'		build chapter 6, and configure
 install grub 			if needed
 create grub/grub.cfg in /boot	add the LFS menu entry
 	
