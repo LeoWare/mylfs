@@ -1,0 +1,26 @@
+#!/bin/bash
+#################################################
+#	Title:	mk-fetch			#
+#        Date:	2014-06-18			#
+#     Version:	1.0				#
+#      Author:	baho-utot@columbus.rr.com	#
+#     Options:					#
+#	Fetches source packages			#
+#################################################
+set -o errexit		# exit if error...insurance ;)
+set -o nounset		# exit if variable not initalized
+set +h			# disable hashall
+source config.inc
+source common.inc
+source build.inc
+PRGNAME=${0##*/}	# script name minus the path
+msg "Fetching source packages: "
+[ -d SOURCES ] || cmd-line "	Create SOURCES directory" "install -dmv 755 SOURCES"
+cmd-line "	Retrieving lfs packages" "wget -nc -i wget-lfs -P SOURCES"
+cmd-line "	Retrieving rpm packages" "wget -nc -i wget-rpm -P SOURCES"
+pushd SOURCES > /dev/null 2>&1;
+	cmd-line "	Checking lfs packages" "md5sum -c ../md5sums-lfs"
+	cmd-line "	Checking rpm packages" "md5sum -c ../md5sums-rpm"
+popd > /dev/null 2>&1;
+exit 0
+

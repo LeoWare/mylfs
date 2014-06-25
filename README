@@ -10,11 +10,10 @@ This build system requires the following:
 	systems.  I have tried to keep it compatable with i686 but I may have
 	missed some thing, so you may need to address some issues with 
 	building/using this system.  Also there is no current configuration
-	file for i686 and you will need to provide that and make the changes
-	needed in the chapter-08 function as it is hardwired to AMD64
-
+	file for i686 and you will need to provide that
+	
 	You will need some understanding of shell scripting as you will
-	need to alter some of the parameters in script lfs.
+	need to alter some of the parameters in these scripts.
 
 Notes:
 	This build system uses su.
@@ -29,88 +28,49 @@ WARNING:
 	This build system can trash your host.  
 
 The script to build LFS has changed
-It now consists of just one bash script that has the following options:
-$ ./lfs -h
-Usage: lfs <options>
-        -c - create filesystem(s)
-        -m - mount filesystem(s)
-        -u - unmount filesystem(s)
-        -f - fetch source packages using wget
-        -i - install build system to /mnt/lfs
-        -l - creates lfs user and sets environment
-        -r - removes lfs user
-        -t - build toolchain
-        -s - build final system
-        -h - this info
 
-Procedure to build in steps:
-	Edit lfs and change the layout to suit your system and build.
-
-WARNING:	If you don't understand the following DON'T use it and make
-		the partition for LFS manually.
-		
-		I added this part so it would be convient when I was developing
-		this build system.
-	
-	The info is in columns so that the first column describes the mount
-	point for /mnt/lfs which in this case is using partition sdxx mounted
-	at /mnt/lfs with the filesystem type being ext4.  You can use any 
-	filesystem type that is currently on you host.  For example on my host
-	system I have  mkfs.cramfs, mkfs.ext3, mkfs.ext4dev, mkfs.minix, 
-	mkfs.xfs, mkfs.bfs, mkfs.ext2, mkfs.ext4, mkfs.jfs and mkfs.reiserfs.
-	I could change the ext4 to jfs if I wanted to build the LFS system 
-	on the jfs file system.
-	
-	Edit partition and mnt_point for the correct values for your system
-	Failing to do so can/and will cause you grief as in overwriting your
-	system.
-	You have been warned
-	
-	PARTITION=(	sdxx	sdxx	sdxx	sdxx	sdxx	sdxx	)
-	MNT_POINT=(	lfs	boot	home	usr	swap	usr/src	)
-	FILSYSTEM=(	ext4	ext4	ext4	ext4	swap	ext4	)
-
-	#	the partition line is above the mount point ie sda6 mounted
-		at /mnt/lfs
-
-	Change the first entry in PARTITION from sdxx to the partition you
-	created for the build
-	EXAMPLE:
-		You have created the partition for the build on the first 
-		hard drive ( /dev/sda ) and you will be using the fifth 
-		partition ie sda5. You will be using the ext4 file system.
-		The layout then looks like the following
-
-	PARTITION=(	sda6	sdxx	sdxx	sdxx	sdxx	sdxx	)
-	MNT_POINT=(	lfs	boot	home	usr	swap	usr/src	)
-	FILSYSTEM=(	ext4	ext4	ext4	ext4	swap	ext4	)
-
-	You can also mount other partitions under /mnt/lfs by changing the
-	values in the proper colummn(s).
-	
-	When using a kernel configuration files different from the supplied
-	kernel configuration file it must be symlinked to config in the 
-	parent directory.  It comes symlinked to a kernel configuration for
-	the AMD64 platform (x86_64).
+Edit config.inc to suit your system
 
 Build Procedure goes as follows:
 	
 command to run			These are just comments don't enter these
 ------------------------------	----------------------------------------- 
-su -c './lfs -cml'		creates, mounts and adds lfs user
-./lfs -f			fetch all the source packages
-su -c './lfs -i'		installs the build system to:
-				/mnt/lfs/usr/src/Octothorpe
-su -				switch to root user
+./mk-fetch			fetch all the source packages
+su -c ./mk-filesystem		create filesystem on partition
+su -c ./mk-mount		mount partition
+su -c './mk-user'		creates lfs user
+su -c './mk-copy'		copies build
+su - 				switch to root user
 su - lfs			switch to lfs user
 cd ${LFS}/usr/src/Octothorpe	goto build directory
-./lfs -t			build tool chain
-logout				log out of lfs user and goto root user
-logout				log out of root user goto original user
-su -c './lfs -s'		build chapter 6, and configure
+./mk-tools			build tool chain
+exit				lfs user
+exit				root user
+su -c './mk-chroot'		create chroot system and chroot
+cd /usr/src/Octothorpe
+./mk-lfs			build chapter 6
+./mk-config			configure new system
+exit
+su -c './mk-umount'		unmount /mnt/lfs
+su -c './mk-rmuser'		remove lfs user from host
+
+
+Run multiple steps:
+
+su -c './mk-filesystem && mk-mount && ./mk-user && ./mk-copy'
+su - -c 'su - lfs'
+cd ${LFS}/usr/src/Octothorpe
+./mk-tools
+exit
+exit
+su -c './mk-chroot'
+cd /usr/src/Octothorpe
+./mk-lfs && ./mk-config
+exit
+su -c './mk-umount && ./mk-rmuser'
+
 install grub 			if needed
 create grub/grub.cfg in /boot	add the LFS menu entry
-	
 Installing grub:
 
 Notes:
@@ -150,7 +110,3 @@ Post setup:
 	passwd		- set root password
 
 This completes the build.
-
-You can now remove build system and tool chain if desired.
-	rm -rf /usr/src/Octothorpe
-	rm -rf /tools

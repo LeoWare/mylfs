@@ -1,0 +1,39 @@
+#!/bin/bash
+#################################################
+#	Title:	mk-			#
+#        Date:	2014-06-18			#
+#     Version:	1.0				#
+#      Author:	baho-utot@columbus.rr.com	#
+#     Options:					#
+#################################################
+set -o errexit		# exit if error...insurance ;)
+set -o nounset		# exit if variable not initalized
+set +h			# disable hashall
+source config.inc
+source common.inc
+source build.inc
+PRGNAME=${0##*/}	# script name minus the path
+LOGFILE="${PARENT}/LOGS/${PRGNAME}.log"
+COMPLETE="${PARENT}/LOGS/${PRGNAME}.completed"
+LIST="/etc/sysconfig/clock "
+LIST+="/etc/sysconfig/console "
+LIST+="/etc/profile "
+LIST+="/etc/sysconfig/network "
+LIST+="/etc/hosts "
+LIST+="/etc/fstab "
+LIST+="/etc/sysconfig/ifconfig.eth0 "
+LIST+="/etc/resolv.conf "
+LIST+="/etc/passwd "
+LIST+="/etc/lsb-release "
+LIST+="/etc/sysconfig/rc.site"
+[ -e ${COMPLETE} ] && { msg "${PRGNAME}: SKIPPING";exit 0; } || msg_line "${PRGNAME}: Building"
+> ${LOGFILE}
+build '/sbin/locale-gen.sh' '/sbin/locale-gen.sh' ${LOGFILE}
+build '/sbin/ldconfig' '/sbin/ldconfig' ${LOGFILE}
+build '/usr/sbin/pwconv' '/usr/sbin/pwconv' ${LOGFILE}
+build '/usr/sbin/grpconv' '/usr/sbin/grpconv' ${LOGFILE}
+build '/sbin/udevadm hwdb --update' '/sbin/udevadm hwdb --update' ${LOGFILE}
+#	Configuration
+for i in ${LIST}; do vim "${i}";done
+>  ${COMPLETE}
+exit 0

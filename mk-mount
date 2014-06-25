@@ -1,0 +1,27 @@
+#!/bin/bash
+#################################################
+#	Title:	mk-mount			#
+#        Date:	2014-06-18			#
+#     Version:	1.0				#
+#      Author:	baho-utot@columbus.rr.com	#
+#     Options:					#
+#################################################
+#
+#	Mount ${DEVICE} onto ${LFS} mountpoint
+#
+set -o errexit		# exit if error...insurance ;)
+set -o nounset		# exit if variable not initalized
+set +h			# disable hashall
+source config.inc
+source common.inc
+source build.inc
+PRGNAME=${0##*/}	# script name minus the path
+[ ${EUID} -eq 0 ] || die "${PRGNAME}: Need to be root user: FAILURE"
+msg "Mounting ${DEVICE} at ${LFS} mountpoint"
+mountpoint ${LFS} > /dev/null 2>&1 && exit 0
+[ -d ${LFS} ] || cmd-line "	Creating moint point: ${LFS}" "install -vdm 755 ${LFS}"
+cmd-line "	Setting permissions: ${LFS}" "chmod -v 755 ${LFS}"
+cmd-line "	Mounting device ${DEVICE} to ${LFS}" "mount -v -t ${FILESYSTEM} /dev/${DEVICE} ${LFS}"
+[ -d ${LFS}/tools ]	|| cmd-line "	Creating ${LFS}/tools directory" "install -vdm 775 ${LFS}/tools"
+[ -h /tools ]		|| cmd-line "	Symlinking ${LFS}/tools to /" "ln -vs ${LFS}/tools /"
+exit 0

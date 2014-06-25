@@ -1,0 +1,66 @@
+#!/bin/bash
+#################################################
+#	Title:	mk-chroot			#
+#        Date:	2014-06-18			#
+#     Version:	1.0				#
+#      Author:	baho-utot@columbus.rr.com	#
+#     Options:					#
+#################################################
+#
+#	Create chroot and CHROOT to ${LFS}
+#
+set -o errexit		# exit if error...insurance ;)
+set -o nounset		# exit if variable not initalized
+set +h			# disable hashall
+source config.inc	#
+source common.inc	#
+source build.inc	#
+CHAPTER="chapter-06"	# log filename prefix
+PRGNAME=${0##*/}	# script name minus the path
+#
+#	If already in chroot then do nothing
+#
+[ ${EUID} -eq 0 ]	|| die "${PRGNAME}: Need to be root user: FAILURE"
+[ -d "${LFS}" ]		|| die "${PRGNAME}: Already in chroot: FAILURE"
+cd ${LFS}${PARENT}	|| die "${PRGNAME}: Change directory: ${LFS}${PARENT}: FAILURE"
+#	Setup the default filesystem
+[ -e "LOGS/${CHAPTER}-filesystem.completed" ] || {
+	BLD="/tools/bin/rpmbuild -ba --nocheck --define \"_topdir ${LFS}/${PARENT}\" --define \"_dbpath ${LFS}/var/lib/rpm\" SPECS/filesystem.spec"
+	RPMPKG="$(find RPMS -name 'filesystem-[0-9]*.rpm' -print)"
+	[ -z ${RPMPKG} ] && build "	Building filesystem" "${BLD}" "LOGS/${CHAPTER}-filesystem.log"
+	RPMPKG="$(find RPMS -name 'filesystem-[0-9]*.rpm' -print)"
+	[ -z ${RPMPKG} ] && die "	Filesystem rpm package missing: Can not continue"
+	build "	Installing filesystem" "/tools/bin/rpm -Uvh --nodeps --root /mnt/lfs ${RPMPKG}" "LOGS/${CHAPTER}-filesystem.completed"
+	build "	Creating symlinks: /tools/bin/{bash,cat,echo,pwd,stty}" "ln -fsv /tools/bin/{bash,cat,echo,pwd,stty} ${LFS}/bin"   "LOGS/${CHAPTER}-filesystem.completed"
+	build "	Creating symlinks: /tools/bin/perl /usr/bin" "ln -fsv /tools/bin/perl ${LFS}/usr/bin" "LOGS/${CHAPTER}-filesystem.completed"
+	build "	Creating symlinks: /tools/lib/libgcc_s.so{,.1}" "ln -fsv /tools/lib/libgcc_s.so{,.1} ${LFS}/usr/lib" "LOGS/${CHAPTER}-filesystem.completed"
+	build "	Creating symlinks: /tools/lib/libstdc++.so{,.6} /usr/lib" "ln -fsv /tools/lib/libstdc++.so{,.6} ${LFS}/usr/lib"	 "LOGS/${CHAPTER}-filesystem.completed"
+	build "	Sed: /usr/lib/libstdc++.la" "sed 's/tools/usr/' /tools/lib/libstdc++.la > ${LFS}/usr/lib/libstdc++.la" "LOGS/${CHAPTER}-filesystem.completed"
+	build "	Creating symlinks: bash /bin/sh" "ln -fsv bash ${LFS}/bin/sh" "LOGS/${CHAPTER}-filesystem.completed"
+	#	Ommited in the filesystem.spec file - not needed for booting
+	[ -e ${LFS}/dev/console ]	|| mknod -m 600 ${LFS}/dev/console c 5 1
+	[ -e ${LFS}/dev/null ]		|| mknod -m 666 ${LFS}/dev/null c 1 3
+}
+chown -R 0:0 ${LFS}/* 			|| die "${PRGNAME}: Changing ownership: ${LFS}: FAILURE"
+#	Mount kernel filesystem
+if ! mountpoint ${LFS}/dev	>/dev/null 2>&1; then mount --bind /dev ${LFS}/dev; fi
+if ! mountpoint ${LFS}/dev/pts	>/dev/null 2>&1; then mount -t devpts devpts ${LFS}/dev/pts -o gid=5,mode=620; fi
+if ! mountpoint ${LFS}/proc	>/dev/null 2>&1; then mount -t proc proc ${LFS}/proc; fi
+if ! mountpoint ${LFS}/sys 	>/dev/null 2>&1; then mount -t sysfs sysfs ${LFS}/sys; fi
+if ! mountpoint ${LFS}/run	>/dev/null 2>&1; then mount -t tmpfs tmpfs ${LFS}/run; fi
+if [ -h ${LFS}/dev/shm ];			 then mkdir -pv ${LFS}/$(readlink ${LFS}/dev/shm); fi
+#	Goto chroot everthing is ready. get to building
+chroot "${LFS}" \
+	/tools/bin/env -i \
+	HOME=/root \
+	TERM="$TERM" \
+	PS1='\u:\w\$ ' \
+	PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin \
+	/tools/bin/bash --login +h # -c "cd ${PARENT}"
+#	Unmount kernel filesystem
+if mountpoint ${LFS}/run	>/dev/null 2>&1; then umount ${LFS}/run; fi
+if mountpoint ${LFS}/sys	>/dev/null 2>&1; then umount ${LFS}/sys; fi
+if mountpoint ${LFS}/proc	>/dev/null 2>&1; then umount ${LFS}/proc; fi
+if mountpoint ${LFS}/dev/pts	>/dev/null 2>&1; then umount ${LFS}/dev/pts; fi
+if mountpoint ${LFS}/dev	>/dev/null 2>&1; then umount ${LFS}/dev; fi
+exit 0
