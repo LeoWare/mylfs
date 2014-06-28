@@ -2,8 +2,10 @@
 This build tracks linux from scratch version 7.5
 
 This build system requires the following:
-	Partition for LFS under build,	mounted at /mnt/lfs
 	Fetch build system from https://www.github.com/baho-utot/LFS-RPM
+	Directory for LFS under build,	mounted at /mnt/lfs
+	This can be a partition mounted there but you will be responsible
+	for that as this build system uses just a directory at ${LFS}
 	
 	This system was designed and debugged on an AMD64 {x86_64} system and
 	I have not tested it on a i686 system as I no longer have or use such
@@ -39,7 +41,7 @@ su -c ./mk-setup-lfs		Setup and install build system
 su -c ./mk-lfs			Build toolchain and system
 
 Build at this point is complete.
-The following are some support scripts if you reqwuire them.
+The following are some support scripts if you require them.
 
 su -c ./mk-clean-lfs		Restores host system to pre build state
 				Removes the work you have just built
