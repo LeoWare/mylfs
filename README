@@ -35,40 +35,28 @@ Build Procedure goes as follows:
 	
 command to run			These are just comments don't enter these
 ------------------------------	----------------------------------------- 
-./mk-fetch			fetch all the source packages
-su -c ./mk-filesystem		create filesystem on partition
-su -c ./mk-mount		mount partition
-su -c './mk-user'		creates lfs user
-su -c './mk-copy'		copies build
-su - 				switch to root user
-su - lfs			switch to lfs user
-cd ${LFS}/usr/src/Octothorpe	goto build directory
-./mk-tools			build tool chain
-exit				lfs user
-exit				root user
-su -c './mk-chroot'		create chroot system and chroot
-cd /usr/src/Octothorpe
-./mk-lfs			build chapter 6
-./mk-config			configure new system
-exit
-su -c './mk-umount'		unmount /mnt/lfs
-su -c './mk-rmuser'		remove lfs user from host
+su -c ./mk-setup-lfs		Setup and install build system
+su -c ./mk-lfs			Build toolchain and system
 
+Build at this point is complete.
+The following are some support scripts if you reqwuire them.
 
-Run multiple steps:
-
-su -c './mk-filesystem && mk-mount && ./mk-user && ./mk-copy'
-su - -c 'su - lfs'
-cd ${LFS}/usr/src/Octothorpe
-./mk-tools
-exit
-exit
-su -c './mk-chroot'
-cd /usr/src/Octothorpe
-./mk-lfs && ./mk-config
-exit
-su -c './mk-umount && ./mk-rmuser'
-
+su -c ./mk-clean-lfs		Restores host system to pre build state
+				Removes the work you have just built
+				Use only when you have saved the binary
+				and source rpms and anything you may want
+				to save.
+				If you are going to build BLFS-RPM you
+				will need to retain the LFS-RPM work as
+				it is required for that build
+				
+su -c./mk-install-lfs		Support script that can install the previous
+				build rpms onto a partition mounted at /mnt
+				You did save the binary and source rpms
+				didn't you?
+				Read the script before using it
+				
+				
 install grub 			if needed
 create grub/grub.cfg in /boot	add the LFS menu entry
 Installing grub:
@@ -103,10 +91,5 @@ Notes:
 	# }
 	# End /boot/grub/grub.cfg
 	 EOF
-
-Post setup:
-	reboot		- reboot and run
-	login root
-	passwd		- set root password
 
 This completes the build.

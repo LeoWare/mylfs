@@ -1,0 +1,34 @@
+ #!/bin/bash
+#################################################
+#	Title:	mk-clean-lfs			#
+#        Date:	2014-06-27			#
+#     Version:	1.0				#
+#      Author:	baho-utot@columbus.rr.com	#
+#     Options:					#
+#################################################
+#	Overview
+#		remove ${LFS}
+#		remove /tools
+#		remove lfs user
+#		remove /home/lfs
+#	End
+#
+set -o errexit		# exit if error...insurance ;)
+set -o nounset		# exit if variable not initalized
+set +h			# disable hashall
+PRGNAME=${0##*/}	# script name minus the path
+source config.inc		#	configuration parameters
+source function.inc		#	commonn functions
+LOGFILE="${PRGNAME}-${LOGFILE}"	#	set log file name
+#LOGFILE=/dev/null		#	uncomment to disable log file
+[ ${EUID} -eq 0 ] || die "${PRGNAME}: Need to be root user: FAILURE"
+msg "Cealning host system"
+[ -d ${LFS} ] && build "	Remove directory: ${LFS}" "rm -rf ${LFS} " "${LOGFILE}"
+[ -h /tools ] && build "	Remove symlink /tools: "  "rm -f /tools "  "${LOGFILE}"
+getent passwd lfs > /dev/null 2>&1 && build "	Removing lfs user" "userdel  lfs"	"${LOGFILE}"
+getent group  lfs > /dev/null 2>&1 && build "	Removing lfs group" "groupdel lfs"	"${LOGFILE}"
+[ -d "/home/lfs" ] && build "	Removing home directory" "rm -vrf \"/home/lfs\""	"${LOGFILE}"
+exit 0
+
+
+

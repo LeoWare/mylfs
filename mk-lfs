@@ -13,78 +13,146 @@ set -o errexit		# exit if error...insurance ;)
 set -o nounset		# exit if variable not initalized
 set +h			# disable hashall
 source config.inc
-source common.inc
-source build.inc
-CHAPTER="chapter-06"
+source function.inc
 PRGNAME=${0##*/}	# script name minus the path
-#
-#	If already in chroot then do nothing
-#
+#LOGFILE="${PRGNAME}-${LOGFILE}"	#	set log file name
+#LOGFILE=/dev/null		#	uncomment to disable log file
 [ ${EUID} -eq 0 ] 	|| die "${PRGNAME}: Need to be root user: FAILURE"
 [ -z ${PARENT} ]	&& die "${PRGNAME}: PARENT not set: FAILURE"
 [ -z ${LFS} ]		&& die "${PRGNAME}: LFS not set: FAILURE"
-[ -d "${LFS}" ]		&& die "${PRGNAME}: Not in chroot environmant: FAILURE"
-msg "Building System"
-LIST="linux-api-headers man-pages glibc tzdata adjust-tool-chain zlib file "
-LIST+="binutils gmp mpfr mpc gcc test-gcc "
-LIST+="sed bzip2 pkg-config ncurses shadow psmisc procps-ng e2fsprogs "
-LIST+="coreutils iana-etc m4 flex bison grep readline bash bc libtool "
-LIST+="gdbm inetutils perl autoconf automake diffutils gawk findutils "
-LIST+="gettext groff xz grub less gzip iproute2 kbd kmod libpipeline "
-LIST+="make patch sysklogd sysvinit tar texinfo udev util-linux man-db vim "
-LIST+="bootscripts linux "
-#	The following packages comprise the package management system RPM
-LIST+="elfutils nspr nss popt lua rpm " # chapter-config
-for i in ${LIST}; do
-	RPMPKG=""
-	case ${i} in
-		adjust-tool-chain) 
-			[ -e LOGS/${CHAPTER}-adjust-tool-chain.log ] || {	> LOGS/${CHAPTER}-adjust-tool-chain.log
-				build "mv -v /tools/bin/{ld,ld-old}" "mv -v /tools/bin/{ld,ld-old}" "LOGS/${CHAPTER}-adjust-tool-chain.log"
-				build "mv -v /tools/$(gcc -dumpmachine)/bin/{ld,ld-old}" "mv -v /tools/$(gcc -dumpmachine)/bin/{ld,ld-old}" "LOGS/${CHAPTER}-adjust-tool-chain.log"
-				build "mv -v /tools/bin/{ld-new,ld}" "mv -v /tools/bin/{ld-new,ld}" "LOGS/${CHAPTER}-adjust-tool-chain.log"
-				build "ln -sv /tools/bin/ld /tools/$(gcc -dumpmachine)/bin/ld" "ln -sv /tools/bin/ld /tools/$(gcc -dumpmachine)/bin/ld" "LOGS/${CHAPTER}-${CHAPTER}-adjust-tool-chain.log"
-				gcc -dumpspecs | sed -e 's@/tools@@g' -e '/\*startfile_prefix_spec:/{n;s@.*@/usr/lib/ @}' \
-					-e '/\*cpp:/{n;s@$@ -isystem /usr/include@}' > `dirname $(gcc --print-libgcc-file-name)`/specs
-				build "echo 'main(){}' > dummy.c" "echo 'main(){}' > dummy.c" "LOGS/${CHAPTER}-adjust-tool-chain.log"
-				build "cc dummy.c -v -Wl,--verbose &> dummy.log" "cc dummy.c -v -Wl,--verbose &> dummy.log" "LOGS/${CHAPTER}-adjust-tool-chain.log"
-				build "readelf -l a.out | grep ': /lib'" "readelf -l a.out | grep ': /lib'" "LOGS/${CHAPTER}-adjust-tool-chain.log"
-				build "grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log" "grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log" "LOGS/${CHAPTER}-adjust-tool-chain.log"
-				build "grep -B1 '^ /usr/include' dummy.log" "grep -B1 '^ /usr/include' dummy.log" "LOGS/${CHAPTER}-adjust-tool-chain.log"
-				build "grep 'SEARCH.*' dummy.log |sed 's|; |\n|g'" "grep 'SEARCH.*' dummy.log |sed 's|; |\n|g'" "LOGS/${CHAPTER}-adjust-tool-chain.log"
-				build 'grep "/lib.*/libc.so.6 " dummy.log' 'grep "/lib.*/libc.so.6 " dummy.log' "LOGS/${CHAPTER}-adjust-tool-chain.log"
-				build "grep found dummy.log" "grep found dummy.log" "LOGS/${CHAPTER}-adjust-tool-chain.log"
-				build "rm -v dummy.c a.out dummy.log" "rm -v dummy.c a.out dummy.log" "LOGS/${CHAPTER}-adjust-tool-chain.log"
-			};
-		;;
-		chapter-config) chapter-config ;;
-		test-gcc)	[ -e "LOGS/${CHAPTER}-gcc-test.log" ] || {
-					> "LOGS/${CHAPTER}-gcc-test.log"
-					build "Testing chapter-06: gcc" "echo 'main(){}' > dummy.c" "LOGS/${CHAPTER}-gcc-test.log"
-					build "cc dummy.c -v -Wl,--verbose &> dummy.log" "cc dummy.c -v -Wl,--verbose &> dummy.log" "LOGS/${CHAPTER}-gcc-test.log"
-					build "readelf -l a.out | grep ': /lib'" "readelf -l a.out | grep ': /lib'" "LOGS/${CHAPTER}-gcc-test.log"
-					build "grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log" "grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log" "LOGS/${CHAPTER}-gcc-test.log"
-					build "grep -B4 '^ /usr/include' dummy.log" "grep -B4 '^ /usr/include' dummy.log" "LOGS/${CHAPTER}-gcc-test.log"
-					build "grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'" "grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'" "LOGS/${CHAPTER}-gcc-test.log"
-					build "grep '/lib.*/libc.so.6 ' dummy.log" "grep '/lib.*/libc.so.6 ' dummy.log" "LOGS/${CHAPTER}-gcc-test.log"
-					build "grep found dummy.log" "grep found dummy.log" "LOGS/${CHAPTER}-gcc-test.log"
-					build "Clean up test files: gcc" "rm -v dummy.c a.out dummy.log" "LOGS/${CHAPTER}-gcc-test.log"
-				}
-		;;
-		*)	rm -rf BUILD/* BUILDROOT/* > /dev/null 2>&1
-			RPMPKG=$(find RPMS -name "${i}-[0-9]*.rpm" -print)
-			[ -z $RPMPKG ] || printf "%s\n" "       Skipping: ${i}"
-			[ -z $RPMPKG ] && > "LOGS/${CHAPTER}-${i}.log"	# clean log files
-			[ -z $RPMPKG ] && build "Building: ${i}" 'rpmbuild -ba --nocheck SPECS/${i}.spec' "LOGS/${CHAPTER}-${i}.log"
-			[ -e LOGS/${CHAPTER}-${i}.completed ] && continue;
-			RPMPKG=$(find RPMS -name "${i}-[0-9]*.rpm" -print)
-			[ -z $RPMPKG ] && die "installation error: rpm package not found\n"
-			case ${i} in
-				glibc | gmp | gcc | bzip2 | ncurses | util-linux | e2fsprogs | shadow | bison | perl | texinfo | vim | linux | udev | rpm)
-					build "Installing: ${i}" "rpm -Uvh --nodeps ${RPMPKG}" "LOGS/${CHAPTER}-${i}.completed" ;;
-				*)	build "Installing: ${i}" "rpm -Uvh ${RPMPKG}" "LOGS/${CHAPTER}-${i}.completed" ;;
-			esac
-		;;
-	esac
-done
+if [ -d "${LFS}" ]; then	# we are not in chroot so build tools
+	cd ${LFS}${PARENT}
+	if mountpoint ${LFS}/run	>/dev/null 2>&1; then umount ${LFS}/run; fi
+	if mountpoint ${LFS}/sys	>/dev/null 2>&1; then umount ${LFS}/sys; fi
+	if mountpoint ${LFS}/proc	>/dev/null 2>&1; then umount ${LFS}/proc; fi
+	if mountpoint ${LFS}/dev/pts	>/dev/null 2>&1; then umount ${LFS}/dev/pts; fi
+	if mountpoint ${LFS}/dev	>/dev/null 2>&1; then umount ${LFS}/dev; fi
+	su --login $USER <<- "EOF"
+		cd ~
+		source ~/.bashrc
+		cd ${LFS}/usr/src/Octothorpe
+		./mk-tools
+	EOF
+	[ ${EUID} -eq 0 ]	|| die "${PRGNAME}: Need to be root user: FAILURE"
+	cd ${LFS}${PARENT}	|| die "${PRGNAME}: Change directory: ${LFS}${PARENT}: FAILURE"
+	#
+	#	Setup the filesystem for chapter 06
+	#
+	[ -e "LOGS/filesystem.completed" ] || {
+		BLD="/tools/bin/rpmbuild -ba --nocheck --define \"_topdir ${LFS}/${PARENT}\" --define \"_dbpath ${LFS}/var/lib/rpm\" SPECS/filesystem.spec"
+		RPMPKG="$(find RPMS -name 'filesystem-[0-9]*.rpm' -print)"
+		[ -z ${RPMPKG} ] && build "	Building filesystem" "${BLD}" "LOGS/filesystem.log"
+		RPMPKG="$(find RPMS -name 'filesystem-[0-9]*.rpm' -print)"
+		[ -z ${RPMPKG} ] && die "	Filesystem rpm package missing: Can not continue"
+		build "	Installing filesystem" "/tools/bin/rpm -Uvh --nodeps --root /mnt/lfs ${RPMPKG}" "LOGS/filesystem.completed"
+		build "	Creating symlinks: /tools/bin/{bash,cat,echo,pwd,stty}" "ln -fsv /tools/bin/{bash,cat,echo,pwd,stty} ${LFS}/bin"   "LOGS/filesystem.completed"
+		build "	Creating symlinks: /tools/bin/perl /usr/bin" "ln -fsv /tools/bin/perl ${LFS}/usr/bin" "LOGS/filesystem.completed"
+		build "	Creating symlinks: /tools/lib/libgcc_s.so{,.1}" "ln -fsv /tools/lib/libgcc_s.so{,.1} ${LFS}/usr/lib" "LOGS/filesystem.completed"
+		build "	Creating symlinks: /tools/lib/libstdc++.so{,.6} /usr/lib" "ln -fsv /tools/lib/libstdc++.so{,.6} ${LFS}/usr/lib"	 "LOGS/filesystem.completed"
+		build "	Sed: /usr/lib/libstdc++.la" "sed 's/tools/usr/' /tools/lib/libstdc++.la > ${LFS}/usr/lib/libstdc++.la" "LOGS/filesystem.completed"
+		build "	Creating symlinks: bash /bin/sh" "ln -fsv bash ${LFS}/bin/sh" "LOGS/filesystem.completed"
+		#	Ommited in the filesystem.spec file - not needed for booting
+		[ -e ${LFS}/dev/console ]	|| mknod -m 600 ${LFS}/dev/console c 5 1
+		[ -e ${LFS}/dev/null ]		|| mknod -m 666 ${LFS}/dev/null c 1 3
+	}
+	chown -R 0:0 ${LFS}/*	|| die "${PRGNAME}: Changing ownership: ${LFS}: FAILURE"
+	#
+	#	Mount kernel filesystem
+	#
+	if ! mountpoint ${LFS}/dev	>/dev/null 2>&1; then mount --bind /dev ${LFS}/dev; fi
+	if ! mountpoint ${LFS}/dev/pts	>/dev/null 2>&1; then mount -t devpts devpts ${LFS}/dev/pts -o gid=5,mode=620; fi
+	if ! mountpoint ${LFS}/proc	>/dev/null 2>&1; then mount -t proc proc ${LFS}/proc; fi
+	if ! mountpoint ${LFS}/sys 	>/dev/null 2>&1; then mount -t sysfs sysfs ${LFS}/sys; fi
+	if ! mountpoint ${LFS}/run	>/dev/null 2>&1; then mount -t tmpfs tmpfs ${LFS}/run; fi
+	if [ -h ${LFS}/dev/shm ];			 then mkdir -pv ${LFS}/$(readlink ${LFS}/dev/shm); fi
+	#
+	#	Goto chroot everthing is ready. get to building
+	#
+	chroot "${LFS}" \
+		/tools/bin/env -i \
+		HOME=/root \
+		TERM="$TERM" \
+		PS1='\u:\w\$ ' \
+		PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin \
+		/tools/bin/bash --login +h -c "cd ${PARENT};./mk-lfs"
+	#	Unmount kernel filesystem
+	if mountpoint ${LFS}/run	>/dev/null 2>&1; then umount ${LFS}/run; fi
+	if mountpoint ${LFS}/sys	>/dev/null 2>&1; then umount ${LFS}/sys; fi
+	if mountpoint ${LFS}/proc	>/dev/null 2>&1; then umount ${LFS}/proc; fi
+	if mountpoint ${LFS}/dev/pts	>/dev/null 2>&1; then umount ${LFS}/dev/pts; fi
+	if mountpoint ${LFS}/dev	>/dev/null 2>&1; then umount ${LFS}/dev; fi
+else
+	#
+	#	build chapter 06
+	#
+	[ -d "${LFS}" ] && die "${PRGNAME}: Not in chroot environment: FAILURE"
+	#
+	msg "Building System"
+	LIST="linux-api-headers man-pages glibc tzdata adjust-tool-chain zlib file "
+	LIST+="binutils gmp mpfr mpc gcc test-gcc "
+	LIST+="sed bzip2 pkg-config ncurses shadow psmisc procps-ng e2fsprogs "
+	LIST+="coreutils iana-etc m4 flex bison grep readline bash bc libtool "
+	LIST+="gdbm inetutils perl autoconf automake diffutils gawk findutils "
+	LIST+="gettext groff xz grub less gzip iproute2 kbd kmod libpipeline "
+	LIST+="make patch sysklogd sysvinit tar texinfo udev util-linux man-db vim "
+	LIST+="bootscripts linux "
+	#	The following packages comprise the package management system RPM
+	LIST+="elfutils nspr nss popt lua rpm " # chapter-config
+	for i in ${LIST}; do
+		RPMPKG=""
+		case ${i} in
+			adjust-tool-chain) 
+				[ -e LOGS/adjust-tool-chain.log ] || {	> LOGS/adjust-tool-chain.log
+					build "mv -v /tools/bin/{ld,ld-old}" "mv -v /tools/bin/{ld,ld-old}" "LOGS/adjust-tool-chain.log"
+					build "mv -v /tools/$(gcc -dumpmachine)/bin/{ld,ld-old}" "mv -v /tools/$(gcc -dumpmachine)/bin/{ld,ld-old}" "LOGS/adjust-tool-chain.log"
+					build "mv -v /tools/bin/{ld-new,ld}" "mv -v /tools/bin/{ld-new,ld}" "LOGS/adjust-tool-chain.log"
+					build "ln -sv /tools/bin/ld /tools/$(gcc -dumpmachine)/bin/ld" "ln -sv /tools/bin/ld /tools/$(gcc -dumpmachine)/bin/ld" "LOGS/adjust-tool-chain.log"
+					gcc -dumpspecs | sed -e 's@/tools@@g' -e '/\*startfile_prefix_spec:/{n;s@.*@/usr/lib/ @}' \
+						-e '/\*cpp:/{n;s@$@ -isystem /usr/include@}' > `dirname $(gcc --print-libgcc-file-name)`/specs
+					build "echo 'main(){}' > dummy.c" "echo 'main(){}' > dummy.c" "LOGS/adjust-tool-chain.log"
+					build "cc dummy.c -v -Wl,--verbose &> dummy.log" "cc dummy.c -v -Wl,--verbose &> dummy.log" "LOGS/adjust-tool-chain.log"
+					build "readelf -l a.out | grep ': /lib'" "readelf -l a.out | grep ': /lib'" "LOGS/adjust-tool-chain.log"
+					build "grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log" "grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log" "LOGS/adjust-tool-chain.log"
+					build "grep -B1 '^ /usr/include' dummy.log" "grep -B1 '^ /usr/include' dummy.log" "LOGS/adjust-tool-chain.log"
+					build "grep 'SEARCH.*' dummy.log |sed 's|; |\n|g'" "grep 'SEARCH.*' dummy.log |sed 's|; |\n|g'" "LOGS/adjust-tool-chain.log"
+					build 'grep "/lib.*/libc.so.6 " dummy.log' 'grep "/lib.*/libc.so.6 " dummy.log' "LOGS/adjust-tool-chain.log"
+					build "grep found dummy.log" "grep found dummy.log" "LOGS/adjust-tool-chain.log"
+					build "rm -v dummy.c a.out dummy.log" "rm -v dummy.c a.out dummy.log" "LOGS/adjust-tool-chain.log"
+				};
+			;;
+			chapter-config) chapter-config ;;
+			test-gcc)	[ -e "LOGS/gcc-test.log" ] || {
+						> "LOGS/gcc-test.log"
+						build "Testing chapter-06: gcc" "echo 'main(){}' > dummy.c" "LOGS/gcc-test.log"
+						build "cc dummy.c -v -Wl,--verbose &> dummy.log" "cc dummy.c -v -Wl,--verbose &> dummy.log" "LOGS/gcc-test.log"
+						build "readelf -l a.out | grep ': /lib'" "readelf -l a.out | grep ': /lib'" "LOGS/gcc-test.log"
+						build "grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log" "grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log" "LOGS/gcc-test.log"
+						build "grep -B4 '^ /usr/include' dummy.log" "grep -B4 '^ /usr/include' dummy.log" "LOGS/gcc-test.log"
+						build "grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'" "grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'" "LOGS/gcc-test.log"
+						build "grep '/lib.*/libc.so.6 ' dummy.log" "grep '/lib.*/libc.so.6 ' dummy.log" "LOGS/gcc-test.log"
+						build "grep found dummy.log" "grep found dummy.log" "LOGS/gcc-test.log"
+						build "Clean up test files: gcc" "rm -v dummy.c a.out dummy.log" "LOGS/gcc-test.log"
+					}
+			;;
+			*)	rm -rf BUILD/* BUILDROOT/* > /dev/null 2>&1
+				RPMPKG=$(find RPMS -name "${i}-[0-9]*.rpm" -print)
+				[ -z $RPMPKG ] || printf "%s\n" "       Skipping: ${i}"
+				[ -z $RPMPKG ] && > "LOGS/${i}.log"	# clean log files
+				[ -z $RPMPKG ] && build "Building: ${i}" 'rpmbuild -ba --nocheck SPECS/${i}.spec' "LOGS/${i}.log"
+				[ -e LOGS/${i}.completed ] && continue;
+				RPMPKG=$(find RPMS -name "${i}-[0-9]*.rpm" -print)
+				[ -z $RPMPKG ] && die "installation error: rpm package not found\n"
+				case ${i} in
+					glibc | gmp | gcc | bzip2 | ncurses | util-linux | e2fsprogs | shadow | bison | perl | texinfo | vim | linux | udev | rpm)
+						build "Installing: ${i}" "rpm -Uvh --nodeps ${RPMPKG}" "LOGS/${i}.completed" ;;
+					*)	build "Installing: ${i}" "rpm -Uvh ${RPMPKG}" "LOGS/${i}.completed" ;;
+				esac
+			;;
+		esac
+	done
+	/sbin/locale-gen.sh
+	/sbin/ldconfig
+	/usr/sbin/pwconv
+	/usr/sbin/grpconv
+fi
 exit 0

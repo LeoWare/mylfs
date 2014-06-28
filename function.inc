@@ -1,3 +1,26 @@
+die() {	local _red="\\033[1;31m"
+	local _normal="\\033[0;39m"
+	[ -n "$*" ] && printf "${_red}$*${_normal}\n"
+	exit 1
+}
+msg() {
+	printf "%s\n" "${1}"
+}
+msg_line() {
+	printf "%s" "${1}"
+}
+msg_failure() {
+	local _red="\\033[1;31m"
+	local _normal="\\033[0;39m"
+	printf "${_red}%s${_normal}\n" "FAILURE"
+	exit 2
+}
+msg_success() {
+	local _green="\\033[1;32m"
+	local _normal="\\033[0;39m"
+	printf "${_green}%s${_normal}\n" "SUCCESS"
+	return 0
+}
 build() {
 	# $1 = message 
 	# $2 = command
@@ -6,8 +29,8 @@ build() {
 	local _cmd="${2}"
 	local _logfile="${3}"
 	if [ "/dev/null" == "${_logfile}" ]; then
-		msg_line "${_msg}: " && msg_success || msg_failure
-		eval ${_cmd} >> ${_logfile} 2>&1
+		msg_line "${_msg}: "
+		eval ${_cmd} >> ${_logfile} 2>&1 && msg_success || msg_failure 
 	else
 		msg_line "${_msg}: "
 		printf "\n%s\n\n" "###       ${_msg}       ###" >> ${_logfile} 2>&1
@@ -25,14 +48,3 @@ unpack() {	# $1 = directory
 	tar xf ${p} && msg_success || msg_failure
 	return 0
 }
-cmd-line() {
-	# $1 = message 
-	# $2 = command
-	local _msg="${1}"
-	local _cmd="${2}"
-	msg_line "${_msg}: "
-	eval ${_cmd} > /dev/null 2>&1 && msg_success || msg_failure 
-	return 0
-
-}
- 

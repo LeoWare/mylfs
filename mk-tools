@@ -12,8 +12,7 @@ set -o errexit		# exit if error...insurance ;)
 set -o nounset		# exit if variable not initalized
 set +h			# disable hashall
 source config.inc
-source common.inc
-source build.inc
+source function.inc
 PRGNAME=${0##*/}	# script name minus the path
 chapter-05-04() {
 	local	_pkgname="binutils"
@@ -869,11 +868,6 @@ chapter-05-rpm() {
 #
 #	Main line	
 #
-#source /home/lfs/.bashrc
-#source ${LFS}/usr/src/Octothorpe/config.inc
-#source ${LFS}/usr/src/Octothorpe/common.inc
-#source ${LFS}/usr/src/Octothorpe/build.inc
-#cd ${LFS}${PARENT}
 msg "Building Chapter 5 Tool chain"
 [ "lfs" != $(whoami) ] && die "	Not lfs user: FAILURE"
 [ -z "${LFS_TGT}" ]  && die "	Environment not set: FAILURE"
