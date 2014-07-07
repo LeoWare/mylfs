@@ -38,7 +38,7 @@ Build Procedure goes as follows:
 command to run			These are just comments don't enter these
 ------------------------------	----------------------------------------- 
 su -c ./mk-setup-lfs		Setup and install build system
-change to lfs user and cd to /mnt/lfs/usr/src/Octothorpte
+change to lfs user and cd to /mnt/lfs/usr/src/Octothorpe
 ./mk-tools			Build toolchain
 exit lfs usr
 su -c ./mk-lfs			Build system
