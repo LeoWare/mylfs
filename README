@@ -38,7 +38,8 @@ Build Procedure goes as follows:
 command to run			These are just comments don't enter these
 ------------------------------	----------------------------------------- 
 su -c ./mk-setup-lfs		Setup and install build system
-su -c ./mk-lfs			Build toolchain and system
+su -c ./mk-tools		Build toolchain
+su -c ./mk-lfs			Build system
 
 Build at this point is complete.
 The following are some support scripts if you require them.
