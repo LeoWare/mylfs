@@ -1,6 +1,10 @@
 
 This build tracks linux from scratch version 7.5
 
+As far as licensing for this build system I place this into the public domain.
+Do with it as you will.
+
+
 This build system requires the following:
 	Fetch build system from https://www.github.com/baho-utot/LFS-RPM
 	Directory for LFS under build,	mounted at /mnt/lfs
