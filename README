@@ -1,74 +1,100 @@
-
-This build tracks linux from scratch version 7.5
-
-As far as licensing for this build system I place this into the public domain.
-Do with it as you will.
-
+This build tracks linux from scratch version 8.1
 
 This build system requires the following:
-	Fetch build system from https://www.github.com/baho-utot/LFS-RPM
-	Directory for LFS under build,	mounted at /mnt/lfs
-	This can be a partition mounted there but you will be responsible
-	for that as this build system uses just a directory at ${LFS}
-	
+
+	1. Fetch build system from https://www.github.com/baho-utot/LFS-RPM
+	2. Directory for LFS under build, mounted at /mnt/lfs
+
+	There should be a partition mounted there but you will be responsible
+	for that as this build system uses whatever filesystem that is at ${LFS}
+
 	This system was designed and debugged on an AMD64 {x86_64} system and
 	I have not tested it on a i686 system as I no longer have or use such
-	systems.  I have tried to keep it compatable with i686 but I may have
-	missed some thing, so you may need to address some issues with 
-	building/using this system.  Also there is no current configuration
-	file for i686 and you will need to provide that
-	
-	You will need some understanding of shell scripting as you will
-	need to alter some of the parameters in these scripts.
-
-Notes:
-	This build system uses su.
-	If you don't want to enter the root password on every step then
-	you can temporary modify /etc/passwd and remove the x in the
-	root user entry.
-	sed -i 's/root:x/root:/' /etc/passwd
+	systems.  
 	
 	The build system installs to /mnt/lfs/usr/src/Octothorpe
 
-WARNING:
-	This build system can trash your host.  
+	REQUIREMENTS:
+		1. build system from github
+		2. partition and filesystem mount at /mnt/lfs
+		3. wget on host system
+		4. rpm on host system
 
-The script to build LFS has changed
+	I have installed rpm macro files in /home/lfs/.rpmmacros and in the 
+	base directory /etc/rpm/macros.  This makes the rpm environment correct
+	so it builds the toolchain and base system correctly.  
+	I have also built a static version of rpm in the toolchain so as not 
+	to have any impact upon the base build.
 
-Edit config.inc to suit your system
+	WARNING:
+	This build system is designed in such a way to not be able to trash your host
+	system.  Mistakes can happen.  Not responsible for trashed host system.  You
+	bear all responsibilities for any failures.
+
+	
+	Note:	I use linux-4.9.67 instead of linux-4.12.7.  I don't have a config file
+		that works for linux-4.12.7, but I gots one for linux-4.9.67 so I use it.
 
 Build Procedure goes as follows:
 	
-command to run			These are just comments don't enter these
+Command to run			These are just comments don't enter these
 ------------------------------	----------------------------------------- 
-su -c ./mk-setup-lfs		Setup and install build system
-change to lfs user and cd to /mnt/lfs/usr/src/Octothorpe
-./mk-tools			Build toolchain
-exit lfs usr
-su -c ./mk-lfs			Build system
+
+Preprare for build
+download the tarball from https://www.github.com/baho-utot/LFS-RPM
+extract it to your HOME directory
+
+OK It's time to fish or cut bait:
+You are responsible for the next four steps,  make sure you knowed what you
+are doing as one screw up and your system will be useless as tits on a boar
+hog and you will be shaking like a dog poopin peach seeds.
+So pay attention so this don't go over like a turd in a punch bowl
+
+fdisk /dev/sdx			partition drive, you need to do this
+mkfs.ext4 /dev/sdxx		create ext4 filesystem
+mkdir /mnt/lfs			create work directory
+mount /dev/sdxx /mnt/lfs	mount partition to work directory
+
+OK It's time to fish or cut bait:
+
+	Install build system 
+login as root user
+cd to directory where you placed and extracted the build system.
+./1-setup.sh			installs build system to
+				/mnt/lfs/usr/src/Octothorpe
+				creates lfs user
+
+	Build tool chain
+login as lfs user
+cd /mnt/lfs/usr/src/Octothorpe	get ready here it comes
+./2-fetch.sh			Gets source tarballs
+./3-verify.sh			Verify you have all the 
+				source.  If it don't say
+				nothin the your good, otherwise
+				it will tell you what you is missing
+./4-tools.sh			Build the toolchain and a static rpm
+
+	Build LFS system
+login as root
+cd /mnt/lfs/usr/src/Octothorpe	getting close
+./5-chroot.sh			mount kernel filesystems and chroot
+cd /usr/src/Octothorpe		change to build directory
+./6-lfs.sh			build LFS base system
+The last step will remove the toolchain and use vim to make modification
+to the conf files so when you reboot it will do the right thingy.
 
 Build at this point is complete.
-The following are some support scripts if you require them.
+All that is needed is to install grub and/or add a menu item in the
+the grub configureation file /boot/grub.cfg
 
-su -c ./mk-clean-lfs		Restores host system to pre build state
-				Removes the work you have just built
-				Use only when you have saved the binary
-				and source rpms and anything you may want
-				to save.
-				If you are going to build BLFS-RPM you
-				will need to retain the LFS-RPM work as
-				it is required for that build
-				
-su -c./mk-install-lfs		Support script that can install the previous
-				build rpms onto a partition mounted at /mnt
-				You did save the binary and source rpms
-				didn't you?
-				Read the script before using it
-				
+If you got to this point you should be happier than a pig in poop
+
+
 				
 install grub 			if needed
 create grub/grub.cfg in /boot	add the LFS menu entry
-Installing grub:
+
+Installing grub:  Maybe this works but I don't knowed if it does
 
 Notes:
 	This is one way to install grub,
@@ -78,17 +104,17 @@ Notes:
 	change: linux /vmlinuz-<VERSION> root=/dev/sdxx ro
 	to:	linux /boot/vmlinux-<VERSION> root=/dev/sdxx> ro
 
-	grub-install --force --boot-directory=/mnt/lfs/boot /dev/sda
+	grub-install --boot-directory=/mnt/lfs/boot /dev/sda
 
 	cat > /boot/grub/grub.cfg << "EOF"
 	# Begin /boot/grub/grub.cfg
 	set default=0
 	set timeout=5
-
+	insmod ext2
+	#	change hdx,x to the correct value
+	set root=(hdx,x)
 	menuentry "GNU/Linux Linux from scratch" {
-		insmod ext2
-		set root=(hdx,x)
-		linux /vmlinuz-<VERSION> root=</dev/sdxx ro
+		linux /boot/vmlinuz-<VERSION> root=</dev/sdxx ro
 	 }
 	# 	Uncomment this if you have Win what-ever installed
 	#	change set root=(hdx,x) to where you have win installed

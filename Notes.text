@@ -1,0 +1,52 @@
+What exactly are these messages about? I don't recall seeing them before.
+
+dmesg | grep 'used greatest stack depth'
+
+Code:	
+
+[    0.132082] kworker/u16:0 (42) used greatest stack depth: 14040 bytes left
+[    1.056243] kworker/u16:5 (1235) used greatest stack depth: 13016 bytes left
+[    1.701475] systemd-fstab-g (1259) used greatest stack depth: 12840 bytes left
+[   10.345022] systemd-udevd (2024) used greatest stack depth: 11696 bytes left 
+
+You have stack instrumentation turned on in your kernel. These are benign until you hit 0 stack.
+
+It's enabled by CONFIG_DEBUG_STACK_USAGE in the debug options in your kernel config.
+
+
+Load LOOP kernel module
+
+enable info files
+rm -rf %{buildroot}/usr/share/info/dir
+%post
+	pushd /usr/share/info
+	rm -v dir
+	for f in *
+		do install-info $f dir 2>/dev/null
+	done
+	popd
+
+
+Change optimization flags:
+%define		_optflags	-march=x86-64 -mtune=generic -O2 -pipe -fPIC
+
+
+Move configure file to filesystem
+
+Allow post processing by rpmbuild
+
+REmove all build optimization _optflags
+
+NON-STANDARD
+procps-ng
+
+	#	RPM add user
+Requires(pre): /usr/sbin/useradd, /usr/bin/getent
+Requires(postun): /usr/sbin/userdel
+
+%pre
+/usr/bin/getent group myservice || /usr/sbin/groupadd -r myservice
+/usr/bin/getent passwd myservice || /usr/sbin/useradd -r -d /path/to/program -s /sbin/nologin myservice
+
+%postun
+/usr/sbin/userdel myservice
