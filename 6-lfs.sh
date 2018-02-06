@@ -23,7 +23,6 @@ SPECPATH=${TOPDIR}/SPECS/BASE
 PROVIDESPATH=${TOPDIR}/PROVIDES/BASE
 REQUIRESPATH=${TOPDIR}/REQUIRES/BASE
 RPMPATH=${TOPDIR}/RPMS
-RPMDBPATH=${TOPDIR}/RPM-DB
 #
 #	Build functions
 #
@@ -476,11 +475,6 @@ _cleanup() {
 		msg_success
 		msg_line "	Removing /tools directory"
 			rm -rf /tools
-		msg_success
-		msg_line "	Moving rpm database to directory"
-			install -vdm 755 /var/lib/rpm
-			mv ${TOPDIR}/RPM-DB/* /var/lib/rpm
-			rm -rf ${TOPDIR}/RPM-DB
 		msg_success
 		msg_line "	Installing system rpm macro file"
 		cat > /etc/rpm/macros <<- EOF

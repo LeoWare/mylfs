@@ -289,7 +289,6 @@ _copy_source() {
 	install -dm 755 ${LFS}/${PARENT}/PROVIDES/TOOLS
 	install -dm 755 ${LFS}/${PARENT}/REQUIRES/BASE
 	install -dm 755 ${LFS}/${PARENT}/REQUIRES/TOOLS
-	install -dm 755 ${LFS}/${PARENT}/RPM-DB
 	install -dm 755 ${LFS}/${PARENT}/SOURCES
 	cp -ar * ${LFS}${PARENT}
 	#	cp -a SOURCES/* ${LFS}${PARENT}/SOURCES
