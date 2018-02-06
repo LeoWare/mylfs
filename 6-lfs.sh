@@ -61,9 +61,6 @@ maker(){	#	$1:	name of package
 	local _log="${LOGPATH}/${1}"
 	local _pkg=$(find ${RPMPATH} -name "${1}-[0-9]*.rpm" -print 2>/dev/null)
 	local _filespec=${SPECPATH}/${1}.spec
-
-echo "Maker: here"
-
 	#
 	#	Build
 	#
