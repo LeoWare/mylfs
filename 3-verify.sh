@@ -64,10 +64,10 @@ _verify() {
 	[ -e ${TOPDIR}/SOURCES/${1} ] || msg "	${1}: Missing"
 	#	md5sum ${TOPDIR}/SOURCES/${1} > ${TOPDIR}/SOURCES/md5sum.${1}
 	#	sed -i -e 's/\/mnt\/lfs\/usr\/src\/Octothorpe\/SOURCES\///' ${TOPDIR}/OTHER/md5sum.${1}
-	pushd ${TOPDIR}/SOURCES > /dev/null 2>&1
-	msg_line "	"
-	md5sum -c ../SOURCES/md5sum.${1}
-	popd > /dev/null 2>&1
+	#pushd ${TOPDIR}/SOURCES > /dev/null 2>&1
+	#msg_line "	"
+	#md5sum -c ../SOURCES/md5sum.${1}
+	#popd > /dev/null 2>&1
 	return
 }
 #
