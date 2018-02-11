@@ -321,17 +321,18 @@ for the directories.
 	EOF
 	#
 	#	7.7. The Bash Shell Startup Files 
+	#	Conflicts with blfs package,  profile scripts are entirely different
 	#
-	cat > %{buildroot}/etc/profile <<- "EOF"
-		# Begin /etc/profile
-
-		#export LANG=<ll>_<CC>.<charmap><@modifiers>
-
-		export LANG=en_US.iso88591
-		#export LANG=en_utf8
-
-		# End /etc/profile
-	EOF
+#	cat > %{buildroot}/etc/profile <<- "EOF"
+#		# Begin /etc/profile
+#
+#		#export LANG=<ll>_<CC>.<charmap><@modifiers>
+#
+#		export LANG=en_US.iso88591
+#		#export LANG=en_utf8
+#
+#		# End /etc/profile
+#	EOF
 	#
 	#	7.8. Creating the /etc/inputrc File
 	#
