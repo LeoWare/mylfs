@@ -70,9 +70,7 @@ _fetch_source() {
 		DESTDIR=${TOPDIR}/SOURCES
 		INPUTFILE=${TOPDIR}/SOURCES/wget-list
 		wget --no-clobber --no-check-certificate --input-file=${INPUTFILE} --directory-prefix=${DESTDIR}
-		pushd SOURCES > /dev/null 2>&1
-		md5sum -c ${TOPDIR}/SOURCES/md5sum-list
-		popd > /dev/null 2>&1
+		md5sum -c SOURCES/md5sum-list
 	msg_success
 	return
 }
