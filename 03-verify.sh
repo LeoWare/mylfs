@@ -6,14 +6,8 @@
 #      Author:	baho-utot@columbus.rr.com	#
 #     Options:					#
 #################################################
-#	Overview
-#		install directory /mnt/lfs
-#		add lfs user
-#		fetch source packages
-#		copy build system to /mnt/lfs/usr/src/Octothorpe
-#	End
 #
-#set -o errexit					# exit if error...insurance ;)
+set -o errexit					# exit if error...insurance ;)
 set -o nounset					# exit if variable not initalized
 set +h						# disable hashall
 PRGNAME=${0##*/}				# script name minus the path
@@ -68,12 +62,12 @@ end-run() {
 #
 _verify() {
 	[ -e ${TOPDIR}/SOURCES/${1} ] || msg "	${1}: Missing"
-	#	md5sum ${TOPDIR}/SOURCES/${1} > ${TOPDIR}/OTHER/md5sum.${1}
+	#	md5sum ${TOPDIR}/SOURCES/${1} > ${TOPDIR}/SOURCES/md5sum.${1}
 	#	sed -i -e 's/\/mnt\/lfs\/usr\/src\/Octothorpe\/SOURCES\///' ${TOPDIR}/OTHER/md5sum.${1}
-	#	pushd ${TOPDIR}/SOURCES > /dev/null 2>&1
-	#	msg_line "	"
-	#	md5sum -c ../OTHER/md5sum.${1}
-	#	popd > /dev/null 2>&1
+	#pushd ${TOPDIR}/SOURCES > /dev/null 2>&1
+	#msg_line "	"
+	#md5sum -c ../SOURCES/md5sum.${1}
+	#popd > /dev/null 2>&1
 	return
 }
 #

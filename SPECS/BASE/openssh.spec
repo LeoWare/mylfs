@@ -65,6 +65,7 @@ Patch0:		openssh-7.5p1-openssl-1.1.0-1.patch
 	/usr/sbin/userdel sshd
 %files -f filelist.rpm
 	%defattr(-,root,root)
+	/var/lib/sshd
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> -1
 -	Initial build.	First version

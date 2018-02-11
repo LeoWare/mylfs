@@ -6,14 +6,8 @@
 #      Author:	baho-utot@columbus.rr.com	#
 #     Options:					#
 #################################################
-#	Overview
-#		install directory /mnt/lfs
-#		add lfs user
-#		fetch source packages
-#		copy build system to /mnt/lfs/usr/src/Octothorpe
-#	End
 #
-#set -o errexit					# exit if error...insurance ;)
+set -o errexit					# exit if error...insurance ;)
 set -o nounset					# exit if variable not initalized
 set +h						# disable hashall
 PRGNAME=${0##*/}				# script name minus the path
@@ -289,7 +283,6 @@ _copy_source() {
 	install -dm 755 ${LFS}/${PARENT}/PROVIDES/TOOLS
 	install -dm 755 ${LFS}/${PARENT}/REQUIRES/BASE
 	install -dm 755 ${LFS}/${PARENT}/REQUIRES/TOOLS
-	install -dm 755 ${LFS}/${PARENT}/RPM-DB
 	install -dm 755 ${LFS}/${PARENT}/SOURCES
 	cp -ar * ${LFS}${PARENT}
 	#	cp -a SOURCES/* ${LFS}${PARENT}/SOURCES

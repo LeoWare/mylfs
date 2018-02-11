@@ -23,7 +23,6 @@ SPECPATH=${TOPDIR}/SPECS/BASE
 PROVIDESPATH=${TOPDIR}/PROVIDES/BASE
 REQUIRESPATH=${TOPDIR}/REQUIRES/BASE
 RPMPATH=${TOPDIR}/RPMS
-RPMDBPATH=${TOPDIR}/RPM-DB
 #
 #	Build functions
 #
@@ -62,9 +61,6 @@ maker(){	#	$1:	name of package
 	local _log="${LOGPATH}/${1}"
 	local _pkg=$(find ${RPMPATH} -name "${1}-[0-9]*.rpm" -print 2>/dev/null)
 	local _filespec=${SPECPATH}/${1}.spec
-
-echo "Maker: here"
-
 	#
 	#	Build
 	#
@@ -476,11 +472,6 @@ _cleanup() {
 		msg_success
 		msg_line "	Removing /tools directory"
 			rm -rf /tools
-		msg_success
-		msg_line "	Moving rpm database to directory"
-			install -vdm 755 /var/lib/rpm
-			mv ${TOPDIR}/RPM-DB/* /var/lib/rpm
-			rm -rf ${TOPDIR}/RPM-DB
 		msg_success
 		msg_line "	Installing system rpm macro file"
 		cat > /etc/rpm/macros <<- EOF

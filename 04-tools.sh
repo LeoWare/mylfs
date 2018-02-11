@@ -79,21 +79,6 @@ maker(){
 		#	return
 	fi
 	[ -z ${_pkg} ] && die "ERROR: rpm package not found"
-	#
-	#	Info
-	#
-	msg_line "	Info: ${_name}: "
-	if [ ! -e ${INFOPATH}/${_name} ]; then
-		rpm -qilp \
-			${_pkg} > ${INFOPATH}/${_name} 2>&1 || true
-		rpm -qp --provides \
-			${_pkg} > ${PROVIDESPATH}/${_name} 2>&1 || true
-		rpm -qp --requires \
-			${_pkg} > ${REQUIRESPATH}/${_name} 2>&1 || true
-		msg_success
-	else
-		 msg "Skipped"
-	fi
 	return
 }
 
