@@ -1,6 +1,6 @@
 #!/tools/bin/bash
 #################################################
-#	Title:	5-chroot.sh			#
+#	Title:	04-chroot.sh			#
 #        Date:	2017-01-03			#
 #     Version:	1.1				#
 #      Author:	baho-utot@columbus.rr.com	#

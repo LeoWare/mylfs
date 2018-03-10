@@ -1,6 +1,6 @@
 #!/bin/bash
 #################################################
-#	Title:	6-lfs.sh			#
+#	Title:	05-lfs.sh			#
 #        Date:	2017-01-03			#
 #     Version:	1.1				#
 #      Author:	baho-utot@columbus.rr.com	#

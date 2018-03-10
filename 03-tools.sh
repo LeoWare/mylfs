@@ -1,6 +1,6 @@
 #!/bin/bash
 #################################################
-#	Title:	4-tools.sh			#
+#	Title:	03-tools.sh			#
 #        Date:	2017-12-12			#
 #     Version:	1.1				#
 #      Author:	baho-utot@columbus.rr.com	#
@@ -71,8 +71,7 @@ maker(){
 	if [ -z ${_pkg} ]; then
 		rm ${_log}.installed > ${_log} 2>&1	|| true
 		rm ${INFOPATH}/${_name} > ${_log} 2>&1	|| true
-		rpmbuild -ba \
-			${_filespec} >> ${_log} 2>&1 && msg_success || msg_failure
+		rpmbuild -ba ${_filespec} >> ${_log} 2>&1 && msg_success || msg_failure
 		_pkg=$(find ${RPMPATH} -name "tools-${_name}-[0-9]*.rpm" -print)
 	else
 		msg "Skipped"
@@ -91,12 +90,9 @@ info(){		#	$1:	Name of package
 	#
 	msg_line "	Info: ${1}: "
 	if [ ! -e ${INFOPATH}/${1} ]; then
-		rpm -qilp \
-			${_pkg} > ${INFOPATH}/${1} 2>&1 || true
-		rpm -qp --provides \
-			${_pkg} > ${PROVIDESPATH}/${1} 2>&1 || true
-		rpm -qp --requires \
-			${_pkg} > ${REQUIRESPATH}/${1} 2>&1 || true
+		rpm -qilp ${_pkg} > ${INFOPATH}/${1} 2>&1 || true
+		rpm -qp --provides ${_pkg} > ${PROVIDESPATH}/${1} 2>&1 || true
+		rpm -qp --requires ${_pkg} > ${REQUIRESPATH}/${1} 2>&1 || true
 		msg_success
 	else
 		 msg "Skipped"
@@ -110,8 +106,7 @@ installer(){	#	$1:	name of package
 	#
 	msg_line "	Installing: ${1}: "
 	if [ ! -e ${_log}.installed ]; then
-		rpm -Uvh --nodeps \
-			${_pkg} >> "${_log}" 2>&1  && msg_success || msg_failure
+		rpm -Uvh --nodeps ${_pkg} >> "${_log}" 2>&1  && msg_success || msg_failure
 		mv ${_log} ${_log}.installed
 	else
 		msg "Skipped"
@@ -130,6 +125,7 @@ _prepare() {
 		%_topdir		%{_lfs}/usr/src/Octothorpe
 		%_dbpath		%{_lfs}/var/lib/rpm
 		%_prefix		/tools
+		%_docdir		%{_prefix}/share/doc
 		%_lib			%{_prefix}/lib
 		%_libdir		%{_prefix}/usr/lib
 		%_lib64			%{_prefix}/lib64
@@ -138,23 +134,12 @@ _prepare() {
 		%_sharedstatedir	%{_prefix}/var/lib
 		%_localstatedir		%{_prefix}/var
 		%_tmppath		%{_prefix}/var/tmp
-		#
-		#	Build flags
-		#
-		%_optflags	-march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fPIC
-		%_ldflags	-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now,--build-id
-		#
-		#	Do not compress man or info files - breaks file list
-		#	Dont strip files
-		#	
-		#%%__os_install_post    %{nil}
 	EOF
 	msg_line "	Creating rpm database path: "
 		install -dm 755 ${LFS}/var/lib/rpm
 	msg_success
 	touch ${_log}
 	msg_success
-
 	return
 }
 _glibc() {
@@ -241,6 +226,12 @@ _post() {
 	local LIST=""
 	local _package=""
 	msg "	Post processing:"
+	#	This preserves all the libraries that are needed 
+	#	and removees evertything else so that only the static built
+	#	rpm and its libraries that are needed are left.
+	#	Keeps the LFS build clean of external packages.
+	#	rpm was placed into /usr/bin and /usr/lib
+	#	The chapter 6 iles will over write these files
 	if [ ! -e ${LOGPATH}/${1} ]; then
 		local LIST="tools-zlib tools-popt tools-openssl tools-elfutils tools-rpm"
 		local i=""
@@ -283,7 +274,6 @@ _post() {
 	fi
 	return
 }
-
 #
 #	Main line	
 #
@@ -301,16 +291,40 @@ _post() {
 #	LFS tool chain
 #
 msg "Building Chapter 5 Tool chain"
-LIST=""
-LIST+="prepare binutils-pass-1 gcc-pass-1 linux-api-headers glibc libstdc binutils-pass-2 "
-LIST+="gcc-pass-2 tcl-core expect dejagnu check ncurses bash bison bzip2 coreutils "
-LIST+="diffutils file findutils gawk gettext grep gzip m4 make patch perl sed "
-LIST+="tar texinfo util-linux xz "
+LIST+="prepare "		#	At the ready
+#LIST+="binutils-pass-1 "	#    Binutils-2.30 - Pass 1
+#LIST+="gcc-pass-1 "		#    GCC-7.3.0 - Pass 1
+#LIST+="linux-api-headers "	#    Linux-4.15.3 API Headers
+#LIST+="glibc "			#    Glibc-2.27
+#LIST+="libstdc "		#    Libstdc++-7.3.0
+#LIST+="binutils-pass-2 "	#    Binutils-2.30 - Pass 2
+#LIST+="gcc-pass-2 "		#    GCC-7.3.0 - Pass 2
+#LIST+="tcl-core "		#    Tcl-core-8.6.8
+#LIST+="expect "		#    Expect-5.45.4
+#LIST+="dejagnu "		#    DejaGNU-1.6.1
+#LIST+="m4 "			#    M4-1.4.18
+#LIST+="ncurses "		#    Ncurses-6.1
+#LIST+="bash "			#    Bash-4.4.18
+#LIST+="bison "			#    Bison-3.0.4
+#LIST+="bzip2 "			#    Bzip2-1.0.6
+#LIST+="coreutils "		#    Coreutils-8.29
+#LIST+="diffutils "		#    Diffutils-3.6
+#LIST+="file "			#    File-5.32
+#LIST+="findutils "		#    Findutils-4.6.0
+#LIST+="gawk "			#    Gawk-4.2.0
+#LIST+="gettext "		#    Gettext-0.19.8.1
+#LIST+="grep "			#    Grep-3.1
+#LIST+="gzip "			#    Gzip-1.9
+#LIST+="make "			#    Make-4.2.1
+#LIST+="patch "			#    Patch-2.7.6
+#LIST+="perl "			#    Perl-5.26.1
+#LIST+="sed "			#    Sed-4.4
+#LIST+="tar "			#    Tar-1.30
+#LIST+="texinfo "		#    Texinfo-6.5
+#LIST+="util-linux "		#    Util-linux-2.31.1
+#LIST+="xz "			#    Xz-5.2.3
 #	package manager
-LIST+="zlib elfutils openssl popt rpm post "
-#	Not needed
-#LIST+="_stripping "
-#LIST+="_chown "
+#LIST+="zlib elfutils openssl popt rpm post "
 for i in ${LIST};do
 	rm -rf BUILD BUILDROOT
 	case ${i} in
