@@ -76,18 +76,14 @@ cd to directory where you placed and extracted the build system.
 login as lfs user
 cd /mnt/lfs/usr/src/Octothorpe	
 ./02-fetch.sh			Gets source tarballs
-./03-verify.sh			Verify you have all the 
-				source.  If it don't say
-				nothin the your good, otherwise
-				it will tell you what you is missing
-./04-tools.sh			Build the toolchain and a static rpm
+./03-tools.sh			Build the toolchain and a static rpm
 
 	Build LFS system
 login as root
 cd /mnt/lfs/usr/src/Octothorpe	
-./05-chroot.sh			mount kernel filesystems and chroot
+./04-chroot.sh			mount kernel filesystems and chroot
 cd /usr/src/Octothorpe		change to build directory
-./06-lfs.sh			build LFS base system
+./05-lfs.sh			build LFS base system
 The last step will remove the toolchain and use vim to make
 modification to the conf files so when you reboot it will do the
 right thingy.

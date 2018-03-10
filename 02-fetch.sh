@@ -15,8 +15,6 @@ TOPDIR=${PWD}
 LFS=/mnt/lfs
 PARENT=/usr/src/Octothorpe
 LOGFILE=$(date +%Y-%m-%d).log
-#LOGFILE=${TOPDIR}/LOGS/${PRGNAME}		# set log file name
-#LOGFILE=/dev/null				# uncomment to disable log file
 #
 #	Common support functions
 #
