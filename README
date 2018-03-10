@@ -1,18 +1,26 @@
-This build tracks linux from scratch version 8.1
+
+Work in Process - Updateing to Version 8.2
+
+This build tracks linux from scratch version 8.2
 
 This build system requires the following:
 
-	1. Fetch build system from https://www.github.com/baho-utot/LFS-RPM
-	2. Directory for LFS under build, mounted at /mnt/lfs
+	1. Fetch build system from:
+		https://www.github.com/baho-utot/LFS-RPM
+	2. Directory for build, mounted at /mnt/lfs
 
-	There should be a partition mounted there but you will be responsible
-	for that as this build system uses whatever filesystem that is at ${LFS}
+		There should be a partition mounted there.
+		You will be responsible for that. 
+		This build system uses whatever filesystem
+		that is at ${LFS}
 
-	This system was designed and debugged on an AMD64 {x86_64} system and
-	I have not tested it on a i686 system as I no longer have or use such
-	systems.  
+		This system was designed and debugged on an
+		AMD64 {x86_64} system and I have not tested
+		it on a i686 system as I no longer have or
+		use such systems.  
 	
-	The build system installs to /mnt/lfs/usr/src/Octothorpe
+		The build system installs to:
+		/mnt/lfs/usr/src/Octothorpe
 
 	REQUIREMENTS:
 		1. build system from github
@@ -20,34 +28,34 @@ This build system requires the following:
 		3. wget on host system
 		4. rpm on host system
 
-	I have installed rpm macro files in /home/lfs/.rpmmacros and in the 
-	base directory /etc/rpm/macros.  This makes the rpm environment correct
-	so it builds the toolchain and base system correctly.  
-	I have also built a static version of rpm in the toolchain so as not 
-	to have any impact upon the base build.
+	I have installed rpm macro files in:
+	/home/lfs/.rpmmacros and in the base directory:
+	/etc/rpm/macros.
+	This makes the rpm environment correct so it builds
+	the toolchain and base system correctly.  
+	I have also built a static version of rpm in the
+	toolchain so as not to have any impact upon the base
+	build.
 
 	WARNING:
-	This build system is designed in such a way to not be able to trash your host
-	system.  Mistakes can happen.  Not responsible for trashed host system.  You
+	This build system is designed in such a way to not be
+	able to trash your host system.  Mistakes can happen.
+	Not responsible for trashed host system.  You
 	bear all responsibilities for any failures.
-
 	
-	Note:	I use linux-4.9.67 instead of linux-4.12.7.  I don't have a config file
-		that works for linux-4.12.7, but I gots one for linux-4.9.67 so I use it.
-
 Build Procedure goes as follows:
 	
-Command to run			These are just comments don't enter these
-------------------------------	----------------------------------------- 
+Command to run			Comments don't enter these
+------------------------------	-------------------------------------
 
 Preprare for build
 download the tarball from https://www.github.com/baho-utot/LFS-RPM
 extract it to your HOME directory
 
-OK It's time to fish or cut bait:
-You are responsible for the next four steps,  make sure you knowed what you
-are doing as one screw up and your system will be useless as tits on a boar
-hog and you will be shaking like a dog poopin peach seeds.
+You are responsible for the next four steps,  make sure you knowed
+what you are doing as one screw up and your system will be useless
+as tits on a boar hog and you will be shaking like a dog poopin
+peach seeds.
 So pay attention so this don't go over like a turd in a punch bowl
 
 fdisk /dev/sdx			partition drive, you need to do this
@@ -62,11 +70,11 @@ login as root user
 cd to directory where you placed and extracted the build system.
 ./01-setup.sh			installs build system to
 				/mnt/lfs/usr/src/Octothorpe
-				creates lfs user
+				and creates lfs user
 
 	Build tool chain
 login as lfs user
-cd /mnt/lfs/usr/src/Octothorpe	get ready here it comes
+cd /mnt/lfs/usr/src/Octothorpe	
 ./02-fetch.sh			Gets source tarballs
 ./03-verify.sh			Verify you have all the 
 				source.  If it don't say
@@ -76,55 +84,18 @@ cd /mnt/lfs/usr/src/Octothorpe	get ready here it comes
 
 	Build LFS system
 login as root
-cd /mnt/lfs/usr/src/Octothorpe	getting close
+cd /mnt/lfs/usr/src/Octothorpe	
 ./05-chroot.sh			mount kernel filesystems and chroot
 cd /usr/src/Octothorpe		change to build directory
 ./06-lfs.sh			build LFS base system
-The last step will remove the toolchain and use vim to make modification
-to the conf files so when you reboot it will do the right thingy.
+The last step will remove the toolchain and use vim to make
+modification to the conf files so when you reboot it will do the
+right thingy.
 
 Build at this point is complete.
 All that is needed is to install grub and/or add a menu item in the
 the grub configureation file /boot/grub.cfg
 
 If you got to this point you should be happier than a pig in poop
-
-
 				
-install grub 			if needed
-create grub/grub.cfg in /boot	add the LFS menu entry
-
-Installing grub:  Maybe this works but I don't knowed if it does
-
-Notes:
-	This is one way to install grub,
-	You will need to edit the set root=(hdx,x) and
-	root=/dev/sdxx lines to suit.
-	If you don't have a boot partition you will need to
-	change: linux /vmlinuz-<VERSION> root=/dev/sdxx ro
-	to:	linux /boot/vmlinux-<VERSION> root=/dev/sdxx> ro
-
-	grub-install --boot-directory=/mnt/lfs/boot /dev/sda
-
-	cat > /boot/grub/grub.cfg << "EOF"
-	# Begin /boot/grub/grub.cfg
-	set default=0
-	set timeout=5
-	insmod ext2
-	#	change hdx,x to the correct value
-	set root=(hdx,x)
-	menuentry "GNU/Linux Linux from scratch" {
-		linux /boot/vmlinuz-<VERSION> root=</dev/sdxx ro
-	 }
-	# 	Uncomment this if you have Win what-ever installed
-	#	change set root=(hdx,x) to where you have win installed
-	#	set root=(hd0,1) usually
- 	#menuentry "Windows" {
-	#	insmod ntfs
-	#	set root=(hdx,x)
-	#	chainloader +1
-	# }
-	# End /boot/grub/grub.cfg
-	 EOF
-
 This completes the build.

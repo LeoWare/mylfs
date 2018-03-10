@@ -13,7 +13,6 @@ You have stack instrumentation turned on in your kernel. These are benign until 
 
 It's enabled by CONFIG_DEBUG_STACK_USAGE in the debug options in your kernel config.
 
-
 Load LOOP kernel module
 
 enable info files
@@ -35,12 +34,10 @@ Move configure file to filesystem
 
 Allow post processing by rpmbuild
 
-REmove all build optimization _optflags
-
 NON-STANDARD
 procps-ng
 
-	#	RPM add user
+#	RPM add user
 Requires(pre): /usr/sbin/useradd, /usr/bin/getent
 Requires(postun): /usr/sbin/userdel
 
@@ -50,3 +47,35 @@ Requires(postun): /usr/sbin/userdel
 
 %postun
 /usr/sbin/userdel myservice
+
+#	Grub install
+	This is one way to install grub,
+	You will need to edit the set root=(hdx,x) and
+	root=/dev/sdxx lines to suit.
+	If you don't have a boot partition you will need to
+	change: linux /vmlinuz-<VERSION> root=/dev/sdxx ro
+	to:	linux /boot/vmlinux-<VERSION> root=/dev/sdxx> ro
+
+	grub-install --boot-directory=/mnt/lfs/boot /dev/sda
+
+	cat > /boot/grub/grub.cfg << "EOF"
+	# Begin /boot/grub/grub.cfg
+	set default=0
+	set timeout=5
+	insmod ext2
+	#	change hdx,x to the correct value
+	set root=(hdx,x)
+	menuentry "GNU/Linux Linux from scratch" {
+		linux /boot/vmlinuz-<VERSION> root=</dev/sdxx ro
+	 }
+	# 	Uncomment this if you have Win what-ever installed
+	#	change set root=(hdx,x) to where you have win installed
+	#	set root=(hd0,1) usually
+ 	#menuentry "Windows" {
+	#	insmod ntfs
+	#	set root=(hdx,x)
+	#	chainloader +1
+	# }
+	# End /boot/grub/grub.cfg
+	 EOF
+
