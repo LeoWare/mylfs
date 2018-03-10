@@ -79,3 +79,10 @@ Requires(postun): /usr/sbin/userdel
 	# End /boot/grub/grub.cfg
 	 EOF
 
+
+%define		dist .LFS
+Release:	4%{?dist}
+
+find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
+sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+sed -i '/man/d' filelist.rpm

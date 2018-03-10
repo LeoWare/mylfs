@@ -58,7 +58,6 @@ end-run() {
 	printf "${_green}%s${_normal}\n" "Run Complete"
 	return
 }
-
 maker(){
 	local _name=${1}
 	local _log="${LOGPATH}/${_name}"
@@ -80,7 +79,6 @@ maker(){
 	[ -z ${_pkg} ] && die "ERROR: rpm package not found"
 	return
 }
-
 info(){		#	$1:	Name of package
 	local _log="${LOGPATH}/${1}"
 	local _pkg=$(find ${RPMPATH} -name "tools-${1}-[0-9]*.rpm" -print 2>/dev/null)

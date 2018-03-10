@@ -345,7 +345,7 @@ _bc() {
 	return
 }
 _ncurses() {
-	baker ${1}
+	#	baker ${1}
 	[ -h /usr/lib/libncursesw.so.6 ] 	&& rm /usr/lib/libncursesw.so.6
 	[ -h /usr/lib/libncurses.so ]		&& rm /usr/lib/libncurses.so
 	maker ${1}
@@ -487,12 +487,6 @@ _cleanup() {
 			%_var			/var
 			%_sharedstatedir	/var/lib
 			%_localstatedir		/var
-			#
-			#	Build flags
-			#
-			%optflags	-march=x86-64 -mtune=generic -O2 -pipe -fPIC
-			#		-fstack-protector-strong -fno-plt -fpie -pie
-			%_ldflags	-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now,--build-id
 			%_tmppath	/var/tmp
 			%_dbpath	/var/lib/rpm
 			#
