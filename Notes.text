@@ -81,7 +81,7 @@ Requires(postun): /usr/sbin/userdel
 
 
 %define		dist .LFS
-Release:	4%{?dist}
+Release:	1%{?dist}
 
 find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm

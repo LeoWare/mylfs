@@ -23,7 +23,7 @@ Source0:	%{name}-%{version}
 %install
 	make DESTDIR=%{buildroot} install
 	#	rm -rf %{buildroot}/%{_infodir}
-	#	Copy license/copying file 
+	#	Copy license/copying file
 	#	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	#	find %{buildroot} -name '*.la' -delete

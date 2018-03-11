@@ -74,19 +74,18 @@ maker(){
 		_pkg=$(find ${RPMPATH} -name "tools-${_name}-[0-9]*.rpm" -print)
 	else
 		msg "Skipped"
-		#	return
+		return
 	fi
-	[ -z ${_pkg} ] && die "ERROR: rpm package not found"
 	return
 }
 info(){		#	$1:	Name of package
 	local _log="${LOGPATH}/${1}"
 	local _pkg=$(find ${RPMPATH} -name "tools-${1}-[0-9]*.rpm" -print 2>/dev/null)
-
 	#
 	#	Info
 	#
 	msg_line "	Info: ${1}: "
+	[ -z ${_pkg} ] && die "ERROR: rpm package not found"
 	if [ ! -e ${INFOPATH}/${1} ]; then
 		rpm -qilp ${_pkg} > ${INFOPATH}/${1} 2>&1 || true
 		rpm -qp --provides ${_pkg} > ${PROVIDESPATH}/${1} 2>&1 || true
@@ -113,6 +112,7 @@ installer(){	#	$1:	name of package
 }
 _prepare() {
 	local _log="${LOGPATH}/${1}"
+	[ -e "${LOGPATH}/${1}" ] && return
 	msg_line "	Installing macros file: " 
 	cat > /home/lfs/.rpmmacros <<- EOF
 		#
@@ -290,10 +290,10 @@ _post() {
 #
 msg "Building Chapter 5 Tool chain"
 LIST+="prepare "		#	At the ready
-#LIST+="binutils-pass-1 "	#    Binutils-2.30 - Pass 1
-#LIST+="gcc-pass-1 "		#    GCC-7.3.0 - Pass 1
-#LIST+="linux-api-headers "	#    Linux-4.15.3 API Headers
-#LIST+="glibc "			#    Glibc-2.27
+LIST+="binutils-pass-1 "	#    Binutils-2.30 - Pass 1
+LIST+="gcc-pass-1 "		#    GCC-7.3.0 - Pass 1
+LIST+="linux-api-headers "	#    Linux-4.15.3 API Headers
+LIST+="glibc "			#    Glibc-2.27
 #LIST+="libstdc "		#    Libstdc++-7.3.0
 #LIST+="binutils-pass-2 "	#    Binutils-2.30 - Pass 2
 #LIST+="gcc-pass-2 "		#    GCC-7.3.0 - Pass 2
