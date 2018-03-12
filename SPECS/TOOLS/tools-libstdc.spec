@@ -29,14 +29,15 @@ mkdir -v build
 	cd build
 	make DESTDIR=%{buildroot} install
 	cd -
-	find %{buildroot}/tools -name '*.la' -delete
+	find %{buildroot}%{_prefix} -name '*.la' -delete
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,lfs,lfs)
+#	/tools/x86_64-lfs-linux-gnu/include/c++/7.3.0/iomanip
+#	/tools/x86_64-lfs-linux-gnu/include/c++/7.3.0/tr1/riemann_zeta.tcc
 %changelog
 *	Sun Mar 11 2018 baho-utot <baho-utot@columbus.rr.com> 7.3.0-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 7.2.0-1

@@ -7,7 +7,6 @@ License:	GPLv2
 Group:		LFS/Tools
 Vendor:		Octothorpe
 Distribution:	LFS-8.2
-ExclusiveArch:	x86_64
 Source0:	http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 Source1:	http://ftp.gnu.org/gnu/gmp/gmp-6.1.2.tar.xz
 Source2:	http://www.multiprecision.org/mpc/download/mpc-1.1.0.tar.gz
@@ -67,8 +66,8 @@ Source3:	http://www.mpfr.org/mpfr-3.1.5/mpfr-4.0.1.tar.xz
 	make DESTDIR=%{buildroot} install
 	cd -
 	find %{buildroot}/tools -name '*.la' -delete
-	rm -rf %{buildroot}/tools/share/info
-	rm -rf %{buildroot}/tools/share/man
+	rm -rf %{buildroot}%{_infodir}
+	rm -rf %{buildroot}%{_mandir}
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm

@@ -7,8 +7,7 @@ License:	GPL
 URL:		http://ftp.gnu.org/gnu/glibc
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
+Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/glibc/glibc-%{version}.tar.xz
 %description
 	The Glibc package contains the main C library. 
@@ -36,7 +35,7 @@ mkdir -v build
 	make install_root=%{buildroot} install
 	cd -
 	find %{buildroot}/tools -name '*.la' -delete
-	rm -rf %{buildroot}/tools/share
+	rm -rf %{buildroot}%{_datarootdir}
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm

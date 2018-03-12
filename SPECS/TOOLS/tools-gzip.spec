@@ -1,7 +1,8 @@
+%define		dist .LFS
 Summary:	The Gzip package contains programs for compressing and decompressing files.	
 Name:		tools-gzip
-Version:	1.8
-Release:	1
+Version:	1.9
+Release:	1%{?dist}
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gzip
 Group:		LFS/Tools
@@ -19,8 +20,8 @@ Source0:	http://ftp.gnu.org/gnu/gzip/gzip-%{version}.tar.xz
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
-	rm -rf %{buildroot}/tools/share/info
-	rm -rf %{buildroot}/tools/share/man
+	rm -rf %{buildroot}%{_infodir}
+	rm -rf %{buildroot}%{_mandir}
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
@@ -28,5 +29,6 @@ Source0:	http://ftp.gnu.org/gnu/gzip/gzip-%{version}.tar.xz
 %files -f filelist.rpm
    %defattr(-,lfs,lfs)
 %changelog
+*	Sun Mar 11 2018 baho-utot <baho-utot@columbus.rr.com> 1.9-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 1.8-1
 -	LFS-8.1

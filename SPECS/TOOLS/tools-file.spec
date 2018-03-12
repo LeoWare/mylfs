@@ -1,13 +1,13 @@
+%define		dist .LFS
 Summary:	The File package contains a utility for determining the type of a given file or files. 
 Name:		tools-file
-Version:	5.31
-Release:	1
+Version:	5.32
+Release:	1%{?dist}
 License:	GPL
 URL:		ftp://ftp.astron.com/pub/file
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
+Distribution:	LFS-8.2
 Source0:	ftp://ftp.astron.com/pub/file/file-%{version}.tar.gz
 %description
 	The File package contains a utility for determining the type of a given file or files. 
@@ -16,13 +16,11 @@ Source0:	ftp://ftp.astron.com/pub/file/file-%{version}.tar.gz
 %build
 	#	added:  --disable-zlib
 	./configure \
-		--prefix=%{_prefix} \
-		--disable-zlib
+		--prefix=%{_prefix}
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
-	#	find %{buildroot} -name '*.la' -delete
-	rm -rf %{buildroot}/tools/share/man
+	rm -rf %{buildroot}%{_mandir}
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
@@ -30,5 +28,6 @@ Source0:	ftp://ftp.astron.com/pub/file/file-%{version}.tar.gz
 %files -f filelist.rpm
    %defattr(-,lfs,lfs)
 %changelog
+*	Sun Mar 11 2018 baho-utot <baho-utot@columbus.rr.com> 5.32-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 5.31-1
 -	LFS-8.1

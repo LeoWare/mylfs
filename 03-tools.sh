@@ -125,9 +125,9 @@ _prepare() {
 		%_prefix		/tools
 		%_docdir		%{_prefix}/share/doc
 		%_lib			%{_prefix}/lib
-		%_libdir		%{_prefix}/usr/lib
+		%_bindir		%{_prefix}/bin
+		%_libdir		%{_prefix}/lib
 		%_lib64			%{_prefix}/lib64
-		%_libdir64		%{_prefix}/usr/lib64
 		%_var			%{_prefix}/var
 		%_sharedstatedir	%{_prefix}/var/lib
 		%_localstatedir		%{_prefix}/var
@@ -175,6 +175,7 @@ _gcc-pass-2() {
 		mv ${_log} ${_log}.installed
 	else
 		msg "Skipped"
+		return
 	fi
 	#
 	#	Tests
@@ -289,33 +290,33 @@ _post() {
 #	LFS tool chain
 #
 msg "Building Chapter 5 Tool chain"
-LIST+="prepare "		#	At the ready
+LIST+="prepare "		#    At the ready
 LIST+="binutils-pass-1 "	#    Binutils-2.30 - Pass 1
 LIST+="gcc-pass-1 "		#    GCC-7.3.0 - Pass 1
 LIST+="linux-api-headers "	#    Linux-4.15.3 API Headers
 LIST+="glibc "			#    Glibc-2.27
 LIST+="libstdc "		#    Libstdc++-7.3.0
-#LIST+="binutils-pass-2 "	#    Binutils-2.30 - Pass 2
-#LIST+="gcc-pass-2 "		#    GCC-7.3.0 - Pass 2
-#LIST+="tcl-core "		#    Tcl-core-8.6.8
-#LIST+="expect "		#    Expect-5.45.4
-#LIST+="dejagnu "		#    DejaGNU-1.6.1
-#LIST+="m4 "			#    M4-1.4.18
-#LIST+="ncurses "		#    Ncurses-6.1
-#LIST+="bash "			#    Bash-4.4.18
-#LIST+="bison "			#    Bison-3.0.4
-#LIST+="bzip2 "			#    Bzip2-1.0.6
-#LIST+="coreutils "		#    Coreutils-8.29
-#LIST+="diffutils "		#    Diffutils-3.6
-#LIST+="file "			#    File-5.32
-#LIST+="findutils "		#    Findutils-4.6.0
-#LIST+="gawk "			#    Gawk-4.2.0
-#LIST+="gettext "		#    Gettext-0.19.8.1
-#LIST+="grep "			#    Grep-3.1
-#LIST+="gzip "			#    Gzip-1.9
-#LIST+="make "			#    Make-4.2.1
-#LIST+="patch "			#    Patch-2.7.6
-#LIST+="perl "			#    Perl-5.26.1
+LIST+="binutils-pass-2 "	#    Binutils-2.30 - Pass 2
+LIST+="gcc-pass-2 "		#    GCC-7.3.0 - Pass 2
+LIST+="tcl-core "		#    Tcl-core-8.6.8
+LIST+="expect "			#    Expect-5.45.4
+LIST+="dejagnu "		#    DejaGNU-1.6.1
+LIST+="m4 "			#    M4-1.4.18
+LIST+="ncurses "		#    Ncurses-6.1
+LIST+="bash "			#    Bash-4.4.18
+LIST+="bison "			#    Bison-3.0.4
+LIST+="bzip2 "			#    Bzip2-1.0.6
+LIST+="coreutils "		#    Coreutils-8.29
+LIST+="diffutils "		#    Diffutils-3.6
+LIST+="file "			#    File-5.32
+LIST+="findutils "		#    Findutils-4.6.0
+LIST+="gawk "			#    Gawk-4.2.0
+LIST+="gettext "		#    Gettext-0.19.8.1
+LIST+="grep "			#    Grep-3.1
+LIST+="gzip "			#    Gzip-1.9
+LIST+="make "			#    Make-4.2.1
+LIST+="patch "			#    Patch-2.7.6
+LIST+="perl "			#    Perl-5.26.1
 #LIST+="sed "			#    Sed-4.4
 #LIST+="tar "			#    Tar-1.30
 #LIST+="texinfo "		#    Texinfo-6.5

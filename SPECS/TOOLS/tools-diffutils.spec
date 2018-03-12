@@ -1,13 +1,13 @@
+%define		dist .LFS
 Summary:	The Diffutils package contains programs that show the differences between files or directories. 
 Name:		tools-diffutils
 Version:	3.6
-Release:	1
+Release:	1%{?dist}
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/diffutils
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
+Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 %description
 	The Diffutils package contains programs that show the differences between files or directories. 
@@ -19,9 +19,9 @@ Source0:	http://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
-	rm -rf %{buildroot}/tools/share/info
-	rm -rf %{buildroot}/tools/share/man
-	rm -rf %{buildroot}/tools/share/locale
+	rm -rf %{buildroot}%{_infodir}
+	rm -rf %{buildroot}%{_mandir}
+	rm -rf %{buildroot}%{_datarootdir}/locale
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
@@ -29,5 +29,6 @@ Source0:	http://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 %files -f filelist.rpm
    %defattr(-,lfs,lfs)
 %changelog
+*	Sun Mar 11 2018 baho-utot <baho-utot@columbus.rr.com> 3.6-2
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 3.6-1
 -	LFS-8.1

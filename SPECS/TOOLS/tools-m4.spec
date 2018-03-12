@@ -1,13 +1,13 @@
+%define		dist .LFS
 Summary:	The M4 package contains a macro processor.	
 Name:		tools-m4
 Version:	1.4.18
-Release:	1
+Release:	2%{?dist}
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/m4
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
+Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz
 %description
 	The M4 package contains a macro processor.
@@ -19,9 +19,8 @@ Source0:	http://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
-	rm -rf %{buildroot}/tools/share/info
-	rm -rf %{buildroot}/tools/share/man
-	#install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
+	rm -rf %{buildroot}%{_infodir}
+	rm -rf %{buildroot}%{_mandir}
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
@@ -29,5 +28,6 @@ Source0:	http://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz
 %files -f filelist.rpm
    %defattr(-,lfs,lfs)
 %changelog
+*	Sun Mar 11 2018 baho-utot <baho-utot@columbus.rr.com> 1.4.18-2
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 1.4.18-1
 -	LFS-8.1

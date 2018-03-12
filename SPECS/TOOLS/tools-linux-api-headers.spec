@@ -8,7 +8,6 @@ URL:		https://www.kernel.org
 Group:		LFS/Tools
 Vendor:		Octothorpe
 Distribution:	LFS-8.2
-ExclusiveArch:	x86_64
 Source0:	https://www.kernel.org/pub/linux/kernel/v4.x/linux-%{version}.tar.xz
 %description
 	The Linux API Headers expose the kernel's API for use by Glibc.
@@ -18,9 +17,9 @@ Source0:	https://www.kernel.org/pub/linux/kernel/v4.x/linux-%{version}.tar.xz
 	make mrproper
 %install
 	make INSTALL_HDR_PATH=dest headers_install
-	install -vdm 755 %{buildroot}/tools/include
-	cp -rv dest/include/* %{buildroot}/tools/include
-	find %{buildroot}/tools/include \( -name .install -o -name ..install.cmd \) -delete
+	install -vdm 755 %{buildroot}%{_includedir}
+	cp -rv dest/include/* %{buildroot}%{_includedir}
+	find %{buildroot}%{_includedir} \( -name .install -o -name ..install.cmd \) -delete
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm

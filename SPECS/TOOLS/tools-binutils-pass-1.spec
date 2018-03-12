@@ -19,7 +19,7 @@ and other tools for handling object files.
 	cd build
 	 ../configure --prefix=%{_prefix} \
 		--with-sysroot=%{_lfs} \
-		--with-lib-path=%{_prefix}/lib \
+		--with-lib-path=%{_libdir} \
 		--target=%{_lfs_tgt} \
 		--disable-nls \
 		--disable-werror
@@ -28,10 +28,10 @@ and other tools for handling object files.
 	cd build
 	make DESTDIR=%{buildroot} install
 %ifarch x86_64
-	install -vdm 755 %{buildroot}/tools/lib
-	ln -sv lib %{buildroot}/tools/lib64
+	install -vdm 755 %{buildroot}%{_libdir}
+	ln -sv lib %{buildroot}%_lib64	
 %endif
-	rm -rf %{buildroot}/tools/share
+	rm -rf %{buildroot}%{_datarootdir}
 	cd -
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
@@ -41,7 +41,7 @@ and other tools for handling object files.
 %files -f filelist.rpm
 	%defattr(-,lfs,lfs)
 %ifarch x86_64
-	%dir	/tools/lib
+	%dir	%_libdir
 %endif
 %changelog
 *	Sat Mar 10 2018 baho-utot <baho-utot@columbus.rr.com> 2.30-1
