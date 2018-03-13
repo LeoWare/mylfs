@@ -1,7 +1,7 @@
 Summary:	The Patch package contains a program for modifying or creating files	
 Name:		tools-patch
 Version:	2.7.6
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/patch
 Group:		LFS/Tools

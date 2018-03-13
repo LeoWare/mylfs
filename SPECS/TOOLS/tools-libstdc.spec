@@ -1,7 +1,7 @@
 Summary:	Libstdc++ is the standard C++ library.
 Name:		tools-libstdc
 Version:	7.3.0
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gcc
 Group:		LFS/Tools

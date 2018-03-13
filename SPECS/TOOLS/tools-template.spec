@@ -2,7 +2,7 @@
 Summary:		
 Name:		tools-
 Version:	
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		
 Group:		LFS/Tools

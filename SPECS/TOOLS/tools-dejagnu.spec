@@ -1,7 +1,7 @@
 Summary:	The DejaGNU package contains a framework for testing other programs.	
 Name:		tools-dejagnu
 Version:	1.6.1
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/dejagnu
 Group:		LFS/Tools

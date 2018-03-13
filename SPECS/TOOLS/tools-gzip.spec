@@ -1,7 +1,7 @@
 Summary:	The Gzip package contains programs for compressing and decompressing files.	
 Name:		tools-gzip
 Version:	1.9
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gzip
 Group:		LFS/Tools

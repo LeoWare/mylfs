@@ -1,7 +1,7 @@
 Summary:	The File package contains a utility for determining the type of a given file or files. 
 Name:		tools-file
 Version:	5.32
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		ftp://ftp.astron.com/pub/file
 Group:		LFS/Tools

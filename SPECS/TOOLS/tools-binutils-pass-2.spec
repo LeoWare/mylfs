@@ -1,7 +1,7 @@
 Summary:	The Binutils package contains a linker, an assembler, and other tools for handling object files. 
 Name:		tools-binutils-pass-2
 Version:	2.30
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/binutils
 Group:		LFS/Tools

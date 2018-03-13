@@ -1,7 +1,7 @@
 Summary:	The Make package contains a program for compiling packages. 	
 Name:		tools-make
 Version:	4.2.1
-Release:	2.LFS.8.2
+Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/make
 Group:		LFS/Tools

@@ -1,7 +1,7 @@
 Summary:	Contains the GNU compiler collection
 Name:		tools-gcc-pass-1
 Version:	7.3.0
-Release:	1.LFS.8.2
+Release:	1
 License:	GPLv2
 Group:		LFS/Tools
 Vendor:		Octothorpe

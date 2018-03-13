@@ -1,7 +1,7 @@
 Summary:	RPM package manager
 Name:		tools-rpm
 Version:	4.14.1
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		http://ftp.rpm.org/releases/rpm-4.14.x
 Group:		LFS/Tools

@@ -1,7 +1,7 @@
 Summary:	The Gawk package contains programs for manipulating text files.	
 Name:		tools-gawk
 Version:	4.2.0
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gawk
 Group:		LFS/Tools

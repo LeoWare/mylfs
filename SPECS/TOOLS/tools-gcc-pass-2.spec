@@ -1,7 +1,7 @@
 Summary:	The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.	
 Name:		tools-gcc-pass-2
 Version:	7.3.0
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gcc/gcc-%{version}
 Group:		LFS/Tools

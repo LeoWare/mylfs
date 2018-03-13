@@ -1,7 +1,7 @@
 Summary:	
 Name:		
 Version:	
-Release:	1.LFS.8.2
+Release:	1
 License:	Any
 URL:		Any
 Group:		LFS/Base

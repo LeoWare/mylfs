@@ -1,7 +1,7 @@
 Summary:	The Sed package contains a stream editor. 	
 Name:		tools-sed
 Version:	4.4
-Release:	2.LFS.8.2
+Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/sed
 Group:		LFS/Tools

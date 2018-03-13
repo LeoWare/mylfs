@@ -1,7 +1,7 @@
 Summary:	The elfutils package contains a set of utilities and libraries for handling ELF files
 Name:		tools-libelf
 Version:	0.170
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		https://sourceware.org/ftp/elfutils
 Group:		LFS/Tools

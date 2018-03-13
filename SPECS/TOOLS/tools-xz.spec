@@ -1,7 +1,7 @@
 Summary:	The Xz package contains programs for compressing and decompressing files.	
 Name:		tools-xz
 Version:	5.2.3
-Release:	2.LFS.8.2
+Release:	2
 License:	GPL
 URL:		http://tukaani.org/xz
 Group:		LFS/Tools

@@ -1,7 +1,7 @@
 Summary:	The M4 package contains a macro processor.	
 Name:		tools-m4
 Version:	1.4.18
-Release:	2.LFS.8.2
+Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/m4
 Group:		LFS/Tools

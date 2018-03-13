@@ -1,7 +1,7 @@
 Summary:	The Bzip2 package contains programs for compressing and decompressing files. 	
 Name:		tools-bzip2
 Version:	1.0.6
-Release:	2.LFS.8.2
+Release:	2
 License:	GPL
 URL:		http://www.bzip.org/1.0.6/
 Group:		LFS/Tools

@@ -1,7 +1,7 @@
 Summary:	The Bash package contains the Bourne-Again SHell. 	
 Name:		tools-bash
 Version:	4.4.18
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/bash
 Group:		LFS/Tools

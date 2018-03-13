@@ -1,7 +1,7 @@
 Summary:	The Glibc package contains the main C library.
 Name:		tools-glibc
 Version:	2.27
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/glibc
 Group:		LFS/Tools

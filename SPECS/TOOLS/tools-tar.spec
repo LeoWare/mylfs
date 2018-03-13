@@ -1,7 +1,7 @@
 Summary:	The Tar package contains an archiving program. 	
 Name:		tools-tar
 Version:	1.30
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/tar
 Group:		LFS/Tools

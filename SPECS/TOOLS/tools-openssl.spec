@@ -1,7 +1,7 @@
 Summary:	The OpenSSL package contains management tools and libraries relating to cryptography	
 Name:		tools-openssl
 Version:	1.1.0g
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		https://openssl.org/source
 Group:		LFS/Tools

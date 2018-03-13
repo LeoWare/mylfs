@@ -1,7 +1,7 @@
 Summary:	The Util-linux package contains miscellaneous utility programs. 	
 Name:		tools-util-linux
 Version:	2.31.1
-Release:	1.LFS.8.2
+Release:	1
 License:	GPL
 URL:		https://www.kernel.org/pub/linux/utils/util-linux/v2.30
 Group:		LFS/Tools
