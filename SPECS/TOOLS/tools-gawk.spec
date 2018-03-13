@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The Gawk package contains programs for manipulating text files.	
 Name:		tools-gawk
 Version:	4.2.0
-Release:	1%{?dist}
+Release:	1.LFS.8.2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gawk
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/gawk/gawk-%{version}.tar.xz
 %description
 	The Gawk package contains programs for manipulating text files.

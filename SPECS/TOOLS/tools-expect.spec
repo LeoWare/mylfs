@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The Expect package contains a program for carrying out scripted dialogues with other interactive programs. 		
 Name:		tools-expect
 Version:	5.45.4
-Release:	1%{?dist}
+Release:	1.LFS.8.2
 License:	GPL
 URL:		http://prdownloads.sourceforge.net/expect
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://prdownloads.sourceforge.net/expect/expect%{version}.tar.gz
 %description
 	The Expect package contains a program for carrying out scripted dialogues with other interactive programs. 

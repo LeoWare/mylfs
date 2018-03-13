@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	Libstdc++ is the standard C++ library.
 Name:		tools-libstdc
 Version:	7.3.0
-Release:	1%{?dist}
+Release:	1.LFS.8.2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gcc
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 %description
 	Libstdc++ is the standard C++ library. It is needed for the correct operation of the g++ compiler. 

@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The Perl package contains the Practical Extraction and Report Language. 	
 Name:		tools-perl
 Version:	5.26.1
-Release:	1%{?dist}
+Release:	1.LFS.8.2
 License:	GPL
 URL:		http://www.cpan.org/src/5.0
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://www.cpan.org/src/5.0/perl-%{version}.tar.xz
 %description
 	The Perl package contains the Practical Extraction and Report Language. 

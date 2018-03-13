@@ -1,13 +1,11 @@
 Summary:	RPM package manager
 Name:		tools-rpm
-Version:	4.14.0
-Release:	1
+Version:	4.14.1
+Release:	1.LFS.8.2
 License:	GPL
 URL:		http://ftp.rpm.org/releases/rpm-4.14.x
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
 Source0:	http://ftp.rpm.org/releases/rpm-4.14.x/rpm-%{version}.tar.bz2
 Source1:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
 %define		LFS	/mnt/lfs
@@ -55,5 +53,6 @@ Source1:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
 %files -f filelist.rpm
    %defattr(-,lfs,lfs)
 %changelog
+*	Tue Mar 13 2018 baho-utot <baho-utot@columbus.rr.com> 4.14.1-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 4.14.0-1
 -	LFS-8.1

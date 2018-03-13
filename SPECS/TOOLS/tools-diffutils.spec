@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The Diffutils package contains programs that show the differences between files or directories. 
 Name:		tools-diffutils
 Version:	3.6
-Release:	1%{?dist}
+Release:	1.LFS.8.2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/diffutils
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 %description
 	The Diffutils package contains programs that show the differences between files or directories. 

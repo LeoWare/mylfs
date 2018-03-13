@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The Bison package contains a parser generator. 	
 Name:		tools-bison
 Version:	3.0.4
-Release:	1%{?dist}
+Release:	2.LFS.8.2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/bison
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/bison/bison-%{version}.tar.xz
 %description
 	The Bison package contains a parser generator. 

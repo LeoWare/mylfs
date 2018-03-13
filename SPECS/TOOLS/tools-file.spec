@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The File package contains a utility for determining the type of a given file or files. 
 Name:		tools-file
 Version:	5.32
-Release:	1%{?dist}
+Release:	1.LFS.8.2
 License:	GPL
 URL:		ftp://ftp.astron.com/pub/file
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	ftp://ftp.astron.com/pub/file/file-%{version}.tar.gz
 %description
 	The File package contains a utility for determining the type of a given file or files. 

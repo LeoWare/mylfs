@@ -2,13 +2,11 @@
 Summary:		
 Name:		tools-
 Version:	
-Release:	1
+Release:	1.LFS.8.2
 License:	GPL
 URL:		
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
 Source0:	<name>-%{version}.tar.gz
 Patch0:		
 %description

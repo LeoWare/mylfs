@@ -232,7 +232,7 @@ _post() {
 	#	rpm was placed into /usr/bin and /usr/lib
 	#	The chapter 6 iles will over write these files
 	if [ ! -e ${LOGPATH}/${1} ]; then
-		local LIST="tools-zlib tools-popt tools-openssl tools-elfutils tools-rpm"
+		local LIST="tools-zlib tools-popt tools-openssl tools-libelf tools-rpm"
 		local i=""
 		local _package=""
 		rm -rf ${TOPDIR}/BUILDROOT/* || true
@@ -317,13 +317,13 @@ LIST+="gzip "			#    Gzip-1.9
 LIST+="make "			#    Make-4.2.1
 LIST+="patch "			#    Patch-2.7.6
 LIST+="perl "			#    Perl-5.26.1
-#LIST+="sed "			#    Sed-4.4
-#LIST+="tar "			#    Tar-1.30
-#LIST+="texinfo "		#    Texinfo-6.5
-#LIST+="util-linux "		#    Util-linux-2.31.1
-#LIST+="xz "			#    Xz-5.2.3
+LIST+="sed "			#    Sed-4.4
+LIST+="tar "			#    Tar-1.30
+LIST+="texinfo "		#    Texinfo-6.5
+LIST+="util-linux "		#    Util-linux-2.31.1
+LIST+="xz "			#    Xz-5.2.3
 #	package manager
-#LIST+="zlib elfutils openssl popt rpm post "
+#LIST+="zlib libelf openssl popt rpm post "
 for i in ${LIST};do
 	rm -rf BUILD BUILDROOT
 	case ${i} in

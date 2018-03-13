@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.	
 Name:		tools-gcc-pass-2
 Version:	7.3.0
-Release:	1%{?dist}
+Release:	1.LFS.8.2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gcc/gcc-%{version}
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 Source1:	http://ftp.gnu.org/gnu/gmp/gmp-6.1.2.tar.xz
 Source2:	http://www.multiprecision.org/mpc/download/mpc-1.1.0.tar.gz

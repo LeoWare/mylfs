@@ -1,13 +1,11 @@
 Summary:	The Util-linux package contains miscellaneous utility programs. 	
 Name:		tools-util-linux
-Version:	2.30.1
-Release:	1
+Version:	2.31.1
+Release:	1.LFS.8.2
 License:	GPL
 URL:		https://www.kernel.org/pub/linux/utils/util-linux/v2.30
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
 Source0:	https://www.kernel.org/pub/linux/utils/util-linux/v2.30/util-linux-%{version}.tar.xz
 %description
 	The Util-linux package contains miscellaneous utility programs. 
@@ -22,16 +20,16 @@ Source0:	https://www.kernel.org/pub/linux/utils/util-linux/v2.30/util-linux-%{ve
 		--disable-makeinstall-chown \
 		--without-systemdsystemunitdir \
 		--without-ncurses \
-		PKG_CONFIG="" \
-		CPPFLAGS="-I/usr/include"
+		PKG_CONFIG=""
+#		CPPFLAGS="-I/usr/include"
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
 	#	Remove /tools/bin/kill, installed by tools-coreutils package
 	rm 	%{buildroot}/tools/bin/kill
-	rm -rf	%{buildroot}/tools/share/doc
-	rm -rf	%{buildroot}/tools/share/man
-	rm -rf	%{buildroot}/tools/share/locale
+	rm -rf %{buildroot}%{_infodir}
+	rm -rf %{buildroot}%{_mandir}
+	rm -rf %{buildroot}%{_datarootdir}/locale
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
@@ -39,5 +37,6 @@ Source0:	https://www.kernel.org/pub/linux/utils/util-linux/v2.30/util-linux-%{ve
 %files -f filelist.rpm
    %defattr(-,lfs,lfs)
 %changelog
+*	Tue Mar 13 2018 baho-utot <baho-utot@columbus.rr.com> 2.31.1-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 2.30.1-1
 -	LFS-8.1

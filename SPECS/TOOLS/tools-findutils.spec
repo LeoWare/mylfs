@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The Findutils package contains programs to find files
 Name:		tools-findutils
 Version:	4.6.0
-Release:	2%{?dist}
+Release:	2.LFS.8.2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/findutils
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/findutils/findutils-%{version}.tar.gz
 %description
 	The Findutils package contains programs to find files. These programs are provided

@@ -1,14 +1,11 @@
 Summary:	
 Name:		
 Version:	
-Release:	1
+Release:	1.LFS.8.2
 License:	Any
 URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
-Requires:	filesystem
 Source0:	%{name}-%{version}
 %description
 	

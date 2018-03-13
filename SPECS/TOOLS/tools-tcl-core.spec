@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The Tcl package contains the Tool Command Language.	
 Name:		tools-tcl-core
 Version:	8.6.8
-Release:	1%{?dist}
+Release:	1.LFS.8.2
 License:	GPL
 URL:		http://sourceforge.net/projects/tcl/files/Tcl/8.6.7
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://sourceforge.net/projects/tcl/files/Tcl/8.6.7/tcl%{version}-src.tar.gz
 %description
 	The Tcl package contains the Tool Command Language.

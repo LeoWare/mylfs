@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The Linux API Headers (in linux-4.12.7.tar.xz) expose the kernel's API for use by Glibc.	
 Name:		tools-linux-api-headers
 Version:	4.15.3
-Release:	1%{?dist}
+Release:	1.LFS.8.2
 License:	GPL
 URL:		https://www.kernel.org
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	https://www.kernel.org/pub/linux/kernel/v4.x/linux-%{version}.tar.xz
 %description
 	The Linux API Headers expose the kernel's API for use by Glibc.

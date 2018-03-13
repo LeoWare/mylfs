@@ -1,12 +1,10 @@
-%define		dist .LFS
 Summary:	Contains the GNU compiler collection
 Name:		tools-gcc-pass-1
 Version:	7.3.0
-Release:	1%{?dist}
+Release:	1.LFS.8.2
 License:	GPLv2
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 Source1:	http://ftp.gnu.org/gnu/gmp/gmp-6.1.2.tar.xz
 Source2:	http://www.multiprecision.org/mpc/download/mpc-1.1.0.tar.gz

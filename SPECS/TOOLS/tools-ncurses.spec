@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The Ncurses package contains libraries for terminal-independent handling of character screens.
 Name:		tools-ncurses
 Version:	6.1
-Release:	1%{?dist}
+Release:	1.LFS.8.2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/ncurses
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu//ncurses/ncurses-%{version}.tar.gz
 %description
 	The Ncurses package contains libraries for terminal-independent handling of character screens.

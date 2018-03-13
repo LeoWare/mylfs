@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The DejaGNU package contains a framework for testing other programs.	
 Name:		tools-dejagnu
 Version:	1.6.1
-Release:	1%{?dist}
+Release:	1.LFS.8.2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/dejagnu
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/dejagnu/dejagnu-%{version}.tar.gz
 %description
 	The DejaGNU package contains a framework for testing other programs.

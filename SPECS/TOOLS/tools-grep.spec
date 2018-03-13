@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The Grep package contains programs for searching through files. 	
 Name:		tools-grep
 Version:	3.1
-Release:	2%{?dist}
+Release:	2.LFS.8.2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/grep
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/grep/grep-%{version}.tar.xz
 %description
 	The Grep package contains programs for searching through files. 

@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The M4 package contains a macro processor.	
 Name:		tools-m4
 Version:	1.4.18
-Release:	2%{?dist}
+Release:	2.LFS.8.2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/m4
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz
 %description
 	The M4 package contains a macro processor.

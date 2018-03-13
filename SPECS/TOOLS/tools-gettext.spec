@@ -1,13 +1,11 @@
-%define		dist .LFS
 Summary:	The Gettext package contains utilities for internationalization and localization	
 Name:		tools-gettext
 Version:	0.19.8.1
-Release:	2%{?dist}
+Release:	2.LFS.8.2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gettext
 Group:		LFS/Tools
 Vendor:		Octothorpe
-Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/gettext/gettext-%{version}.tar.xz
 %description
 %prep
