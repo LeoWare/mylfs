@@ -114,7 +114,7 @@ installer(){	#	$1:	name of package
 }
 _prepare() {
 	local _log="${LOGPATH}/${1}"
-	msg "	Post processing:"
+#	msg "	Post processing:"
 	if [ ! -e ${LOGPATH}/${1} ]; then
 		msg_line "	Installing macros file: " 
 		cat > /etc/rpm/macros <<- EOF
@@ -148,13 +148,15 @@ _prepare() {
 			%{nil}
 		EOF
 		msg_success
+	else
+		msg "	 Skipping: ${1} "
 	fi		
 	touch ${_log}
 	return
 }
 _directories() {
 	local _log="${LOGPATH}/${1}"
-	msg "	 Building: ${1}"
+#	msg "	 Building: ${1}"
 	if [ ! -e ${_log} ]; then
 		> ${_log}
 		msg_line "	Creating Filesystem: "
@@ -167,7 +169,7 @@ _directories() {
 		mkdir -v  /usr/{,local/}share/{misc,terminfo,zoneinfo} >> ${_log} 2>&1
 		mkdir -v  /usr/libexec >> ${_log} 2>&1
 		mkdir -pv /usr/{,local/}share/man/man{1..8} >> ${_log} 2>&1
-		mkdir -v /lib64  >> ${_log} 2>&1
+		mkdir -pv /lib64  >> ${_log} 2>&1
 		mkdir -v /var/{log,mail,spool} >> ${_log} 2>&1
 		ln -sv /run /var/run >> ${_log} 2>&1
 		ln -sv /run/lock /var/lock >> ${_log} 2>&1
@@ -180,7 +182,7 @@ _directories() {
 }
 _symlinks() {
 	local _log="${LOGPATH}/${1}"
-	msg "	 Building: ${1}"
+#	msg "	 Building: ${1}"
 	if [ ! -e ${_log} ]; then
 		> ${_log}
 		msg_line "	Creating Symlinks: "
@@ -188,12 +190,9 @@ _symlinks() {
 			ln -sfv /tools/bin/{install,perl} /usr/bin >> ${_log} 2>&1
 			ln -sfv /tools/lib/libgcc_s.so{,.1} /usr/lib >> ${_log} 2>&1
 			ln -sfv /tools/lib/libstdc++.{a,so{,.6}} /usr/lib >> ${_log} 2>&1
-			#	sed 's/tools/usr/' /tools/lib/libstdc++.la > /usr/lib/libstdc++.la >> ${_log} 2>&1
 			ln -sfv bash /bin/sh >> ${_log} 2>&1
 			ln -sfv /proc/self/mounts /etc/mtab >> ${_log} 2>&1
 		msg_success
-
-
 		msg_line "	Creating Files: "
 		cat > /etc/passwd <<- "EOF"
 			root:x:0:0:root:/root:/bin/bash
@@ -447,7 +446,6 @@ _perl() {
 }
 _linux() {
 	local _log="${LOGPATH}/${1}"
-	cp ${TOPDIR}/config-4.9.67 ${TOPDIR}/SOURCES
 	maker ${1}
 	info  ${1}
 	installer ${1}
@@ -535,13 +533,12 @@ _config() {
 #
 msg "Building LFS base"
 LIST=""
-#LIST+="prepare "
-#LIST+="directories "
-#LIST+="symlinks "
+LIST+="prepare "
+LIST+="directories "
+LIST+="symlinks "
 #LIST+="filesystem "
 #LIST+="linux-api-headers "
 #LIST+="man-pages "
-
 #LIST+=" glibc gen-locales tzdata adjust-tool-chain tool-chain-test "
 #LIST+="zlib file readline m4 bc binutils gmp mpfr mpc gcc gcc-test "
 #LIST+="bzip2 pkg-config ncurses attr acl libcap sed shadow psmisc iana-etc "
@@ -553,8 +550,8 @@ LIST=""
 #	rpm package manager
 #LIST+="elfutils openssl popt rpm openssh wget "
 #	Kernel config needs openssl
-LIST+="linux "
-LIST+="cleanup config"
+#LIST+="linux "
+#LIST+="cleanup config"
 for i in ${LIST};do
 	rm -rf BUILD 
 	rm -rf BUILDROOT
