@@ -323,7 +323,12 @@ LIST+="texinfo "		#    Texinfo-6.5
 LIST+="util-linux "		#    Util-linux-2.31.1
 LIST+="xz "			#    Xz-5.2.3
 #	package manager
-#LIST+="zlib libelf openssl popt rpm post "
+#LIST+="zlib "
+#LIST+="libelf "
+#LIST+="openssl "
+#LIST+="popt "
+#LIST+="rpm "
+#LIST+="post "
 for i in ${LIST};do
 	rm -rf BUILD BUILDROOT
 	case ${i} in
