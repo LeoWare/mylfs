@@ -1,17 +1,17 @@
 #!/bin/bash
 #################################################
-#	Title:	05-lfs.sh			#
-#        Date:	2017-01-03			#
-#     Version:	1.1				#
-#      Author:	baho-utot@columbus.rr.com	#
-#     Options:					#
+#	Title:	05-lfs.sh												#
+#        Date:	2017-01-03										#
+#     Version:	1.1												#
+#      Author:	baho-utot@columbus.rr.com							#
+#     Options:													#
 #################################################
-set -o errexit	# exit if error...insurance ;)
-set -o nounset		# exit if variable not initalized
-set +h			# disable hashall
+set -o errexit			# exit if error...insurance ;)
+set -o nounset			# exit if variable not initalized
+set +h				# disable hashall
 PRGNAME=${0##*/}	# script name minus the path
 TOPDIR=${PWD}
-	#	Build variables
+#	Build variables
 LC_ALL=POSIX
 PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin
 export LC_ALL PATH
@@ -121,21 +121,22 @@ _prepare() {
 			#
 			#	System settings
 			#
-			%_topdir		/usr/src/Octothorpe
-			%_prefix		/usr
-			%_lib			/lib
-			%_libdir		/usr/lib
+			%_topdir			/usr/src/Octothorpe
+			%_prefix			/usr
+			%_lib				/lib
+			%_libdir			/usr/lib
 			%_lib64			/lib64
-			%_libdir64		/usr/lib64
+			%_libdir64			/usr/lib64
 			%_var			/var
 			%_sharedstatedir	/var/lib
 			%_localstatedir		/var
+			%_docdir			%{_prefix}/share/doc
 			#
 			#	Build flags
 			#
-			%optflags	-march=x86-64 -mtune=generic -O2 -pipe -fPIC
+			#	%optflags	-march=x86-64 -mtune=generic -O2 -pipe -fPIC
 			#		-fstack-protector-strong -fno-plt -fpie -pie
-			%_ldflags	-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now,--build-id
+			#	%_ldflags	-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now,--build-id
 			%_tmppath	/var/tmp
 			%_dbpath	/var/lib/rpm
 			#
@@ -534,7 +535,13 @@ _config() {
 #
 msg "Building LFS base"
 LIST=""
-#LIST+="prepare directories symlinks filesystem linux-api-headers man-pages "
+#LIST+="prepare "
+#LIST+="directories "
+#LIST+="symlinks "
+#LIST+="filesystem "
+#LIST+="linux-api-headers "
+#LIST+="man-pages "
+
 #LIST+=" glibc gen-locales tzdata adjust-tool-chain tool-chain-test "
 #LIST+="zlib file readline m4 bc binutils gmp mpfr mpc gcc gcc-test "
 #LIST+="bzip2 pkg-config ncurses attr acl libcap sed shadow psmisc iana-etc "

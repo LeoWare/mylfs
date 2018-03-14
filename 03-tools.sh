@@ -118,15 +118,15 @@ _prepare() {
 		#
 		#	System settings
 		#
-		%_lfs			/mnt/lfs
-		%_lfs_tgt		x86_64-lfs-linux-gnu
-		%_topdir		%{_lfs}/usr/src/Octothorpe
-		%_dbpath		%{_lfs}/var/lib/rpm
-		%_prefix		/tools
-		%_docdir		%{_prefix}/share/doc
-		%_lib			%{_prefix}/lib
-		%_bindir		%{_prefix}/bin
-		%_libdir		%{_prefix}/lib
+		%_lfs				/mnt/lfs
+		%_lfs_tgt			x86_64-lfs-linux-gnu
+		%_topdir			%{_lfs}/usr/src/Octothorpe
+		%_dbpath			%{_lfs}/var/lib/rpm
+		%_prefix			/tools
+		%_docdir			%{_prefix}/share/doc
+		%_lib				%{_prefix}/lib
+		%_bindir			%{_prefix}/bin
+		%_libdir			%{_prefix}/lib
 		%_lib64			%{_prefix}/lib64
 		%_var			%{_prefix}/var
 		%_sharedstatedir	%{_prefix}/var/lib
