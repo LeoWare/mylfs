@@ -1,11 +1,11 @@
 Summary:	The OpenSSL package contains management tools and libraries relating to cryptography	
-Name:		tools-openssl
+Name:	tools-openssl
 Version:	1.1.0g
 Release:	1
 License:	GPL
 URL:		https://openssl.org/source
-Group:		LFS/Tools
-Vendor:		Octothorpe
+Group:	LFS/Tools
+Vendor:	Octothorpe
 Source0:	https://openssl.org/source/openssl-%{version}.tar.gz
 %description
 	The OpenSSL package contains management tools and libraries relating to cryptography.
@@ -23,8 +23,8 @@ Source0:	https://openssl.org/source/openssl-%{version}.tar.gz
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
-	rm -rf %{buildroot}/tools/usr/share/doc
-	rm -rf %{buildroot}/tools/usr/share/man
+	rm -rf %{buildroot}%{_docdir}
+	rm -rf %{buildroot}%{_mandir}
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm

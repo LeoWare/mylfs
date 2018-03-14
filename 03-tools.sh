@@ -1,10 +1,10 @@
 #!/bin/bash
 #################################################
-#	Title:	03-tools.sh			#
-#        Date:	2017-12-12			#
-#     Version:	1.1				#
-#      Author:	baho-utot@columbus.rr.com	#
-#     Options:					#
+#	Title:	03-tools.sh											#
+#        Date:	2017-12-12										#
+#     Version:	1.1												#
+#      Author:	baho-utot@columbus.rr.com							#
+#     Options:													#
 #################################################
 set -o errexit		# exit if error...insurance ;)
 set -o nounset		# exit if variable not initalized
@@ -323,12 +323,12 @@ LIST+="texinfo "		#    Texinfo-6.5
 LIST+="util-linux "		#    Util-linux-2.31.1
 LIST+="xz "			#    Xz-5.2.3
 #	package manager
-#LIST+="zlib "
-#LIST+="libelf "
-#LIST+="openssl "
-#LIST+="popt "
-#LIST+="rpm "
-#LIST+="post "
+LIST+="zlib "
+LIST+="libelf "
+LIST+="openssl "
+LIST+="popt "
+LIST+="rpm "
+LIST+="post "
 for i in ${LIST};do
 	rm -rf BUILD BUILDROOT
 	case ${i} in

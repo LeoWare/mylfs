@@ -1,11 +1,11 @@
 Summary:	The popt package contains the popt libraries which are used by some programs to parse command-line options. 
-Name:		tools-popt
+Name:	tools-popt
 Version:	1.16
 Release:	1
 License:	GPL
 URL:		http://rpm5.org/files/popt
-Group:		LFS/Tools
-Vendor:		Octothorpe
+Group:	LFS/Tools
+Vendor:	Octothorpe
 Source0:	http://rpm5.org/files/popt/popt-%{version}.tar.gz
 %description
 The popt package contains the popt libraries which are used by some programs to parse command-line options. 
@@ -20,7 +20,7 @@ The popt package contains the popt libraries which are used by some programs to 
 %install
 	make DESTDIR=%{buildroot} install
 	#	find %{buildroot} -name '*.la' -delete
-	rm -rf %{buildroot}/tools/share
+	rm -rf %{buildroot}%{_datarootdir}
 	#	Create file list	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
