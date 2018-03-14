@@ -5,3 +5,5 @@ REQUIRES
 RPMS
 SOURCES
 SRPMS
+rsync.sh
+gitter.sh

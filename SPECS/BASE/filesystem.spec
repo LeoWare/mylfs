@@ -1,23 +1,20 @@
-Summary:	Default file system
-Name:		filesystem
+Summary:		Default file system
+Name:	filesystem
 Version:	8.1
 Release:	1
 License:	MIT
-Group:		LFS/Base
-Vendor:		Bildanet
+Group:	LFS/Base
+Vendor:	Octothorpe
 URL:		http://www.linuxfromscratch.org
 Distribution:	Octothorpe
 BuildArch:	noarch
-
 %description
 The filesystem package is one of the basic packages that is installed
 on a Linux system. Filesystem contains the basic directory
 layout for a Linux operating system, including the correct permissions
 for the directories.
-
 %prep
 %build
-
 %install
 	#
 	#	6.2. Preparing Virtual Kernel File Systems
@@ -537,7 +534,7 @@ for the directories.
    %config(noreplace)	/etc/lfs-release
    %config(noreplace)	/etc/lsb-release
    %config(noreplace)	/etc/modprobe.d/usb.conf
-   %config(noreplace)	/etc/profile
+#   %%config(noreplace)	/etc/profile
    %config(noreplace)	/etc/resolv.conf
    %config(noreplace)	/etc/shells
    %config(noreplace)	/etc/sysconfig/clock
