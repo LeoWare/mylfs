@@ -1,12 +1,12 @@
 Summary:	Linux API header files
-Name:		linux-api-headers
-Version:	4.9.67
+Name:	linux-api-headers
+Version:	4.15.3
 Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/
-Group:		LFS/Base
-Vendor:		Octothorpe
-Distribution:	LFS-8.1
+Group:	LFS/Base
+Vendor:	Octothorpe
+Distribution:	LFS-8.2
 Requires:	filesystem
 Source0:	http://www.kernel.org/pub/linux/kernel/v4.x/linux-%{version}.tar.xz
 BuildArch:	noarch
@@ -28,7 +28,8 @@ The Linux API Headers expose the kernel's API for use by Glibc.
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog
-*	Wed Jan 31 2018 baho-utot <baho-utot@columbus.rr.com> 4.9.67-1
+*	Thu Mar 15 2018 baho-utot <baho-utot@columbus.rr.com> 4.15.3-1
+*	Wed Jan 31 2018 baho-utot <baho-utot@columbus.rr.com> 4.9.67-2
 *	Tue Dec 19 2017 baho-utot <baho-utot@columbus.rr.com> 4.9.67-1
 -	update to version 4.9.67
 *	Sat Mar 22 2014 baho-utot <baho-utot@columbus.rr.com> 3.13.3-1

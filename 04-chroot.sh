@@ -1,21 +1,21 @@
 #!/tools/bin/bash
-#################################################
-#	Title:	04-chroot.sh			#
-#        Date:	2017-01-03			#
-#     Version:	1.1				#
-#      Author:	baho-utot@columbus.rr.com	#
-#     Options:					#
-#################################################
-#set -o errexit		# exit if error...insurance ;)
-set -o nounset		# exit if variable not initalized
+#######################################################################
+#	Title:	04-chroot.sh							#
+#        Date:	2017-01-03						#
+#     Version:	1.1							#
+#      Author:	baho-utot@columbus.rr.com				#
+#     Options:								#
+#######################################################################
+#set -o errexit	# exit if error...insurance ;)
+set -o nounset	# exit if variable not initalized
 set +h			# disable hashall
 PRGNAME=${0##*/}	# script name minus the path
 TOPDIR=${PWD}
 LFS=/mnt/lfs
 PARENT=/usr/src/Octothorpe
 LOGFILE=$(date +%Y-%m-%d).log
-LOGFILE=${TOPDIR}/LOGS/${PRGNAME}		# set log file name
-#LOGFILE=/dev/null				# uncomment to disable log file
+LOGFILE=${TOPDIR}/LOGS/${PRGNAME}	# set log file name
+#LOGFILE=/dev/null			# uncomment to disable log file
 #
 #	Standard functions
 #

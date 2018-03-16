@@ -1,13 +1,13 @@
 #!/bin/bash
-#################################################
-#	Title:	03-tools.sh											#
-#        Date:	2017-12-12										#
-#     Version:	1.1												#
-#      Author:	baho-utot@columbus.rr.com							#
-#     Options:													#
-#################################################
-set -o errexit		# exit if error...insurance ;)
-set -o nounset		# exit if variable not initalized
+##################################################
+#	Title:	03-tools.sh				#
+#        Date:	2017-12-12			#
+#     Version:	1.1				#
+#      Author:	baho-utot@columbus.rr.com	#
+#     Options:					#
+##################################################
+set -o errexit	# exit if error...insurance ;)
+set -o nounset	# exit if variable not initalized
 set +h			# disable hashall
 PRGNAME=${0##*/}	# script name minus the path
 TOPDIR=${PWD}		# script lives here
@@ -276,7 +276,7 @@ _post() {
 #
 #	Main line	
 #
-[ "lfs" != $(whoami) ]				&& die  "	Not lfs user: FAILURE"
+[ "lfs" != $(whoami) ]			&& die  "	Not lfs user: FAILURE"
 [ -z "${LFS_TGT}" ]				&& die "	Environment not set: FAILURE"
 [ ${PATH} = "/tools/bin:/bin:/usr/bin" ]	|| die "	Path not set: FAILURE"
 [ -z ${PARENT} ]				&& die "	Variable: PARENT not set: FAILURE"
@@ -335,12 +335,12 @@ for i in ${LIST};do
 		prepare)	_prepare ${i}		;;
 		glibc)		_glibc ${i}		;;
 		gcc-pass-2)	_gcc-pass-2 ${i}	;;
-		stripping)	_stripping ${i}		;;
+		stripping)	_stripping ${i}	;;
 		chown)		_chown ${i}		;;
 		post)		_post ${i}		;;
 		*)		maker ${i}	
 				info  ${i}
-				installer ${i}		;;
+				installer ${i}	;;
 	esac
 done
 end-run

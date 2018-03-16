@@ -1,16 +1,16 @@
 #!/bin/bash
-#################################################
-#	Title:	01-setup.sh			#
+##################################################
+#	Title:	01-setup.sh				#
 #        Date:	2018-03-10			#
 #     Version:	1.2				#
 #      Author:	baho-utot@columbus.rr.com	#
 #     Options:					#
-#################################################
+##################################################
 #
-set -o errexit					# exit if error...insurance ;)
-set -o nounset					# exit if variable not initalized
-set +h						# disable hashall
-PRGNAME=${0##*/}				# script name minus the path
+set -o errexit			# exit if error...insurance ;)
+set -o nounset			# exit if variable not initalized
+set +h					# disable hashall
+PRGNAME=${0##*/}			# script name minus the path
 TOPDIR=${PWD}
 LFS=/mnt/lfs
 PARENT=/usr/src/Octothorpe
@@ -316,7 +316,6 @@ _setup_user() {
 	msg_success
 	return
 }
-
 #
 #	Main line
 #
