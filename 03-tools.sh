@@ -113,7 +113,12 @@ installer(){	#	$1:	name of package
 _prepare() {
 	local _log="${LOGPATH}/${1}"
 	[ -e "${LOGPATH}/${1}" ] && return
-	msg_line "	Installing macros file: " 
+	msg_line "	Installing macros file: "
+#	CPPFLAGS="-D_FORTIFY_SOURCE=2"
+#	CFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt"
+#	CXXFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt"
+#	LDFLAGS="-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now"
+#	-Wl,--build-id=none
 	cat > /home/lfs/.rpmmacros <<- EOF
 		#
 		#	System settings
@@ -132,12 +137,13 @@ _prepare() {
 		%_sharedstatedir	%{_prefix}/var/lib
 		%_localstatedir		%{_prefix}/var
 		%_tmppath		%{_prefix}/var/tmp
+		%_build_id_links none
 	EOF
+	msg_success
 	msg_line "	Creating rpm database path: "
 		install -dm 755 ${LFS}/var/lib/rpm
 	msg_success
 	touch ${_log}
-	msg_success
 	return
 }
 _glibc() {
@@ -294,18 +300,18 @@ LIST+="prepare "		#    At the ready
 LIST+="binutils-pass-1 "	#    Binutils-2.30 - Pass 1
 LIST+="gcc-pass-1 "		#    GCC-7.3.0 - Pass 1
 LIST+="linux-api-headers "	#    Linux-4.15.3 API Headers
-LIST+="glibc "			#    Glibc-2.27
+LIST+="glibc "		#    Glibc-2.27
 LIST+="libstdc "		#    Libstdc++-7.3.0
 LIST+="binutils-pass-2 "	#    Binutils-2.30 - Pass 2
 LIST+="gcc-pass-2 "		#    GCC-7.3.0 - Pass 2
 LIST+="tcl-core "		#    Tcl-core-8.6.8
-LIST+="expect "			#    Expect-5.45.4
+LIST+="expect "		#    Expect-5.45.4
 LIST+="dejagnu "		#    DejaGNU-1.6.1
 LIST+="m4 "			#    M4-1.4.18
 LIST+="ncurses "		#    Ncurses-6.1
 LIST+="bash "			#    Bash-4.4.18
-LIST+="bison "			#    Bison-3.0.4
-LIST+="bzip2 "			#    Bzip2-1.0.6
+LIST+="bison "		#    Bison-3.0.4
+LIST+="bzip2 "		#    Bzip2-1.0.6
 LIST+="coreutils "		#    Coreutils-8.29
 LIST+="diffutils "		#    Diffutils-3.6
 LIST+="file "			#    File-5.32
@@ -315,7 +321,7 @@ LIST+="gettext "		#    Gettext-0.19.8.1
 LIST+="grep "			#    Grep-3.1
 LIST+="gzip "			#    Gzip-1.9
 LIST+="make "			#    Make-4.2.1
-LIST+="patch "			#    Patch-2.7.6
+LIST+="patch "		#    Patch-2.7.6
 LIST+="perl "			#    Perl-5.26.1
 LIST+="sed "			#    Sed-4.4
 LIST+="tar "			#    Tar-1.30

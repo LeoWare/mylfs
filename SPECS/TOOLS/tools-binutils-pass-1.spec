@@ -1,3 +1,4 @@
+%define  debug_package_post %{nil}
 Summary:	The Binutils package contains a linker, an assembler, and tools
 Name:		tools-binutils-pass-1
 Version:	2.30
@@ -20,10 +21,11 @@ and other tools for handling object files.
 		--with-lib-path=%{_libdir} \
 		--target=%{_lfs_tgt} \
 		--disable-nls \
-		--disable-werror
+		--disable-werror		
 	make %{?_smp_mflags}
 %install
 	cd build
+#	%%make_install
 	make DESTDIR=%{buildroot} install
 %ifarch x86_64
 	install -vdm 755 %{buildroot}%{_libdir}
@@ -35,7 +37,6 @@ and other tools for handling object files.
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-#	sed -i '/man/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,lfs,lfs)
 %ifarch x86_64

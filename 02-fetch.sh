@@ -79,6 +79,6 @@ _fetch_source() {
 [ -z ${LFS} ]			&& { echo "${PRGNAME}: LFS: not set";exit 1; }
 [ -z ${PARENT} ]		&& { echo "${PRGNAME}: PARENT: not set";exit 1; }
 [ -z ${LOGFILE} ]		&& { echo "${PRGNAME}: LOGFILE: not set";exit 1; }
-[ -x /usr/bin/getent ]		|| { echo "${PRGNAME}: getent: missing: can not continue";exit 1; }
+[ -x /usr/bin/getent ]	|| { echo "${PRGNAME}: getent: missing: can not continue";exit 1; }
 _fetch_source			#	Fetch source packages
 end-run

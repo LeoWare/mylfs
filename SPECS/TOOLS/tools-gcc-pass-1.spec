@@ -27,7 +27,6 @@ Source3:	http://www.mpfr.org/mpfr-3.1.5/mpfr-4.0.1.tar.xz
 		printf "%s\n"	'#undef STANDARD_STARTFILE_PREFIX_2'			>> ${file}
 		printf "%s\n"	'#define STANDARD_STARTFILE_PREFIX_1 "/tools/lib/"'	>> ${file}
 		printf "%s\n"	'#define STANDARD_STARTFILE_PREFIX_2 ""'		>> ${file}
-		#grep '/tools/lib' ${file}
 		touch ${file}.orig
 	done
 %ifarch x86_64
@@ -76,5 +75,3 @@ Source3:	http://www.mpfr.org/mpfr-3.1.5/mpfr-4.0.1.tar.xz
 *	Sat Mar 10 2018 baho-utot <baho-utot@columbus.rr.com> 7.3.0-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 7.2.0-1
 -	LFS-8.1
-
-
