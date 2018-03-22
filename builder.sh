@@ -89,7 +89,7 @@ rpm_params() {
 }
 rpm_install() {
 	local _log="${LOGS}/${rpm_name}"
-	msg_line "	Installing: ${1}: "
+	msg_line "	Installing: ${rpm_binary}: "
 	rpm -Uvh --nodeps "${RPMS}/${rpm_arch}/${rpm_binary}" >> "${_log}" 2>&1  && msg_success || msg_failure
 	return
 }
