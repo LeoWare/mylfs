@@ -68,8 +68,8 @@ rpm_params() {
 	local i=""
 	rpm_arch=$(uname -m)
 	if [ -e ${rpm_spec} ]; then
-		while  IFS='\n' read i; do
-			i=$( echo ${i} | tr -d '[:cntrl:][:space:]')
+		while  read i; do
+			i=$(echo ${i} | tr -d '[:cntrl:][:space:]')
 			case ${i} in
 				Name:*)	rpm_name=${i##Name:}			;;
 				Version:*)	rpm_version=${i##Version:}		;;
@@ -90,7 +90,7 @@ rpm_params() {
 rpm_install() {
 	local _log="${LOGS}/${rpm_name}"
 	msg_line "	Installing: ${rpm_binary}: "
-	rpm -Uvh --nodeps "${RPMS}/${rpm_arch}/${rpm_binary}" >> "${_log}" 2>&1  && msg_success || msg_failure
+	rpm -Uvh --nodeps --force "${RPMS}/${rpm_arch}/${rpm_binary}" >> "${_log}" 2>&1  && msg_success || msg_failure
 	return
 }
 rpm_build() {

@@ -1,13 +1,27 @@
+FIX:
+
++ /usr/bin/rm -rf /mnt/lfs/usr/src/Octothorpe/BUILDROOT/tools-gcc-pass-2-7.3.0-1.x86_64
++ exit 0
+Preparing...                          ########################################
+	file /tools/lib/libcc1.so.0.0.0 from install of tools-gcc-pass-2-7.3.0-1.x86_64 conflicts with file from package tools-gcc-pass-1-7.3.0-1.x86_64
+	file /tools/lib/libstdc++.a from install of tools-gcc-pass-2-7.3.0-1.x86_64 conflicts with file from package tools-libstdc-7.3.0-1.x86_64
+	file /tools/lib/libstdc++.so.6.0.24 from install of tools-gcc-pass-2-7.3.0-1.x86_64 conflicts with file from package tools-libstdc-7.3.0-1.x86_64
+	file /tools/lib/libstdc++fs.a from install of tools-gcc-pass-2-7.3.0-1.x86_64 conflicts with file from package tools-libstdc-7.3.0-1.x86_64
+	file /tools/lib/libsupc++.a from install of tools-gcc-pass-2-7.3.0-1.x86_64 conflicts with file from package tools-libstdc-7.3.0-1.x86_64
+Preparing...                          ########################################
+Updating / installing...
+tools-gcc-pass-2-7.3.0-1              ########################################
+
 What exactly are these messages about? I don't recall seeing them before.
 
 dmesg | grep 'used greatest stack depth'
 
-Code:	
+Code:
 
 [    0.132082] kworker/u16:0 (42) used greatest stack depth: 14040 bytes left
 [    1.056243] kworker/u16:5 (1235) used greatest stack depth: 13016 bytes left
 [    1.701475] systemd-fstab-g (1259) used greatest stack depth: 12840 bytes left
-[   10.345022] systemd-udevd (2024) used greatest stack depth: 11696 bytes left 
+[   10.345022] systemd-udevd (2024) used greatest stack depth: 11696 bytes left
 
 You have stack instrumentation turned on in your kernel. These are benign until you hit 0 stack.
 
@@ -79,9 +93,6 @@ Requires(postun): /usr/sbin/userdel
 	# End /boot/grub/grub.cfg
 	 EOF
 
-
-%define		dist .LFS
-Release:	1%{?dist}
 
 find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm

@@ -34,5 +34,3 @@ readelf -l a.out | grep ': /tools' >> ${_log} 2>&1
 printf "%s\n" "Output: [Requesting program interpreter: /tools/lib64/ld-linux-x86-64.so.2]" >> ${_log} 2>&1
 rm dummy.c a.out || true
 printf "%s\n" "SUCCESS"
-
-
