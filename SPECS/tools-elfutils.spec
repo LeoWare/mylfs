@@ -5,11 +5,11 @@ Release:	1
 License:	GPL
 URL:		https://sourceware.org/ftp/elfutils
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	https://sourceware.org/ftp/elfutils/0.170/elfutils-%{version}.tar.bz2
 %description
 	The elfutils package contains a set of utilities and libraries for handling ELF
-	(Executable and Linkable Format) files. 
+	(Executable and Linkable Format) files.
 %prep
 %setup -q -n elfutils-%{version}
 %build

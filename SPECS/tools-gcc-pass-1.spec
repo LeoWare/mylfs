@@ -4,13 +4,14 @@ Version:	7.3.0
 Release:	1
 License:	GPLv2
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
+Requires:	tools-ninutils-pass-1
 Source0:	http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 Source1:	http://ftp.gnu.org/gnu/gmp/gmp-6.1.2.tar.xz
 Source2:	http://www.multiprecision.org/mpc/download/mpc-1.1.0.tar.gz
 Source3:	http://www.mpfr.org/mpfr-3.1.5/mpfr-4.0.1.tar.xz
 %description
-	The GCC package contains the GNU compiler collection, which includes the C and C++ compilers. 
+	The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
 %prep
 %setup -q -n gcc-%{version}
 %setup -q -T -D -a 1 -n gcc-%{version}

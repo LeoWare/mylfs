@@ -1,11 +1,12 @@
 Summary:	RPM package manager
-Name:	tools-rpm
+Name:		tools-rpm
 Version:	4.14.1
 Release:	1
 License:	GPL
 URL:		http://ftp.rpm.org/releases/rpm-4.14.x
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
+Requires:	tools-popt
 Source0:	http://ftp.rpm.org/releases/rpm-4.14.x/rpm-%{version}.tar.bz2
 Source1:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
 %define	LFS	/mnt/lfs

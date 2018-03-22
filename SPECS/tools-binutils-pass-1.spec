@@ -6,8 +6,8 @@ Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/binutils
 Group:		LFS/Tools
-Vendor:		Octothorpe
-Source:		http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
+Vendor:	Octothorpe
+Source:	http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
 %description
 The Binutils package contains a linker, an assembler,
 and other tools for handling object files.
@@ -21,7 +21,7 @@ and other tools for handling object files.
 		--with-lib-path=%{_libdir} \
 		--target=%{_lfs_tgt} \
 		--disable-nls \
-		--disable-werror		
+		--disable-werror
 	make %{?_smp_mflags}
 %install
 	cd build
@@ -29,7 +29,7 @@ and other tools for handling object files.
 	make DESTDIR=%{buildroot} install
 %ifarch x86_64
 	install -vdm 755 %{buildroot}%{_libdir}
-	ln -sv lib %{buildroot}%_lib64	
+	ln -sv lib %{buildroot}%_lib64
 %endif
 	rm -rf %{buildroot}%{_datarootdir}
 	cd -

@@ -1,14 +1,15 @@
-Summary:	The Diffutils package contains programs that show the differences between files or directories. 
+Summary:	The Diffutils package contains programs that show the differences between files or directories.
 Name:		tools-diffutils
 Version:	3.6
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/diffutils
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
+Requires:	tools-coreutils
 Source0:	http://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 %description
-	The Diffutils package contains programs that show the differences between files or directories. 
+	The Diffutils package contains programs that show the differences between files or directories.
 %prep
 %setup -q -n diffutils-%{version}
 %build

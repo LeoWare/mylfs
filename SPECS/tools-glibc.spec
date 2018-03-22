@@ -5,14 +5,15 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/glibc
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
+Requires:	tools-linux-api-headers
 Source0:	http://ftp.gnu.org/gnu/glibc/glibc-%{version}.tar.xz
 %description
-	The Glibc package contains the main C library. 
-	This library provides the basic routines for allocating memory, 
-	searching directories, opening and closing files, 
-	reading and writing files, string handling, 
-	pattern matching, arithmetic, and so on. 
+	The Glibc package contains the main C library.
+	This library provides the basic routines for allocating memory,
+	searching directories, opening and closing files,
+	reading and writing files, string handling,
+	pattern matching, arithmetic, and so on.
 %prep
 %setup -q -n glibc-%{version}
 mkdir -v build

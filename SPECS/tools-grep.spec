@@ -1,14 +1,15 @@
-Summary:	The Grep package contains programs for searching through files. 	
+Summary:	The Grep package contains programs for searching through files.
 Name:		tools-grep
 Version:	3.1
 Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/grep
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
+Requires:	tools-gettext
 Source0:	http://ftp.gnu.org/gnu/grep/grep-%{version}.tar.xz
 %description
-	The Grep package contains programs for searching through files. 
+	The Grep package contains programs for searching through files.
 %prep
 %setup -q -n grep-%{version}
 %build

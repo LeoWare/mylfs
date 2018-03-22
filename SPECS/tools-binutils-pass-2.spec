@@ -1,14 +1,15 @@
-Summary:	The Binutils package contains a linker, an assembler, and other tools for handling object files. 
+Summary:	The Binutils package contains a linker, an assembler, and other tools for handling object files.
 Name:		tools-binutils-pass-2
 Version:	2.30
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/binutils
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
+Requires:	tools-libstdc
 Source0:	http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
 %description
-	The Binutils package contains a linker, an assembler, and other tools for handling object files. 
+	The Binutils package contains a linker, an assembler, and other tools for handling object files.
 %prep
 %setup -q -n binutils-%{version}
 mkdir -v build

@@ -1,14 +1,15 @@
-Summary:	The Coreutils package contains utilities for showing and setting the basic system characteristics. 
+Summary:	The Coreutils package contains utilities for showing and setting the basic system characteristics.
 Name:		tools-coreutils
 Version:	8.29
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/coreutils
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
+Requires:	tools-bzip2
 Source0:	http://ftp.gnu.org/gnu/coreutils/coreutils-%{version}.tar.xz
 %description
-	The Coreutils package contains utilities for showing and setting the basic system characteristics. 
+	The Coreutils package contains utilities for showing and setting the basic system characteristics.
 %prep
 %setup -q -n coreutils-%{version}
 %build

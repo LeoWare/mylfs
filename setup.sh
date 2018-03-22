@@ -270,14 +270,10 @@ _copy_source() {
 	msg_line "	Installing build system: "
 	[ ${EUID} -eq 0 ] || die "Need to be root user"
 	install -dm 755 ${LFS}/${PARENT}
-	install -dm 755 ${LFS}/${PARENT}/INFO/BASE
-	install -dm 755 ${LFS}/${PARENT}/INFO/TOOLS
-	install -dm 755 ${LFS}/${PARENT}/LOGS/BASE
-	install -dm 755 ${LFS}/${PARENT}/LOGS/TOOLS
-	install -dm 755 ${LFS}/${PARENT}/PROVIDES/BASE
-	install -dm 755 ${LFS}/${PARENT}/PROVIDES/TOOLS
-	install -dm 755 ${LFS}/${PARENT}/REQUIRES/BASE
-	install -dm 755 ${LFS}/${PARENT}/REQUIRES/TOOLS
+	install -dm 755 ${LFS}/${PARENT}/INFO
+	install -dm 755 ${LFS}/${PARENT}/LOGS
+	install -dm 755 ${LFS}/${PARENT}/PROVIDES
+	install -dm 755 ${LFS}/${PARENT}/REQUIRES
 	install -dm 755 ${LFS}/${PARENT}/SOURCES
 	cp -ar * ${LFS}${PARENT}
 	#	cp -a SOURCES/* ${LFS}${PARENT}/SOURCES

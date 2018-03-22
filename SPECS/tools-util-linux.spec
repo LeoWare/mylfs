@@ -1,14 +1,15 @@
-Summary:	The Util-linux package contains miscellaneous utility programs. 	
+Summary:	The Util-linux package contains miscellaneous utility programs.
 Name:		tools-util-linux
 Version:	2.31.1
 Release:	1
 License:	GPL
 URL:		https://www.kernel.org/pub/linux/utils/util-linux/v2.30
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
+Requires:	tools-texinfo
 Source0:	https://www.kernel.org/pub/linux/utils/util-linux/v2.30/util-linux-%{version}.tar.xz
 %description
-	The Util-linux package contains miscellaneous utility programs. 
+	The Util-linux package contains miscellaneous utility programs.
 %prep
 %setup -q -n util-linux-%{version}
 %build

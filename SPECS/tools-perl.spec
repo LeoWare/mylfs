@@ -1,18 +1,19 @@
-Summary:	The Perl package contains the Practical Extraction and Report Language. 	
+Summary:	The Perl package contains the Practical Extraction and Report Language.
 Name:		tools-perl
 Version:	5.26.1
 Release:	1
 License:	GPL
 URL:		http://www.cpan.org/src/5.0
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
+Requires:	tools-patch
 Source0:	http://www.cpan.org/src/5.0/perl-%{version}.tar.xz
 %description
-	The Perl package contains the Practical Extraction and Report Language. 
+	The Perl package contains the Practical Extraction and Report Language.
 %prep
 %setup -q -n perl-%{version}
 %build
-	sh Configure -des -Dprefix=%{_prefix} -Dlibs=-lm 
+	sh Configure -des -Dprefix=%{_prefix} -Dlibs=-lm
 	make %{?_smp_mflags}
 %install
 	install -vdm 755 %{buildroot}%{_bindir}

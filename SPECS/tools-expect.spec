@@ -1,14 +1,15 @@
-Summary:	The Expect package contains a program for carrying out scripted dialogues with other interactive programs. 		
+Summary:	The Expect package contains a program for carrying out scripted dialogues with other interactive programs.
 Name:		tools-expect
 Version:	5.45.4
 Release:	1
 License:	GPL
 URL:		http://prdownloads.sourceforge.net/expect
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
+Requires:	tools-tcl-core
 Source0:	http://prdownloads.sourceforge.net/expect/expect%{version}.tar.gz
 %description
-	The Expect package contains a program for carrying out scripted dialogues with other interactive programs. 
+	The Expect package contains a program for carrying out scripted dialogues with other interactive programs.
 %prep
 %setup -q -n expect%{version}
 %build

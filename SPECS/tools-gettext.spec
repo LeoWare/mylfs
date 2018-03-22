@@ -1,11 +1,12 @@
-Summary:	The Gettext package contains utilities for internationalization and localization	
+Summary:	The Gettext package contains utilities for internationalization and localization
 Name:		tools-gettext
 Version:	0.19.8.1
 Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gettext
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
+Requires:	tools-gawk
 Source0:	http://ftp.gnu.org/gnu/gettext/gettext-%{version}.tar.xz
 %description
 %prep

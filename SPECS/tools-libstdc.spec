@@ -5,10 +5,11 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gcc
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
+Requires:	tools-glibc
 Source0:	http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 %description
-	Libstdc++ is the standard C++ library. It is needed for the correct operation of the g++ compiler. 
+	Libstdc++ is the standard C++ library. It is needed for the correct operation of the g++ compiler.
 %prep
 %setup -q -n gcc-%{version}
 mkdir -v build

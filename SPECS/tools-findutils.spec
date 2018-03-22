@@ -5,13 +5,14 @@ Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/findutils
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
+Requires:	tools-file
 Source0:	http://ftp.gnu.org/gnu/findutils/findutils-%{version}.tar.gz
 %description
 	The Findutils package contains programs to find files. These programs are provided
 	to recursively search through a directory tree and to create, maintain, and search
 	a database (often faster than the recursive find, but unreliable if the database
-	has not been recently updated). 
+	has not been recently updated).
 %prep
 %setup -q -n findutils-%{version}
 %build

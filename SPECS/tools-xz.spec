@@ -1,17 +1,18 @@
-Summary:	The Xz package contains programs for compressing and decompressing files.	
+Summary:	The Xz package contains programs for compressing and decompressing files.
 Name:		tools-xz
 Version:	5.2.3
 Release:	2
 License:	GPL
 URL:		http://tukaani.org/xz
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor		Octothorpe
+Requires:	tools-util-linux
 Source0:	http://tukaani.org/xz/xz-%{version}.tar.xz
 %description
 	The Xz package contains programs for compressing and decompressing files.
 	It provides capabilities for the lzma and the newer xz compression formats.
 	Compressing text files with xz yields a better compression percentage than
-	with the traditional gzip or bzip2 commands. 
+	with the traditional gzip or bzip2 commands.
 %prep
 %setup -q -n xz-%{version}
 %build

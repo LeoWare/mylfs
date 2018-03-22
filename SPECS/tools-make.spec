@@ -1,20 +1,21 @@
-Summary:	The Make package contains a program for compiling packages. 	
+Summary:	The Make package contains a program for compiling packages.
 Name:		tools-make
 Version:	4.2.1
 Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/make
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
+Requires:	tools-gzip
 Source0:	http://ftp.gnu.org/gnu/make/make-%{version}.tar.bz2
 %description
-	The Make package contains a program for compiling packages. 
+	The Make package contains a program for compiling packages.
 %prep
 %setup -q -n make-%{version}
 sed -i '211,217 d; 219,229 d; 232 d' glob/glob.c
 %build
 	./configure --prefix=%{_prefix} \
-		--without-guile 
+		--without-guile
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
