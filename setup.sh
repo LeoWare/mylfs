@@ -293,18 +293,18 @@ _setup_user() {
 	/usr/bin/getent passwd lfs > /dev/null 2>&1 || /usr/sbin/useradd  -c 'LFS user' -g lfs -m -k /dev/null -s /bin/bash lfs
 	/usr/bin/getent passwd lfs > /dev/null 2>&1 && passwd --delete lfs > /dev/null 2>&1
 	[ -d /home/lfs ] || install -dm 755 /home/lfs
-#	cat > /home/lfs/.bash_profile <<- EOF
-#		exec env -i HOME=/home/lfs TERM=${TERM} PS1='\u:\w\$ ' /bin/bash
-#	EOF
-#	cat > /home/lfs/.bashrc <<- EOF
-#		set +h
-#		umask 022
-#		LFS=/mnt/lfs
-#		LC_ALL=POSIX
-#		LFS_TGT=$(uname -m)-lfs-linux-gnu
-#		PATH=/tools/bin:/bin:/usr/bin
-#		export LFS LC_ALL LFS_TGT PATH
-#	EOF
+	cat > /home/lfs/.bash_profile <<- EOF
+		exec env -i HOME=/home/lfs TERM=${TERM} PS1='\u:\w\$ ' /bin/bash
+	EOF
+	cat > /home/lfs/.bashrc <<- EOF
+		set +h
+		umask 022
+		LFS=/mnt/lfs
+		LC_ALL=POSIX
+		LFS_TGT=$(uname -m)-lfs-linux-gnu
+		PATH=/tools/bin:/bin:/usr/bin
+		export LFS LC_ALL LFS_TGT PATH
+	EOF
 	cat > /home/lfs/.rpmmacros <<- EOF
 		#
 		#	System settings
