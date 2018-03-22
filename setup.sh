@@ -1,8 +1,8 @@
 #!/bin/bash
 ##################################################
 #	Title:	01-setup.sh				#
-#        Date:	2018-03-10			#
-#     Version:	1.2				#
+#        Date:	2018-03-21			#
+#     Version:	1.3				#
 #      Author:	baho-utot@columbus.rr.com	#
 #     Options:					#
 ##################################################
@@ -61,8 +61,8 @@ end-run() {
 _setup_directories() {
 	#	Setup base directories
 	msg_line "	Creating base directories: "
-	[ -d ${LFS} ] 		&& rm -rf ${LFS}/*
-	[ -d ${LFS} ] 		|| install -dm 755 ${LFS}
+	[ -d ${LFS} ] 	&& rm -rf ${LFS}/*
+	[ -d ${LFS} ] 	|| install -dm 755 ${LFS}
 	[ -d ${LFS}/tools ]	|| install -dm 755 ${LFS}/tools
 	[ -h /tools ]		|| ln -vs ${LFS}/tools /
 	msg_success
@@ -174,9 +174,6 @@ _wget_list() {
 	return
 }
 _md5sum_list(){
-	cat > ${LFS}/${PARENT}/SOURCES/md5sum-list <<- EOF
-
-	EOF
 	#
 	#	Add rpm packages and openssh
 	#
@@ -296,17 +293,37 @@ _setup_user() {
 	/usr/bin/getent passwd lfs > /dev/null 2>&1 || /usr/sbin/useradd  -c 'LFS user' -g lfs -m -k /dev/null -s /bin/bash lfs
 	/usr/bin/getent passwd lfs > /dev/null 2>&1 && passwd --delete lfs > /dev/null 2>&1
 	[ -d /home/lfs ] || install -dm 755 /home/lfs
-	cat > /home/lfs/.bash_profile <<- EOF
-		exec env -i HOME=/home/lfs TERM=${TERM} PS1='\u:\w\$ ' /bin/bash
-	EOF
-	cat > /home/lfs/.bashrc <<- EOF
-		set +h
-		umask 022
-		LFS=/mnt/lfs
-		LC_ALL=POSIX
-		LFS_TGT=$(uname -m)-lfs-linux-gnu
-		PATH=/tools/bin:/bin:/usr/bin
-		export LFS LC_ALL LFS_TGT PATH
+#	cat > /home/lfs/.bash_profile <<- EOF
+#		exec env -i HOME=/home/lfs TERM=${TERM} PS1='\u:\w\$ ' /bin/bash
+#	EOF
+#	cat > /home/lfs/.bashrc <<- EOF
+#		set +h
+#		umask 022
+#		LFS=/mnt/lfs
+#		LC_ALL=POSIX
+#		LFS_TGT=$(uname -m)-lfs-linux-gnu
+#		PATH=/tools/bin:/bin:/usr/bin
+#		export LFS LC_ALL LFS_TGT PATH
+#	EOF
+	cat > /home/lfs/.rpmmacros <<- EOF
+		#
+		#	System settings
+		#
+		%_lfs			/mnt/lfs
+		%_lfs_tgt		x86_64-lfs-linux-gnu
+		%_topdir		%{_lfs}/usr/src/Octothorpe
+		%_dbpath		%{_lfs}/var/lib/rpm
+		%_prefix		/tools
+		%_docdir		%{_prefix}/share/doc
+		%_lib			%{_prefix}/lib
+		%_bindir		%{_prefix}/bin
+		%_libdir		%{_prefix}/lib
+		%_lib64		%{_prefix}/lib64
+		%_var			%{_prefix}/var
+		%_sharedstatedir	%{_prefix}/var/lib
+		%_localstatedir	%{_prefix}/var
+		%_tmppath		%{_prefix}/var/tmp
+		%_build_id_links none
 	EOF
 	[ -d ${LFS} ]			|| install -dm 755 ${LFS}
 	[ -d ${LFS}/tools ]		|| install -dm 755 ${LFS}/tools

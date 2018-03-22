@@ -1,22 +1,26 @@
 Summary:	Main C library
 Name:		glibc
-Version:	2.26
+Version:	2.27
 Release:	1
-License:	GPLv3
+License:	GPLv2
 URL:		http://www.gnu.org/software/libc
 Group:		LFS/Base
-Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
+Vendor:	Octothorpe
+Distribution:	LFS-8.2
 Requires:	filesystem
 Source0:	http://ftp.gnu.org/gnu/glibc/%{name}-%{version}.tar.xz
-Patch0:		glibc-2.26-fhs-1.patch
+Patch0:	glibc-2.27-fhs-1.patch
 %description
 This library provides the basic routines for allocating memory,
 searching directories, opening and closing files, reading and
 writing files, string handling, pattern matching, arithmetic,
 and so on.
-%define		GCC_INCDIR	gcc -isystem /usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/include -isystem /usr/include
+%ifarch x86_64
+%define	GCC_INCDIR	/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include
+%endif
+%ifarch 386
+%define	GCC_INCDIR	/usr/lib/gcc/$(uname -m)-pc-linux-gnu/7.3.0/include
+%endif
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %patch0 -p1
@@ -27,13 +31,13 @@ and so on.
 	rm -f /usr/include/limits.h
 %build
 	cd build
-	CC='%{GCC_INCDIR}' \
+	CC='gcc -isystem %{GCC_INCDIR} -isystem /usr/include' \
 	../configure --prefix=%{_prefix} \
 		--disable-werror \
 		--enable-kernel=3.2 \
 		--enable-stack-protector=strong \
 		libc_cv_slibdir=/lib
-	make %{?_smp_mflags}
+		make %{?_smp_mflags}
 %install
 	cd build
 	touch /etc/ld.so.conf
@@ -131,14 +135,17 @@ and so on.
 		echo "Generation complete."
 	EOF
 	chmod 755 %{buildroot}/sbin/locale-gen.sh
+	#	Copy license/copying file 
+	install -D -m644 LICENSES %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	rm  %{buildroot}/usr/share/info/dir
+	rm -rf %{buildroot}/usr/share/info
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog
+*	Mon Mar 19 2018 baho-utot <baho-utot@columbus.rr.com> 2.27-1
 *	Wed Dec 20 2017 baho-utot <baho-utot@columbus.rr.com> 2.26-1
 *	Sat Mar 22 2014 baho-utot <baho-utot@columbus.rr.com> 2.19-1
 *	Sun Sep 01 2013 baho-utot <baho-utot@columbus.rr.com> 2.18-2

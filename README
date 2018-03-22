@@ -68,22 +68,22 @@ OK It's time to fish or cut bait:
 	Install build system 
 login as root user
 cd to directory where you placed and extracted the build system.
-./01-setup.sh			installs build system to
+./setup.sh			installs build system to
 				/mnt/lfs/usr/src/Octothorpe
 				and creates lfs user
 
 	Build tool chain
 login as lfs user
 cd /mnt/lfs/usr/src/Octothorpe	
-./02-fetch.sh			Gets source tarballs
-./03-tools.sh			Build the toolchain and a static rpm
+fetch.sh			Gets source tarballs
+./builder.sh tools-post	Build the toolchain and a static rpm
 
 	Build LFS system
 login as root
 cd /mnt/lfs/usr/src/Octothorpe	
-./04-chroot.sh			mount kernel filesystems and chroot
+chroot.sh			mount kernel filesystems and chroot
 cd /usr/src/Octothorpe		change to build directory
-./05-lfs.sh			build LFS base system
+./builder.sh linux			build LFS base system
 The last step will remove the toolchain and use vim to make
 modification to the conf files so when you reboot it will do the
 right thingy.

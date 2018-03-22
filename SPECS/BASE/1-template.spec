@@ -29,6 +29,8 @@ Source0:	%{name}-%{version}
 	#	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+	sed -i '/man\/man/d' filelist.rpm
+	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog

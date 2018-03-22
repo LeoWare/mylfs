@@ -1,19 +1,17 @@
 Summary:	Time zone data
 Name:		tzdata
-Version:	2017b
+Version:	2018c
 Release:	1
 URL:		http://www.iana.org/time-zones
 License:	GPLv3
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
-Requires:	filesystem
 Source0:	http://www.iana.org//time-zones/repository/releases/%{name}%{version}.tar.gz
 BuildArch:	noarch
 %description
 Sources for time zone and daylight saving time data
-%define blddir		%{name}-%{version}
+%define blddir	%{name}-%{version}
 %prep
 	rm -rf %{blddir}
 	install -vdm 755 %{blddir}
@@ -41,6 +39,7 @@ Sources for time zone and daylight saving time data
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog
+*	Mon Mar 19 2018 baho-utot <baho-utot@columbus.rr.com> 2018c-1
 *	Wed Dec 20 2014 baho-utot <baho-utot@columbus.rr.com> 2017b-1
 -	Update to LFS-8.1
 *	Sat Mar 22 2014 baho-utot <baho-utot@columbus.rr.com> 2013i-1

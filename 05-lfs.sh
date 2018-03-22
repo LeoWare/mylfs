@@ -121,16 +121,16 @@ _prepare() {
 			#
 			#	System settings
 			#
-			%_topdir			/usr/src/Octothorpe
-			%_prefix			/usr
-			%_lib				/lib
-			%_libdir			/usr/lib
-			%_lib64			/lib64
-			%_libdir64			/usr/lib64
+			%_topdir		/usr/src/Octothorpe
+			%_prefix		/usr
+			%_lib			/lib
+			%_libdir		/usr/lib
+			%_lib64		/lib64
+			%_libdir64		/usr/lib64
 			%_var			/var
 			%_sharedstatedir	/var/lib
-			%_localstatedir		/var
-			%_docdir			%{_prefix}/share/doc
+			%_localstatedir	/var
+			%_docdir		%{_prefix}/share/doc
 			#
 			#	Build flags
 			#
@@ -141,11 +141,7 @@ _prepare() {
 			%_dbpath	/var/lib/rpm
 			#
 			#	Do not compress man or info files - breaks file list
-			%__os_install_post \
-			    %{_rpmconfigdir}/brp-strip %{__strip} \
-			    %{_rpmconfigdir}/brp-strip-static-archive %{__strip} \
-			    %{_rpmconfigdir}/brp-strip-comment-note %{__strip} %{__objdump} \
-			%{nil}
+			%_build_id_links	none
 		EOF
 		msg_success
 	else
@@ -240,10 +236,17 @@ _glibc() {
 	local _log="${LOGPATH}/${1}"
 	if [ ! -e ${_log}.prepare ]; then
 		[ -h /usr/lib/gcc ]			|| ln -sf /tools/lib/gcc /usr/lib
-		[ -e /usr/include/limits.h ]		&& rm -f /usr/include/limits.h
-		[ -d /lib64 ]				|| install -vdm 755 /lib64
-		[ -h /lib64/ld-linux-x86-64.so.2 ]	|| ln -sf ../lib/ld-linux-x86-64.so.2 /lib64
-		[ -h /lib64/ld-lsb-x86-64.so.3 ]	|| ln -sf ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
+		[ -e /usr/include/limits.h ]	&& rm -f /usr/include/limits.h
+		case $(uname -m) in
+			i?86)		GCC_INCDIR=/usr/lib/gcc/$(uname -m)-pc-linux-gnu/7.3.0/include
+					ln -sfv ld-linux.so.2 /lib/ld-lsb.so.3
+			;;
+			x86_64)	GCC_INCDIR=/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include
+					[ -d /lib64 ]	|| install -vdm 755 /lib64
+					ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64
+					ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
+			;;
+		esac
 		touch ${_log}.prepare
 	fi
 	maker ${1}
@@ -538,9 +541,24 @@ LIST+="directories "
 LIST+="symlinks "
 LIST+="filesystem "
 LIST+="linux-api-headers "
-#LIST+="man-pages "
-#LIST+=" glibc gen-locales tzdata adjust-tool-chain tool-chain-test "
-#LIST+="zlib file readline m4 bc binutils gmp mpfr mpc gcc gcc-test "
+LIST+="man-pages "
+LIST+="glibc "
+LIST+="gen-locales "
+LIST+="tzdata "
+LIST+="adjust-tool-chain "
+LIST+="tool-chain-test "
+LIST+="zlib "
+LIST+="file "
+LIST+="readline "
+LIST+="m4 "
+LIST+="bc "
+#LIST+="binutils "
+#LIST+="gmp "
+#LIST+="mpfr "
+#LIST+="mpc "
+#LIST+="gcc "
+#LIST+="gcc-test "
+
 #LIST+="bzip2 pkg-config ncurses attr acl libcap sed shadow psmisc iana-etc "
 #LIST+="bison flex grep bash libtool gdbm gperf expat inetutils perl XML-Parser "
 #LIST+="intltool autoconf automake xz kmod gettext procps-ng e2fsprogs coreutils "

@@ -1,12 +1,11 @@
 Summary:		Default file system
-Name:	filesystem
+Name:		filesystem
 Version:	8.1
 Release:	1
 License:	MIT
-Group:	LFS/Base
+Group:		LFS/Base
 Vendor:	Octothorpe
 URL:		http://www.linuxfromscratch.org
-Distribution:	Octothorpe
 BuildArch:	noarch
 %description
 The filesystem package is one of the basic packages that is installed

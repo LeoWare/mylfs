@@ -2,13 +2,11 @@ Summary:	The Readline package is a set of libraries that offers command-line edi
 Name:		readline
 Version:	7.0
 Release:	1
-License:	Any
-URL:		http://ftp.gnu.org/
+License:	GPLv3
+URL:		http://ftp.gnu.org/gnu/readline/%{name}-%{version}.tar.gz
 Group:		LFS/Base
-Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
-Requires:	filesystem
+Vendor:	Octothorpe
+Distribution:	LFS-8.2
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 %description
 	The Readline package is a set of libraries that offers command-line editing and history capabilities
@@ -31,13 +29,15 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 	ln -sfv ../../lib/$(readlink %{buildroot}/usr/lib/libhistory.so ) %{buildroot}/usr/lib/libhistory.so
 	rm -rf %{buildroot}/usr/share/info
 	#	Copy license/copying file 
-	#install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
+	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+	sed -i '/man\/man/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
+	%{_mandir}/man3/*.gz
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> -1
+*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 7.0-1
 -	Initial build.	First version

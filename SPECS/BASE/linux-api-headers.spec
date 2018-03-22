@@ -4,7 +4,7 @@ Version:	4.15.3
 Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/
-Group:	LFS/Base
+Group:		LFS/Base
 Vendor:	Octothorpe
 Distribution:	LFS-8.2
 Requires:	filesystem
@@ -22,6 +22,8 @@ The Linux API Headers expose the kernel's API for use by Glibc.
 	find dest/include \( -name .install -o -name ..install.cmd \) -delete
 	install -vdm 755 %{buildroot}/usr/include
 	cp -rv dest/include/* %{buildroot}/usr/include
+	#	Copy license/copying file 
+	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
