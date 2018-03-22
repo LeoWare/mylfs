@@ -1,5 +1,7 @@
 
-Work in Process - Updating to Version 8.2
+Work in Process	- Updating to Version 8.2
+			- toolschain build works
+			- base building is WIP
 
 This build tracks linux from scratch version 8.2
 
@@ -10,15 +12,15 @@ This build system requires the following:
 	2. Directory for build, mounted at /mnt/lfs
 
 		There should be a partition mounted there.
-		You will be responsible for that. 
+		You will be responsible for that.
 		This build system uses whatever filesystem
 		that is at ${LFS}
 
 		This system was designed and debugged on an
 		AMD64 {x86_64} system and I have not tested
 		it on a i686 system as I no longer have or
-		use such systems.  
-	
+		use such systems.
+
 		The build system installs to:
 		/mnt/lfs/usr/src/Octothorpe
 
@@ -32,7 +34,7 @@ This build system requires the following:
 	/home/lfs/.rpmmacros and in the base directory:
 	/etc/rpm/macros.
 	This makes the rpm environment correct so it builds
-	the toolchain and base system correctly.  
+	the toolchain and base system correctly.
 	I have also built a static version of rpm in the
 	toolchain so as not to have any impact upon the base
 	build.
@@ -42,9 +44,9 @@ This build system requires the following:
 	able to trash your host system.  Mistakes can happen.
 	Not responsible for trashed host system.  You
 	bear all responsibilities for any failures.
-	
+
 Build Procedure goes as follows:
-	
+
 Command to run			Comments don't enter these
 ------------------------------	-------------------------------------
 
@@ -65,7 +67,7 @@ mount /dev/sdxx /mnt/lfs	mount partition to work directory
 
 OK It's time to fish or cut bait:
 
-	Install build system 
+	Install build system
 login as root user
 cd to directory where you placed and extracted the build system.
 ./setup.sh			installs build system to
@@ -74,16 +76,22 @@ cd to directory where you placed and extracted the build system.
 
 	Build tool chain
 login as lfs user
-cd /mnt/lfs/usr/src/Octothorpe	
+cd /mnt/lfs/usr/src/Octothorpe
 fetch.sh			Gets source tarballs
-./builder.sh tools-post	Build the toolchain and a static rpm
+./builder.sh tools-rpm	Build the toolchain and a static rpm
+./tools-post.sh		Fixup rpm for the base build
 
 	Build LFS system
 login as root
-cd /mnt/lfs/usr/src/Octothorpe	
+cd /mnt/lfs/usr/src/Octothorpe
 chroot.sh			mount kernel filesystems and chroot
-cd /usr/src/Octothorpe		change to build directory
-./builder.sh linux			build LFS base system
+cd /usr/src/Octothorpe	change to build directory
+./base-prepaer.sh		setup for base build
+./builder.sh linux		build LFS base system
+
+
+
+
 The last step will remove the toolchain and use vim to make
 modification to the conf files so when you reboot it will do the
 right thingy.
@@ -93,5 +101,5 @@ All that is needed is to install grub and/or add a menu item in the
 the grub configureation file /boot/grub.cfg
 
 If you got to this point you should be happier than a pig in poop
-				
+
 This completes the build.

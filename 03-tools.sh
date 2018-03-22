@@ -19,16 +19,16 @@ PATH=/tools/bin:/bin:/usr/bin
 export LFS LC_ALL LFS_TGT PATH
 #
 PARENT=/usr/src/Octothorpe
-LOGPATH=${TOPDIR}/LOGS/TOOLS
-INFOPATH=${TOPDIR}/INFO/TOOLS
-SPECPATH=${TOPDIR}/SPECS/TOOLS
-PROVIDESPATH=${TOPDIR}/PROVIDES/TOOLS
-REQUIRESPATH=${TOPDIR}/REQUIRES/TOOLS
+LOGPATH=${TOPDIR}/LOGS
+INFOPATH=${TOPDIR}/INFO
+SPECPATH=${TOPDIR}/SPECS
+PROVIDESPATH=${TOPDIR}/PROVIDES
+REQUIRESPATH=${TOPDIR}/REQUIRES
 RPMPATH=${TOPDIR}/RPMS
 #
 #	Build functions
 #
-die() {	
+die() {
 	local _red="\\033[1;31m"
 	local _normal="\\033[0;39m"
 	[ -n "$*" ] && printf "${_red}$*${_normal}\n"
@@ -168,7 +168,7 @@ _glibc() {
 _gcc-pass-2() {
 	local _log="${LOGPATH}/${1}"
 	local _pkg=""
-	maker ${1}	
+	maker ${1}
 	info  ${1}
 	#
 	#	Install
@@ -219,7 +219,7 @@ _stripping() {
 _chown() {
 	local _log="${LOGPATH}/${1}"
 	if [ ! -e ${_log} ]; then
-		msg_line "	Changing ownership: " 
+		msg_line "	Changing ownership: "
 		su -c 'chown -vR root:root /mnt/lfs/tools' - >> ${_log} 2>&1 || true
 		touch ${LOGPATH}/tool-chain-complete
 		msg_success
@@ -231,7 +231,7 @@ _post() {
 	local LIST=""
 	local _package=""
 	msg "	Post processing:"
-	#	This preserves all the libraries that are needed 
+	#	This preserves all the libraries that are needed
 	#	and removees evertything else so that only the static built
 	#	rpm and its libraries that are needed are left.
 	#	Keeps the LFS build clean of external packages.
@@ -242,7 +242,7 @@ _post() {
 		local i=""
 		local _package=""
 		rm -rf ${TOPDIR}/BUILDROOT/* || true
-		msg_line "	Saving libraries: " 
+		msg_line "	Saving libraries: "
 		install -dm 755 ${TOPDIR}/BUILDROOT/tools/lib
 		cp -a /tools/lib/libelf-0.170.so ${TOPDIR}/BUILDROOT/tools/lib
 		cp -a /tools/lib/libelf.so ${TOPDIR}/BUILDROOT/tools/lib
@@ -258,14 +258,14 @@ _post() {
 			rpm -e --nodeps ${i} > /dev/null 2>&1 || true
 			msg_success
 		done
-		msg_line "	Moving libraries: " 
+		msg_line "	Moving libraries: "
 		mv ${TOPDIR}/BUILDROOT/tools/lib/* /tools/lib
 		install -dm 755 /mnt/lfs/usr/bin
 		install -dm 755 /mnt/lfs/usr/lib
 		cp -ar ${TOPDIR}/BUILDROOT/mnt/lfs/usr/bin/* /mnt/lfs/usr/bin
 		cp -ar ${TOPDIR}/BUILDROOT/mnt/lfs/usr/lib/* /mnt/lfs/usr/lib
 		msg_success
-		msg_line "	Creating directories: " 
+		msg_line "	Creating directories: "
 		install -dm 755 ${LFS}/var/tmp
 		chmod 1777 ${LFS}/var/tmp
 		install -dm 755 ${LFS}/etc/rpm
@@ -280,7 +280,7 @@ _post() {
 	return
 }
 #
-#	Main line	
+#	Main line
 #
 [ "lfs" != $(whoami) ]			&& die  "	Not lfs user: FAILURE"
 [ -z "${LFS_TGT}" ]				&& die "	Environment not set: FAILURE"
@@ -344,7 +344,7 @@ for i in ${LIST};do
 		stripping)	_stripping ${i}	;;
 		chown)		_chown ${i}		;;
 		post)		_post ${i}		;;
-		*)		maker ${i}	
+		*)		maker ${i}
 				info  ${i}
 				installer ${i}	;;
 	esac
