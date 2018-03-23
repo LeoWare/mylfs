@@ -71,7 +71,7 @@ printf "%s\n" "Output:	[Requesting program interpreter: /tools/lib64/ld-linux-x8
 rm dummy.c a.out || true
 printf "%s\n" "SUCCESS"
 #	Build till gcc pass 2
-./builder tools-gcc-pass-2
+./builder.sh tools-gcc-pass-2
 #	Run test/check
 _log="${LOGPATH}/gcc-pass-2.test"
 printf "%s" "	Running Check: "
