@@ -3,12 +3,11 @@ Name:		tzdata
 Version:	2018c
 Release:	1
 URL:		http://www.iana.org/time-zones
-License:	GPLv3
+License:	public-domain
 Group:		LFS/Base
 Vendor:	Octothorpe
-Distribution:	LFS-8.1
+Requires:	glibc
 Source0:	http://www.iana.org//time-zones/repository/releases/%{name}%{version}.tar.gz
-BuildArch:	noarch
 %description
 Sources for time zone and daylight saving time data
 %define blddir	%{name}-%{version}
@@ -29,13 +28,16 @@ Sources for time zone and daylight saving time data
 		zic -L /dev/null	-d $ZONEINFO/posix	-y "sh yearistype.sh" ${tz}
 		zic -L leapseconds	-d $ZONEINFO/right	-y "sh yearistype.sh" ${tz}
 	done
-	cp -v zone.tab zone1970.tab iso3166.tab $ZONEINFO	
+	cp -v zone.tab zone1970.tab iso3166.tab $ZONEINFO
 	zic -d $ZONEINFO -p America/New_York
 	install -vDm 555 %{buildroot}/usr/share/zoneinfo/America/New_York %{buildroot}/etc/localtime
 	cd -
+	#	Copy license/copying file
+	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+	sed -i '/man/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog

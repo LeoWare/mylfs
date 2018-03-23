@@ -6,7 +6,7 @@ License:	GPLv3
 URL:		http://www.gnu.org
 Group:		LFS/Base
 Vendor:	Octothorpe
-Distribution:	LFS-8.1
+Requires:	m4
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 %description
 	The Bc package contains an arbitrary precision numeric processing language
@@ -33,7 +33,7 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file 
+	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	rm  %{buildroot}/usr/share/info/dir

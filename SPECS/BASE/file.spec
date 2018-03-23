@@ -6,10 +6,10 @@ License:	Other
 URL:		ftp://ftp.astron.com/pub
 Group:		LFS/Base
 Vendor:	Octothorpe
-Distribution:	LFS-8.2
+Requires:	zlib
 Source0:	ftp://ftp.astron.com/pub/%{name}/%{name}-%{version}.tar.gz
 %description
-	The File package contains a utility for determining the type of a given file or files. 
+	The File package contains a utility for determining the type of a given file or files.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %build
@@ -18,7 +18,7 @@ Source0:	ftp://ftp.astron.com/pub/%{name}/%{name}-%{version}.tar.gz
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file 
+	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete

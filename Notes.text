@@ -97,3 +97,4 @@ Requires(postun): /usr/sbin/userdel
 find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 sed -i '/man/d' filelist.rpm
+sed -i '/\/usr\/share\/info/d' filelist.rpm

@@ -6,7 +6,7 @@ License:	GPLv3
 URL:		http://ftp.gnu.org/gnu/readline/%{name}-%{version}.tar.gz
 Group:		LFS/Base
 Vendor:	Octothorpe
-Distribution:	LFS-8.2
+Requires:	file
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 %description
 	The Readline package is a set of libraries that offers command-line editing and history capabilities
@@ -18,17 +18,17 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 	./configure \
 		--prefix=%{_prefix} \
 		--disable-static \
-		--docdir=/usr/share/doc/%{name}-%{version}
+		--docdir=%{_mandir}/%{name}-%{version}
 	make %{?_smp_mflags} SHLIB_LIBS="-L/tools/lib -lncursesw"
 %install
 	make DESTDIR=%{buildroot} SHLIB_LIBS="-L/tools/lib -lncurses" install
 	install -vdm 755 %{buildroot}/lib
-	install -vdm 755 %{buildroot}/usr/lib
-	mv -v %{buildroot}/usr/lib/lib{readline,history}.so.* %{buildroot}/lib
-	ln -sfv ../../lib/$(readlink %{buildroot}/usr/lib/libreadline.so) %{buildroot}/usr/lib/libreadline.so
-	ln -sfv ../../lib/$(readlink %{buildroot}/usr/lib/libhistory.so ) %{buildroot}/usr/lib/libhistory.so
-	rm -rf %{buildroot}/usr/share/info
-	#	Copy license/copying file 
+	install -vdm 755 %{buildroot}%{_libdir}
+	mv -v %{buildroot}%{_libdir}/lib{readline,history}.so.* %{buildroot}/lib
+	ln -sfv ../../lib/$(readlink %{buildroot}%{_libdir}/libreadline.so) %{buildroot}%{_libdir}/libreadline.so
+	ln -sfv ../../lib/$(readlink %{buildroot}%{_libdir}/libhistory.so ) %{buildroot}%{_libdir}/libhistory.so
+	rm -rf %{buildroot}%{_infodir}
+	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete

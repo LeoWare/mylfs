@@ -6,11 +6,8 @@ License:	GPLv2
 URL:		http://www.kernel.org/doc/man-pages
 Group:		LFS/Base
 Vendor:	Octothorpe
-Distribution:	LFS-8.2
-Requires:	filesystem
+Requires:	linux-api-headers
 Source:	http://www.kernel.org/pub/linux/docs/man-pages/%{name}-%{version}.tar.xz
-BuildArch:	noarch
-%define	__os_install_post    %{nil}
 %description
 The Man-pages package contains over 1,900 man pages.
 %prep
@@ -18,11 +15,12 @@ The Man-pages package contains over 1,900 man pages.
 %build
 %install
 	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file 
+	#	Copy license/copying file
 	install -D -m644 man-pages-%{version}.Announce %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+	sed -i '/man/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog

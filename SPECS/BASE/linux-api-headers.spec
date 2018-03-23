@@ -1,15 +1,13 @@
 Summary:	Linux API header files
-Name:	linux-api-headers
+Name:		linux-api-headers
 Version:	4.15.3
 Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/
 Group:		LFS/Base
 Vendor:	Octothorpe
-Distribution:	LFS-8.2
 Requires:	filesystem
 Source0:	http://www.kernel.org/pub/linux/kernel/v4.x/linux-%{version}.tar.xz
-BuildArch:	noarch
 %description
 The Linux API Headers expose the kernel's API for use by Glibc.
 %prep
@@ -20,13 +18,14 @@ The Linux API Headers expose the kernel's API for use by Glibc.
 	cd %{_builddir}/linux-%{version}
 	make INSTALL_HDR_PATH=dest headers_install
 	find dest/include \( -name .install -o -name ..install.cmd \) -delete
-	install -vdm 755 %{buildroot}/usr/include
-	cp -rv dest/include/* %{buildroot}/usr/include
-	#	Copy license/copying file 
+	install -vdm 755 %{buildroot}%{_includedir}
+	cp -rv dest/include/* %{buildroot}%{_includedir}
+	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+	sed -i '/man/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog

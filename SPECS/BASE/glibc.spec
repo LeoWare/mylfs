@@ -6,8 +6,7 @@ License:	GPLv2
 URL:		http://www.gnu.org/software/libc
 Group:		LFS/Base
 Vendor:	Octothorpe
-Distribution:	LFS-8.2
-Requires:	filesystem
+Requires:	man-pages
 Source0:	http://ftp.gnu.org/gnu/glibc/%{name}-%{version}.tar.xz
 Patch0:	glibc-2.27-fhs-1.patch
 %description
@@ -135,13 +134,14 @@ and so on.
 		echo "Generation complete."
 	EOF
 	chmod 755 %{buildroot}/sbin/locale-gen.sh
-	#	Copy license/copying file 
+	#	Copy license/copying file
 	install -D -m644 LICENSES %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	rm -rf %{buildroot}/usr/share/info
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+	sed -i '/man/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog

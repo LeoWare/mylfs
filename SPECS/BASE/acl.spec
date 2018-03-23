@@ -1,14 +1,12 @@
 Summary:	The Acl package contains utilities to administer Access Control Lists
-Name:		acl 
+Name:		acl
 Version:	2.2.52
 Release:	1
-License:	Any
+License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
-Requires:	filesystem
+Vendor:	Octothorpe
+Requires:	attr
 Source0:	http://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.src.tar.gz
 %description
 	The Acl package contains utilities to administer Access Control Lists, which are
@@ -24,23 +22,24 @@ Source0:	http://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.sr
 		--prefix=%{_prefix} \
  		--bindir=/bin \
 		--disable-static \
-		--libexecdir=/usr/lib
+		--libexecdir=%{_libdir}
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install install-dev install-lib
-	chmod -v 755 %{buildroot}/usr/lib/libacl.so
+	chmod -v 755 %{buildroot}%{_libdir}/libacl.so
 	install -vdm 755 %{buildroot}/lib
-	mv -v %{buildroot}/usr/lib/libacl.so.* %{buildroot}/lib
-	ln -sfv ../../lib/$(readlink %{buildroot}/usr/lib/libacl.so) %{buildroot}/usr/lib/libacl.so
-	#	Copy license/copying file 
-	#	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
+	mv -v %{buildroot}%{_libdir}/libacl.so.* %{buildroot}/lib
+	ln -sfv ../../lib/$(readlink %{buildroot}%{_libdir}/libacl.so) %{buildroot}%{_libdir}/libacl.so
+	#	Copy license/copying file
+	install -D -m644 doc/COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+	sed -i '/man/d' filelist.rpm
 %clean
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> -1
+*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.2.52-1
 -	Initial build.	First version

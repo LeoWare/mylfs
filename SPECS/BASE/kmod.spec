@@ -1,17 +1,15 @@
-Summary:	The Kmod package contains libraries and utilities for loading kernel modules 
+Summary:	The Kmod package contains libraries and utilities for loading kernel modules
 Name:		kmod
-Version:	24
+Version:	25
 Release:	1
-License:	Any
+License:	GPLv2.1
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
-Requires:	filesystem
+Vendor:	Octothorpe
+Requires:	xz
 Source0:	https://www.kernel.org/pub/linux/utils/kernel/kmod/%{name}-%{version}.tar.xz
 %description
-	The Kmod package contains libraries and utilities for loading kernel modules 
+	The Kmod package contains libraries and utilities for loading kernel modules
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %build
@@ -31,14 +29,15 @@ Source0:	https://www.kernel.org/pub/linux/utils/kernel/kmod/%{name}-%{version}.t
 		ln -sfv ../bin/kmod %{buildroot}/sbin/$target
 	done
 	ln -sfv kmod %{buildroot}/bin/lsmod
-	#	Copy license/copying file 
-	#	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
+	#	Copy license/copying file
+	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+	sed -i '/man/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> -1
+*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 25-1
 -	Initial build.	First version

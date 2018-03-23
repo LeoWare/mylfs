@@ -1,26 +1,24 @@
-Summary:	The Util-linux package contains miscellaneous utility programs. 
+Summary:	The Util-linux package contains miscellaneous utility programs.
 Name:		util-linux
-Version:	2.30.1
+Version:	2.31.1
 Release:	1
-License:	Any
+License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
-Requires:	filesystem
-Source0:	https://www.kernel.org/pub/linux/utils/util-linux/v2.30/%{name}-%{version}.tar.xz
+Vendor:	Octothorpe
+Requires:	eudev
+Source0:	https://www.kernel.org/pub/linux/utils/util-linux/v2.31/%{name}-%{version}.tar.xz
 %description
 	The Util-linux package contains miscellaneous utility programs.
 	Among them are utilities for handling file systems, consoles,
-	partitions, and messages. 
+	partitions, and messages.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 	mkdir -pv %{buildroot}/var/lib/hwclock
 %build
 	./configure \
 		ADJTIME_PATH=/var/lib/hwclock/adjtime   \
-		--docdir=/usr/share/doc/util-linux-2.30.1 \
+		--docdir=%{_docdir}/%{NAME}-%{VERSION} \
 		--disable-chfn-chsh  \
 		--disable-login \
 		--disable-nologin \
@@ -36,15 +34,16 @@ Source0:	https://www.kernel.org/pub/linux/utils/util-linux/v2.30/%{name}-%{versi
 %install
 	make DESTDIR=%{buildroot} install
 	mkdir -pv %{buildroot}/var/lib/hwclock
-	#	Copy license/copying file 
-	#	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
+	#	Copy license/copying file
+	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+	sed -i '/man/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%dir	/var/lib/hwclock
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> -1
+*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.31.1-1
 -	Initial build.	First version

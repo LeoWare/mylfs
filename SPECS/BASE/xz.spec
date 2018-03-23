@@ -2,42 +2,41 @@ Summary:	The Xz package contains programs for compressing and decompressing file
 Name:		xz
 Version:	5.2.3
 Release:	1
-License:	Any
+License:	GPL
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
-Requires:	filesystem
+Vendor:	Octothorpe
+Requires:	automake
 Source0:	http://tukaani.org/xz/%{name}-%{version}.tar.xz
 %description
-	The Xz package contains programs for compressing and decompressing files. 
+	The Xz package contains programs for compressing and decompressing files.
 	It provides capabilities for the lzma and the newer xz compression formats.
 	Compressing text files with xz yields a better compression percentage than
-	with the traditional gzip or bzip2 commands. 
+	with the traditional gzip or bzip2 commands.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %build
 	./configure \
 		--prefix=%{_prefix} \
 		--disable-static \
-		--docdir=/usr/share/doc/%{NAME}-%{VERSION}
+		--docdir=%{_docdir}/%{NAME}-%{VERSION}
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
 	install -vdm 755 %{buildroot}/bin
 	install -vdm 755 %{buildroot}/lib
-	mv -v   %{buildroot}/usr/bin/{lzma,unlzma,lzcat,xz,unxz,xzcat} %{buildroot}/bin
-	mv -v %{buildroot}/usr/lib/liblzma.so.* %{buildroot}/lib
-	ln -svf ../../lib/$(readlink %{buildroot}/usr/lib/liblzma.so) %{buildroot}/usr/lib/liblzma.so
-	#	Copy license/copying file 
-	#	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
+	mv -v   %{buildroot}%{_bindir}/{lzma,unlzma,lzcat,xz,unxz,xzcat} %{buildroot}/bin
+	mv -v %{buildroot}%{_libdir}/liblzma.so.* %{buildroot}/lib
+	ln -svf ../../lib/$(readlink %{buildroot}%{_libdir}/liblzma.so) %{buildroot}%{_libdir}/liblzma.so
+	#	Copy license/copying file
+	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+	sed -i '/man/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> -1
+*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 5.2.3-1
 -	Initial build.	First version

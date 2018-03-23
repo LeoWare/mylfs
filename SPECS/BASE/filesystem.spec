@@ -1,12 +1,11 @@
-Summary:		Default file system
+Summary:	Default file system
 Name:		filesystem
 Version:	8.1
 Release:	1
-License:	MIT
+License:	None
 Group:		LFS/Base
 Vendor:	Octothorpe
 URL:		http://www.linuxfromscratch.org
-BuildArch:	noarch
 %description
 The filesystem package is one of the basic packages that is installed
 on a Linux system. Filesystem contains the basic directory
@@ -77,7 +76,7 @@ for the directories.
 		users:x:999:
 	EOF
 	touch %{buildroot}/var/log/{btmp,lastlog,faillog,wtmp}
-	#	6.9.2.1. Adding nsswitch.conf 
+	#	6.9.2.1. Adding nsswitch.conf
 	cat > %{buildroot}/etc/nsswitch.conf <<- "EOF"
 		# Begin /etc/nsswitch.conf
 
@@ -109,7 +108,7 @@ for the directories.
 	EOF
 	install -vdm 755 %{buildroot}/etc/ld.so.conf.d
 	#
-	#	6.63.2. Configuring Sysklogd 
+	#	6.63.2. Configuring Sysklogd
 	#
 	cat > %{buildroot}/etc/syslog.conf <<- "EOF"
 		# Begin /etc/syslog.conf
@@ -149,11 +148,11 @@ for the directories.
 		# End /etc/resolv.conf
 	EOF
 	#
-	#	7.5.3. Configuring the system hostname 
+	#	7.5.3. Configuring the system hostname
 	#
 	echo "<lfs>" > %{buildroot}/etc/hostname
 	#
-	#	7.5.4. Customizing the /etc/hosts File 
+	#	7.5.4. Customizing the /etc/hosts File
 	#
 	cat > %{buildroot}/etc/hosts <<- "EOF"
 		# Begin /etc/hosts
@@ -168,7 +167,7 @@ for the directories.
 		# End /etc/hosts
 	EOF
 	#
-	#	7.6.2. Configuring Sysvinit 
+	#	7.6.2. Configuring Sysvinit
 	#
 	cat > %{buildroot}/etc/inittab <<- "EOF"
 	# Begin /etc/inittab
@@ -199,7 +198,7 @@ for the directories.
 		# End /etc/inittab
 	EOF
 	#
-	#	7.6.4. Configuring the System Clock 
+	#	7.6.4. Configuring the System Clock
 	#
 	cat >  %{buildroot}/etc/sysconfig/clock <<- "EOF"
 		# Begin /etc/sysconfig/clock
@@ -216,7 +215,7 @@ for the directories.
 		# End /etc/sysconfig/clock
 	EOF
 	#
-	#	7.6.5. Configuring the Linux Console 
+	#	7.6.5. Configuring the Linux Console
 	#
 	#
 	#	7.6.8. The rc.site File
@@ -316,7 +315,7 @@ for the directories.
 
 	EOF
 	#
-	#	7.7. The Bash Shell Startup Files 
+	#	7.7. The Bash Shell Startup Files
 	#	Conflicts with blfs package,  profile scripts are entirely different
 	#
 #	cat > %{buildroot}/etc/profile <<- "EOF"
@@ -387,7 +386,7 @@ for the directories.
 		# End /etc/shells
 	EOF
 	#
-	#	8.2. Creating the /etc/fstab File 
+	#	8.2. Creating the /etc/fstab File
 	#
 	cat > %{buildroot}/etc/fstab <<- "EOF"
 		# Begin /etc/fstab
@@ -410,7 +409,7 @@ for the directories.
 		# End /etc/fstab
 	EOF
 	#
-	#	8.3.2. Configuring Linux Module Load Order 
+	#	8.3.2. Configuring Linux Module Load Order
 	#
 	install -v -m755 -d %{buildroot}/etc/modprobe.d
 	cat > %{buildroot}/etc/modprobe.d/usb.conf <<- "EOF"
@@ -422,7 +421,7 @@ for the directories.
 		# End /etc/modprobe.d/usb.conf
 	EOF
 	#
-	#	9.1. The End 
+	#	9.1. The End
 	#
 	echo 8.1 > %{buildroot}/etc/lfs-release
 	cat > %{buildroot}/etc/lsb-release <<- "EOF"

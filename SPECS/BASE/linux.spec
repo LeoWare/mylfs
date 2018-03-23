@@ -1,17 +1,15 @@
-Summary:	The Linux package contains the Linux kernel. 
+Summary:	The Linux package contains the Linux kernel.
 Name:		linux
-Version:	4.9.67
+Version:	4.15.3
 Release:	1
-License:	Any
-URL:		Any
+License:	GPLv2
+URL:		https://www.kernel.org
 Group:		LFS/Base
-Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
-Requires:	filesystem
+Vendor:	Octothorpe
+Requires:	lfs-bootscripts
 Source0:	https://www.kernel.org/pub/linux/kernel/v4.x/%{name}-%{version}.tar.xz
 %description
-	The Linux package contains the Linux kernel. 
+	The Linux package contains the Linux kernel.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %build
@@ -24,16 +22,16 @@ Source0:	https://www.kernel.org/pub/linux/kernel/v4.x/%{name}-%{version}.tar.xz
 	cp -v arch/x86/boot/bzImage %{buildroot}/boot/vmlinuz-%{version}
 	cp -v System.map %{buildroot}/boot/System.map-%{version}
 	cp -v .config %{buildroot}/boot/config-%{version}
-	install -d %{buildroot}/usr/share/doc/%{NAME}-%{VERSION}
-	cp -r Documentation/* %{buildroot}/usr/share/doc/%{NAME}-%{version}
-	#	Copy license/copying file 
-	#	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
+	install -d %{buildroot}%{_docdir}/%{NAME}-%{VERSION}
+	cp -r Documentation/* %{buildroot}%{_docdir}/%{NAME}-%{version}
+	#	Copy license/copying file
+	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	#	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+	sed -i '/man/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> -1
+*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 4.15.3-1
 -	Initial build.	First version

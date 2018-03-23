@@ -6,7 +6,7 @@ License:	GPLv3
 URL:		http://www.gnu.org
 Group:		LFS/Base
 Vendor:	Octothorpe
-Distribution:	LFS-8.2
+Requires:	readline
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 %description
 	The M4 package contains a macro processor
@@ -18,10 +18,10 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file 
+	#	Copy license/copying file
 	install -D -m644 README %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	rm  %{buildroot}/usr/share/info/dir
+	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm

@@ -1,14 +1,12 @@
 Summary:	The Binutils package contains a linker, an assembler, and other tools for handling object files
 Name:		binutils
 Version:	2.30
-Release:	1%{?dist}
-License:	Any
+Release:	1
+License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
-Requires:	filesystem
+Vendor:	Octothorpe
+Requires:	bc
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 %description
 	The Binutils package contains a linker, an assembler, and other tools for handling object files
@@ -40,5 +38,5 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> -1
+*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.30-1
 -	Initial build.	First version
