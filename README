@@ -1,6 +1,6 @@
 
 Work in Process	- Updating to Version 8.2
-			- toolschain build works
+			- tool chain build works
 			- base building is WIP
 
 This build tracks linux from scratch version 8.2
@@ -74,11 +74,18 @@ cd to directory where you placed and extracted the build system.
 				/mnt/lfs/usr/src/Octothorpe
 				and creates lfs user
 
-	Build tool chain
+	Get the source tarballs
 login as lfs user
 cd /mnt/lfs/usr/src/Octothorpe
 fetch.sh			Gets source tarballs
-./builder.sh tools-rpm	Build the toolchain and a static rpm
+
+	Build tool chain
+./builder.sh tools-glibc	Build to glibc
+./tools-glibc-test.sh	Do the test/check result
+./builder tools-gcc-pass-2	Build to gcc
+./tools-gcc-pass-2-test.sh	Do the test/check result
+./builder.sh tools-rpm	Build the rest of the toolchain
+				and a static rpm
 ./tools-post.sh		Fixup rpm for the base build
 
 	Build LFS system
@@ -86,11 +93,11 @@ login as root
 cd /mnt/lfs/usr/src/Octothorpe
 chroot.sh			mount kernel filesystems and chroot
 cd /usr/src/Octothorpe	change to build directory
-./base-prepaer.sh		setup for base build
+./base-prepare.sh		setup for base build
+
+****	WIP ****
 ./builder.sh linux		build LFS base system
-
-
-
+****	WIP ****
 
 The last step will remove the toolchain and use vim to make
 modification to the conf files so when you reboot it will do the
