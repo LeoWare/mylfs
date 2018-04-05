@@ -1,12 +1,12 @@
 Summary:	The DejaGNU package contains a framework for testing other programs.
-Name:		tools-dejagnu
+Name:	tools-dejagnu
 Version:	1.6.1
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/dejagnu
-Group:		LFS/Tools
+Group:	LFS/Tools
 Vendor:	Octothorpe
-Requires:	tools-expect
+BuildRequires:	tools-expect
 Source0:	http://ftp.gnu.org/gnu/dejagnu/dejagnu-%{version}.tar.gz
 %description
 	The DejaGNU package contains a framework for testing other programs.

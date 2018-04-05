@@ -1,14 +1,14 @@
 #	package
-Summary:		
+Summary:
 Name:		tools-
-Version:	
+Version:
 Release:	1
 License:	GPL
-URL:		
+URL:
 Group:		LFS/Tools
 Vendor:		Octothorpe
 Source0:	<name>-%{version}.tar.gz
-Patch0:		
+Patch0:
 %description
 
 %prep

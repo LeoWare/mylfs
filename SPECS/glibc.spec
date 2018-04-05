@@ -1,32 +1,34 @@
-Summary:	Main C library
+Summary:		Main C library
 Name:		glibc
-Version:	2.27
-Release:	1
-License:	GPLv2
-URL:		http://www.gnu.org/software/libc
+Version:		2.27
+Release:		1
+License:		GPLv2
+URL:			http://www.gnu.org/software/libc
 Group:		LFS/Base
-Vendor:	Octothorpe
-Requires:	man-pages
-Source0:	http://ftp.gnu.org/gnu/glibc/%{name}-%{version}.tar.xz
-Patch0:	glibc-2.27-fhs-1.patch
+Vendor:		Octothorpe
+BuildRequires:	man-pages
+Source0:		http://ftp.gnu.org/gnu/glibc/%{name}-%{version}.tar.xz
+Patch0:		glibc-2.27-fhs-1.patch
 %description
 This library provides the basic routines for allocating memory,
 searching directories, opening and closing files, reading and
 writing files, string handling, pattern matching, arithmetic,
 and so on.
-%ifarch x86_64
-%define	GCC_INCDIR	/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include
-%endif
-%ifarch 386
-%define	GCC_INCDIR	/usr/lib/gcc/$(uname -m)-pc-linux-gnu/7.3.0/include
-%endif
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %patch0 -p1
+
+%ifarch x86_64
+%define	GCC_INCDIR	/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include
+ln -sfv ld-linux.so.2 /lib/ld-lsb.so.3
+%endif
+%ifarch 386
+%define	GCC_INCDIR	/usr/lib/gcc/$(uname -m)-pc-linux-gnu/7.3.0/include
+install -vdm 755 %{buildroot}/lib64
+ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64
+ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
+%endif
 	mkdir -v build
-	install -vdm 755 %{buildroot}/lib64
-	ln -sfv ../lib/ld-linux-x86-64.so.2 %{buildroot}/lib64
-	ln -sfv ../lib/ld-linux-x86-64.so.2 %{buildroot}/lib64/ld-lsb-x86-64.so.3
 	rm -f /usr/include/limits.h
 %build
 	cd build
@@ -137,13 +139,14 @@ and so on.
 	#	Copy license/copying file
 	install -D -m644 LICENSES %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	rm -rf %{buildroot}/usr/share/info
 	find %{buildroot} -name '*.la' -delete
+	rm -rf %{buildroot}/usr/share/info/dir
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man/d' filelist.rpm
+	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
+	%{_infodir}/libc.*
 %changelog
 *	Mon Mar 19 2018 baho-utot <baho-utot@columbus.rr.com> 2.27-1
 *	Wed Dec 20 2017 baho-utot <baho-utot@columbus.rr.com> 2.26-1

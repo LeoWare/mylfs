@@ -1,11 +1,11 @@
-Summary:	Default file system
+Summary:		Default file system
 Name:		filesystem
-Version:	8.1
-Release:	1
-License:	None
+Version:		8.1
+Release:		1
+License:		None
 Group:		LFS/Base
-Vendor:	Octothorpe
-URL:		http://www.linuxfromscratch.org
+Vendor:		Octothorpe
+URL:			http://www.linuxfromscratch.org
 %description
 The filesystem package is one of the basic packages that is installed
 on a Linux system. Filesystem contains the basic directory
@@ -18,20 +18,20 @@ for the directories.
 	#	6.2. Preparing Virtual Kernel File Systems
 	#
 	install -vdm 755	%{buildroot}/{dev,proc,sys,run}
-	mknod -m 600 		%{buildroot}/dev/console c 5 1
-	mknod -m 666 		%{buildroot}/dev/null c 1 3
+	mknod -m 600 %{buildroot}/dev/console c 5 1
+	mknod -m 666 %{buildroot}/dev/null c 1 3
 	#
 	#	6.5.  Creating Directories
 	#
-	install -vdm 755	%{buildroot}/{bin,boot,etc/{opt,sysconfig},home,lib/firmware,mnt,opt}
-	install -vdm 755	%{buildroot}/{media/{floppy,cdrom},sbin,srv,var}
-	install -dv -m 0750 	%{buildroot}/root
-	install -dv -m 1777 	%{buildroot}/tmp %{buildroot}/var/tmp
-	install -vdm 755 	%{buildroot}/usr/{,local/}{bin,include,lib,sbin,src}
-	install -vdm 755 	%{buildroot}/usr/{,local/}share/{color,dict,doc,info,locale,man}
-	install -vdm 755 	%{buildroot}/usr/{,local/}share/{misc,terminfo,zoneinfo}
-	install -vdm 755 	%{buildroot}/usr/libexec
-	install -vdm 755 	%{buildroot}/usr/{,local/}share/man/man{1..8}
+	install -vdm 755 %{buildroot}/{bin,boot,etc/{opt,sysconfig},home,lib/firmware,mnt,opt}
+	install -vdm 755 %{buildroot}/{media/{floppy,cdrom},sbin,srv,var}
+	install -dv -m 0750 %{buildroot}/root
+	install -dv -m 1777 %{buildroot}/tmp %{buildroot}/var/tmp
+	install -vdm 755 %{buildroot}/usr/{,local/}{bin,include,lib,sbin,src}
+	install -vdm 755 %{buildroot}/usr/{,local/}share/{color,dict,doc,info,locale,man}
+	install -vdm 755 %{buildroot}/usr/{,local/}share/{misc,terminfo,zoneinfo}
+	install -vdm 755 %{buildroot}/usr/libexec
+	install -vdm 755 %{buildroot}/usr/{,local/}share/man/man{1..8}
 	install -vdm 755 %{buildroot}/lib64
 	install -vdm 755 %{buildroot}/var/{log,mail,spool}
 	install -vdm 755 %{buildroot}/run

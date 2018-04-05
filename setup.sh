@@ -1,11 +1,11 @@
 #!/bin/bash
-##################################################
+##############################################
 #	Title:	01-setup.sh				#
-#        Date:	2018-03-21			#
-#     Version:	1.3				#
+#        Date:	2018-03-21				#
+#     Version:	1.3						#
 #      Author:	baho-utot@columbus.rr.com	#
-#     Options:					#
-##################################################
+#     Options:							#
+##############################################
 #
 set -o errexit			# exit if error...insurance ;)
 set -o nounset			# exit if variable not initalized
@@ -276,7 +276,6 @@ _copy_source() {
 	install -dm 755 ${LFS}/${PARENT}/REQUIRES
 	install -dm 755 ${LFS}/${PARENT}/SOURCES
 	cp -ar * ${LFS}${PARENT}
-	#	cp -a SOURCES/* ${LFS}${PARENT}/SOURCES
 	chmod 777 ${LFS}${PARENT}/*.sh
 	msg_success
 	return
@@ -306,19 +305,19 @@ _setup_user() {
 		#	System settings
 		#
 		%_lfs			/mnt/lfs
-		%_lfs_tgt		x86_64-lfs-linux-gnu
-		%_topdir		%{_lfs}/usr/src/Octothorpe
-		%_dbpath		%{_lfs}/var/lib/rpm
-		%_prefix		/tools
-		%_docdir		%{_prefix}/share/doc
+		%_lfs_tgt			x86_64-lfs-linux-gnu
+		%_topdir			%{_lfs}/usr/src/Octothorpe
+		%_dbpath			%{_lfs}/var/lib/rpm
+		%_prefix			/tools
+		%_docdir			%{_prefix}/share/doc
 		%_lib			%{_prefix}/lib
-		%_bindir		%{_prefix}/bin
-		%_libdir		%{_prefix}/lib
-		%_lib64		%{_prefix}/lib64
+		%_bindir			%{_prefix}/bin
+		%_libdir			%{_prefix}/lib
+		%_lib64			%{_prefix}/lib64
 		%_var			%{_prefix}/var
 		%_sharedstatedir	%{_prefix}/var/lib
 		%_localstatedir	%{_prefix}/var
-		%_tmppath		%{_prefix}/var/tmp
+		%_tmppath			%{_prefix}/var/tmp
 		%_build_id_links none
 	EOF
 	[ -d ${LFS} ]			|| install -dm 755 ${LFS}

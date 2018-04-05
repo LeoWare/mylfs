@@ -1,10 +1,10 @@
 Summary:	The M4 package contains a macro processor
-Name:		m4
+Name:	m4
 Version:	1.4.18
 Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org
-Group:		LFS/Base
+Group:	LFS/Base
 Vendor:	Octothorpe
 Requires:	readline
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz

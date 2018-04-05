@@ -4,9 +4,9 @@ Version:	1.16
 Release:	1
 License:	GPL
 URL:		http://rpm5.org/files/popt
-Group:		LFS/Tools
+Group:	LFS/Tools
 Vendor:	Octothorpe
-Requires:	tools-openssl
+BuildRequires:	tools-openssl
 Source0:	http://rpm5.org/files/popt/popt-%{version}.tar.gz
 %description
 The popt package contains the popt libraries which are used by some programs to parse command-line options.

@@ -1,12 +1,12 @@
 Summary:	The M4 package contains a macro processor.
-Name:		tools-m4
+Name:	tools-m4
 Version:	1.4.18
 Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/m4
-Group:		LFS/Tools
+Group:	LFS/Tools
 Vendor:	Octothorpe
-Requires:	tools-dejagnu
+BuildRequires:	tools-dejagnu
 Source0:	http://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz
 %description
 	The M4 package contains a macro processor.

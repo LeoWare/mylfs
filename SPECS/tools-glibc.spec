@@ -1,12 +1,12 @@
 Summary:	The Glibc package contains the main C library.
-Name:		tools-glibc
+Name:	tools-glibc
 Version:	2.27
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/glibc
-Group:		LFS/Tools
+Group:	LFS/Tools
 Vendor:	Octothorpe
-Requires:	tools-linux-api-headers
+BuildRequires:	tools-linux-api-headers
 Source0:	http://ftp.gnu.org/gnu/glibc/glibc-%{version}.tar.xz
 %description
 	The Glibc package contains the main C library.

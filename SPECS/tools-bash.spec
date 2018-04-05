@@ -1,12 +1,12 @@
 Summary:	The Bash package contains the Bourne-Again SHell.
-Name:		tools-bash
+Name:	tools-bash
 Version:	4.4.18
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/bash
-Group:		LFS/Tools
+Group:	LFS/Tools
 Vendor:	Octothorpe
-Requires:	tools-ncurses
+BuildRequires:	tools-ncurses
 Source0:	http://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
 %description
 	The Bash package contains the Bourne-Again SHell.

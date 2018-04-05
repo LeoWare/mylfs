@@ -19,7 +19,7 @@ LOGFILE=${TOPDIR}/LOGS/${PRGNAME}	# set log file name
 #
 #	Standard functions
 #
-die() {	
+die() {
 	local _red="\\033[1;31m"
 	local _normal="\\033[0;39m"
 	[ -n "$*" ] && printf "${_red}$*${_normal}\n"
@@ -47,10 +47,10 @@ msg_success() {
 #	Main line function
 #
 _virtual() {	#	6.2. Preparing Virtual Kernel File Systems
-	[ -d ${LFS}/dev ]         || mkdir -p ${LFS}/dev 
-	[ -d ${LFS}/proc ]        || mkdir -p ${LFS}/proc 
-	[ -d ${LFS}/sys ]         || mkdir -p ${LFS}/sys 
-	[ -d ${LFS}/run ]         || mkdir -p ${LFS}/run 
+	[ -d ${LFS}/dev ]         || mkdir -p ${LFS}/dev
+	[ -d ${LFS}/proc ]        || mkdir -p ${LFS}/proc
+	[ -d ${LFS}/sys ]         || mkdir -p ${LFS}/sys
+	[ -d ${LFS}/run ]         || mkdir -p ${LFS}/run
 	[ -e ${LFS}/dev/console ] || mknod -m 600 ${LFS}/dev/console c 5 1
 	[ -e ${LFS}/dev/null ]    || mknod -m 666 ${LFS}/dev/null c 1 3
 	return
@@ -76,16 +76,20 @@ _chroot() {
 	chroot "$LFS" /tools/bin/env -i \
 		HOME=/root \
 		TERM="$TERM" \
-		PS1='\u:\w\$ ' \
+		PS1='(lfs chroot) \u:\w\$ ' \
 		PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin \
 		/tools/bin/bash --login +h
 	return
 }
+_chown() {
+	chown -R root:root ${LFS}
+return
+}
 #
-#	Main line	
+#	Main line
 #
 [ ${EUID} -eq 0 ] 	|| die "${PRGNAME}: Need to be root user: FAILURE"
-LIST+="_virtual _umount _mount _chroot"
-for i in ${LIST};do 
+LIST+="_chown _virtual _umount _mount _chroot"
+for i in ${LIST};do
 	${i}
 done

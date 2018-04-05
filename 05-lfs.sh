@@ -26,7 +26,7 @@ RPMPATH=${TOPDIR}/RPMS
 #
 #	Build functions
 #
-die() {	
+die() {
 	local _red="\\033[1;31m"
 	local _normal="\\033[0;39m"
 	[ -n "$*" ] && printf "${_red}$*${_normal}\n"
@@ -116,7 +116,7 @@ _prepare() {
 	local _log="${LOGPATH}/${1}"
 #	msg "	Post processing:"
 	if [ ! -e ${LOGPATH}/${1} ]; then
-		msg_line "	Installing macros file: " 
+		msg_line "	Installing macros file: "
 		cat > /etc/rpm/macros <<- EOF
 			#
 			#	System settings
@@ -146,7 +146,7 @@ _prepare() {
 		msg_success
 	else
 		msg "	 Skipping: ${1} "
-	fi		
+	fi
 	touch ${_log}
 	return
 }
@@ -304,7 +304,7 @@ _tool-chain-test() {
 		msg "Output: [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]" >> ${_log} 2>&1
 		readelf -l a.out | grep ': /lib' >> ${_log} 2>&1
 		echo"" >> ${_log} 2>&1
-		
+
 		msg "Output: /usr/lib/../lib/crt1.o succeeded" >> ${_log} 2>&1
 		msg "Output: /usr/lib/../lib/crti.o succeeded" >> ${_log} 2>&1
 		msg "Output: /usr/lib/../lib/crtn.o succeeded" >> ${_log} 2>&1
@@ -373,7 +373,7 @@ _gcc-test() {
 		readelf -l a.out | grep ': /lib' >> ${_log} 2>&1
 		msg 'Book: [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]' >> ${_log} 2>&1
 		echo"" >> ${_log} 2>&1
-		
+
 		grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log >> ${_log} 2>&1
 		msg 'Book: /usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/../../../../lib/crt1.o succeeded' >> ${_log} 2>&1
 		msg 'Book: /usr/lib/gcc/x86_64-pc-linux-gnu/7.2.0/../../../../lib/crti.o succeeded' >> ${_log} 2>&1
@@ -470,7 +470,7 @@ _cleanup() {
 			_list+="tools-tar tools-texinfo tools-util-linux tools-xz "
 		for i in ${_list};do
 			rpm -e --nodeps ${i} > /dev/null 2>&1 || true
-		done	
+		done
 		msg_success
 		msg_line "	Removing /tools directory"
 			rm -rf /tools
@@ -500,7 +500,7 @@ _cleanup() {
 			%{nil}
 		EOF
 		msg_success
-	fi		
+	fi
 	touch ${_log}
 	return
 }
@@ -547,6 +547,9 @@ LIST+="gen-locales "
 LIST+="tzdata "
 LIST+="adjust-tool-chain "
 LIST+="tool-chain-test "
+
+
+
 LIST+="zlib "
 LIST+="file "
 LIST+="readline "
@@ -571,17 +574,23 @@ LIST+="bc "
 #LIST+="linux "
 #LIST+="cleanup config"
 for i in ${LIST};do
-	rm -rf BUILD 
+	rm -rf BUILD
 	rm -rf BUILDROOT
 	case ${i} in
 		directories)		_directories ${i}	;;
 		symlinks)		_symlinks ${i}		;;
 		prepare)		_prepare ${i}		;;
+
+
+
 		glibc)			_glibc ${i}		;;
 		gcc)			_gcc ${i}		;;
 		gen-locales)		_gen-locales ${i}	;;
 		adjust-tool-chain)	_adjust-tool-chain ${i}	;;
 		tool-chain-test)	_tool-chain-test ${i}	;;
+
+
+
 		bc)			_bc ${i}		;;
 		gcc-test)		_gcc-test ${i}		;;
 		ncurses)		_ncurses ${i}		;;
@@ -589,7 +598,7 @@ for i in ${LIST};do
 		linux)			_linux ${i}		;;
 		cleanup)		_cleanup ${i}		;;
 		config)			_config ${i}		;;
-		*)			maker ${i}	
+		*)			maker ${i}
 					info  ${i}
 					installer ${i}		;;
 	esac

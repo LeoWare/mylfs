@@ -1,13 +1,20 @@
 #!/bin/bash
+###################################################
+#	Title:	builder.sh				     #
+#        Date:	2018-04-04					#
+#     Version:	1.0							#
+#      Author:	baho-utot@columbus.rr.com		#
+#     Options:								#
+###################################################
 PRGNAME=${0##*/}			# script name minus the path
-TOPDIR=${PWD}
+TOPDIR=${PWD}				# parent directory
 PARENT=/usr/src/Octothorpe	# rpm build directory
-LOGS=LOGS		# build logs directory
-INFOS=INFO		# rpm info log directory
-SPECS=SPECS		# rpm spec file directory
-PROVIDES=PROVIDES	# rpm provides log directory
-REQUIRES=REQUIRES	# rpm requires log directory
-RPMS=RPMS		# rpm binary package directory
+LOGS=LOGS					# build logs directory
+INFOS=INFO				# rpm info log directory
+SPECS=SPECS				# rpm spec file directory
+PROVIDES=PROVIDES			# rpm provides log directory
+REQUIRES=REQUIRES			# rpm requires log directory
+RPMS=RPMS					# rpm binary package directory
 #
 #	Common support functions
 #
@@ -71,11 +78,11 @@ rpm_params() {
 		while  read i; do
 			i=$(echo ${i} | tr -d '[:cntrl:][:space:]')
 			case ${i} in
-				Name:*)	rpm_name=${i##Name:}			;;
-				Version:*)	rpm_version=${i##Version:}		;;
-				Release:*)	rpm_release=${i##Release:}		;;
-				Requires:*)	rpm_requires+="${i##Requires:} "	;;
-				*)							;;
+				Name:*)			rpm_name=${i##Name:}				;;
+				Version:*)		rpm_version=${i##Version:}			;;
+				Release:*)		rpm_release=${i##Release:}			;;
+				BuildRequires:*)	rpm_requires+="${i##BuildRequires:} "	;;
+				*)												;;
 			esac
 		done < ${rpm_spec}
 	else
@@ -89,19 +96,19 @@ rpm_params() {
 }
 rpm_install() {
 	local _log="${LOGS}/${rpm_name}"
-	msg_line "	Installing: ${rpm_binary}: "
+	msg_line "Installing: ${rpm_binary}: "
 	rpm -Uvh --nodeps --force "${RPMS}/${rpm_arch}/${rpm_binary}" >> "${_log}" 2>&1  && msg_success || msg_failure
 	return
 }
 rpm_build() {
 	local _log="${LOGS}/${rpm_name}"
-	msg_line "	Building: ${rpm_name}: "
+	msg_line "Building: ${rpm_name}: "
 	> ${_log}
-	[ -e ${INFOS}/${rpm_name} ]		&& rm ${INFOS}/${rpm_name}
-	[ -e ${PROVIDES}/${rpm_name} ]	&& rm ${PROVIDES}/${rpm_name}
-	[ -e ${REQUIRES}/${rpm_name} ]	&& rm ${REQUIRES}/${rpm_name}
+	> ${INFOS}/${rpm_name}
+	> ${PROVIDES}/${rpm_name}
+	> ${REQUIRES}/${rpm_name}
 	rm -rf BUILD BUILDROOT
-	rpmbuild -ba ${rpm_spec}	>> ${_log} 2>&1 	 && msg_success || die "ERROR: ${rpm_binary}"
+	rpmbuild -ba ${rpm_spec}	>> ${_log} 2>&1	 && msg_success || die "ERROR: ${rpm_binary}"
 	rpm_exists
 	if [ "F" == ${rpm_exists} ]; then
 		die "ERROR: ${rpm_binary}"
@@ -141,19 +148,19 @@ if [ -z "$1" ]; then
   echo "Usage: builder.sh <filespec>"
   exit -1
 fi
-set -o errexit			# exit if error...insurance ;)
-set -o nounset			# exit if variable not initalized
-set +h					# disable hashall
+set -o errexit		# exit if error...insurance ;)
+set -o nounset		# exit if variable not initalized
+set +h			# disable hashall
 #
 #	Create directories if needed
 #
-[ -e "${LOGS}" ]	||	install -vdm 755 "${LOGS}"
-[ -e "${INFOS}" ]	||	install -vdm 755 "${INFOS}"
-[ -e "${SPECS}" ]	||	install -vdm 755 "${SPECS}"
+[ -e "${LOGS}" ]		||	install -vdm 755 "${LOGS}"
+[ -e "${INFOS}" ]		||	install -vdm 755 "${INFOS}"
+[ -e "${SPECS}" ]		||	install -vdm 755 "${SPECS}"
 [ -e "${PROVIDES}" ]	||	install -vdm 755 "${PROVIDES}"
 [ -e "${REQUIRES}" ]	||	install -vdm 755 "${REQUIRES}"
-[ -e "${RPMS}" ]	||	install -vdm 755 "${RPMS}"
-rpm_spec=${SPECS}/$1.spec		# rpm spec file to build
+[ -e "${RPMS}" ]		||	install -vdm 755 "${RPMS}"
+rpm_spec=${SPECS}/$1.spec	# rpm spec file to build
 rpm_params				# get status
 printf "\n%s\n" "Status for ${rpm_binary}"
 msg "Spec-------->	${rpm_spec}"

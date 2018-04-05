@@ -1,28 +1,24 @@
 Summary:	The Util-linux package contains miscellaneous utility programs.
-Name:		tools-util-linux
+Name:	tools-util-linux
 Version:	2.31.1
 Release:	1
 License:	GPL
 URL:		https://www.kernel.org/pub/linux/utils/util-linux/v2.30
-Group:		LFS/Tools
+Group:	LFS/Tools
 Vendor:	Octothorpe
-Requires:	tools-texinfo
+BuildRequires:	tools-texinfo
 Source0:	https://www.kernel.org/pub/linux/utils/util-linux/v2.30/util-linux-%{version}.tar.xz
 %description
 	The Util-linux package contains miscellaneous utility programs.
 %prep
 %setup -q -n util-linux-%{version}
 %build
-	#	FIXES:	zlib.h: No such file or directory
-	#	added:	CPPFLAGS="-I/usr/include"
-	#
 	./configure --prefix=%{_prefix} \
 		--without-python \
 		--disable-makeinstall-chown \
 		--without-systemdsystemunitdir \
 		--without-ncurses \
 		PKG_CONFIG=""
-#		CPPFLAGS="-I/usr/include"
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install

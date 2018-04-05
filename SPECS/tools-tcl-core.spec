@@ -1,12 +1,12 @@
 Summary:	The Tcl package contains the Tool Command Language.
-Name:		tools-tcl-core
+Name:	tools-tcl-core
 Version:	8.6.8
 Release:	1
 License:	GPL
 URL:		http://sourceforge.net/projects/tcl/files/Tcl/8.6.7
-Group:		LFS/Tools
+Group:	LFS/Tools
 Vendor:	Octothorpe
-Requires:	tools-gcc-pass-2
+BuildRequires:	tools-gcc-pass-2
 Source0:	http://sourceforge.net/projects/tcl/files/Tcl/8.6.7/tcl%{version}-src.tar.gz
 %description
 	The Tcl package contains the Tool Command Language.

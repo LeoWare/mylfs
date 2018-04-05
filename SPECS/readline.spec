@@ -1,12 +1,12 @@
 Summary:	The Readline package is a set of libraries that offers command-line editing and history capabilities
-Name:		readline
+Name:	readline
 Version:	7.0
 Release:	1
 License:	GPLv3
 URL:		http://ftp.gnu.org/gnu/readline/%{name}-%{version}.tar.gz
-Group:		LFS/Base
+Group:	LFS/Base
 Vendor:	Octothorpe
-Requires:	file
+BuildRequires:	file
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 %description
 	The Readline package is a set of libraries that offers command-line editing and history capabilities

@@ -1,12 +1,12 @@
 Summary:	The Texinfo package contains programs for reading, writing, and converting info pages.
-Name:		tools-texinfo
+Name:	tools-texinfo
 Version:	6.5
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/texinfo
-Group:		LFS/Tools
+Group:	LFS/Tools
 Vendor:	Octothorpe
-Requires:	tools-tar
+BuildRequires:	tools-tar
 Source0:	http://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz
 %description
 	The Texinfo package contains programs for reading, writing, and converting info pages.

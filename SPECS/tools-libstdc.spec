@@ -1,12 +1,12 @@
 Summary:	Libstdc++ is the standard C++ library.
-Name:		tools-libstdc
+Name:	tools-libstdc
 Version:	7.3.0
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gcc
-Group:		LFS/Tools
+Group:	LFS/Tools
 Vendor:	Octothorpe
-Requires:	tools-glibc
+BuildRequires:	tools-glibc
 Source0:	http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 %description
 	Libstdc++ is the standard C++ library. It is needed for the correct operation of the g++ compiler.
