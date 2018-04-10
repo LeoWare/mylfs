@@ -1,11 +1,11 @@
 #!/bin/bash
-###################################################
-#	Title:	builder.sh				     #
-#        Date:	2018-04-04					#
-#     Version:	1.0							#
-#      Author:	baho-utot@columbus.rr.com		#
-#     Options:								#
-###################################################
+##################################################
+#	Title:	builder.sh				#
+#        Date:	2018-04-04			#
+#     Version:	1.0				#
+#      Author:	baho-utot@columbus.rr.com	#
+#     Options:					#
+##################################################
 PRGNAME=${0##*/}			# script name minus the path
 TOPDIR=${PWD}				# parent directory
 PARENT=/usr/src/Octothorpe	# rpm build directory
