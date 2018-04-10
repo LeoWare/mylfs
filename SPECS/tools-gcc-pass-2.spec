@@ -1,10 +1,10 @@
 Summary:	The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
-Name:	tools-gcc-pass-2
+Name:		tools-gcc-pass-2
 Version:	7.3.0
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gcc/gcc-%{version}
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-binutils-pass-2
 Source0:	http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
@@ -31,7 +31,6 @@ Source3:	http://www.mpfr.org/mpfr-3.1.5/mpfr-4.0.1.tar.xz
 		printf "%s\n"	'#undef STANDARD_STARTFILE_PREFIX_2'			>> ${file}
 		printf "%s\n"	'#define STANDARD_STARTFILE_PREFIX_1 "/tools/lib/"'	>> ${file}
 		printf "%s\n"	'#define STANDARD_STARTFILE_PREFIX_2 ""'		>> ${file}
-		#grep '/tools/lib' ${file}
 		touch ${file}.orig
 	done
 
@@ -41,10 +40,10 @@ Source3:	http://www.mpfr.org/mpfr-3.1.5/mpfr-4.0.1.tar.xz
 	mkdir -v build
 %build
 	cd build
-	CC=%{_lfs_tgt}-gcc \
-	CXX=%{_lfs_tgt}-g++ \
-	AR=%{_lfs_tgt}-ar \
-	RANLIB=%{_lfs_tgt}-ranlib \
+	CC=%{LFS_TGT}-gcc \
+	CXX=%{LFS_TGT}-g++ \
+	AR=%{LFS_TGT}-ar \
+	RANLIB=%{LFS_TGT}-ranlib \
 	../configure \
 		--prefix=%{_prefix} \
 		--with-local-prefix=%{_prefix} \
@@ -70,6 +69,20 @@ Source3:	http://www.mpfr.org/mpfr-3.1.5/mpfr-4.0.1.tar.xz
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+%post
+	_log="%_topdir/LOGS/%{NAME}.test"
+	> ${_log}
+	cd %_topdir >> ${_log} 2>&1
+	pwd >> ${_log} 2>&1
+	printf "%s\n" "	Running Check: " >> ${_log} 2>&1
+	echo 'int main(){}' > dummy.c
+	/tools/bin/cc dummy.c >> ${_log} 2>&1
+	readelf -l a.out | grep ': /tools' >> ${_log} 2>&1
+	printf "\n" >> ${_log} 2>&1
+	printf "%s\n" "Output:	[Requesting program interpreter: /tools/lib64/ld-linux-x86-64.so.2]" >> ${_log} 2>&1
+	rm dummy.c a.out || true
+	printf "%s\n" "SUCCESS" >> ${_log} 2>&1
+	cd - >> ${_log} 2>&1
 %files -f filelist.rpm
    %defattr(-,lfs,lfs)
 %changelog

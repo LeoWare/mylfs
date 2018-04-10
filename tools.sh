@@ -1,11 +1,11 @@
 #!/bin/bash
-###################################################
-#	Title:	tools.sh						#
-#        Date:	2018-03-23					#
-#     Version:	1.0							#
-#      Author:	baho-utot@columbus.rr.com		#
-#     Options:								#
-###################################################
+##############################################
+#	Title:	tools.sh					#
+#        Date:	2018-03-23				#
+#     Version:	1.0						#
+#      Author:	baho-utot@columbus.rr.com	#
+#     Options:							#
+##############################################
 set -o errexit		# exit if error...insurance ;)
 set -o nounset		# exit if variable not initalized
 set +h			# disable hashall
@@ -59,41 +59,11 @@ end-run() {
 	return
 }
 #
-#	Build till glibc
-#
-./builder.sh tools-glibc
-#
-#	Run test/check
-#
-_log="${LOGPATH}/glibc.test"
-printf "%s" "	Running Check: "
-echo 'int main(){}' > dummy.c
-$LFS_TGT-gcc dummy.c >> ${_log} 2>&1
-readelf -l a.out | grep ': /tools' >> ${_log} 2>&1
-printf "%s\n" "Output:	[Requesting program interpreter: /tools/lib64/ld-linux-x86-64.so.2]" >> ${_log} 2>&1
-rm dummy.c a.out || true
-printf "%s\n" "SUCCESS"
-#
-#	Build till gcc pass 2
-#
-./builder.sh tools-gcc-pass-2
-#
-#	Run test/check
-#
-_log="${LOGPATH}/gcc-pass-2.test"
-printf "%s" "	Running Check: "
-echo 'int main(){}' > dummy.c
-$LFS_TGT-gcc dummy.c >> ${_log} 2>&1
-readelf -l a.out | grep ': /tools' >> ${_log} 2>&1
-printf "%s\n" "Output:	[Requesting program interpreter: /tools/lib64/ld-linux-x86-64.so.2]" >> ${_log} 2>&1
-rm dummy.c a.out || true
-printf "%s\n" "SUCCESS"
-#
-#	Complete buid phase
+#	Build tool chain
 #
 ./builder.sh tools-rpm
 #
-#	remove all un needed files only leaving
+#	remove all un-needed files only leaving
 #	what is needed to run rpm
 msg "	Post processing:"
 #	This preserves all the libraries that are needed

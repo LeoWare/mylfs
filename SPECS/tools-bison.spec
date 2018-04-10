@@ -1,10 +1,10 @@
 Summary:	The Bison package contains a parser generator.
-Name:	tools-bison
+Name:		tools-bison
 Version:	3.0.4
 Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/bison
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-bash
 Source0:	http://ftp.gnu.org/gnu/bison/bison-%{version}.tar.xz

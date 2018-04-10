@@ -1,9 +1,9 @@
 Summary:	Contains the GNU compiler collection
-Name:	tools-gcc-pass-1
+Name:		tools-gcc-pass-1
 Version:	7.3.0
 Release:	1
 License:	GPLv2
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-binutils-pass-1
 Source0:	http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
@@ -37,10 +37,10 @@ Source3:	http://www.mpfr.org/mpfr-3.1.5/mpfr-4.0.1.tar.xz
 %build
 	cd       build
 	../configure \
-		--target=%{_lfs_tgt} \
+		--target=%{LFS_TGT} \
 		--prefix=%{_prefix} \
 		--with-glibc-version=2.11 \
-		--with-sysroot=%{_lfs} \
+		--with-sysroot=%{_lfsdir} \
 		--with-newlib \
 		--without-headers \
 		--with-local-prefix=%{_prefix} \

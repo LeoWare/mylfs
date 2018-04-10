@@ -294,13 +294,13 @@ msg "Building LFS base"
 _prepare
 _directories
 _symlinks
-./builder.sh man-pages
-_glibc
-_gen-locales
-./builder.sh tzdata
-_adjust-tool-chain
-_tool-chain-test
-./builder.sh m4
-_bc
-./builder.sh binutils
+#./builder.sh man-pages
+#_glibc
+#_gen-locales
+#./builder.sh tzdata
+#_adjust-tool-chain
+#_tool-chain-test
+#./builder.sh m4
+#_bc
+#./builder.sh binutils
 end-run

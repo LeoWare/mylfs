@@ -1,10 +1,10 @@
 Summary:	The Binutils package contains a linker, an assembler, and other tools for handling object files.
-Name:	tools-binutils-pass-2
+Name:		tools-binutils-pass-2
 Version:	2.30
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/binutils
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-libstdc
 Source0:	http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
@@ -15,9 +15,9 @@ Source0:	http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
 mkdir -v build
 %build
 	cd build
-	CC=%{_lfs_tgt}-gcc \
-	AR=%{_lfs_tgt}-ar \
-	RANLIB=%{_lfs_tgt}-ranlib \
+	CC=%{LFS_TGT}-gcc \
+	AR=%{LFS_TGT}-ar \
+	RANLIB=%{LFS_TGT}-ranlib \
 	../configure \
 		--prefix=%{_prefix} \
 		--disable-nls \

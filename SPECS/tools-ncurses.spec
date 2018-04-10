@@ -1,10 +1,10 @@
 Summary:	The Ncurses package contains libraries for terminal-independent handling of character screens.
-Name:	tools-ncurses
+Name:		tools-ncurses
 Version:	6.1
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/ncurses
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-m4
 Source0:	http://ftp.gnu.org/gnu//ncurses/ncurses-%{version}.tar.gz

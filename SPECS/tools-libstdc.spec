@@ -1,10 +1,10 @@
 Summary:	Libstdc++ is the standard C++ library.
-Name:	tools-libstdc
+Name:		tools-libstdc
 Version:	7.3.0
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gcc
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-glibc
 Source0:	http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
@@ -35,8 +35,6 @@ mkdir -v build
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,lfs,lfs)
-#	/tools/x86_64-lfs-linux-gnu/include/c++/7.3.0/iomanip
-#	/tools/x86_64-lfs-linux-gnu/include/c++/7.3.0/tr1/riemann_zeta.tcc
 %changelog
 *	Sun Mar 11 2018 baho-utot <baho-utot@columbus.rr.com> 7.3.0-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 7.2.0-1

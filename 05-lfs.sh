@@ -409,6 +409,7 @@ _gcc-test() {
 		rm -v dummy.c a.out dummy.log >> ${_log} 2>&1
 		msg_success
 		mv ${_log} ${_log}.installed
+
 	else
 		msg "	Skipping: ${1}"
 	fi

@@ -1,10 +1,10 @@
 Summary:	The elfutils package contains a set of utilities and libraries for handling ELF files
-Name:	tools-libelf
+Name:		tools-libelf
 Version:	0.170
 Release:	1
 License:	GPL
 URL:		https://sourceware.org/ftp/elfutils
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-zlib
 Source0:	https://sourceware.org/ftp/elfutils/0.170/elfutils-%{version}.tar.bz2
@@ -21,7 +21,6 @@ Source0:	https://sourceware.org/ftp/elfutils/0.170/elfutils-%{version}.tar.bz2
 		--enable-static
 	make %{?_smp_mflags}
 %install
-	#	make DESTDIR=%{buildroot} install
 	make DESTDIR=%{buildroot} -C libelf install
 	install -vDm644 config/libelf.pc %{buildroot}/tools/lib/pkgconfig/libelf.pc
 	#	Create file list

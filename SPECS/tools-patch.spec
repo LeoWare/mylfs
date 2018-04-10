@@ -1,10 +1,10 @@
 Summary:	The Patch package contains a program for modifying or creating files
-Name:	tools-patch
+Name:		tools-patch
 Version:	2.7.6
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/patch
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-make
 Source0:	http://ftp.gnu.org/gnu/patch/patch-%{version}.tar.xz

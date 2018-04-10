@@ -1,10 +1,10 @@
 Summary:	The Binutils package contains a linker, an assembler, and tools
-Name:	tools-binutils-pass-1
+Name:		tools-binutils-pass-1
 Version:	2.30
 Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/binutils
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 Source:	http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
 %description
@@ -16,15 +16,14 @@ and other tools for handling object files.
 %build
 	cd build
 	 ../configure --prefix=%{_prefix} \
-		--with-sysroot=%{_lfs} \
+		--with-sysroot=%{_lfsdir} \
 		--with-lib-path=%{_libdir} \
-		--target=%{_lfs_tgt} \
+		--target=%{LFS_TGT} \
 		--disable-nls \
 		--disable-werror
 	make %{?_smp_mflags}
 %install
 	cd build
-#	%%make_install
 	make DESTDIR=%{buildroot} install
 %ifarch x86_64
 	install -vdm 755 %{buildroot}%{_libdir}
@@ -38,9 +37,7 @@ and other tools for handling object files.
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,lfs,lfs)
-%ifarch x86_64
-	%dir	%_libdir
-%endif
+	%_lib64
 %changelog
 *	Sat Mar 10 2018 baho-utot <baho-utot@columbus.rr.com> 2.30-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 2.29-1

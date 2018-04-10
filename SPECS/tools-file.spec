@@ -1,10 +1,10 @@
 Summary:	The File package contains a utility for determining the type of a given file or files.
-Name:	tools-file
+Name:		tools-file
 Version:	5.32
 Release:	1
 License:	GPL
 URL:		ftp://ftp.astron.com/pub/file
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-diffutils
 Source0:	ftp://ftp.astron.com/pub/file/file-%{version}.tar.gz
@@ -13,7 +13,6 @@ Source0:	ftp://ftp.astron.com/pub/file/file-%{version}.tar.gz
 %prep
 %setup -q -n file-%{version}
 %build
-	#	added:  --disable-zlib
 	./configure \
 		--prefix=%{_prefix}
 	make %{?_smp_mflags}

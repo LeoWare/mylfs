@@ -1,10 +1,10 @@
 Summary:	The Glibc package contains the main C library.
-Name:	tools-glibc
+Name:		tools-glibc
 Version:	2.27
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/glibc
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-linux-api-headers
 Source0:	http://ftp.gnu.org/gnu/glibc/glibc-%{version}.tar.xz
@@ -18,11 +18,10 @@ Source0:	http://ftp.gnu.org/gnu/glibc/glibc-%{version}.tar.xz
 %setup -q -n glibc-%{version}
 mkdir -v build
 %build
-
-	cd       build
+	cd build
 	../configure \
 		--prefix=%{_prefix} \
-		--host=%{_lfs_tgt} \
+		--host=%{LFS_TGT} \
 		--build=$(../scripts/config.guess) \
 		--enable-kernel=3.2 \
 		--with-headers=%{_includedir} \
@@ -39,6 +38,20 @@ mkdir -v build
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+%post
+	_log="%_topdir/LOGS/%{NAME}.test"
+	> ${_log}
+	cd %_topdir >> ${_log} 2>&1
+	pwd >> ${_log} 2>&1
+	printf "%s\n" "	Running Check: " >> ${_log} 2>&1
+	echo 'int main(){}' > dummy.c
+	/tools/bin/%LFS_TGT-gcc dummy.c >> ${_log} 2>&1
+	readelf -l a.out | grep ': /tools' >> ${_log} 2>&1
+	printf "\n" >> ${_log} 2>&1
+	printf "%s\n" "Output:	[Requesting program interpreter: /tools/lib64/ld-linux-x86-64.so.2]" >> ${_log} 2>&1
+	rm dummy.c a.out || true
+	printf "%s\n" "SUCCESS" >> ${_log} 2>&1
+	cd - >> ${_log} 2>&1
 %files -f filelist.rpm
 	%defattr(-,lfs,lfs)
 %changelog

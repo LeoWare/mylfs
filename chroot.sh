@@ -1,11 +1,11 @@
 #!/tools/bin/bash
-#######################################################################
-#	Title:	04-chroot.sh							#
-#        Date:	2017-01-03						#
-#     Version:	1.1							#
-#      Author:	baho-utot@columbus.rr.com				#
-#     Options:								#
-#######################################################################
+##############################################
+#	Title:	04-chroot.sh				#
+#        Date:	2017-01-03				#
+#     Version:	1.1						#
+#      Author:	baho-utot@columbus.rr.com	#
+#     Options:							#
+##############################################
 #set -o errexit	# exit if error...insurance ;)
 set -o nounset	# exit if variable not initalized
 set +h			# disable hashall

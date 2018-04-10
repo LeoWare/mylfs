@@ -1,10 +1,10 @@
 Summary:	The Zlib package contains compression and decompression routines used by some programs.
-Name:	tools-zlib
+Name:		tools-zlib
 Version:	1.2.11
 Release:	1
 License:	Any
 URL:		http://zlib.net
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-xz
 Source0:	http://zlib.net/zlib-%{version}.tar.xz

@@ -55,17 +55,12 @@ download the tarball from https://www.github.com/baho-utot/LFS-RPM
 extract it to your HOME directory
 
 You are responsible for the next four steps,  make sure you knowed
-what you are doing as one screw up and your system will be useless
-as tits on a boar hog and you will be shaking like a dog poopin
-peach seeds.
-So pay attention so this don't go over like a turd in a punch bowl
+what you are doing!
 
 fdisk /dev/sdx			partition drive, you need to do this
 mkfs.ext4 /dev/sdxx		create ext4 filesystem
 mkdir /mnt/lfs			create work directory
 mount /dev/sdxx /mnt/lfs	mount partition to work directory
-
-OK It's time to fish or cut bait:
 
 #
 #	Install build system
@@ -104,7 +99,5 @@ right thingy.
 Build at this point is complete.
 All that is needed is to install grub and/or add a menu item in the
 the grub configureation file /boot/grub.cfg
-
-If you got to this point you should be happier than a pig in poop
 
 This completes the build.

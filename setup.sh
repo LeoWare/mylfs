@@ -304,27 +304,28 @@ _setup_user() {
 		#
 		#	System settings
 		#
-		%_lfs			/mnt/lfs
-		%_lfs_tgt			x86_64-lfs-linux-gnu
-		%_topdir			%{_lfs}/usr/src/Octothorpe
-		%_dbpath			%{_lfs}/var/lib/rpm
-		%_prefix			/tools
-		%_docdir			%{_prefix}/share/doc
+		%_lfsdir		/mnt/lfs
+		%_lfs_tgt		x86_64-lfs-linux-gnu
+		%_topdir		%{_lfsdir}/usr/src/Octothorpe
+		%_dbpath		%{_lfsdir}/var/lib/rpm
+		%_prefix		/tools
+		%_docdir		%{_prefix}/share/doc
 		%_lib			%{_prefix}/lib
-		%_bindir			%{_prefix}/bin
-		%_libdir			%{_prefix}/lib
-		%_lib64			%{_prefix}/lib64
+		%_bindir		%{_prefix}/bin
+		%_libdir		%{_prefix}/lib
+		%_lib64		%{_prefix}/lib64
 		%_var			%{_prefix}/var
 		%_sharedstatedir	%{_prefix}/var/lib
 		%_localstatedir	%{_prefix}/var
-		%_tmppath			%{_prefix}/var/tmp
-		%_build_id_links none
+		%_tmppath		%{_prefix}/var/tmp
+		%_build_id_links	none
 	EOF
+	echo "%LFS_TGT		$(uname -m)-lfs-linux-gnu" >> /home/lfs/.rpmmacros
 	[ -d ${LFS} ]			|| install -dm 755 ${LFS}
 	[ -d ${LFS}/tools ]		|| install -dm 755 ${LFS}/tools
 	[ -h /tools ]			|| ln -s ${LFS}/tools /
 	chown -R lfs:lfs /home/lfs	|| die "${FUNCNAME}: FAILURE"
-	chown -R lfs:lfs ${LFS}		|| die "${FUNCNAME}: FAILURE"
+	chown -R lfs:lfs ${LFS}	|| die "${FUNCNAME}: FAILURE"
 	msg_success
 	return
 }

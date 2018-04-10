@@ -1,10 +1,10 @@
 Summary:	The Tar package contains an archiving program.
-Name:	tools-tar
+Name:		tools-tar
 Version:	1.30
 Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/tar
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-sed
 Source0:	http://ftp.gnu.org/gnu/tar/tar-%{version}.tar.xz

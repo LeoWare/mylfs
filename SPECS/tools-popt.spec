@@ -1,10 +1,10 @@
 Summary:	The popt package contains the popt libraries which are used by some programs to parse command-line options.
-Name:	tools-popt
+Name:		tools-popt
 Version:	1.16
 Release:	1
 License:	GPL
 URL:		http://rpm5.org/files/popt
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-openssl
 Source0:	http://rpm5.org/files/popt/popt-%{version}.tar.gz

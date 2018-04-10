@@ -1,10 +1,10 @@
 Summary:	The Linux API Headers expose the kernel's API for use by Glibc.
-Name:	tools-linux-api-headers
+Name:		tools-linux-api-headers
 Version:	4.15.3
 Release:	1
 License:	GPL
 URL:		https://www.kernel.org
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-gcc-pass-1
 Source0:	https://www.kernel.org/pub/linux/kernel/v4.x/linux-%{version}.tar.xz

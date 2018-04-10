@@ -1,10 +1,10 @@
 Summary:	RPM package manager
-Name:	tools-rpm
+Name:		tools-rpm
 Version:	4.14.1
 Release:	1
 License:	GPL
 URL:		http://ftp.rpm.org/releases/rpm-4.14.x
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-popt
 Source0:	http://ftp.rpm.org/releases/rpm-4.14.x/rpm-%{version}.tar.bz2
@@ -20,17 +20,19 @@ Source1:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
 	ln -vs db-6.0.20 db
 	./configure \
 		--prefix=/usr \
-		--with-crypto=openssl \
-		--without-external-db \
-		--without-archive \
 		--program-prefix= \
 		--sysconfdir=/etc \
 		--disable-dependency-tracking \
-		--enable-static \
 		--disable-shared \
-		--without-lua \
 		--disable-silent-rules\
-		--without-plugins
+		--without-external-db \
+		--without-archive \
+		--without-lua \
+		--without-plugins \
+		--with-crypto=openssl \
+		--enable-static \
+		--enable-zstd=no \
+		--enable-lmdb=no
 	make %{?_smp_mflags}
 %install
 	install -vdm 755 %{buildroot}%{LFS}

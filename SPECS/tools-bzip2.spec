@@ -1,15 +1,15 @@
 Summary:	The Bzip2 package contains programs for compressing and decompressing files.
-Name:	tools-bzip2
+Name:		tools-bzip2
 Version:	1.0.6
 Release:	2
 License:	GPL
 URL:		http://www.bzip.org/1.0.6/
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-bison
 Source0:	http://www.bzip.org/1.0.6/bzip2-%{version}.tar.gz
-Patch0:		bzip2-%{version}-install_docs-1.patch
-%define		_optflags -march=x86-64 -mtune=generic -O2 -pipe -fPIC
+Patch0:	bzip2-%{version}-install_docs-1.patch
+%define	_optflags -march=x86-64 -mtune=generic -O2 -pipe -fPIC
 %description
 	The Bzip2 package contains programs for compressing and decompressing files.
 	Compressing text files with bzip2 yields a much better compression percentage

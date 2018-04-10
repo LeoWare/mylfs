@@ -1,10 +1,10 @@
 Summary:	The Make package contains a program for compiling packages.
-Name:	tools-make
+Name:		tools-make
 Version:	4.2.1
 Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/make
-Group:	LFS/Tools
+Group:		LFS/Tools
 Vendor:	Octothorpe
 BuildRequires:	tools-gzip
 Source0:	http://ftp.gnu.org/gnu/make/make-%{version}.tar.bz2
@@ -22,7 +22,6 @@ sed -i '211,217 d; 219,229 d; 232 d' glob/glob.c
 	rm -rf %{buildroot}%{_infodir}
 	rm -rf %{buildroot}%{_mandir}
 	rm -rf %{buildroot}%{_datarootdir}/locale
-	#install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
