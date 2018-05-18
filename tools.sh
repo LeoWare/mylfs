@@ -81,10 +81,10 @@ if [ ! -e ${LOGPATH}/${PRGNAME} ]; then
 	cp -a /tools/lib/libelf.so ${TOPDIR}/BUILDROOT/tools/lib
 	cp -a /tools/lib/libelf.so.1 ${TOPDIR}/BUILDROOT/tools/lib
 	#	Saving rpm
-	install -dm 755 ${TOPDIR}/BUILDROOT/mnt/lfs/usr/bin
-	install -dm 755 ${TOPDIR}/BUILDROOT/mnt/lfs/usr/lib
-	cp -ar /mnt/lfs/usr/bin/* ${TOPDIR}/BUILDROOT/mnt/lfs/usr/bin
-	cp -ar /mnt/lfs/usr/lib/* ${TOPDIR}/BUILDROOT/mnt/lfs/usr/lib
+	install -dm 755 ${TOPDIR}/BUILDROOT${LFS}/usr/bin
+	install -dm 755 ${TOPDIR}/BUILDROOT${LFS}/usr/lib
+	cp -ar ${LFS}/usr/bin/* ${TOPDIR}/BUILDROOT${LFS}/usr/bin
+	cp -ar ${LFS}/usr/lib/* ${TOPDIR}/BUILDROOT${LFS}/usr/lib
 	msg_success
 	for i in ${LIST}; do
 		msg_line "	Removing: ${i}: "
@@ -93,10 +93,10 @@ if [ ! -e ${LOGPATH}/${PRGNAME} ]; then
 	done
 	msg_line "	Moving libraries: "
 	mv ${TOPDIR}/BUILDROOT/tools/lib/* /tools/lib
-	install -dm 755 /mnt/lfs/usr/bin
-	install -dm 755 /mnt/lfs/usr/lib
-	cp -ar ${TOPDIR}/BUILDROOT/mnt/lfs/usr/bin/* /mnt/lfs/usr/bin
-	cp -ar ${TOPDIR}/BUILDROOT/mnt/lfs/usr/lib/* /mnt/lfs/usr/lib
+	install -dm 755 ${LFS}/usr/bin
+	install -dm 755 ${LFS}/usr/lib
+	cp -ar ${TOPDIR}/BUILDROOT${LFS}/usr/bin/* ${LFS}/usr/bin
+	cp -ar ${TOPDIR}/BUILDROOT${LFS}/usr/lib/* ${LFS}/usr/lib
 	msg_success
 	msg_line "	Creating directories: "
 	install -dm 755 ${LFS}/var/tmp
