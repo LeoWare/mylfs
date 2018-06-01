@@ -1,10 +1,10 @@
 Summary:		Time zone data
-Name:		tzdata
+Name:			tzdata
 Version:		2018c
 Release:		1
 URL:			http://www.iana.org/time-zones
-License:		public-domain
-Group:		LFS/Base
+License	:	public-domain
+Group:			LFS/Base
 Vendor:		Octothorpe
 BuildRequires:	glibc
 Source0:		http://www.iana.org//time-zones/repository/releases/%{name}%{version}.tar.gz

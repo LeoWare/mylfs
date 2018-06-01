@@ -1,12 +1,12 @@
 Summary:	The Binutils package contains a linker, an assembler, and other tools for handling object files
-Name:	binutils
+Name:		binutils
 Version:	2.30
 Release:	1
 License:	GPLv3
 URL:		http://ftp.gnu.org
-Group:	LFS/Base
+Group:		LFS/Base
 Vendor:	Octothorpe
-Requires:	bc
+BuildRequires:	bc
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 %description
 	The Binutils package contains a linker, an assembler, and other tools for handling object files
@@ -30,11 +30,12 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 	cd -
 	#	Copy license/copying file
 	install -D -m644 COPYING3 %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	rm  %{buildroot}/usr/share/info/dir
+	#	Create file list
+	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man/d' filelist.rpm
+	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)

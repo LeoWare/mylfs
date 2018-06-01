@@ -6,7 +6,7 @@ License:	GPLv3
 URL:		http://www.gnu.org
 Group:	LFS/Base
 Vendor:	Octothorpe
-Requires:	readline
+BuildRequires:	readline
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 %description
 	The M4 package contains a macro processor

@@ -518,6 +518,7 @@ for the directories.
    %dir	%attr(1777,root,root) /tmp
    %dir	/proc
    %dir	/run
+   %dir	%attr(0750,root,root) /root
    #
    #	Files
    #

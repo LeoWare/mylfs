@@ -14,22 +14,11 @@ This library provides the basic routines for allocating memory,
 searching directories, opening and closing files, reading and
 writing files, string handling, pattern matching, arithmetic,
 and so on.
+%define	GCC_INCDIR	/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %patch0 -p1
-
-%ifarch x86_64
-%define	GCC_INCDIR	/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include
-ln -sfv ld-linux.so.2 /lib/ld-lsb.so.3
-%endif
-%ifarch 386
-%define	GCC_INCDIR	/usr/lib/gcc/$(uname -m)-pc-linux-gnu/7.3.0/include
-install -vdm 755 %{buildroot}/lib64
-ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64
-ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
-%endif
 	mkdir -v build
-	rm -f /usr/include/limits.h
 %build
 	cd build
 	CC='gcc -isystem %{GCC_INCDIR} -isystem /usr/include' \
@@ -98,7 +87,7 @@ ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
 		tr_TR.UTF-8	UTF-8
 		zh_CN.GB18030	GB18030
 	EOF
-	cat > %{buildroot}/sbin/locale-gen.sh <<- "EOF"
+	cat > %{buildroot}l <<- "EOF"
 		#!/bin/sh
 		set -e
 		LOCALEGEN=/etc/locale-gen.conf

@@ -1,10 +1,10 @@
 #!/bin/bash
 ###################################################
-#	Title:	lfs.sh						#
-#        Date:	2018-04-04					#
-#     Version:	1.0							#
-#      Author:	baho-utot@columbus.rr.com		#
-#     Options:								#
+#	Title:	lfs.sh					 #
+#        Date:	2018-04-04			 #
+#     Version:	1.0				 #
+#      Author:	baho-utot@columbus.rr.com	 #
+#     Options:					 #
 ###################################################
 set -o errexit		# exit if error...insurance ;)
 set -o nounset		# exit if variable not initalized
@@ -132,6 +132,7 @@ _symlinks() {
 			ln -sfv /tools/lib/libstdc++.{a,so{,.6}} /usr/lib >> ${_log} 2>&1
 			ln -sfv bash /bin/sh >> ${_log} 2>&1
 			ln -sfv /proc/self/mounts /etc/mtab >> ${_log} 2>&1
+			ln -sfv /tools/bin/getconf /usr/bin/getconf
 		msg_success
 		msg_line "Creating Files: "
 		cat > /etc/passwd <<- "EOF"
@@ -276,6 +277,60 @@ _tool-chain-test() {
 	fi
 	return
 }
+_gcc-test() {
+	local _log="${LOGPATH}/gcc-test"
+	if [ ! -e ${_log}.installed ]; then
+		msg "Building: gcc-test"
+		> ${_log}
+		msg_line "Running Check: "
+		echo 'int main(){}' > dummy.c
+		cc dummy.c -v -Wl,--verbose &> dummy.log
+
+		msg "Output: [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]" >> ${_log} 2>&1
+		readelf -l a.out | grep ': /lib' >> ${_log} 2>&1
+		echo"" >> ${_log} 2>&1
+
+		msg "Output: /usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/../../../../lib/crt1.o succeeded" >> ${_log} 2>&1
+		msg "Output: /usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/../../../../lib/crti.o succeeded" >> ${_log} 2>&1
+		msg "Output: /usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/../../../../lib/crtn.o succeeded" >> ${_log} 2>&1
+		grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log >> ${_log} 2>&1
+
+		echo"" >> ${_log} 2>&1
+		msg "Output: #include <...> search starts here:" >> ${_log} 2>&1
+		msg "Output: /usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include" >> ${_log} 2>&1
+		msg "Output: /usr/local/include" >> ${_log} 2>&1
+		msg "Output: /usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include-fixed" >> ${_log} 2>&1
+		msg "Output:  /usr/include" >> ${_log} 2>&1
+		grep -B4 '^ /usr/include' dummy.log >> ${_log} 2>&1
+
+		echo"" >> ${_log} 2>&1
+		msg "Output: SEARCH_DIR(/usr/x86_64-pc-linux-gnu/lib64)" >> ${_log} 2>&1
+		msg "Output: SEARCH_DIR(/usr/local/lib64)" >> ${_log} 2>&1
+		msg "Output: SEARCH_DIR(/lib64)" >> ${_log} 2>&1
+		msg "Output: SEARCH_DIR(/usr/lib64)" >> ${_log} 2>&1
+		msg "Output: SEARCH_DIR(/usr/x86_64-pc-linux-gnu/lib)" >> ${_log} 2>&1
+		msg "Output: SEARCH_DIR(/usr/local/lib)" >> ${_log} 2>&1
+		msg "Output: SEARCH_DIR(/lib)" >> ${_log} 2>&1
+		msg "Output: SEARCH_DIR(/usr/lib);" >> ${_log} 2>&1
+		grep 'SEARCH.*/usr/lib' dummy.log | sed 's|; |\n|g' >> ${_log} 2>&1
+
+		echo"" >> ${_log} 2>&1
+		msg "Output: attempt to open /lib/libc.so.6 succeeded" >> ${_log} 2>&1
+		grep "/lib.*/libc.so.6 " dummy.log >> ${_log} 2>&1
+
+		echo"" >> ${_log} 2>&1
+		msg "Output: found ld-linux-x86-64.so.2 at /lib/ld-linux-x86-64.so.2" >> ${_log} 2>&1
+		grep found dummy.log >> ${_log} 2>&1
+
+		echo ""
+		rm -v dummy.c a.out dummy.log >> ${_log} 2>&1
+		msg_success
+		mv ${_log} ${_log}.installed
+	else
+		msg "Skipping: tool-chain-test"
+	fi
+	return
+}
 _bc() {
 	local _log="${LOGPATH}/bc"
 	if [ ! -e ${_log}.prepare ]; then
@@ -291,16 +346,19 @@ _bc() {
 #	LFS Base system
 #
 msg "Building LFS base"
-_prepare
-_directories
-_symlinks
+#_prepare
+#_directories
+#_symlinks
 #./builder.sh man-pages
 #_glibc
-#_gen-locales
 #./builder.sh tzdata
+#	gen-locales.sh fails when run from rpm don't know why yet
+#_gen-locales
 #_adjust-tool-chain
 #_tool-chain-test
 #./builder.sh m4
 #_bc
-#./builder.sh binutils
+./builder.sh gcc
+_gcc-test
+
 end-run
