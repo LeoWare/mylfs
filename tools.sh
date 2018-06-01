@@ -1,11 +1,11 @@
 #!/bin/bash
-##############################################
-#	Title:	tools.sh					#
-#        Date:	2018-03-23				#
-#     Version:	1.0						#
+##################################################
+#	Title:	tools.sh				#
+#        Date:	2018-03-23			#
+#     Version:	1.0				#
 #      Author:	baho-utot@columbus.rr.com	#
-#     Options:							#
-##############################################
+#     Options:					#
+##################################################
 set -o errexit		# exit if error...insurance ;)
 set -o nounset		# exit if variable not initalized
 set +h			# disable hashall
