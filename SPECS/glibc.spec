@@ -1,10 +1,10 @@
 Summary:		Main C library
-Name:		glibc
+Name:			glibc
 Version:		2.27
 Release:		1
 License:		GPLv2
 URL:			http://www.gnu.org/software/libc
-Group:		LFS/Base
+Group:			LFS/Base
 Vendor:		Octothorpe
 BuildRequires:	man-pages
 Source0:		http://ftp.gnu.org/gnu/glibc/%{name}-%{version}.tar.xz
@@ -18,6 +18,13 @@ and so on.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %patch0 -p1
+if [ ! -e /usr/lib/gcc ]; then
+	ln -sfv /tools/lib/gcc /usr/lib
+	ls -l /usr/lib/gcc
+fi
+if [ -e /usr/include/limits.h ]; then
+	rm -f /usr/include/limits.h
+fi
 	mkdir -v build
 %build
 	cd build
@@ -30,8 +37,8 @@ and so on.
 		make %{?_smp_mflags}
 %install
 	cd build
-	touch /etc/ld.so.conf
-	sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile
+	#	touch /etc/ld.so.conf - already installed by filesystem
+	#	sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile - not needed
 	make install_root=%{buildroot} install
 	#	Create directories
 	install -vdm 755 %{buildroot}/etc
@@ -87,7 +94,7 @@ and so on.
 		tr_TR.UTF-8	UTF-8
 		zh_CN.GB18030	GB18030
 	EOF
-	cat > %{buildroot}l <<- "EOF"
+	cat > %{buildroot}/sbin/locale-gen.sh <<- "EOF"
 		#!/bin/sh
 		set -e
 		LOCALEGEN=/etc/locale-gen.conf

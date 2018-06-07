@@ -6,8 +6,8 @@
 #      Author:	baho-utot@columbus.rr.com	 #
 #     Options:					 #
 ###################################################
-set -o errexit		# exit if error...insurance ;)
-set -o nounset		# exit if variable not initalized
+set -o errexit	# exit if error...insurance ;)
+set -o nounset	# exit if variable not initalized
 set +h			# disable hashall
 PRGNAME=${0##*/}	# script name minus the path
 TOPDIR=${PWD}		# script lives here
@@ -349,16 +349,21 @@ msg "Building LFS base"
 #_prepare
 #_directories
 #_symlinks
+#./builder.sh linux-api-headers
 #./builder.sh man-pages
-#_glibc
+# _glibc
 #./builder.sh tzdata
-#	gen-locales.sh fails when run from rpm don't know why yet
 #_gen-locales
 #_adjust-tool-chain
 #_tool-chain-test
+
+
+
+
+
 #./builder.sh m4
 #_bc
-./builder.sh gcc
-_gcc-test
+#./builder.sh gcc
+#_gcc-test
 
 end-run
