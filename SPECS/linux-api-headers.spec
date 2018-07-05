@@ -6,7 +6,6 @@ License:		GPLv2
 URL:			http://www.kernel.org/
 Group:		LFS/Base
 Vendor:		Octothorpe
-BuildRequires:	filesystem
 Source0:		http://www.kernel.org/pub/linux/kernel/v4.x/linux-%{version}.tar.xz
 %description
 The Linux API Headers expose the kernel's API for use by Glibc.

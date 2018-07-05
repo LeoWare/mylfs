@@ -1,12 +1,12 @@
 Summary:	The Zlib package contains compression and decompression routines used by some programs.
-Name:	zlib
+Name:		zlib
 Version:	1.2.11
 Release:	1
 License:	Other
 URL:		http://zlib.net
-Group:	LFS/Base
+Group:		LFS/Base
 Vendor:	Octothorpe
-BuildRequires:	tzdata
+
 Source0:	http://zlib.net/%{name}-%{version}.tar.xz
 %description
 The Zlib package contains compression and decompression routines used by some programs.

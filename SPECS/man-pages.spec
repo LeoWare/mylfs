@@ -1,12 +1,12 @@
-Summary:		Man pages
+Summary:	Man pages
 Name:		man-pages
-Version:		4.15
-Release:		1
-License:		GPLv2
-URL:			http://www.kernel.org/doc/man-pages
+Version:	4.15
+Release:	1
+License:	GPLv2
+URL:		http://www.kernel.org/doc/man-pages
 Group:		LFS/Base
-Vendor:		Octothorpe
-BuildRequires: linux-api-headers
+Vendor:	Octothorpe
+
 Source:	http://www.kernel.org/pub/linux/docs/man-pages/%{name}-%{version}.tar.xz
 %description
 The Man-pages package contains over 1,900 man pages.

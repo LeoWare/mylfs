@@ -6,7 +6,6 @@ License:	GPLv3
 URL:		http://ftp.gnu.org/gnu/readline/%{name}-%{version}.tar.gz
 Group:	LFS/Base
 Vendor:	Octothorpe
-BuildRequires:	file
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 %description
 	The Readline package is a set of libraries that offers command-line editing and history capabilities

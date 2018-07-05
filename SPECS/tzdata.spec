@@ -6,7 +6,6 @@ URL:			http://www.iana.org/time-zones
 License	:	public-domain
 Group:			LFS/Base
 Vendor:		Octothorpe
-BuildRequires:	glibc
 Source0:		http://www.iana.org//time-zones/repository/releases/%{name}%{version}.tar.gz
 %description
 Sources for time zone and daylight saving time data

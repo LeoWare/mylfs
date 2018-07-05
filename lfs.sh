@@ -180,18 +180,10 @@ _symlinks() {
 _glibc() {
 	local _log="${LOGPATH}/glibc"
 	if [ ! -e ${_log}.prepare ]; then
-		[ -h /usr/lib/gcc ]			|| ln -sf /tools/lib/gcc /usr/lib
+		[ -e /usr/lib/gcc ]			|| ln -sf /tools/lib/gcc /usr/lib
 		[ -e /usr/include/limits.h ]	&& rm -f /usr/include/limits.h
-		case $(uname -m) in
-			i?86)	GCC_INCDIR=/usr/lib/gcc/$(uname -m)-pc-linux-gnu/7.3.0/include
-					ln -sfv ld-linux.so.2 /lib/ld-lsb.so.3
-			;;
-			x86_64)	GCC_INCDIR=/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include
-					[ -d /lib64 ]	|| install -vdm 755 /lib64
-					ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64
-					ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
-			;;
-		esac
+		[ -h /lib64/ld-linux-x86-64.so.2 ]	|| ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64
+		[ -h /lib64/ld-lsb-x86-64.so.3 ]	|| ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
 		touch ${_log}.prepare
 	fi
 	./builder.sh glibc
@@ -346,24 +338,34 @@ _bc() {
 #	LFS Base system
 #
 msg "Building LFS base"
-#_prepare
-#_directories
-#_symlinks
-#./builder.sh linux-api-headers
-#./builder.sh man-pages
-# _glibc
-#./builder.sh tzdata
-#_gen-locales
-#_adjust-tool-chain
-#_tool-chain-test
-
-
-
-
-
-#./builder.sh m4
-#_bc
-#./builder.sh gcc
-#_gcc-test
-
+_prepare
+_directories
+_symlinks
+./builder.sh filesystem
+./builder.sh linux-api-headers
+./builder.sh man-pages
+_glibc
+_gen-locales
+./builder.sh tzdata
+_adjust-tool-chain
+_tool-chain-test
+./builder.sh zlib
+./builder.sh file
+./builder.sh readline
+./builder.sh m4
+_bc
+./builder.sh binutils
+./builder.sh gmp
+./builder.sh mpfr
+./builder.sh mpc
+./builder.sh gcc
+_gcc-test
+./builder.sh bzip2
+./builder.sh pkg-config
+./builder.sh ncurses
+./builder.sh attr
+./builder.sh acl
+./builder.sh libcap
+./builder.sh sed
+./builder.sh shadow
 end-run

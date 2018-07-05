@@ -1,12 +1,11 @@
 Summary:	The File package contains a utility for determining the type of a given file or files
-Name:	file
+Name:		file
 Version:	5.32
 Release:	1
 License:	Other
 URL:		ftp://ftp.astron.com/pub
-Group:	LFS/Base
+Group:		LFS/Base
 Vendor:	Octothorpe
-BuildRequires:	zlib
 Source0:	ftp://ftp.astron.com/pub/%{name}/%{name}-%{version}.tar.gz
 %description
 	The File package contains a utility for determining the type of a given file or files.

@@ -49,6 +49,8 @@ Source0:		http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}/%{name}-%{version}.t
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_infodir}/*.gz
+	%{_mandir}/man1/*.gz
+	%{_mandir}/man7/*.gz
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 7.3.0-1
 -	Initial build.	First version

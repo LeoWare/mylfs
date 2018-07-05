@@ -32,6 +32,9 @@ Source0:	https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/%{na
 %clean
 %files -f filelist.rpm
 	%defattr(-,root,root)
+	%{_mandir}/man1/*.gz
+	%{_mandir}/man3/*.gz
+	%{_mandir}/man8/*.gz
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.25-1
 -	Initial build.	First version

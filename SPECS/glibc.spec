@@ -6,7 +6,6 @@ License:		GPLv2
 URL:			http://www.gnu.org/software/libc
 Group:			LFS/Base
 Vendor:		Octothorpe
-BuildRequires:	man-pages
 Source0:		http://ftp.gnu.org/gnu/glibc/%{name}-%{version}.tar.xz
 Patch0:		glibc-2.27-fhs-1.patch
 %description
@@ -18,13 +17,6 @@ and so on.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %patch0 -p1
-if [ ! -e /usr/lib/gcc ]; then
-	ln -sfv /tools/lib/gcc /usr/lib
-	ls -l /usr/lib/gcc
-fi
-if [ -e /usr/include/limits.h ]; then
-	rm -f /usr/include/limits.h
-fi
 	mkdir -v build
 %build
 	cd build
