@@ -34,7 +34,7 @@ Sources for time zone and daylight saving time data
 	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	cd -
 	#	Create file list
-	find %{buildroot}%{_infodir} -name 'dir' -delete
+	#	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
