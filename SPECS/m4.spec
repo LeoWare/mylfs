@@ -1,11 +1,11 @@
-Summary:	The M4 package contains a macro processor
-Name:	m4
+Summary:    The M4 package contains a macro processor
+Name:       m4
 Version:	1.4.18
 Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org
-Group:	LFS/Base
-Vendor:	Octothorpe
+Group:		LFS/Base
+Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 %description
 	The M4 package contains a macro processor
@@ -20,7 +20,7 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 	#	Copy license/copying file
 	install -D -m644 README %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
+	find %{buildroot}%{_infodir} -name 'dir' -delete
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm

@@ -368,4 +368,14 @@ _gcc-test
 ./builder.sh libcap
 ./builder.sh sed
 ./builder.sh shadow
+
+
+./builder.sh psmisc
+./builder.sh iana-etc
+./builder.sh bison
+./builder.sh flex
+./builder.sh grep
+./builder.sh bash
+./builder.sh libtool
+
 end-run

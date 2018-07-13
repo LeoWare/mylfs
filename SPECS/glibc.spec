@@ -1,12 +1,12 @@
-Summary:		Main C library
-Name:			glibc
-Version:		2.27
-Release:		1
-License:		GPLv2
-URL:			http://www.gnu.org/software/libc
-Group:			LFS/Base
+Summary:	Main C library
+Name:		glibc
+Version:	2.27
+Release:	1
+License:	GPLv2
+URL:		http://www.gnu.org/software/libc
+Group:		LFS/Base
 Vendor:		Octothorpe
-Source0:		http://ftp.gnu.org/gnu/glibc/%{name}-%{version}.tar.xz
+Source0:	http://ftp.gnu.org/gnu/glibc/%{name}-%{version}.tar.xz
 Patch0:		glibc-2.27-fhs-1.patch
 %description
 This library provides the basic routines for allocating memory,
@@ -127,10 +127,11 @@ and so on.
 	#	Copy license/copying file
 	install -D -m644 LICENSES %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
+	find %{buildroot}%{_infodir} -name 'dir' -delete
 	find %{buildroot} -name '*.la' -delete
-	rm -rf %{buildroot}/usr/share/info/dir
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)

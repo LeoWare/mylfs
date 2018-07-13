@@ -1,13 +1,12 @@
-Summary:		The GCC package contains the GNU compiler collection
-Name:			gcc
-Version:		7.3.0
-Release:		1
-License:		GPLv2
-URL:			Any
-Group:			LFS/Base
+Summary:	The GCC package contains the GNU compiler collection
+Name:		gcc
+Version:	7.3.0
+Release:	1
+License:	GPLv2
+URL:		Any
+Group:		LFS/Base
 Vendor:		Octothorpe
-BuildRequires:	mpc
-Source0:		http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}/%{name}-%{version}.tar.xz
+Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}/%{name}-%{version}.tar.xz
 %description
 	The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
 %prep
@@ -40,7 +39,7 @@ Source0:		http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}/%{name}-%{version}.t
 	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
+	find %{buildroot}%{_infodir} -name 'dir' -delete
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm

@@ -1,37 +1,26 @@
-Summary:	The Bc package contains an arbitrary precision numeric processing language
-Name:		bc
-Version:	1.07.1
+Summary:	The Flex package contains a utility for generating programs that recognize patterns in text.
+Name:		flex
+Version:	2.6.4
 Release:	1
-License:	GPLv3
-URL:		http://www.gnu.org
+License:	BSD
+URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
+Source0:	https://github.com/westes/flex/releases/download/v2.6.4/%{name}-%{version}.tar.gz
 %description
-	The Bc package contains an arbitrary precision numeric processing language
+	The Flex package contains a utility for generating programs that recognize patterns in text.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
-	cat > bc/fix-libmath_h <<- "EOF"
-	#! /bin/bash
-	sed -e '1   s/^/{"/' \
-	    -e     's/$/",/' \
-	    -e '2,$ s/^/"/'  \
-	    -e   '$ d'       \
-	    -i libmath.h
-
-	sed -e '$ s/$/0}/' \
-    	-i libmath.h
-	EOF
-	sed -i -e '/flex/s/as_fn_error/: ;; # &/' configure
+	sed -i "/math.h/a #include <malloc.h>" src/flexdef.h
 %build
+	HELP2MAN=/tools/bin/true \
 	./configure \
 		--prefix=%{_prefix} \
-		--with-readline \
-		--mandir=%{_mandir} \
-		--infodir=%{_infodir}
+		--docdir=%{_docdir}/%{name}-%{version}
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
+	ln -sv flex %{buildroot}%{_bindir}/lex
 	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
@@ -41,10 +30,11 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
+%clean
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_infodir}/*.gz
 	%{_mandir}/man1/*.gz
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 1.07.1-1
+*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.6.4-1
 -	Initial build.	First version

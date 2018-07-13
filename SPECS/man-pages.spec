@@ -5,7 +5,7 @@ Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/doc/man-pages
 Group:		LFS/Base
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 
 Source:	http://www.kernel.org/pub/linux/docs/man-pages/%{name}-%{version}.tar.xz
 %description
@@ -18,9 +18,12 @@ The Man-pages package contains over 1,900 man pages.
 	#	Copy license/copying file
 	install -D -m644 man-pages-%{version}.Announce %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	rm -rf %{buildroot}/usr/share/info/dir
+	find %{buildroot}%{_infodir} -name 'dir' -delete
+	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+	sed -i '/man\/man/d' filelist.rpm
+	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %files
 	%defattr(-,root,root)
 	%{_mandir}/man1/*.gz

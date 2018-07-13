@@ -30,10 +30,12 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
+	find %{buildroot}%{_infodir} -name 'dir' -delete
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
+	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_mandir}/man3/*.gz

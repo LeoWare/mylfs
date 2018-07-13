@@ -6,7 +6,6 @@ License:	GPLv2
 URL:		Any
 Group:		LFS/Base
 Vendor:	Octothorpe
-Requires:	bzip2
 Source0:	https://pkg-config.freedesktop.org/releases/%{name}-%{version}.tar.gz
 %description
 	The pkg-config package contains a tool for passing the include path and/or
@@ -25,9 +24,12 @@ Source0:	https://pkg-config.freedesktop.org/releases/%{name}-%{version}.tar.gz
 	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
+	find %{buildroot}%{_infodir} -name 'dir' -delete
+	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man/d' filelist.rpm
+	sed -i '/man\/man/d' filelist.rpm
+	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_mandir}/man1/*.gz

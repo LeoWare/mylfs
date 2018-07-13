@@ -1,31 +1,25 @@
-Summary:	The GMP package contains math libraries.
-Name:		gmp
-Version:	6.1.2
-Release	:	1
-License:	GPLv3
+Summary:	The Bison package contains a parser generator.
+Name:		bison
+Version:	3.0.4
+Release:	1
+License:	Any
 URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
-Source0:		http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
+Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 %description
-	The GMP package contains math libraries. These have useful functions for arbitrary precision arithmetic.
+	The Bison package contains a parser generator.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
-	cp -v configfsf.guess config.guess
-	cp -v configfsf.sub   config.sub
 %build
 	./configure \
 		--prefix=%{_prefix} \
-		--enable-cxx \
-		--disable-static \
-		--docdir=%{_docdir}/%{NAME}-%{VERSION}
+		--docdir=%{_docdir}/%{name}-%{version}
 	make %{?_smp_mflags}
-	make %{?_smp_mflags} html
 %install
 	make DESTDIR=%{buildroot} install
-	make DESTDIR=%{buildroot} install-html
 	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
+	#	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
 	find %{buildroot}%{_infodir} -name 'dir' -delete
 	find %{buildroot} -name '*.la' -delete
@@ -33,9 +27,11 @@ Source0:		http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
+%clean
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_infodir}/*.gz
+	%{_mandir}/man1/*.gz
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 6.1.2-1
+*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 3.0.4-1
 -	Initial build.	First version

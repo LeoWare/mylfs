@@ -5,8 +5,7 @@ Release:	1
 License:	GPLv2
 URL:		http://savannah.nongnu.org/projects/attr
 Group:		LFS/Base
-Vendor:	Octothorpe
-Requires:	ncurses
+Vendor:		Octothorpe
 Source0:	http://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.src.tar.gz
 %description
 	The attr package contains utilities to administer the extended attributes on filesystem objects.
@@ -30,10 +29,12 @@ Source0:	http://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.sr
 	#	Copy license/copying file
 	#	install -D -m644 doc/COPYINGLICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
+	find %{buildroot}%{_infodir} -name 'dir' -delete
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man/d' filelist.rpm
+	sed -i '/man\/man/d' filelist.rpm
+	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %clean
 %files -f filelist.rpm
 	%defattr(-,root,root)

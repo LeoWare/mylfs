@@ -3,9 +3,9 @@ Name:			tzdata
 Version:		2018c
 Release:		1
 URL:			http://www.iana.org/time-zones
-License	:	public-domain
+License	:   	public-domain
 Group:			LFS/Base
-Vendor:		Octothorpe
+Vendor:	        Octothorpe
 Source0:		http://www.iana.org//time-zones/repository/releases/%{name}%{version}.tar.gz
 %description
 Sources for time zone and daylight saving time data
@@ -34,9 +34,12 @@ Sources for time zone and daylight saving time data
 	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	cd -
 	#	Create file list
-	rm -rf %{buildroot}/usr/share/info/dir
+	find %{buildroot}%{_infodir} -name 'dir' -delete
+	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+	sed -i '/man\/man/d' filelist.rpm
+	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog

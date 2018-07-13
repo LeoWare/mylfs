@@ -1,11 +1,11 @@
-Summary:		Default file system
+Summary:	Default file system
 Name:		filesystem
-Version:		8.1
-Release:		1
-License:		None
+Version:	8.1
+Release:	1
+License:	None
 Group:		LFS/Base
 Vendor:		Octothorpe
-URL:			http://www.linuxfromscratch.org
+URL:		http://www.linuxfromscratch.org
 %description
 The filesystem package is one of the basic packages that is installed
 on a Linux system. Filesystem contains the basic directory

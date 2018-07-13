@@ -5,8 +5,7 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:	Octothorpe
-Requires:	acl
+Vendor:	    Octothorpe
 Source0:	https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/%{name}-%{version}.tar.xz
 %description
 	The Libcap package implements the user-space interfaces to the POSIX 1003.1e
@@ -26,9 +25,12 @@ Source0:	https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/%{na
 	#	Copy license/copying file
 	install -D -m644 License %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
+	find %{buildroot}%{_infodir} -name 'dir' -delete
+	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man/d' filelist.rpm
+	sed -i '/man\/man/d' filelist.rpm
+	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %clean
 %files -f filelist.rpm
 	%defattr(-,root,root)

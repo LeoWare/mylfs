@@ -5,7 +5,7 @@ Release:	1
 License:	GPLv3
 URL:		http://ftp.gnu.org
 Group:		LFS/Base
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 %description
 	The Binutils package contains a linker, an assembler, and other tools for handling object files
@@ -30,7 +30,7 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 	#	Copy license/copying file
 	install -D -m644 COPYING3 %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
+	find %{buildroot}%{_infodir} -name 'dir' -delete
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm

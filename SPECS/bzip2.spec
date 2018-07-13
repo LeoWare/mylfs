@@ -5,8 +5,7 @@ Release:	1
 License:	Other
 URL:		Any
 Group:		LFS/Base
-Vendor:	Octothorpe
-Requires:	gcc
+Vendor:		Octothorpe
 Source0:	http://www.%{name}.org/%{version}/%{name}-%{version}.tar.gz
 Patch0:	http://www.linuxfromscratch.org/patches/lfs/8.1/%{name}-%{version}-install_docs-1.patch
 %description
@@ -41,10 +40,12 @@ Patch0:	http://www.linuxfromscratch.org/patches/lfs/8.1/%{name}-%{version}-insta
 	#	Copy license/copying file
 	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
+	find %{buildroot}%{_infodir} -name 'dir' -delete
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
+	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_mandir}/man1/*.gz

@@ -5,8 +5,7 @@ Release:		1
 License:		LGPLv3
 URL:			Any
 Group:			LFS/Base
-Vendor:		Octothorpe
-BuildRequires:	mpfr
+Vendor:			Octothorpe
 Source0:		http://www.multiprecision.org/%{name}/download/%{name}-%{version}.tar.gz
 %description
 	The MPC package contains a library for the arithmetic of
@@ -27,7 +26,7 @@ Source0:		http://www.multiprecision.org/%{name}/download/%{name}-%{version}.tar.
 	#	Copy license/copying file
 	install -D -m644 COPYING.LESSER %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
+	find %{buildroot}%{_infodir} -name 'dir' -delete
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm

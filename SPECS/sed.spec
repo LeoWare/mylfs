@@ -6,7 +6,6 @@ License:	GPLv3
 URL:		Any
 Group:		LFS/Base
 Vendor:	Octothorpe
-Requires:	libcap
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 %description
 	The Sed package contains a stream editor
@@ -28,10 +27,12 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	#	find %{buildroot} -name '*.la' -delete
+	find %{buildroot}%{_infodir} -name 'dir' -delete
+	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man/d' filelist.rpm
+	sed -i '/man\/man/d' filelist.rpm
+	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %clean
 %files -f filelist.rpm
 	%defattr(-,root,root)

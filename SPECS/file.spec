@@ -5,7 +5,7 @@ Release:	1
 License:	Other
 URL:		ftp://ftp.astron.com/pub
 Group:		LFS/Base
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 Source0:	ftp://ftp.astron.com/pub/%{name}/%{name}-%{version}.tar.gz
 %description
 	The File package contains a utility for determining the type of a given file or files.
@@ -20,10 +20,12 @@ Source0:	ftp://ftp.astron.com/pub/%{name}/%{name}-%{version}.tar.gz
 	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
+	find %{buildroot}%{_infodir} -name 'dir' -delete
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
+	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_mandir}/man1/file.1.gz

@@ -5,8 +5,7 @@ Release:	1
 License:	Artistic
 URL:		Any
 Group:		LFS/Base
-Vendor:	Octothorpe
-Requires:	sed
+Vendor:	    Octothorpe
 Source0:	https://github.com/shadow-maint/shadow/releases/download/4.5/%{name}-%{version}.tar.xz
 %description
 	The Shadow package contains programs for handling passwords in a secure way.
