@@ -369,7 +369,6 @@ _gcc-test
 ./builder.sh sed
 ./builder.sh shadow
 
-
 ./builder.sh psmisc
 ./builder.sh iana-etc
 ./builder.sh bison
@@ -377,5 +376,7 @@ _gcc-test
 ./builder.sh grep
 ./builder.sh bash
 ./builder.sh libtool
-
+./builder.sh gdbm
+./builder.sh gperf
+./builder.sh expat
 end-run
