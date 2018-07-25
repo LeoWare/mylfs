@@ -8,7 +8,7 @@ Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	https://github.com/westes/flex/releases/download/v2.6.4/%{name}-%{version}.tar.gz
 %description
-	The Flex package contains a utility for generating programs that recognize patterns in text.
+			The Flex package contains a utility for generating programs that recognize patterns in text.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 	sed -i "/math.h/a #include <malloc.h>" src/flexdef.h
@@ -24,7 +24,7 @@ Source0:	https://github.com/westes/flex/releases/download/v2.6.4/%{name}-%{versi
 	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	find %{buildroot}%{_infodir} -name 'dir' -delete
+	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm

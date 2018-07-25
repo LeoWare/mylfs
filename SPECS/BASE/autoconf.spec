@@ -6,7 +6,6 @@ License:	GPLv2
 URL:		Any
 Group:		LFS/Base
 Vendor:	Octothorpe
-Requires:	intltool
 Source0:	http://ftp.gnu.org/gnu/autoconf/%{name}-%{version}.tar.xz
 %description
 	The Autoconf package contains programs for producing shell scripts that can automatically configure source code.

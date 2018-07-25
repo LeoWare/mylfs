@@ -6,7 +6,6 @@ License:	GPLv2.1
 URL:		Any
 Group:		LFS/Base
 Vendor:	Octothorpe
-Requires:	xz
 Source0:	https://www.kernel.org/pub/linux/utils/kernel/kmod/%{name}-%{version}.tar.xz
 %description
 	The Kmod package contains libraries and utilities for loading kernel modules
@@ -32,10 +31,12 @@ Source0:	https://www.kernel.org/pub/linux/utils/kernel/kmod/%{name}-%{version}.t
 	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
+	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man/d' filelist.rpm
+	sed -i '/man\/man/d' filelist.rpm
+	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog

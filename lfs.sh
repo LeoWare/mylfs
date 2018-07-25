@@ -368,7 +368,6 @@ _gcc-test
 ./builder.sh libcap
 ./builder.sh sed
 ./builder.sh shadow
-
 ./builder.sh psmisc
 ./builder.sh iana-etc
 ./builder.sh bison
@@ -379,4 +378,21 @@ _gcc-test
 ./builder.sh gdbm
 ./builder.sh gperf
 ./builder.sh expat
+./builder.sh inetutils
+./builder.sh perl
+./builder.sh XML-Parser
+
+./builder.sh intltool
+./builder.sh autoconf
+./builder.sh automake
+./builder.sh xz
+./builder.sh kmod
+./builder.sh gettext
+./builder.sh libelf
+./builder.sh libffi
+./builder.sh openssl
+./builder.sh python
+
+
+
 end-run

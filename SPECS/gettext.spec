@@ -1,27 +1,30 @@
-Summary:	The GDBM package contains the GNU Database Manager
-Name:		gdbm
-Version:	1.14.1
+Summary:	The Gettext package contains utilities for internationalization and localization.
+Name:		gettext
+Version:	0.19.8.1
 Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/gdbm/%{name}-%{version}.tar.gz
+Source0:	http://ftp.gnu.org/gnu/gettext/%{name}-%{version}.tar.xz
 %description
-	The GDBM package contains the GNU Database Manager. It is a library of database
-	functions that use extensible hashing and work similar to the standard UNIX dbm.
-	The library provides primitives for storing key/data pairs, searching and
-	retrieving the data by its key and deleting a key along with its data.
+	The Gettext package contains utilities for internationalization and localization.
+	These allow programs to be compiled with NLS (Native Language Support), enabling
+	them to output messages in the user's native language.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
+	sed -i '/^TESTS =/d' gettext-runtime/tests/Makefile.in
+	sed -i 's/test-lock..EXEEXT.//' gettext-tools/gnulib-tests/Makefile.in
 %build
 	./configure \
 		--prefix=%{_prefix} \
 		--disable-static \
-		--enable-libgdbm-compat
+		--docdir=/usr/share/doc/%{NAME}-%{VERSION}
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
+	chmod -v 0755 %{buildroot}%{_libdir}/preloadable_libintl.so
+	rm -rf %{buildroot}%{_docdir}/%{NAME}-%{VERSION}
 	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
@@ -31,12 +34,11 @@ Source0:	http://ftp.gnu.org/gnu/gdbm/%{name}-%{version}.tar.gz
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%clean
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_infodir}/*.gz
 	%{_mandir}/man1/*.gz
 	%{_mandir}/man3/*.gz
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 1.14.1-1
+*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 0.19.8.1-1
 -	Initial build.	First version

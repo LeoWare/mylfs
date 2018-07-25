@@ -1,28 +1,27 @@
-Summary:	The Expat package contains a stream oriented C library for parsing XML.
-Name:		expat
-Version:	2.2.5
+Summary:	The Intltool is an internationalization tool used for extracting translatable strings from source files.
+Name:		intltool
+Version:	0.51.0
 Release:	1
-License:	Other
+License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://prdownloads.sourceforge.net/expat/%{name}-%{version}.tar.bz2
+Vendor:	Octothorpe
+Source0:	http://launchpad.net/intltool/trunk/0.51.0/+download/%{name}-%{version}.tar.gz
 %description
-			The Expat package contains a stream oriented C library for parsing XML.
+	The Intltool is an internationalization tool used for extracting translatable strings from source files.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
-	sed -i 's|usr/bin/env |bin/|' run.sh.in
+	sed -i 's:\\\${:\\\$\\{:' intltool-update.in
 %build
 	./configure \
-		--prefix=%{_prefix} \
-		--disable-static
+		--prefix=%{_prefix}
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
-	install -v -dm755 %{buildroot}%{_docdir}/%{name}-%{version}
-	install -v -m644 doc/*.{html,png,css} %{buildroot}%{_docdir}/%{name}-%{version}
+	install -vDm 644 doc/I18N-HOWTO %{buildroot}%{_docdir}/%{name}-%{version}/I18N-HOWTO
 	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
+	
 	#	Create file list
 	#	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
@@ -30,10 +29,9 @@ Source0:	http://prdownloads.sourceforge.net/expat/%{name}-%{version}.tar.bz2
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%clean
 %files -f filelist.rpm
 	%defattr(-,root,root)
-	%{_mandir}/man1/*.gz
+	%{_mandir}/man8/*.gz
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.2.5-1
+*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 0.51.0-1
 -	Initial build.	First version

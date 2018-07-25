@@ -1,29 +1,34 @@
-Summary:	The GMP package contains math libraries.
-Name:		gmp
-Version:	6.1.2
-Release	:	1
+Summary:	The Inetutils package contains programs for basic networking.
+Name:		inetutils
+Version:	1.9.4
+Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
-Source0:		http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
+Source0:	http://ftp.gnu.org/gnu/inetutils/%{name}-%{version}.tar.xz
 %description
-	The GMP package contains math libraries. These have useful functions for arbitrary precision arithmetic.
+	The Inetutils package contains programs for basic networking.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
-	cp -v configfsf.guess config.guess
-	cp -v configfsf.sub   config.sub
 %build
 	./configure \
 		--prefix=%{_prefix} \
-		--enable-cxx \
-		--disable-static \
-		--docdir=%{_docdir}/%{NAME}-%{VERSION}
+		--localstatedir=/var \
+		--disable-logger \
+		--disable-whois \
+		--disable-rcp \
+		--disable-rexec \
+		--disable-rlogin \
+		--disable-rsh \
+		--disable-servers
 	make %{?_smp_mflags}
-	make %{?_smp_mflags} html
 %install
 	make DESTDIR=%{buildroot} install
-	make DESTDIR=%{buildroot} install-html
+	install -vdm 755 %{buildroot}/bin
+	mv -v %{buildroot}%{_bindir}/{hostname,ping,ping6,traceroute} %{buildroot}/bin
+	install -vdm 755 %{buildroot}/sbin
+	mv -v %{buildroot}%{_bindir}/ifconfig %{buildroot}/sbin
 	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
@@ -36,6 +41,7 @@ Source0:		http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_infodir}/*.gz
+	%{_mandir}/man1/*.gz
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 6.1.2-1
+*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 1.9.4-1
 -	Initial build.	First version

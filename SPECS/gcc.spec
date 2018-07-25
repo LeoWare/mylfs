@@ -8,7 +8,7 @@ Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}/%{name}-%{version}.tar.xz
 %description
-	The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
+			The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 	sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64
@@ -39,7 +39,7 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}/%{name}-%{version}.ta
 	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	find %{buildroot}%{_infodir} -name 'dir' -delete
+	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm

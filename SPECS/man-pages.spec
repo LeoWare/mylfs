@@ -18,7 +18,7 @@ The Man-pages package contains over 1,900 man pages.
 	#	Copy license/copying file
 	install -D -m644 man-pages-%{version}.Announce %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	find %{buildroot}%{_infodir} -name 'dir' -delete
+	#	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm

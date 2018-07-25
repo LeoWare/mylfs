@@ -5,8 +5,7 @@ Release:	1
 License:	GPLv2
 URL:		https://www.kernel.org
 Group:		LFS/Base
-Vendor:	Octothorpe
-Requires:	lfs-bootscripts
+Vendor:		Octothorpe
 Source0:	https://www.kernel.org/pub/linux/kernel/v4.x/%{name}-%{version}.tar.xz
 %description
 	The Linux package contains the Linux kernel.

@@ -8,7 +8,7 @@ Group:		LFS/Base
 Vendor:	    Octothorpe
 Source0:	https://github.com/shadow-maint/shadow/releases/download/4.5/%{name}-%{version}.tar.xz
 %description
-	The Shadow package contains programs for handling passwords in a secure way.
+			The Shadow package contains programs for handling passwords in a secure way.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 	sed -i 's/groups$(EXEEXT) //' src/Makefile.in

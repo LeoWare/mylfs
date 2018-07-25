@@ -6,7 +6,6 @@ License:	GPL
 URL:		Any
 Group:		LFS/Base
 Vendor:	Octothorpe
-Requires:	automake
 Source0:	http://tukaani.org/xz/%{name}-%{version}.tar.xz
 %description
 	The Xz package contains programs for compressing and decompressing files.

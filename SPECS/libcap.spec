@@ -25,7 +25,7 @@ Source0:	https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/%{na
 	#	Copy license/copying file
 	install -D -m644 License %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	find %{buildroot}%{_infodir} -name 'dir' -delete
+	#	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm

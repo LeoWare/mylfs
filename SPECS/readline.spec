@@ -1,14 +1,14 @@
 Summary:	The Readline package is a set of libraries that offers command-line editing and history capabilities
-Name:	readline
+Name:		readline
 Version:	7.0
 Release:	1
 License:	GPLv3
 URL:		http://ftp.gnu.org/gnu/readline/%{name}-%{version}.tar.gz
-Group:	LFS/Base
-Vendor:	Octothorpe
+Group:		LFS/Base
+Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 %description
-	The Readline package is a set of libraries that offers command-line editing and history capabilities
+			The Readline package is a set of libraries that offers command-line editing and history capabilities
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 	sed -i '/MV.*old/d' Makefile.in
@@ -30,7 +30,7 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	find %{buildroot}%{_infodir} -name 'dir' -delete
+	#	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
