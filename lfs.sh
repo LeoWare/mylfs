@@ -381,7 +381,6 @@ _gcc-test
 ./builder.sh inetutils
 ./builder.sh perl
 ./builder.sh XML-Parser
-
 ./builder.sh intltool
 ./builder.sh autoconf
 ./builder.sh automake
@@ -393,6 +392,9 @@ _gcc-test
 ./builder.sh openssl
 ./builder.sh python
 
-
+./builder.sh ninja
+./builder.sh meson
+./builder.sh procps-ng
+./builder.sh e2fsprogs
 
 end-run

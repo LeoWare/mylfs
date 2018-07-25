@@ -6,10 +6,7 @@ License:	Any
 URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
-Distribution:	LFS-8.1
-ExclusiveArch:	x86_64
-Requires:	filesystem
-Source0:	%{name}-%{version}
+Source:		%{name}-%{version}
 %description
 	
 %prep
@@ -22,11 +19,12 @@ Source0:	%{name}-%{version}
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
-	#	rm -rf %{buildroot}/%{_infodir}
 	#	Copy license/copying file 
 	#	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
+	#	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list
-	#	find %{buildroot} -name '*.la' -delete
+	rm  %{buildroot}%{_infodir}/dir
+	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm

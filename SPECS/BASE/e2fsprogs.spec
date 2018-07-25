@@ -1,6 +1,6 @@
 Summary:	The E2fsprogs package contains the utilities for handling the ext2 file system.
 Name:		e2fsprogs
-Version:	1.43.5
+Version:	1.43.9
 Release:	1
 License:	GPLv2
 URL:		Any
@@ -50,5 +50,6 @@ Source0:	http://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.43.5/%{
 %files -f filelist.rpm
 	%defattr(-,root,root)
 %changelog
+*	Wed Jul 25 2018 baho-utot <baho-utot@columbus.rr.com> 1.43.9-1
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 1.43.5-1
 -	Initial build.	First version
