@@ -1,5 +1,4 @@
 #make -f udev-lfs-20140408/Makefile.lfs install
-
 Summary:	The Eudev package contains programs for dynamic creation of device nodes.
 Name:		eudev
 Version:	3.2.5
@@ -41,15 +40,18 @@ Source1:	http://anduin.linuxfromscratch.org/LFS/udev-lfs-20171102.tar.bz2
 	make -f udev-lfs-20171102/Makefile.lfs DESTDIR=%{buildroot} install
 	#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
+#	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man/d' filelist.rpm
+	sed -i '/man\/man/d' filelist.rpm
+	sed -i '/\/usr\/share\/info/d' filelist.rpm	
 %post
 	LD_LIBRARY_PATH=/tools/lib udevadm hwdb --update
 %files -f filelist.rpm
 	%defattr(-,root,root)
+#	%%{_infodir}/*.gz
+#	%%{_mandir}/man1/*.gz
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 3.2.5-1
 -	Initial build.	First version

@@ -1,0 +1,96 @@
+Module                  Size  Used by
+8021q                  36864  0
+acpi_cpufreq           24576  0
+aesni_intel           200704  0
+aes_x86_64             20480  1 aesni_intel
+agpgart                49152  2 ttm,drm
+ahci                   40960  4
+asus_wmi               32768  1 eeepc_wmi
+ccp                    94208  1 kvm_amd
+cfg80211              778240  1 r8188eu
+crc16                  16384  1 ext4
+crc32c_generic         16384  0
+crc32c_intel           24576  6
+crc32_pclmul           16384  0
+crct10dif_pclmul       16384  0
+cryptd                 28672  3 crypto_simd,ghash_clmulni_intel,aesni_intel
+crypto_simd            16384  1 aesni_intel
+crypto_user            16384  0
+drm                   471040  12 drm_kms_helper,radeon,ttm
+drm_kms_helper        200704  1 radeon
+edac_mce_amd           28672  0
+eeepc_wmi              16384  0
+ehci_hcd               94208  1 ehci_pci
+ehci_pci               16384  0
+evdev                  20480  8
+ext4                  741376  4
+fam15h_power           16384  0
+fb_sys_fops            16384  1 drm_kms_helper
+fscrypto               32768  1 ext4
+ghash_clmulni_intel    16384  0
+glue_helper            16384  1 aesni_intel
+hid                   139264  4 usbhid,hid_generic,hid_logitech_dj,hid_logitech_hidpp
+hid_generic            16384  0
+hid_logitech_dj        24576  0
+hid_logitech_hidpp     40960  0
+hwmon_vid              16384  1 it87
+i2c_algo_bit           16384  1 radeon
+i2c_piix4              24576  0
+input_leds             16384  0
+ip_tables              28672  0
+irqbypass              16384  1 kvm
+it87                   61440  0
+jbd2                  126976  1 ext4
+joydev                 24576  0
+k10temp                16384  0
+kvm                   729088  1 kvm_amd
+kvm_amd               106496  0
+led_class              16384  2 input_leds,asus_wmi
+lib80211               16384  1 r8188eu
+libahci                40960  1 ahci
+libata                278528  2 libahci,ahci
+mac_hid                16384  0
+mbcache                16384  1 ext4
+mii                    16384  1 r8169
+mousedev               24576  0
+mrp                    20480  1 8021q
+mxm_wmi                16384  0
+ohci_hcd               57344  1 ohci_pci
+ohci_pci               16384  0
+pcbc                   16384  0
+pcspkr                 16384  0
+r8169                  94208  0
+r8188eu               487424  0
+radeon               1634304  26
+rfkill                 28672  4 asus_wmi,cfg80211
+rng_core               16384  1 ccp
+rtc_cmos               24576  1
+scsi_mod              258048  3 sd_mod,libata,sg
+sd_mod                 61440  7
+sg                     40960  0
+shpchp                 40960  0
+snd                    98304  16 snd_hda_codec_generic,snd_hda_codec_hdmi,snd_hwdep,snd_hda_intel,snd_hda_codec,snd_hda_codec_realtek,snd_timer,snd_pcm
+snd_hda_codec         151552  4 snd_hda_codec_generic,snd_hda_codec_hdmi,snd_hda_intel,snd_hda_codec_realtek
+snd_hda_codec_generic    86016  1 snd_hda_codec_realtek
+snd_hda_codec_hdmi     57344  1
+snd_hda_codec_realtek   110592  1
+snd_hda_core           94208  5 snd_hda_codec_generic,snd_hda_codec_hdmi,snd_hda_intel,snd_hda_codec,snd_hda_codec_realtek
+snd_hda_intel          45056  4
+snd_hwdep              16384  1 snd_hda_codec
+snd_pcm               135168  4 snd_hda_codec_hdmi,snd_hda_intel,snd_hda_codec,snd_hda_core
+snd_timer              36864  1 snd_pcm
+soundcore              16384  1 snd
+sp5100_tco             16384  0
+sparse_keymap          16384  1 asus_wmi
+syscopyarea            16384  1 drm_kms_helper
+sysfillrect            16384  1 drm_kms_helper
+sysimgblt              16384  1 drm_kms_helper
+ttm                   126976  1 radeon
+usb_common             16384  1 usbcore
+usbcore               294912  8 xhci_hcd,ohci_hcd,ehci_pci,usbhid,ehci_hcd,xhci_pci,ohci_pci,r8188eu
+usbhid                 57344  0
+wmi                    28672  3 asus_wmi,wmi_bmof,mxm_wmi
+wmi_bmof               16384  0
+xhci_hcd              266240  1 xhci_pci
+xhci_pci               16384  0
+x_tables               45056  1 ip_tables

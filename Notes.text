@@ -1,3 +1,42 @@
+
+The next step is configuring your build, inside the untarred directory you do make defconfig. 
+This will generate a default config for your current cpu architecture and put it in .config. 
+You can edit it directly with a text editor but it's much better to do it with an interface by doing
+make nconfig (this needs libncurses5-dev on Ubuntu) because it also deals with dependencies of enabled features. 
+Here you can enable/disable features and device drivers with the spacebar. * means that it will be compiled in your kernel image. 
+M means it will be compiled inside a seprate kernel module.
+This is a part of the kernel that will be put in a seperate file and can be loaded in or out dynamically in the kernel when they are required. 
+The default config will do just fine for basic stuff like running in a virtual machine. 
+But in our case, we don't really want to deal with kernel modules so we'll just do this: sed "s/=m/=y/" -i .config. 
+And we're done, so we can simply do make to build our kernel. 
+Don't forget to add -jN with N the number of cores because this might take a while. 
+When it's done, it should tell you where your finished kernel is placed. 
+This is usually arch/x86/boot/bzImage in the linux source directory for Intel computers.
+
+Other useful/interesting ways to configure the kernel are:
+
+make localmodconfig will look at the modules that are currently loaded in the running kernel and change the config so that only those are enabled as module. 
+Useful for when you only want to build the things you need without having to figure out what that is. 
+So you can install something like Ubuntu on the machine first, copy the config to your build machine, usually located in /boot,
+	Arch Linux has it in gzipped at /proc/config.gz). 
+Do lsmod > /tmp/lsmodfile, transfer this file to you build machine and run LSMOD=lsmodfile make localmodconfig there after you created .config. 
+And you end up with a kernel that is perfectly tailored to your machine. 
+But this has a huge disadvantage, your kernel only supports what you were using at the time. 
+If you insert a usb drive it might not work because you weren't using the kernel module for fat32 support at the time.
+
+
+
+    make localyesconfigis the same as above but everything gets compiled in the kernel instead as a kernel module.
+
+    make allmodconfig generates a new config where all options are enabled and as much as possible as module.
+
+    make allyesconfigis same as above but with everything compiled in the kernel.
+
+    make randconfig generates a random config...
+
+You can check out make help for more info.
+
+
 FIX:
 
 + /usr/bin/rm -rf /mnt/lfs/usr/src/Octothorpe/BUILDROOT/tools-gcc-pass-2-7.3.0-1.x86_64

@@ -1,0 +1,96 @@
+Module                  Size  Used by
+8021q                  36864  0
+mrp                    20480  1 8021q
+it87                   61440  0
+hwmon_vid              16384  1 it87
+r8188eu               487424  0
+lib80211               16384  1 r8188eu
+cfg80211              778240  1 r8188eu
+edac_mce_amd           28672  0
+kvm_amd               106496  0
+radeon               1634304  26
+ccp                    94208  1 kvm_amd
+rng_core               16384  1 ccp
+kvm                   729088  1 kvm_amd
+irqbypass              16384  1 kvm
+eeepc_wmi              16384  0
+i2c_algo_bit           16384  1 radeon
+asus_wmi               32768  1 eeepc_wmi
+crct10dif_pclmul       16384  0
+ttm                   126976  1 radeon
+crc32_pclmul           16384  0
+ghash_clmulni_intel    16384  0
+snd_hda_codec_realtek   110592  1
+sparse_keymap          16384  1 asus_wmi
+wmi_bmof               16384  0
+rfkill                 28672  4 asus_wmi,cfg80211
+mxm_wmi                16384  0
+snd_hda_codec_generic    86016  1 snd_hda_codec_realtek
+pcbc                   16384  0
+drm_kms_helper        200704  1 radeon
+snd_hda_codec_hdmi     57344  1
+mousedev               24576  0
+snd_hda_intel          45056  4
+drm                   471040  12 drm_kms_helper,radeon,ttm
+aesni_intel           200704  0
+joydev                 24576  0
+snd_hda_codec         151552  4 snd_hda_codec_generic,snd_hda_codec_hdmi,snd_hda_intel,snd_hda_codec_realtek
+input_leds             16384  0
+led_class              16384  2 input_leds,asus_wmi
+aes_x86_64             20480  1 aesni_intel
+crypto_simd            16384  1 aesni_intel
+cryptd                 28672  3 crypto_simd,ghash_clmulni_intel,aesni_intel
+glue_helper            16384  1 aesni_intel
+snd_hda_core           94208  5 snd_hda_codec_generic,snd_hda_codec_hdmi,snd_hda_intel,snd_hda_codec,snd_hda_codec_realtek
+snd_hwdep              16384  1 snd_hda_codec
+snd_pcm               135168  4 snd_hda_codec_hdmi,snd_hda_intel,snd_hda_codec,snd_hda_core
+agpgart                49152  2 ttm,drm
+r8169                  94208  0
+syscopyarea            16384  1 drm_kms_helper
+pcspkr                 16384  0
+sysfillrect            16384  1 drm_kms_helper
+sysimgblt              16384  1 drm_kms_helper
+fb_sys_fops            16384  1 drm_kms_helper
+snd_timer              36864  1 snd_pcm
+mii                    16384  1 r8169
+fam15h_power           16384  0
+sp5100_tco             16384  0
+k10temp                16384  0
+snd                    98304  16 snd_hda_codec_generic,snd_hda_codec_hdmi,snd_hwdep,snd_hda_intel,snd_hda_codec,snd_hda_codec_realtek,snd_timer,snd_pcm
+soundcore              16384  1 snd
+shpchp                 40960  0
+i2c_piix4              24576  0
+rtc_cmos               24576  1
+evdev                  20480  8
+wmi                    28672  3 asus_wmi,wmi_bmof,mxm_wmi
+mac_hid                16384  0
+acpi_cpufreq           24576  0
+sg                     40960  0
+crypto_user            16384  0
+ip_tables              28672  0
+x_tables               45056  1 ip_tables
+ext4                  741376  4
+crc32c_generic         16384  0
+crc16                  16384  1 ext4
+mbcache                16384  1 ext4
+jbd2                  126976  1 ext4
+fscrypto               32768  1 ext4
+hid_logitech_hidpp     40960  0
+hid_logitech_dj        24576  0
+hid_generic            16384  0
+usbhid                 57344  0
+hid                   139264  4 usbhid,hid_generic,hid_logitech_dj,hid_logitech_hidpp
+sd_mod                 61440  7
+ohci_pci               16384  0
+ahci                   40960  4
+xhci_pci               16384  0
+libahci                40960  1 ahci
+ehci_pci               16384  0
+xhci_hcd              266240  1 xhci_pci
+ohci_hcd               57344  1 ohci_pci
+ehci_hcd               94208  1 ehci_pci
+crc32c_intel           24576  6
+libata                278528  2 libahci,ahci
+usbcore               294912  8 xhci_hcd,ohci_hcd,ehci_pci,usbhid,ehci_hcd,xhci_pci,ohci_pci,r8188eu
+scsi_mod              258048  3 sd_mod,libata,sg
+usb_common             16384  1 usbcore

@@ -391,10 +391,29 @@ _gcc-test
 ./builder.sh libffi
 ./builder.sh openssl
 ./builder.sh python
-
 ./builder.sh ninja
 ./builder.sh meson
 ./builder.sh procps-ng
 ./builder.sh e2fsprogs
+
+./builder.sh coreutils
+./builder.sh check
+./builder.sh diffutils
+./builder.sh gawk
+./builder.sh findutils
+./builder.sh groff
+./builder.sh grub
+./builder.sh less
+./builder.sh gzip
+./builder.sh iproute2
+./builder.sh kbd
+./builder.sh libpipeline
+./builder.sh make
+./builder.sh patch
+./builder.sh sysklogd
+./builder.sh sysvinit
+./builder.sh eudev
+./builder.sh util-linux
+./builder.sh man-db
 
 end-run

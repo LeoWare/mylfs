@@ -1,3 +1,4 @@
+#	%%global _default_patch_fuzz 2
 Summary:	Main C library
 Name:		glibc
 Version:	2.27
