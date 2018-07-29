@@ -1,8 +1,4 @@
 
-Work in Process	- Updating to Version 8.2
-				- tool chain build works
-				- base building is WIP
-
 This build tracks linux from scratch version 8.2
 
 This build system requires the following:
@@ -87,10 +83,7 @@ login as root
 cd /mnt/lfs/usr/src/Octothorpe
 chroot.sh				mount kernel filesystems and chroot
 cd /usr/src/Octothorpe	change to build directory
-
-****	WIP ****
 ./lfs.sh				Build system
-****	WIP ****
 
 The last step will remove the toolchain and use vim to make
 modification to the conf files so when you reboot it will do the

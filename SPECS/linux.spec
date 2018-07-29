@@ -7,6 +7,7 @@ URL:		https://www.kernel.org
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	https://www.kernel.org/pub/linux/kernel/v4.x/%{name}-%{version}.tar.xz
+Patch0:		linux-4.15.3.patch
 %description
 	The Linux package contains the Linux kernel.
 %prep
@@ -14,6 +15,7 @@ Source0:	https://www.kernel.org/pub/linux/kernel/v4.x/%{name}-%{version}.tar.xz
 %build
 	make mrproper
 	make defconfig
+	patch -i %{_sourcedir}/linux-4.15.3.patch
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} INSTALL_MOD_PATH=%{buildroot} modules_install

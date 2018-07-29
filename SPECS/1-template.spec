@@ -20,7 +20,7 @@ Source:		%{name}-%{version}
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file 
+	#	Copy license/copying file
 	#	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	#	Create file list

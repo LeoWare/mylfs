@@ -383,10 +383,10 @@ _config() {
 	local i=""
 	if [ ! -e ${_log} ]; then
 		msg "	Edit Configuration:"
-#		/sbin/locale-gen.sh
-#		/sbin/ldconfig
+		/sbin/locale-gen.sh
+		/sbin/ldconfig
 		_list="/etc/sysconfig/clock "
-		_list+="/etc/profile "
+#		_list+="/etc/profile "
 		_list+="/etc/hosts "
 		_list+="/etc/hostname "
 		_list+="/etc/fstab "
@@ -394,7 +394,7 @@ _config() {
 		_list+="/etc/resolv.conf "
 		_list+="/etc/lsb-release "
 		_list+="/etc/sysconfig/rc.site"
-		for i in ${_list};do vim "${i}";done
+		for i in ${_list}; do vim "${i}"; done
 	fi
 #	touch ${_log}
 	return
@@ -486,12 +486,9 @@ _gcc-test
 #	RPM packages
 ./builder.sh popt
 ./builder.sh rpm
-#	Added packages
-./builder.sh openssh
-./builder.sh wget
 #	kernel
 ./builder.sh linux
 #	cleanup scruff /tools tools-toolchain
 _cleanup
-#	_config"
+_config
 end-run
