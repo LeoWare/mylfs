@@ -4,7 +4,6 @@ LOGS
 PROVIDES
 REQUIRES
 RPMS
-SOURCES
 SRPMS
 Tarballs
 rsync.sh
