@@ -15,7 +15,12 @@ Patch0:		linux-4.15.3.patch
 %build
 	make mrproper
 	make defconfig
-	patch -i %{_sourcedir}/linux-4.15.3.patch
+	#	patch -i %{_sourcedir}/linux-4.15.3.patch
+	patch -i %{_sourcedir}/linux-4.15.3-device-drivers.patch
+	patch -i %{_sourcedir}/linux-4.15.3-filesystems.patch
+#	patch -i %{_sourcedir}/linux-4.15.3-kernel-hacking.patch
+	patch -i %{_sourcedir}/linux-4.15.3-security.patch
+	patch -i %{_sourcedir}/linux-4.15.3-virtualization.patch
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} INSTALL_MOD_PATH=%{buildroot} modules_install

@@ -489,6 +489,7 @@ _gcc-test
 ./builder.sh wget
 #	kernel
 ./builder.sh linux
+./builder.sh firmware-radeon
 #	cleanup scruff /tools tools-toolchain
 _cleanup
 _config
