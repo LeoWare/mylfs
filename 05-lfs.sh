@@ -548,9 +548,6 @@ LIST+="gen-locales "
 LIST+="tzdata "
 LIST+="adjust-tool-chain "
 LIST+="tool-chain-test "
-
-
-
 LIST+="zlib "
 LIST+="file "
 LIST+="readline "
@@ -568,7 +565,12 @@ LIST+="bc "
 #LIST+="intltool autoconf automake xz kmod gettext procps-ng e2fsprogs coreutils "
 #LIST+="diffutils gawk findutils groff grub less gzip iproute2 kbd libpipeline "
 #LIST+="make patch sysklogd sysvinit eudev util-linux man-db tar texinfo "
-#LIST+="vim lfs-bootscripts "
+#LIST+="vim
+#lfs-bootscripts "
+
+
+
+
 #	rpm package manager
 #LIST+="elfutils openssl popt rpm openssh wget "
 #	Kernel config needs openssl

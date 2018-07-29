@@ -333,7 +333,72 @@ _bc() {
 	./builder.sh bc
 	return
 }
-
+_cleanup() {
+	local _log="${LOGPATH}/cleanup"
+	local _list=""
+	local i=""
+	msg "	Cleanup processing:"
+	if [ ! -e ${_log} ]; then
+		msg_line "	Removing tool chain rpms: "
+			_list+="tools-binutils-pass-1 tools-gcc-pass-1 tools-linux-api-headers "
+			_list+="tools-glibc tools-libstdc tools-binutils-pass-2 "
+			_list+="tools-gcc-pass-2 tools-tcl-core tools-expect tools-dejagnu "
+			_list+="tools-check tools-ncurses tools-bash tools-bison tools-bzip2 tools-coreutils "
+			_list+="tools-diffutils tools-file tools-findutils tools-gawk tools-gettext "
+			_list+="tools-grep tools-gzip tools-m4 tools-make tools-patch tools-perl tools-sed "
+			_list+="tools-tar tools-texinfo tools-util-linux tools-xz "
+		for i in ${_list};do
+			rpm -e --nodeps ${i} > /dev/null 2>&1 || true
+		done
+		msg_success
+		msg_line "	Removing /tools directory: "
+			rm -rf /tools
+		msg_success
+		msg_line "	Installing system rpm macro file: "
+		cat > /etc/rpm/macros <<- EOF
+			#
+			#	System settings
+			#
+			%_topdir		/usr/src/Octothorpe
+			%_dbpath		/var/lib/rpm
+			%_lib			/lib
+			%_libdir		/usr/lib
+			%_lib64			/lib64
+			%_libdir64		/usr/lib64
+			%_var			/var
+			%_docdir		/usr/share/doc
+			%_sharedstatedir	/var/lib
+			%_localstatedir		/var
+			%_tmppath		/var/tmp
+			%_build_id_links	none
+		EOF
+		msg_success
+	fi
+	touch ${_log}
+	return
+}
+_config() {
+	local _log="${LOGPATH}/config"
+	local _list=""
+	local i=""
+	if [ ! -e ${_log} ]; then
+		msg "	Edit Configuration:"
+#		/sbin/locale-gen.sh
+#		/sbin/ldconfig
+		_list="/etc/sysconfig/clock "
+		_list+="/etc/profile "
+		_list+="/etc/hosts "
+		_list+="/etc/hostname "
+		_list+="/etc/fstab "
+		_list+="/etc/sysconfig/ifconfig.eth0 "
+		_list+="/etc/resolv.conf "
+		_list+="/etc/lsb-release "
+		_list+="/etc/sysconfig/rc.site"
+		for i in ${_list};do vim "${i}";done
+	fi
+#	touch ${_log}
+	return
+}
 #
 #	LFS Base system
 #
@@ -395,7 +460,6 @@ _gcc-test
 ./builder.sh meson
 ./builder.sh procps-ng
 ./builder.sh e2fsprogs
-
 ./builder.sh coreutils
 ./builder.sh check
 ./builder.sh diffutils
@@ -415,5 +479,23 @@ _gcc-test
 ./builder.sh eudev
 ./builder.sh util-linux
 ./builder.sh man-db
+./builder.sh tar
+./builder.sh texinfo
+./builder.sh vim
+./builder.sh lfs-bootscripts
+#	RPM packages
+./builder.sh popt
+./builder.sh rpm
+#	Added packages
+./builder.sh openssh
+./builder.sh wget
+#	kernel
+./builder.sh linux
+#	cleanup scruff /tools tools-toolchain
+_cleanup
+#	_config"
+
+
+
 
 end-run
