@@ -486,6 +486,7 @@ _gcc-test
 #	RPM packages
 ./builder.sh popt
 ./builder.sh rpm
+./builder.sh wget
 #	kernel
 ./builder.sh linux
 #	cleanup scruff /tools tools-toolchain

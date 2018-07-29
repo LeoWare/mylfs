@@ -46,6 +46,9 @@ This build system requires the following:
 	You should edit linux.spec and remove this line:
 		patch -i %{_sourcedir}/linux-4.15.3.patch
 	You need to create your own ptach file based on your requirements.
+	
+	wget is added to this build so you can fetch BLFS packages if your
+	network is setup and working
 		
 
 Build Procedure goes as follows:
