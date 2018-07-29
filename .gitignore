@@ -5,7 +5,3 @@ PROVIDES
 REQUIRES
 RPMS
 SRPMS
-Tarballs
-rsync.sh
-gitter.sh
-update.sh
