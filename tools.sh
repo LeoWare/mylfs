@@ -1,14 +1,14 @@
 #!/bin/bash
-##################################################
-#	Title:	tools.sh				#
-#        Date:	2018-03-23			#
-#     Version:	1.0				#
-#      Author:	baho-utot@columbus.rr.com	#
-#     Options:					#
-##################################################
+#############################################
+#       Title: tools.sh                     #
+#        Date: 2018-03-23                   #
+#     Version: 1.0                          #
+#      Author: baho-utot@columbus.rr.com	#
+#     Options:                              #
+#############################################
 set -o errexit		# exit if error...insurance ;)
 set -o nounset		# exit if variable not initalized
-set +h			# disable hashall
+set +h				# disable hashall
 PRGNAME=${0##*/}	# script name minus the path
 TOPDIR=${PWD}		# script lives here
 #		Build variables

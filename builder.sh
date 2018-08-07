@@ -1,17 +1,17 @@
 #!/bin/bash
-##################################################
-#	Title:	builder.sh				#
-#        Date:	2018-04-04			#
-#     Version:	1.0				#
-#      Author:	baho-utot@columbus.rr.com	#
-#     Options:					#
-##################################################
+##########################################
+#       Title: builder.sh                #
+#        Date: 2018-04-04                #
+#     Version: 1.0                       #
+#      Author: baho-utot@columbus.rr.com #
+#     Options:                           #
+##########################################
 PRGNAME=${0##*/}			# script name minus the path
 TOPDIR=${PWD}				# parent directory
 PARENT=/usr/src/Octothorpe	# rpm build directory
 LOGS=LOGS					# build logs directory
-INFOS=INFO				# rpm info log directory
-SPECS=SPECS				# rpm spec file directory
+INFOS=INFO					# rpm info log directory
+SPECS=SPECS					# rpm spec file directory
 PROVIDES=PROVIDES			# rpm provides log directory
 REQUIRES=REQUIRES			# rpm requires log directory
 RPMS=RPMS					# rpm binary package directory
@@ -78,11 +78,11 @@ rpm_params() {
 		while  read i; do
 			i=$(echo ${i} | tr -d '[:cntrl:][:space:]')
 			case ${i} in
-				Name:*)			rpm_name=${i##Name:}				;;
-				Version:*)		rpm_version=${i##Version:}			;;
-				Release:*)		rpm_release=${i##Release:}			;;
+				Name:*)				rpm_name=${i##Name:}					;;
+				Version:*)			rpm_version=${i##Version:}				;;
+				Release:*)			rpm_release=${i##Release:}				;;
 				BuildRequires:*)	rpm_requires+="${i##BuildRequires:} "	;;
-				*)												;;
+				*)															;;
 			esac
 		done < ${rpm_spec}
 	else
@@ -148,8 +148,8 @@ if [ -z "$1" ]; then
   echo "Usage: builder.sh <filespec>"
   exit -1
 fi
-set -o errexit		# exit if error...insurance ;)
-set -o nounset		# exit if variable not initalized
+set -o errexit	# exit if error...insurance ;)
+set -o nounset	# exit if variable not initalized
 set +h			# disable hashall
 #
 #	Create directories if needed
@@ -161,7 +161,7 @@ set +h			# disable hashall
 [ -e "${REQUIRES}" ]	||	install -vdm 755 "${REQUIRES}"
 [ -e "${RPMS}" ]		||	install -vdm 755 "${RPMS}"
 rpm_spec=${SPECS}/$1.spec	# rpm spec file to build
-rpm_params				# get status
+rpm_params					# get status
 printf "\n%s\n" "Status for ${rpm_binary}"
 msg "Spec-------->	${rpm_spec}"
 msg "Name-------->	${rpm_name}"
