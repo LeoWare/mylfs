@@ -22,7 +22,7 @@ Source3:	http://www.mpfr.org/mpfr-3.1.5/mpfr-4.0.1.tar.xz
 	mv -v gmp-6.1.2 gmp
 	mv -v mpc-1.1.0 mpc
 	cat gcc/limitx.h gcc/glimits.h gcc/limity.h > \
-		`dirname $(%{_lfs_tgt}-gcc -print-libgcc-file-name)`/include-fixed/limits.h
+		`dirname $(%{LFS_TGT}-gcc -print-libgcc-file-name)`/include-fixed/limits.h
 	for file in gcc/config/{linux,i386/linux{,64}}.h; do
 		cp -uv $file{,.orig}
 		sed -e 's@/lib\(64\)\?\(32\)\?/ld@/tools&@g' -e 's@/usr@/tools@g' $file.orig > $file

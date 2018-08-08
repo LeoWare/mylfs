@@ -126,9 +126,9 @@ for the directories.
 	#
 	#	7.5.1. Creating Network Interface Configuration Files
 	#
-	cat > %{buildroot}/etc/sysconfig/ifconfig.eth0 <<- "EOF"
+	cat > %{buildroot}/etc/sysconfig/ifconfig.enp5s0 <<- "EOF"
 		ONBOOT=yes
-		IFACE=eth0
+		IFACE=enp5s0
 		SERVICE=ipv4-static
 		IP=192.168.1.2
 		GATEWAY=192.168.1.1
@@ -141,7 +141,7 @@ for the directories.
 	cat > %{buildroot}/etc/resolv.conf <<- "EOF"
 		# Begin /etc/resolv.conf
 
-		domain <Your Domain Name>
+		domain     <Your Domain Name>
 		nameserver <IP address of your primary nameserver>
 		nameserver <IP address of your secondary nameserver>
 
@@ -159,7 +159,7 @@ for the directories.
 
 		127.0.0.1	localhost
 		127.0.1.1	<FQDN> <HOSTNAME>
-		<192.168.1.1>	<FQDN> <HOSTNAME> [alias1] [alias2 ...]
+		<192.168.1.2>	<FQDN> <HOSTNAME> [alias1] [alias2 ...]
 		::1		localhost ip6-localhost ip6-loopback
 		ff02::1		ip6-allnodes
 		ff02::2		ip6-allrouters
@@ -426,7 +426,7 @@ for the directories.
 	echo 8.1 > %{buildroot}/etc/lfs-release
 	cat > %{buildroot}/etc/lsb-release <<- "EOF"
 		DISTRIB_ID="Linux From Scratch"
-		DISTRIB_RELEASE="8.1"
+		DISTRIB_RELEASE="8.2"
 		DISTRIB_CODENAME="<your name here>"
 		DISTRIB_DESCRIPTION="Linux From Scratch"
 	EOF

@@ -386,7 +386,7 @@ _config() {
 		/sbin/locale-gen.sh
 		/sbin/ldconfig
 		_list="/etc/sysconfig/clock "
-#		_list+="/etc/profile "
+		_list+="/etc/passwd "
 		_list+="/etc/hosts "
 		_list+="/etc/hostname "
 		_list+="/etc/fstab "
@@ -490,6 +490,7 @@ _gcc-test
 #	kernel
 ./builder.sh linux
 ./builder.sh firmware-radeon
+./builder.sh firmware-realtek
 #	cleanup scruff /tools tools-toolchain
 _cleanup
 _config

@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gcc
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-glibc
 Source0:	http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 %description
@@ -16,13 +16,13 @@ mkdir -v build
 %build
 	cd build
 	../libstdc++-v3/configure \
-		--host=%{_lfs_tgt} \
+		--host=%{LFS_TGT} \
 		--prefix=%{_prefix} \
 		--disable-multilib \
 		--disable-nls \
 		--disable-libstdcxx-threads \
 		--disable-libstdcxx-pch \
-		--with-gxx-include-dir=%{_prefix}/%{_lfs_tgt}/include/c++/%{version}
+		--with-gxx-include-dir=%{_prefix}/%{LFS_TGT}/include/c++/%{version}
 	make %{?_smp_mflags}
 %install
 	cd build

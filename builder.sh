@@ -97,7 +97,10 @@ rpm_params() {
 rpm_install() {
 	local _log="${LOGS}/${rpm_name}"
 	msg_line "Installing: ${rpm_binary}: "
-	rpm -Uvh --nodeps --force "${RPMS}/${rpm_arch}/${rpm_binary}" >> "${_log}" 2>&1  && msg_success || msg_failure
+	###	Modified 2018-08-07
+	#	rpm -Uvh --nodeps --force "${RPMS}/${rpm_arch}/${rpm_binary}" >> "${_log}" 2>&1  && msg_success || msg_failure
+	rpm -Uvh --nodeps "${RPMS}/${rpm_arch}/${rpm_binary}" >> "${_log}" 2>&1  && msg_success || msg_failure
+	###
 	return
 }
 rpm_build() {
@@ -181,6 +184,11 @@ if [ "F" == "${rpm_exists}" ]; then
 	rpm_build
 fi
 if [ "F" == "${rpm_installed}" ]; then
+	###	Modified 2018-08-07
+	if [ "tools-gcc-pass-2" == ${rpm_name} ]; then
+		rpm -e tools-gcc-pass-1 tools-libstdc
+	fi
+	###
 	rpm_install
 fi
 end_run
