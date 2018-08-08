@@ -8,7 +8,7 @@
 ##########################################
 PRGNAME=${0##*/}			# script name minus the path
 TOPDIR=${PWD}				# parent directory
-PARENT=/usr/src/Octothorpe	# rpm build directory
+PARENT=/usr/src/LFS-RPM	# rpm build directory
 LOGS=LOGS					# build logs directory
 INFOS=INFO					# rpm info log directory
 SPECS=SPECS					# rpm spec file directory

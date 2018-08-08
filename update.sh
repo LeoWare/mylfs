@@ -2,6 +2,7 @@
 set -o errexit	# exit if error...insurance ;)
 set -o nounset	# exit if variable not initalized
 set +h			# disable hashall
-#
-rsync -va /mnt/lfs/usr/src/Octothorpe/SPECS/*	/home/scrat/Desktop/LFS-RPM/SPECS/
-rsync -va /mnt/lfs/usr/src/Octothorpe/*.sh		/home/scrat/Desktop/LFS-RPM/
+PARENT=/mnt/lfs/usr/src/LFS-RPM
+TARGET=/home/scrat/Desktop/LFS-RPM
+rsync -va ${PARENT}/SPECS/*	${TARGET}/SPECS/
+rsync -va ${PARENT}/*.sh	${TARGET}/

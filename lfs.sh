@@ -16,7 +16,7 @@ LC_ALL=POSIX
 PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin
 export LC_ALL PATH
 #
-PARENT=/usr/src/Octothorpe
+PARENT=/usr/src/LFS-RPM
 LOGPATH=${TOPDIR}/LOGS
 INFOPATH=${TOPDIR}/INFO
 SPECPATH=${TOPDIR}/SPECS
@@ -67,7 +67,7 @@ _prepare() {
 			#
 			#	System settings
 			#
-			%_topdir		/usr/src/Octothorpe
+			%_topdir		/usr/src/LFS-RPM
 			%_prefix		/usr
 			%_lib			/lib
 			%_libdir		/usr/lib
@@ -182,8 +182,8 @@ _glibc() {
 	if [ ! -e ${_log}.prepare ]; then
 		[ -e /usr/lib/gcc ]			|| ln -sf /tools/lib/gcc /usr/lib
 		[ -e /usr/include/limits.h ]	&& rm -f /usr/include/limits.h
-		[ -h /lib64/ld-linux-x86-64.so.2 ]	|| ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64
-		[ -h /lib64/ld-lsb-x86-64.so.3 ]	|| ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
+		[ -h /lib64/ld-linux-x86-64.so.2 ]	|| ln -sf ../lib/ld-linux-x86-64.so.2 /lib64
+		[ -h /lib64/ld-lsb-x86-64.so.3 ]	|| ln -sf ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
 		touch ${_log}.prepare
 	fi
 	./builder.sh glibc
@@ -390,7 +390,7 @@ _config() {
 		_list+="/etc/hosts "
 		_list+="/etc/hostname "
 		_list+="/etc/fstab "
-		_list+="/etc/sysconfig/ifconfig.eth0 "
+		_list+="/etc/sysconfig/ifconfig.enp5s0 "
 		_list+="/etc/resolv.conf "
 		_list+="/etc/lsb-release "
 		_list+="/etc/sysconfig/rc.site"

@@ -12,7 +12,7 @@ set +h				# disable hashall
 PRGNAME=${0##*/}	# script name minus the path
 TOPDIR=${PWD}
 LFS=/mnt/lfs
-PARENT=/usr/src/Octothorpe
+PARENT=/usr/src/LFS-RPM
 LOGFILE=$(date +%Y-%m-%d).log
 LOGFILE=${TOPDIR}/LOGS/${PRGNAME}
 #LOGFILE=/dev/null		# uncomment to disable log file

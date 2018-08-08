@@ -13,7 +13,7 @@ set +h				# disable hashall
 PRGNAME=${0##*/}	# script name minus the path
 TOPDIR=${PWD}
 LFS=/mnt/lfs
-PARENT=/usr/src/Octothorpe
+PARENT=/usr/src/LFS-RPM
 LOGFILE=$(date +%Y-%m-%d).log
 #
 #	Common support functions
@@ -306,7 +306,7 @@ _setup_user() {
 		#
 		%_lfsdir		/mnt/lfs
 		%_lfs_tgt		x86_64-lfs-linux-gnu
-		%_topdir		%{_lfsdir}/usr/src/Octothorpe
+		%_topdir		%{_lfsdir}/usr/src/LFS-RPM
 		%_dbpath		%{_lfsdir}/var/lib/rpm
 		%_prefix		/tools
 		%_docdir		%{_prefix}/share/doc

@@ -37,18 +37,6 @@ You can check out make help for more info.
 
 FIX:
 
-+ /usr/bin/rm -rf /mnt/lfs/usr/src/Octothorpe/BUILDROOT/tools-gcc-pass-2-7.3.0-1.x86_64
-+ exit 0
-Preparing...                          ########################################
-	file /tools/lib/libcc1.so.0.0.0 from install of tools-gcc-pass-2-7.3.0-1.x86_64 conflicts with file from package tools-gcc-pass-1-7.3.0-1.x86_64
-	file /tools/lib/libstdc++.a from install of tools-gcc-pass-2-7.3.0-1.x86_64 conflicts with file from package tools-libstdc-7.3.0-1.x86_64
-	file /tools/lib/libstdc++.so.6.0.24 from install of tools-gcc-pass-2-7.3.0-1.x86_64 conflicts with file from package tools-libstdc-7.3.0-1.x86_64
-	file /tools/lib/libstdc++fs.a from install of tools-gcc-pass-2-7.3.0-1.x86_64 conflicts with file from package tools-libstdc-7.3.0-1.x86_64
-	file /tools/lib/libsupc++.a from install of tools-gcc-pass-2-7.3.0-1.x86_64 conflicts with file from package tools-libstdc-7.3.0-1.x86_64
-Preparing...                          ########################################
-Updating / installing...
-tools-gcc-pass-2-7.3.0-1              ########################################
-
 What exactly are these messages about? I don't recall seeing them before.
 
 dmesg | grep 'used greatest stack depth'
