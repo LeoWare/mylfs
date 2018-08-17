@@ -5,7 +5,7 @@ Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/make
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-gzip
 Source0:	http://ftp.gnu.org/gnu/make/make-%{version}.tar.bz2
 %description

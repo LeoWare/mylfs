@@ -5,7 +5,7 @@ Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/sed
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-perl
 Source0:	http://ftp.gnu.org/gnu/sed/sed-%{version}.tar.xz
 %description

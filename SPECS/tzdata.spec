@@ -8,7 +8,7 @@ Group:			LFS/Base
 Vendor:	        Octothorpe
 Source0:		http://www.iana.org//time-zones/repository/releases/%{name}%{version}.tar.gz
 %description
-Sources for time zone and daylight saving time data
+	Sources for time zone and daylight saving time data
 %define blddir	%{name}-%{version}
 %prep
 	rm -rf %{blddir}

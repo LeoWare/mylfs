@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		https://openssl.org/source
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-libelf
 Source0:	https://openssl.org/source/openssl-%{version}.tar.gz
 %description

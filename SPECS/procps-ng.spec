@@ -5,7 +5,7 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 Source0:	http://sourceforge.net/projects/procps-ng/files/Production/%{name}-%{version}.tar.xz
 %description
 	The Procps-ng package contains programs for monitoring processes.

@@ -13,7 +13,6 @@ Source0:	https://www.kernel.org/pub/linux/utils/util-linux/v2.31/%{name}-%{versi
 	partitions, and messages.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
-#	mkdir -pv %{buildroot}/var/lib/hwclock
 %build
 	./configure \
 		ADJTIME_PATH=/var/lib/hwclock/adjtime   \

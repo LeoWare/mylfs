@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/texinfo
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-tar
 Source0:	http://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz
 %description

@@ -5,7 +5,7 @@ Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/findutils
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-file
 Source0:	http://ftp.gnu.org/gnu/findutils/findutils-%{version}.tar.gz
 %description

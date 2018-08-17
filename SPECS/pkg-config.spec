@@ -5,7 +5,7 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 Source0:	https://pkg-config.freedesktop.org/releases/%{name}-%{version}.tar.gz
 %description
 	The pkg-config package contains a tool for passing the include path and/or

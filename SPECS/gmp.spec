@@ -6,7 +6,7 @@ License:	GPLv3
 URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
-Source0:		http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
+Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 %description
 	The GMP package contains math libraries. These have useful functions for arbitrary precision arithmetic.
 %prep

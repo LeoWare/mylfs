@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		https://www.kernel.org
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-gcc-pass-1
 Source0:	https://www.kernel.org/pub/linux/kernel/v4.x/linux-%{version}.tar.xz
 %description

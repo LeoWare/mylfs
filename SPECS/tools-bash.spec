@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/bash
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-ncurses
 Source0:	http://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
 %description

@@ -5,7 +5,7 @@ Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/grep
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-gettext
 Source0:	http://ftp.gnu.org/gnu/grep/grep-%{version}.tar.xz
 %description

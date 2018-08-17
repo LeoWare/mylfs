@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/diffutils
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-coreutils
 Source0:	http://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 %description

@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/coreutils
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-bzip2
 Source0:	http://ftp.gnu.org/gnu/coreutils/coreutils-%{version}.tar.xz
 %description

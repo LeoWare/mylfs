@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		Any
 Group:		LFS/Base
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu//ncurses/%{name}-%{version}.tar.gz
 %description
 	The Ncurses package contains libraries for terminal-independent handling of character screens.

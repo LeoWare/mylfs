@@ -50,7 +50,6 @@ sed -i 's/--srcdir=$db_dist/--srcdir=$db_dist --with-pic/' db3/configure
 	sed -i '/man\/ru/d' filelist.rpm	
 %files -f filelist.rpm
 	%defattr(-,root,root)
-#	%%{_infodir}/*.gz
 	%{_mandir}/man1/*.gz
 	%{_mandir}/man8/*.gz
 	%{_mandir}/fr/man8/*.gz

@@ -359,7 +359,7 @@ _cleanup() {
 			#
 			#	System settings
 			#
-			%_topdir		/usr/src/Octothorpe
+			%_topdir		/usr/src/LFS-RPM
 			%_dbpath		/var/lib/rpm
 			%_lib			/lib
 			%_libdir		/usr/lib

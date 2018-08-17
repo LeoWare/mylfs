@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		https://www.kernel.org/pub/linux/utils/util-linux/v2.30
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-texinfo
 Source0:	https://www.kernel.org/pub/linux/utils/util-linux/v2.30/util-linux-%{version}.tar.xz
 %description

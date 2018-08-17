@@ -5,7 +5,7 @@ Release:	2
 License:	GPL
 URL:		http://tukaani.org/xz
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-util-linux
 Source0:	http://tukaani.org/xz/xz-%{version}.tar.xz
 %description

@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://www.cpan.org/src/5.0
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-patch
 Source0:	http://www.cpan.org/src/5.0/perl-%{version}.tar.xz
 %description

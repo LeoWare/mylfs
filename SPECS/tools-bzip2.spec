@@ -5,7 +5,7 @@ Release:	2
 License:	GPL
 URL:		http://www.bzip.org/1.0.6/
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-bison
 Source0:	http://www.bzip.org/1.0.6/bzip2-%{version}.tar.gz
 Patch0:	bzip2-%{version}-install_docs-1.patch

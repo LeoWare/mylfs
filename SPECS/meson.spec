@@ -16,13 +16,7 @@ Source:		%{name}-%{version}.tar.gz
 	python3 setup.py build
 %install
 	install -vdm 755 %{buildroot}/usr/lib/python3.6/site-packages/
-	#	PYTHONPATH="%{buildroot}/usr/lib/python3.6/site-packages/" 	
 	python3 setup.py install --root="%{buildroot}" --optimize=1 --skip-build
-	#	--root="${buildroot}"--install-dir="%{buildroot}/usr/lib/python3.6/site-packages/" --optimize=1 --skip-build
-	#	install -d "${pkgdir}/usr/share/vim/vimfiles"
-	#	cp -rt "${builddir}/usr/share/vim/vimfiles" data/syntax-highlighting/vim/*
-	#	install -Dt "${pkgdir}/usr/share/emacs/site-lisp" -m644 data/syntax-highlighting/emacs/*
-	#	install -Dt "${pkgdir}/usr/share/zsh/site-functions" -m644 data/shell-completions/zsh/*
 	#	Copy license/copying file 
 	#	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE

@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/patch
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-make
 Source0:	http://ftp.gnu.org/gnu/patch/patch-%{version}.tar.xz
 %description

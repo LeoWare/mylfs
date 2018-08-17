@@ -5,7 +5,7 @@ Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gettext
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-gawk
 Source0:	http://ftp.gnu.org/gnu/gettext/gettext-%{version}.tar.xz
 %description

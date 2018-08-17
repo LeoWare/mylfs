@@ -37,7 +37,6 @@ Source0:	http://www.infodrom.org/projects/sysklogd/download/%{name}-%{version}.t
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
 %files -f filelist.rpm
 	%defattr(-,root,root)
-#	%%{_infodir}/*.gz
 	%{_mandir}/man5/*.gz
 	%{_mandir}/man8/*.gz
 %changelog

@@ -7,7 +7,7 @@ License:	GPLv3
 URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
-Source:	http://ftp.gnu.org/gnu/coreutils/%{name}-%{version}.tar.xz
+Source:		http://ftp.gnu.org/gnu/coreutils/%{name}-%{version}.tar.xz
 Patch0:		coreutils-8.29-i18n-1.patch
 %description
 	The Coreutils package contains utilities for showing and setting the basic system characteristics.

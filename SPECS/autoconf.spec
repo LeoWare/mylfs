@@ -5,7 +5,7 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu/autoconf/%{name}-%{version}.tar.xz
 %description
 	The Autoconf package contains programs for producing shell scripts that can automatically configure source code.

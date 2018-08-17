@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://ftp.rpm.org/releases/rpm-4.14.x
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-popt
 Source0:	http://ftp.rpm.org/releases/rpm-4.14.x/rpm-%{version}.tar.bz2
 Source1:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz

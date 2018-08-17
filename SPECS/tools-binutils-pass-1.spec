@@ -5,11 +5,11 @@ Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/binutils
 Group:		LFS/Tools
-Vendor:	Octothorpe
-Source:	http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
+Vendor:		Octothorpe
+Source:		http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
 %description
-The Binutils package contains a linker, an assembler,
-and other tools for handling object files.
+		The Binutils package contains a linker, an assembler,
+		and other tools for handling object files.
 %prep
 %setup -q -n binutils-%{version}
 	mkdir -v build

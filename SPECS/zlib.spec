@@ -5,10 +5,10 @@ Release:	1
 License:	Other
 URL:		http://zlib.net
 Group:		LFS/Base
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 Source0:	http://zlib.net/%{name}-%{version}.tar.xz
 %description
-The Zlib package contains compression and decompression routines used by some programs.
+	The Zlib package contains compression and decompression routines used by some programs.
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %build

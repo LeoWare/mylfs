@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://sourceforge.net/projects/tcl/files/Tcl/8.6.7
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-gcc-pass-2
 Source0:	http://sourceforge.net/projects/tcl/files/Tcl/8.6.7/tcl%{version}-src.tar.gz
 %description

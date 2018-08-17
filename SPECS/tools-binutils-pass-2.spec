@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/binutils
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-libstdc
 Source0:	http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
 %description

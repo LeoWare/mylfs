@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/dejagnu
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-expect
 Source0:	http://ftp.gnu.org/gnu/dejagnu/dejagnu-%{version}.tar.gz
 %description

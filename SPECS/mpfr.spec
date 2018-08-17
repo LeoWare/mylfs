@@ -1,11 +1,11 @@
-Summary:		The MPFR package contains functions for multiple precision math.
-Name:			mpfr
-Version:		4.0.1
-Release:		1
-License:		GPLv3
-URL:			Any
-Group:			LFS/Base
-Source0:		http://www.mpfr.org/%{name}-%{version}/%{name}-%{version}.tar.xz
+Summary:	The MPFR package contains functions for multiple precision math.
+Name:		mpfr
+Version:	4.0.1
+Release:	1
+License:	GPLv3
+URL:		Any
+Group:		LFS/Base
+Source0:	http://www.mpfr.org/%{name}-%{version}/%{name}-%{version}.tar.xz
 %description
 	The MPFR package contains functions for multiple precision math.
 %prep

@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/tar
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-sed
 Source0:	http://ftp.gnu.org/gnu/tar/tar-%{version}.tar.xz
 %description

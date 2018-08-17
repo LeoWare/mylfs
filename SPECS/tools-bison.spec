@@ -5,7 +5,7 @@ Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/bison
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-bash
 Source0:	http://ftp.gnu.org/gnu/bison/bison-%{version}.tar.xz
 %description

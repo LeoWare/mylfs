@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/glibc
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-linux-api-headers
 Source0:	http://ftp.gnu.org/gnu/glibc/glibc-%{version}.tar.xz
 %description

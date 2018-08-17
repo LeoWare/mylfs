@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		ftp://ftp.astron.com/pub/file
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-diffutils
 Source0:	ftp://ftp.astron.com/pub/file/file-%{version}.tar.gz
 %description

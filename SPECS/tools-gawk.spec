@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gawk
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-findutils
 Source0:	http://ftp.gnu.org/gnu/gawk/gawk-%{version}.tar.xz
 %description

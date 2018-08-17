@@ -5,7 +5,7 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu/make/%{name}-%{version}.tar.bz2
 %description
 	The Make package contains a program for compiling packages.

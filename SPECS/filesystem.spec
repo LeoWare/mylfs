@@ -7,10 +7,10 @@ Group:		LFS/Base
 Vendor:		Octothorpe
 URL:		http://www.linuxfromscratch.org
 %description
-The filesystem package is one of the basic packages that is installed
-on a Linux system. Filesystem contains the basic directory
-layout for a Linux operating system, including the correct permissions
-for the directories.
+		The filesystem package is one of the basic packages that is installed
+		on a Linux system. Filesystem contains the basic directory
+		layout for a Linux operating system, including the correct permissions
+		for the directories.
 %prep
 %build
 %install

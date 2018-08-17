@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/ncurses
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-m4
 Source0:	http://ftp.gnu.org/gnu//ncurses/ncurses-%{version}.tar.gz
 %description

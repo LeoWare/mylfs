@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gzip
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-grep
 Source0:	http://ftp.gnu.org/gnu/gzip/gzip-%{version}.tar.xz
 %description

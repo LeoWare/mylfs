@@ -5,7 +5,7 @@ Release:	1
 License:	GPL
 URL:		http://prdownloads.sourceforge.net/expect
 Group:		LFS/Tools
-Vendor:	Octothorpe
+Vendor:		Octothorpe
 BuildRequires:	tools-tcl-core
 Source0:	http://prdownloads.sourceforge.net/expect/expect%{version}.tar.gz
 %description

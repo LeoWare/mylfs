@@ -7,7 +7,7 @@ URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://www.%{name}.org/%{version}/%{name}-%{version}.tar.gz
-Patch0:	http://www.linuxfromscratch.org/patches/lfs/8.1/%{name}-%{version}-install_docs-1.patch
+Patch0:		http://www.linuxfromscratch.org/patches/lfs/8.1/%{name}-%{version}-install_docs-1.patch
 %description
 	The Bzip2 package contains programs for compressing and decompressing files
 	Compressing text files with bzip2 yields a much better compression percentage

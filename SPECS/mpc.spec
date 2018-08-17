@@ -1,12 +1,12 @@
-Summary:		The MPC package contains a library for the arithmetic of complex numbers
-Name:			mpc
-Version:		1.1.0
-Release:		1
-License:		LGPLv3
-URL:			Any
-Group:			LFS/Base
-Vendor:			Octothorpe
-Source0:		http://www.multiprecision.org/%{name}/download/%{name}-%{version}.tar.gz
+Summary:	The MPC package contains a library for the arithmetic of complex numbers
+Name:		mpc
+Version:	1.1.0
+Release:	1
+License:	LGPLv3
+URL:		Any
+Group:		LFS/Base
+Vendor:		Octothorpe
+Source0:	http://www.multiprecision.org/%{name}/download/%{name}-%{version}.tar.gz
 %description
 	The MPC package contains a library for the arithmetic of
 	complex numbers with arbitrarily high precision and correct
