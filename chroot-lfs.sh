@@ -13,7 +13,7 @@ MOUNTPOINT=/mnt
 MOUNTPARTITION=/dev/sdd4
 mount "${MOUNTPARTITION}" "${MOUNTPOINT}"
 #
-#	Mount filesystems
+#	Mount Virtual Kernel File Systems
 #
 mount -v --bind /dev /mnt/dev
 mount -vt devpts devpts /mnt/dev/pts -o gid=5,mode=620
