@@ -33,6 +33,10 @@ and so on.
 	#	touch /etc/ld.so.conf - already installed by filesystem
 	#	sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile - not needed
 	make install_root=%{buildroot} install
+	#	add symlinks
+		install -vdm 755 %{buildroot}/lib64
+		ln -sfv ../lib/ld-linux-x86-64.so.2 %{buildroot}/lib64
+		ln -sfv ../lib/ld-linux-x86-64.so.2 %{buildroot}/lib64/ld-lsb-x86-64.so.3
 	#	Create directories
 	install -vdm 755 %{buildroot}/etc
 	install -vdm 755 %{buildroot}/sbin
