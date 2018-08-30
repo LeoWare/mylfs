@@ -1,37 +1,40 @@
-Summary:	The IPRoute2 package contains programs for basic and advanced IPV4-based networking.
+Summary:	Basic and advanced IPV4-based networking
 Name:		iproute2
-Version:	4.15.0
+Version:	3.12.0
 Release:	1
 License:	GPLv2
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	https://www.kernel.org/pub/linux/utils/net/iproute2/%{NAME}-%{VERSION}.tar.xz
+URL:		http://www.kernel.org/pub/linux/utils/net/iproute2
+Group:		Applications/System
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://www.kernel.org/pub/linux/utils/net/iproute2/%{name}-%{version}.tar.xz
 %description
-	The IPRoute2 package contains programs for basic and advanced IPV4-based networking.
+The IPRoute2 package contains programs for basic and advanced
+IPV4-based networking.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
-	sed -i /ARPD/d Makefile
-	rm -fv man/man8/arpd.8
-	sed -i 's/m_ipt.o//' tc/Makefile
+%setup -q
+sed -i '/^TARGETS/s@arpd@@g' misc/Makefile
+sed -i /ARPD/d Makefile
+sed -i 's/arpd.8//' man/man8/Makefile
 %build
-	make %{?_smp_mflags}
+make VERBOSE=1 %{?_smp_mflags} DESTDIR= LIBDIR=%{_libdir}
 %install
-	make DESTDIR=%{buildroot}  DOCDIR=%{_docdir}/%{NAME}-%{VERSION} install
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-#	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_mandir}/man3/*.gz
-	%{_mandir}/man7/*.gz
-	%{_mandir}/man8/*.gz
+make	DESTDIR=%{buildroot} \
+	MANDIR=%{_mandir} \
+	LIBDIR=%{_libdir} \
+	DOCDIR=%{_defaultdocdir}/%{name}-%{version} install
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+%files
+%defattr(-,root,root)
+%{_sysconfdir}/%{name}/*
+/sbin/*
+%{_libdir}/*
+%{_defaultdocdir}/%{name}-%{version}/*
+%{_mandir}/*/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 4.15.0-1
--	Initial build.	First version
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 3.12.0-1
+*	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 3.10.0-1
+*	Fri May 10 2013 baho-utot <baho-utot@columbus.rr.com> 3.9.0-1
+*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 3.8.0-1
+-	Upgrade version

@@ -1,42 +1,34 @@
-Summary:	The Sed package contains a stream editor
+Summary:	Stream editor
 Name:		sed
-Version:	4.4
+Version:	4.2.2
 Release:	1
 License:	GPLv3
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
+URL:		http://www.gnu.org/software/sed
+Group:		Applications/Editors
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://ftp.gnu.org/gnu/sed/%{name}-%{version}.tar.bz2
 %description
-			The Sed package contains a stream editor
+The Sed package contains a stream editor.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
-	sed -i 's/usr/tools/' build-aux/help2man
-	sed -i 's/testsuite.panic-tests.sh//' Makefile.in
+%setup -q
 %build
-	./configure \
-		--prefix=%{_prefix} \
-		--bindir=/bin
-	make %{?_smp_mflags}
-	make %{?_smp_mflags} html
+./configure \
+	--prefix=%{_prefix} \
+	--bindir=/bin \
+	--htmldir=%{_defaultdocdir}/%{name}-%{version} \
+	--disable-silent-rules
+make %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	install -d -m755 %{buildroot}%{_docdir}/%{NAME}-%{VERSION}
-	install -m644 doc/sed.html %{buildroot}%{_docdir}/%{NAME}-%{VERSION}
-	rm -rf %{buildroot}/%{_infodir}
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%clean
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_mandir}/man1/*.gz
+make DESTDIR=%{buildroot} install
+rm -rf %{buildroot}%{_infodir}
+%find_lang %{name}
+%check
+make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+%files -f %{name}.lang
+%defattr(-,root,root)
+/bin/*
+%{_mandir}/man1/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 4.4-1
--	Initial build.	First version
+*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 4.2.2-1
+-	Upgrade version

@@ -3,33 +3,30 @@ Name:		autoconf
 Version:	2.69
 Release:	1
 License:	GPLv2
-URL:		Any
+
+URL:		http://www.gnu.org/software/autoconf
 Group:		LFS/Base
-Vendor:	Octothorpe
-Source0:	http://ftp.gnu.org/gnu/autoconf/%{name}-%{version}.tar.xz
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://ftp.gnu.org/gnu/autoconf/%{name}-%{version}.tar.xz
 %description
-	The Autoconf package contains programs for producing shell scripts that can automatically configure source code.
+The package contains programs for producing shell scripts that can
+automatically configure source code.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
 %build
-	./configure \
-		--prefix=%{_prefix}
-	make %{?_smp_mflags}
+./configure \
+	--prefix=%{_prefix} \
+	--disable-silent-rules
+make %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
-	%{_mandir}/man1/*.gz
+make DESTDIR=%{buildroot} install
+rm -rf %{buildroot}%{_infodir}
+%files
+%defattr(-,root,root)
+%{_bindir}/*
+%{_mandir}/*/*
+%{_datarootdir}/autoconf/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.69-1
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.69-1
 -	Initial build.	First version

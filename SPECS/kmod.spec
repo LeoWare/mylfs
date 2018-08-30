@@ -1,46 +1,50 @@
-Summary:	The Kmod package contains libraries and utilities for loading kernel modules
+Summary:	Utilities for loading kernel modules
 Name:		kmod
-Version:	25
+Version:	16
 Release:	1
-License:	GPLv2.1
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	https://www.kernel.org/pub/linux/utils/kernel/kmod/%{name}-%{version}.tar.xz
+License:	GPLv2
+URL:		http://www.kernel.org/pub/linux/utils/kernel/kmod
+Group:		Applications/System
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://www.kernel.org/pub/linux/utils/kernel/kmod/%{name}-%{version}.tar.xz
 %description
-	The Kmod package contains libraries and utilities for loading kernel modules
+The Kmod package contains libraries and utilities for loading kernel modules
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
 %build
-	./configure \
-		--prefix=%{_prefix} \
-		--bindir=/bin \
-		--sysconfdir=/etc \
-		--with-rootlibdir=/lib \
-		--with-xz \
-		--with-zlib
-	make %{?_smp_mflags}
+./configure \
+	--prefix=%{_prefix} \
+	--bindir=/bin \
+	--sysconfdir=%{_sysconfdir} \
+	--with-rootlibdir=%{_lib} \
+	--disable-manpages \
+	--with-xz \
+	--with-zlib \
+	--disable-silent-rules
+make VERBOSE=1 %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	install -vdm 755 %{buildroot}/bin
-	install -vdm 755 %{buildroot}/sbin
-	for target in depmod insmod lsmod modinfo modprobe rmmod; do
-		ln -sfv ../bin/kmod %{buildroot}/sbin/$target
-	done
-	ln -sfv kmod %{buildroot}/bin/lsmod
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_mandir}/man5/*.gz
-	%{_mandir}/man8/*.gz
+make DESTDIR=%{buildroot} pkgconfigdir=%{_libdir}/pkgconfig install
+install -vdm 755 %{buildroot}/sbin
+for target in depmod insmod modinfo modprobe rmmod; do
+	ln -sv /bin/kmod %{buildroot}/sbin/$target
+done
+ln -sv kmod %{buildroot}/bin/lsmod
+find %{buildroot} -name '*.la' -delete
+%check
+make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+%files
+%defattr(-,root,root)
+/bin/*
+%{_lib}/*
+/sbin/*
+%{_libdir}/*
+%{_includedir}/*
+%{_datadir}/bash-completion/completions/kmod
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 25-1
--	Initial build.	First version
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 16-1
+*	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 14-1
+*	Fri May 10 2013 baho-utot <baho-utot@columbus.rr.com> 13-1
+-	Initial version	

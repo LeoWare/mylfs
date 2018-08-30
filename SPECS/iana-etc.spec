@@ -1,32 +1,26 @@
-Summary:	The Iana-Etc package provides data for network services and protocols.
+Summary:	Data for network services and protocols
 Name:		iana-etc
 Version:	2.30
 Release:	1
-License:	OSLv3.0
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://anduin.linuxfromscratch.org/LFS/%{name}-%{version}.tar.bz2
+License:	OSLv3
+URL:		http://freshmeat.net/projects/iana-etc
+Group:		System Environment/Base
+Vendor:		Bildanet
+Distribution:	Octothorpe
+BuildArch:	noarch
+Source:		http://anduin.linuxfromscratch.org/sources/LFS/lfs-packages/conglomeration//iana-etc/%{name}-%{version}.tar.bz2
 %description
-	The Iana-Etc package provides data for network services and protocols.
+The Iana-Etc package provides data for network services and protocols.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
 %build
-	make %{?_smp_mflags}
+make %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%clean
-%files -f filelist.rpm
-	%defattr(-,root,root)
+make DESTDIR=%{buildroot} install
+%files
+%defattr(-,root,root)
+%config %_sysconfdir/protocols
+%config %_sysconfdir/services
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.30-1
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.30-1
 -	Initial build.	First version

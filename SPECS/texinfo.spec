@@ -1,43 +1,51 @@
-Summary:	The Texinfo package contains programs for reading, writing, and converting info pages.
+Summary:	Reading, writing, and converting info pages
 Name:		texinfo
-Version:	6.5
+Version:	5.2
 Release:	1
 License:	GPLv3
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/texinfo/%{name}-%{version}.tar.xz
+URL:		http://www.gnu.org/software/texinfo/
+Group:		Applications/System
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source0:	%{name}-%{version}.tar.xz
 %description
-	The Texinfo package contains programs for reading, writing, and converting info pages.
+The Texinfo package contains programs for reading, writing,
+and converting info pages.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
 %build
-	./configure \
-		--prefix=%{_prefix} \
-		--disable-static
-	make %{?_smp_mflags}
+./configure \
+	--prefix=%{_prefix} \
+	--disable-silent-rules
+make %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	make DESTDIR=%{buildroot} TEXMF=/usr/share/texmf install-tex
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
-	%{_mandir}/man1/*.gz
-	%{_mandir}/man5/*.gz
-%post
-	pushd /usr/share/info
-	rm -v dir
-	for f in *;	do install-info $f dir 2>/dev/null; done
-	popd
+make DESTDIR=%{buildroot} install
+make DESTDIR=%{buildroot} TEXMF=%{_datarootdir}/texmf install-tex
+rm -rf %{buildroot}%{_infodir}
+%find_lang %{name}
+%check
+make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+%files -f %{name}.lang
+%defattr(-,root,root)
+%{_bindir}/*
+%{_mandir}/*/*
+%dir %{_datarootdir}/texinfo
+%{_datarootdir}/texinfo/*
+%dir %{_datarootdir}/texmf
+%{_datarootdir}/texmf/*
+%lang(de.us-ascii) %{_datarootdir}/locale/de.us-ascii/LC_MESSAGES/texinfo_document.mo
+%lang(eo) %{_datarootdir}/locale/eo/LC_MESSAGES/texinfo_document.mo
+%lang(es.us-ascii) %{_datarootdir}/locale/es.us-ascii/LC_MESSAGES/texinfo_document.mo
+%lang(fr) %{_datarootdir}/locale/fr/LC_MESSAGES/texinfo_document.mo
+%lang(hu) %{_datarootdir}/locale/hu/LC_MESSAGES/texinfo_document.mo
+%lang(it) %{_datarootdir}/locale/it/LC_MESSAGES/texinfo_document.mo
+%lang(nl) %{_datarootdir}/locale/nl/LC_MESSAGES/texinfo_document.mo
+%lang(no.us-ascii) %{_datarootdir}/locale/no.us-ascii/LC_MESSAGES/texinfo_document.mo
+%lang(pl) %{_datarootdir}/locale/pl/LC_MESSAGES/texinfo_document.mo
+%lang(pt.us-ascii) %{_datarootdir}/locale/pt.us-ascii/LC_MESSAGES/texinfo_document.mo
+%lang(pt_BR.us-ascii) %{_datarootdir}/locale/pt_BR.us-ascii/LC_MESSAGES/texinfo_document.mo
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 6.5-1
--	Initial build.	First version
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 5.2-1
+*	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 5.1-1
+*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 5.0-1
+-	Upgrade version

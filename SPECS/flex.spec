@@ -1,40 +1,52 @@
-Summary:	The Flex package contains a utility for generating programs that recognize patterns in text.
+Summary:	A utility for generating programs that recognize patterns in text
 Name:		flex
-Version:	2.6.4
+Version:	2.5.38
 Release:	1
 License:	BSD
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	https://github.com/westes/flex/releases/download/v2.6.4/%{name}-%{version}.tar.gz
+URL:		http://flex.sourceforge.net
+Group:		Applications/System
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://prdownloads.sourceforge.net/flex/%{name}-%{version}.tar.bz2
 %description
-			The Flex package contains a utility for generating programs that recognize patterns in text.
+The Flex package contains a utility for generating programs
+that recognize patterns in text.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
-	sed -i "/math.h/a #include <malloc.h>" src/flexdef.h
+%setup -q
+sed -i -e '/test-bison/d' tests/Makefile.in
 %build
-	HELP2MAN=/tools/bin/true \
-	./configure \
-		--prefix=%{_prefix} \
-		--docdir=%{_docdir}/%{name}-%{version}
-	make %{?_smp_mflags}
+./configure \
+	--prefix=%{_prefix} \
+	--docdir=%{_defaultdocdir}/%{name}-%{version} \
+	--disable-silent-rules
+make VERBOSE=1 %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	ln -sv flex %{buildroot}%{_bindir}/lex
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%clean
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
-	%{_mandir}/man1/*.gz
+make DESTDIR=%{buildroot} install
+find %{buildroot}%{_libdir} -name '*.la' -delete
+cat > %{buildroot}/usr/bin/lex <<- "EOF"
+#!/bin/sh
+# Begin /usr/bin/lex
+
+	exec /usr/bin/flex -l "$@"
+
+# End /usr/bin/lex
+EOF
+rm -rf %{buildroot}%{_infodir}
+%find_lang %{name}
+%check
+make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+%files -f %{name}.lang
+%defattr(-,root,root)
+%{_bindir}/flex
+%{_bindir}/flex++
+%attr(755,root,root) %{_bindir}/lex
+%{_libdir}/*
+%{_includedir}/*
+%{_defaultdocdir}/%{name}-%{version}/*
+%{_mandir}/*/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.6.4-1
+*	Sat Apr 05 2014 baho-utot <baho-utot@columbus.rr.com> 2.5.38-1
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.5.37-1
 -	Initial build.	First version

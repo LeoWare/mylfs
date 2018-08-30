@@ -1,39 +1,33 @@
-Summary:	The Grep package contains programs for searching through files.
+Summary:	Programs for searching through files
 Name:		grep
-Version:	3.1
+Version:	2.16
 Release:	1
 License:	GPLv3
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
+URL:		http://www.gnu.org/software/grep
+Group:		Applications/File
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://ftp.gnu.org/gnu/grep/%{name}-%{version}.tar.xz
 %description
-	The Grep package contains programs for searching through files.
+The Grep package contains programs for searching through files.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
 %build
-	./configure \
-		--prefix=%{_prefix} \
-		 --bindir=/bin
-	make %{?_smp_mflags}
+./configure \
+	--prefix=%{_prefix} \
+	--bindir=/bin \
+	--disable-silent-rules
+make %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file
-	#	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%clean
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
-	%{_mandir}/man1/*.gz
+make DESTDIR=%{buildroot} install
+rm -rf %{buildroot}%{_infodir}
+%find_lang %{name}
+%check
+make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+%files -f %{name}.lang
+%defattr(-,root,root)
+/bin/*
+%{_mandir}/*/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 3.1-1
--	Initial build.	First version
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 2.16-1
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.14-1

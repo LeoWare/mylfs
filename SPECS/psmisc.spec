@@ -1,39 +1,36 @@
-Summary:	The Psmisc package contains programs for displaying information about running processes.
+Summary:	Displays information about running processes
 Name:		psmisc
-Version:	23.1
+Version:	22.20
 Release:	1
 License:	GPLv2
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	https://sourceforge.net/projects/psmisc/files/%{name}/%{name}-%{version}.tar.xz
+URL:		http://psmisc.sourceforge.net/
+Group:		Applications/System
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://prdownloads.sourceforge.net/psmisc/%{name}-%{version}.tar.gz
 %description
-	The Psmisc package contains programs for displaying information about running processes.
+The Psmisc package contains programs for displaying information
+about running processes.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
 %build
-	CPPFLAGS='-I/usr/include ' \
-	./configure \
-		--prefix=%{_prefix}
-	make %{?_smp_mflags}
+./configure \
+	--prefix=%{_prefix} \
+	--disable-silent-rules
+make %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	install -vdm 755 %{buildroot}/bin
-	mv -v %{buildroot}%{_bindir}/fuser   %{buildroot}/bin
-	mv -v %{buildroot}%{_bindir}/killall %{buildroot}/bin
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%clean
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_mandir}/man1/*.gz
+make DESTDIR=%{buildroot} install
+install -vdm 755 %{buildroot}/bin
+mv -v %{buildroot}%{_bindir}/fuser   %{buildroot}/bin
+mv -v %{buildroot}%{_bindir}/killall %{buildroot}/bin
+%find_lang %{name}
+%check
+make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+%files -f %{name}.lang
+%defattr(-,root,root)
+/bin/*
+%{_bindir}/*
+%{_mandir}/*/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 23.1-1
--	Initial build.	First version
+*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 22.20-1
+-	Upgrade version

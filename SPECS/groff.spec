@@ -1,38 +1,37 @@
-Summary:	The Groff package contains programs for processing and formatting text.
+Summary:	Programs for processing and formatting text
 Name:		groff
-Version:	1.22.3
+Version:	1.22.2
 Release:	1
 License:	GPLv3
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
+URL:		http://www.gnu.org/software/groff
+Group:		Applications/Text
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 %description
-	The Groff package contains programs for processing and formatting text.
+The Groff package contains programs for processing
+and formatting text.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
 %build
-	PAGE=letter \
-	./configure \
-		--prefix=%{_prefix}
-	make
+PAGE=letter ./configure \
+	--prefix=%{_prefix} 
+make %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
-	%{_mandir}/man1/*.gz
-	%{_mandir}/man5/*.gz
-	%{_mandir}/man7/*.gz
+install -vdm 755 %{_defaultdocdir}/%{name}-1.22/pdf
+make DESTDIR=%{buildroot} install
+ln -sv eqn %{buildroot}%{_bindir}/geqn
+ln -sv tbl %{buildroot}%{_bindir}/gtbl
+rm -rf %{buildroot}%{_infodir}
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+%files
+%defattr(-,root,root)
+%{_bindir}/*
+%{_libdir}/*
+%{_defaultdocdir}/%{name}-%{version}/*
+%{_datarootdir}/%{name}/*
+%{_mandir}/*/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 1.22.3-1
--	Initial build.	First version
+*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 1.22.2-1
+-	Upgrade version

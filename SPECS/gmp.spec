@@ -1,41 +1,48 @@
-Summary:	The GMP package contains math libraries.
+Summary:	Math libraries
 Name:		gmp
 Version:	6.1.2
-Release	:	1
+Release:	1
 License:	GPLv3
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:		http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
+URL:		http://www.gnu.org/software/gmp
+Group:		Applications/System
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://ftp.gnu.org/gnu/gmp/%{name}-%{version}.tar.xz
 %description
-	The GMP package contains math libraries. These have useful functions for arbitrary precision arithmetic.
+The GMP package contains math libraries. These have useful functions
+for arbitrary precision arithmetic.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
-	cp -v configfsf.guess config.guess
-	cp -v configfsf.sub   config.sub
+%setup -q
 %build
-	./configure \
-		--prefix=%{_prefix} \
-		--enable-cxx \
-		--disable-static \
-		--docdir=%{_docdir}/%{NAME}-%{VERSION}
-	make %{?_smp_mflags}
-	make %{?_smp_mflags} html
+%ifarch i386 i486 i586 i686
+	ABI=32 ./configure --prefix=/usr    \
+	--enable-cxx     \
+	--disable-static \
+	--docdir=/usr/share/doc/%{name}-%{version}
+%else
+	./configure --prefix=/usr    \
+	--enable-cxx     \
+	--disable-static \
+	--docdir=/usr/share/doc/%{name}-%{version}
+%endif
+make %{?_smp_mflags}
+make %{?_smp_mflags} html
 %install
-	make DESTDIR=%{buildroot} install
-	make DESTDIR=%{buildroot} install-html
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
+make DESTDIR=%{buildroot} install
+make DESTDIR=%{buildroot} install-html
+install -vdm 755 %{buildroot}%{_defaultdocdir}/%{name}-%{version}
+cp -rv doc/{isa_abi_headache,configuration} doc/*.html %{buildroot}%{_defaultdocdir}/%{name}-%{version}
+find %{buildroot}%{_libdir} -name '*.la' -delete
+rm -rf %{buildroot}%{_infodir}
+%check
+make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+%files
+%defattr(-,root,root)
+%{_includedir}/*.h
+%{_libdir}/*
+%{_defaultdocdir}/%{name}-%{version}/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 6.1.2-1
--	Initial build.	First version
+*	Tue Apr 01 2014 baho-utot <baho-utot@columbus.rr.com> 5.1.3-1
+*	Fri Jun 28 2013 baho-utot <baho-utot@columbus.rr.com> 5.1.2-1

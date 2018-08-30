@@ -1,37 +1,39 @@
-Summary:	The Libtool package contains the GNU generic library support script
+Summary:	Shared libraries, portable interface
 Name:		libtool
-Version:	2.4.6
+Version:	2.4.2
 Release:	1
 License:	GPLv2
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/libtool/%{name}-%{version}.tar.xz
+URL:		http://www.gnu.org/software/libtool
+Group:		Development/Tools
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://ftp.gnu.org/gnu/libtool/%{name}-%{version}.tar.gz
 %description
-	The Libtool package contains the GNU generic library support script. It wraps the
-	complexity of using shared libraries in a consistent, portable interface.
+It wraps the complexity of using shared libraries in a 
+consistent, portable interface.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
 %build
-	./configure \
-		--prefix=%{_prefix}
-	make %{?_smp_mflags}
+./configure \
+	--prefix=%{_prefix} \
+	--disable-silent-rules
+make %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%clean
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
-	%{_mandir}/man1/*.gz
+make DESTDIR=%{buildroot} install
+find %{buildroot}%{_libdir} -name '*.la' -delete
+rm -rf %{buildroot}%{_infodir}
+%check
+make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+%files
+%defattr(-,root,root)
+%{_bindir}/*
+%{_libdir}/*
+%{_includedir}/*
+%{_datarootdir}/aclocal/*
+%{_datarootdir}/%{name}/*
+%{_mandir}/*/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.4.6-1
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.4.2-1
 -	Initial build.	First version

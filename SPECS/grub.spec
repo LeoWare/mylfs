@@ -1,39 +1,51 @@
-Summary:	The GRUB package contains the GRand Unified Bootloader.
+Summary:	GRand Unified Bootloader
 Name:		grub
-Version:	2.02
+Version:	2.00
 Release:	1
 License:	GPLv3
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/grub/%{name}-%{version}.tar.xz
-#	%%define	_optflags -march=x86-64 -mtune=generic -O2 -pipe
+URL:		http://www.gnu.org/software/grub
+Group:		Applications/System
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://ftp.gnu.org/gnu/grub/%{name}-%{version}.tar.xz
 %description
-	The GRUB package contains the GRand Unified Bootloader.
+The GRUB package contains the GRand Unified Bootloader.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
+sed -i -e '/gets is a/d' grub-core/gnulib/stdio.in.h
 %build
-	./configure \
-		--prefix=%{_prefix} \
-		--sbindir=/sbin \
-		--sysconfdir=/etc \
-		--disable-efiemu \
-		--disable-werror
-	make %{?_smp_mflags}
+./configure \
+	--prefix=%{_prefix} \
+	--sbindir=/sbin \
+	--sysconfdir=%{_sysconfdir} \
+	--disable-grub-emu-usb \
+	--disable-efiemu \
+	--disable-werror \
+	--disable-silent-rules
+make %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
+make DESTDIR=%{buildroot} install
+rm -rf %{buildroot}%{_infodir}
+%find_lang %{name}
+%check
+make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+%files -f %{name}.lang
+%defattr(-,root,root)
+%dir %{_sysconfdir}/grub.d
+%config() %{_sysconfdir}/bash_completion.d/grub
+%config() %{_sysconfdir}/grub.d/00_header
+%config() %{_sysconfdir}/grub.d/10_linux
+%config() %{_sysconfdir}/grub.d/20_linux_xen
+%config() %{_sysconfdir}/grub.d/30_os-prober
+%config() %{_sysconfdir}/grub.d/40_custom
+%config() %{_sysconfdir}/grub.d/41_custom
+%config() %{_sysconfdir}/grub.d/README
+/sbin/*
+%{_bindir}/*
+%{_libdir}/*
+%{_datarootdir}/%{name}/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.02-1
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.00-1
 -	Initial build.	First version

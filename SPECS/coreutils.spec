@@ -1,52 +1,52 @@
-%global _default_patch_fuzz 2
-Summary:	The Coreutils package contains utilities for showing and setting the basic system characteristics.
+Summary:	Basic system utilities
 Name:		coreutils
-Version:	8.29
+Version:	8.22
 Release:	1
 License:	GPLv3
-URL:		Any
+URL:		http://www.gnu.org/software/coreutils
 Group:		LFS/Base
-Vendor:		Octothorpe
-Source:	http://ftp.gnu.org/gnu/coreutils/%{name}-%{version}.tar.xz
-Patch0:		coreutils-8.29-i18n-1.patch
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source0:	http://ftp.gnu.org/gnu/coreutils/%{name}-%{version}.tar.xz
+Patch0:		http://www.linuxfromscratch.org/patches/lfs/7.5/coreutils-8.22-i18n-4.patch
 %description
-	The Coreutils package contains utilities for showing and setting the basic system characteristics.
+The Coreutils package contains utilities for showing and setting
+the basic system
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
 %patch0 -p1
-sed -i '/test.lock/s/^/#/' gnulib-tests/gnulib.mk
 %build
-	FORCE_UNSAFE_CONFIGURE=1 \
-	./configure \
-		--prefix=%{_prefix} \
-		--enable-no-install-program=kill,uptime
-	FORCE_UNSAFE_CONFIGURE=1 make %{?_smp_mflags}
+FORCE_UNSAFE_CONFIGURE=1  ./configure \
+	--prefix=%{_prefix} \
+	--enable-no-install-program=kill,uptime \
+	--disable-silent-rules
+make %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	install -vdm 755 %{buildroot}/bin
-	install -vdm 755 %{buildroot}%{_sbindir}
-	install -vdm 755 %{buildroot}%{_mandir}/man8
-	mv -v %{buildroot}%{_bindir}/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} %{buildroot}/bin
-	mv -v %{buildroot}%{_bindir}/{false,ln,ls,mkdir,mknod,mv,pwd,rm} %{buildroot}/bin
-	mv -v %{buildroot}%{_bindir}/{rmdir,stty,sync,true,uname} %{buildroot}/bin
-	mv -v %{buildroot}%{_bindir}/chroot %{buildroot}%{_sbindir}
-	mv -v %{buildroot}%{_mandir}/man1/chroot.1 %{buildroot}%{_mandir}/man8/chroot.8
-	sed -i s/\"1\"/\"8\"/1 %{buildroot}%{_mandir}/man8/chroot.8
-	mv -v %{buildroot}%{_bindir}/{head,sleep,nice} %{buildroot}/bin
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
-	%{_mandir}/man1/*.gz
-	%{_mandir}/man8/*.gz
+make DESTDIR=%{buildroot} install
+install -vdm 755 %{buildroot}/bin
+install -vdm 755 %{buildroot}%{_sbindir}
+install -vdm 755 %{buildroot}%{_mandir}/man8
+mv -v %{buildroot}%{_bindir}/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} %{buildroot}/bin
+mv -v %{buildroot}%{_bindir}/{false,ln,ls,mkdir,mknod,mv,pwd,rm} %{buildroot}/bin
+mv -v %{buildroot}%{_bindir}/{rmdir,stty,sync,true,uname,test,[} %{buildroot}/bin
+mv -v %{buildroot}%{_bindir}/chroot %{buildroot}%{_sbindir}
+mv -v %{buildroot}%{_mandir}/man1/chroot.1 %{buildroot}%{_mandir}/man8/chroot.8
+sed -i s/\"1\"/\"8\"/1 %{buildroot}%{_mandir}/man8/chroot.8
+mv -v %{buildroot}%{_bindir}/{head,sleep,nice} %{buildroot}/bin
+rm -rf %{buildroot}%{_infodir}
+%find_lang %{name}
+%check
+make -k NON_ROOT_USERNAME=nobody check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+%files -f %{name}.lang
+%defattr(-,root,root)
+/bin/*
+%{_libexecdir}/*
+%{_bindir}/*
+%{_sbindir}/*
+%{_mandir}/*/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 8.29-1
--	Initial build.	First version
+*	Sat Apr 05 2014 baho-utot <baho-utot@columbus.rr.com> 8.22-1
+*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 8.21-1
+-	Upgrade version

@@ -1,47 +1,47 @@
-Summary:	The Perl package contains the Practical Extraction and Report Language.
+Summary:	Practical Extraction and Report Language
 Name:		perl
-Version:	5.26.1
+Version:	5.18.2
 Release:	1
 License:	GPLv1
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://www.cpan.org/src/5.0/%{name}-%{version}.tar.xz
+URL:		http://www.perl.org/
+Group:		Development/Languages
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://www.cpan.org/src/5.0/%{name}-%{version}.tar.bz2
+Provides:	perl >= 0:5.003000
 %description
-	The Perl package contains the Practical Extraction and Report Language.
+The Perl package contains the Practical Extraction and
+Report Language.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
+sed -i -e "s|BUILD_ZLIB\s*= True|BUILD_ZLIB = False|" \
+	-e "s|INCLUDE\s*= ./zlib-src|INCLUDE = /usr/include|" \
+	-e "s|LIB\s*= ./zlib-src|LIB = /usr/lib|" \
+	cpan/Compress-Raw-Zlib/config.in
 %build
-	export BUILD_ZLIB=False
-	export BUILD_BZIP2=0
-	sh Configure -des -Dprefix=/usr \
-		-Dvendorprefix=/usr \
-		-Dman1dir=%{_mandir}/man1 \
-		-Dman3dir=%{_mandir}/man3 \
-		-Dpager="${_sbindir}/less -isR" \
-		-Duseshrplib \
-		-Dusethreads
-#		-Doptimize='-march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong' \
-#		-Dcccdlflags='-fPIC'
-#		-Dlddlflags="-shared ${LDFLAGS}" -Dldflags="${LDFLAGS}"
-	make %{?_smp_mflags}
+CFLAGS="%{_optflags}"
+sh Configure -des \
+	-Dprefix=%{_prefix} \
+	-Dvendorprefix=%{_prefix} \
+	-Dman1dir=%{_mandir}/man1 \
+	-Dman3dir=%{_mandir}/man3 \
+	-Dpager=%{_bindir}"/less -isR" \
+	-Duseshrplib
+make VERBOSE=1 %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file
-	install -D -m644 Copying %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_mandir}/man1/*.gz
-	%{_mandir}/man3/*.gz
-	%{_bindir}/%{NAME}%{VERSION}
-	%{_libdir}/%{NAME}5/%{VERSION}/*.pm
+make DESTDIR=%{buildroot} install
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+%files
+%defattr(-,root,root)
+%{_bindir}/*
+%dir %{_libdir}/perl5
+%dir %{_libdir}/perl5/%{version}
+%{_libdir}/perl5/%{version}/*
+%{_mandir}/*/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 5.26.1-1
--	Initial build.	First version
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 5.18.2-1
+*	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 5.18.1-1
+*	Fri Jun 28 2013 baho-utot <baho-utot@columbus.rr.com> 5.18.0-1
+*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 5.16.3-1
+-	Upgrade version

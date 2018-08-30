@@ -1,36 +1,38 @@
-Summary:	The Automake package contains programs for generating Makefiles for use with Autoconf
+Summary:	Programs for generating Makefiles
 Name:		automake
-Version:	1.15.1
+Version:	1.14.1
 Release:	1
 License:	GPLv2
-URL:		Any
+URL:		http://www.gnu.org/software/automake/
 Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/automake/%{name}-%{version}.tar.xz
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://ftp.gnu.org/gnu/automake/%{name}-%{version}.tar.xz
 %description
-	The Automake package contains programs for generating Makefiles for use with Autoconf
+Contains programs for generating Makefiles for use with Autoconf.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
 %build
-	./configure \
-		--prefix=%{_prefix} \
-		--docdir=%{_docdir}/%{NAME}-%{VERSION}
-	make %{?_smp_mflags}
+./configure \
+	--prefix=%{_prefix} \
+	--docdir=%{_defaultdocdir}/%{name}-%{version} \
+	--disable-silent-rules
+make %{?_smp_mflags}
+%check
+sed -i "s:./configure:LEXLIB=/usr/lib/libfl.a &:" t/lex-{clean,depend}-cxx.sh
+make -k check %{?_smp_mflags} |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %install
-	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
-	%{_mandir}/man1/*.gz
+make DESTDIR=%{buildroot} install
+rm -rf %{buildroot}%{_infodir}
+%files
+%defattr(-,root,root)
+%{_bindir}/*
+%{_datarootdir}/aclocal/README
+%{_datarootdir}/%{name}-1.14/*
+%{_datarootdir}/aclocal-1.14/*
+%{_defaultdocdir}/%{name}-%{version}/*
+%{_mandir}/*/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 1.15.1-1
--	Initial build.	First version
+*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 1.14.1-1
+*	Fri Jun 28 2013 baho-utot <baho-utot@columbus.rr.com> 1.14-1
+-	Upgrade version

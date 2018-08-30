@@ -1,0 +1,11 @@
+bf298e874cf454a3c2f8fe7e671c5d2e	nspr-4.10.3.tar.gz
+74738d89615665e3547dc2c0602ab0e6	nss-3.15.4.tar.gz
+6f63c207c43669718838869e12a7813c	nss-3.15.4-standalone-1.patch
+3743beefa3dd6247a73f8f7a32c14c33	popt-1.16.tar.gz
+050a4909e452d01ab4747fd69d4036e0	elfutils-0.158.tar.bz2
+dc7f94ec6ff15c985d2d6ad0f1b35654	lua-5.2.3.tar.gz
+8586e4a767f4f9087d97e284141aee42	lua-5.2.3-shared_library-1.patch
+876ac9948a88367054f8ddb5c0e87173	rpm-4.11.2.tar.bz2
+f73afcb308aefde7e6ece4caa87b22a9	db-6.0.20.tar.gz
+c2fbf420a50d07b80158a0185cbb08f7	eudev-1.6.tar.gz
+b793b2bf1306bc62e5f1e7ebbdae2f35	readline-6.2-fixes-2.patch

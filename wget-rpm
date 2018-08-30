@@ -1,0 +1,12 @@
+http://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v4.10.3/src/nspr-4.10.3.tar.gz
+http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/NSS_3_15_4_RTM/src/nss-3.15.4.tar.gz
+http://www.linuxfromscratch.org/patches/blfs/7.5/nss-3.15.4-standalone-1.patch
+http://rpm5.org/files/popt/popt-1.16.tar.gz
+https://fedorahosted.org/releases/e/l/elfutils/0.158/elfutils-0.158.tar.bz2
+http://www.lua.org/ftp/lua-5.2.3.tar.gz
+http://www.linuxfromscratch.org/patches/blfs/7.5/lua-5.2.3-shared_library-1.patch
+http://ftp.rpm.org/releases/rpm-4.11.x/rpm-4.11.2.tar.bz2
+http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
+http://dev.gentoo.org/~blueness/eudev/eudev-1.6.tar.gz
+https://ftp.gnu.org/gnu/readline/readline-6.2.tar.gz
+http://www.linuxfromscratch.org/patches/lfs/7.5/readline-6.2-fixes-2.patch

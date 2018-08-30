@@ -1,35 +1,31 @@
-Summary:    The M4 package contains a macro processor
-Name:       m4
+Summary:	A macro processor
+Name:		m4
 Version:	1.4.18
 Release:	1
 License:	GPLv3
-URL:		http://www.gnu.org
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
+URL:		http://www.gnu.org/software/m4
+Group:		Development/Tools
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://ftp.gnu.org/gnu/m4/%{name}-%{version}.tar.xz
 %description
-	The M4 package contains a macro processor
+The M4 package contains a macro processor
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
 %build
-	./configure \
-		--prefix=%{_prefix}
-	make %{?_smp_mflags}
+./configure \
+	--prefix=%{_prefix}
+make %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file
-	install -D -m644 README %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
-	%{_mandir}/man1/m4.1.gz
+make DESTDIR=%{buildroot} install
+rm -rf %{buildroot}%{_infodir}
+%check
+make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+%files
+%defattr(-,root,root)
+%{_bindir}/*
+%{_mandir}/*/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 1.4.18-1
+*	Sat Apr 05 2014 baho-utot <baho-utot@columbus.rr.com> 1.4.17-1
+*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 1.4.16-1
 -	Initial build.	First version

@@ -1,39 +1,44 @@
-Summary:	The Gawk package contains programs for manipulating text files.
+Summary:	Contains programs for manipulating text files
 Name:		gawk
-Version:	4.2.0
+Version:	4.1.0
 Release:	1
 License:	GPLv3
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/gawk/%{name}-%{version}.tar.xz
+URL:		http://www.gnu.org/software/gawk
+Group:		Applications/File
+Vendor:		Bildanet
+Distribution:	Octothorpe
+Source:		http://ftp.gnu.org/gnu/gawk/%{name}-%{version}.tar.xz
 %description
-	The Gawk package contains programs for manipulating text files.
+The Gawk package contains programs for manipulating text files.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
-	sed -i 's/extras//' Makefile.in
+%setup -q
 %build
-	./configure \
-		--prefix=%{_prefix}
-	make %{?_smp_mflags}
+./configure \
+	--prefix=%{_prefix} \
+	--disable-silent-rules
+make %{?_smp_mflags}
 %install
-	make DESTDIR=%{buildroot} install
-	install -vdm 755 %{buildroot}%{_docdir}/%{NAME}-%{VERSION}
-	cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} %{buildroot}%{_docdir}/%{NAME}-%{VERSION}
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
-	%{_mandir}/man1/*.gz
-	%{_mandir}/man3/*.gz
+make DESTDIR=%{buildroot} install
+install -vdm 755 %{buildroot}%{_defaultdocdir}/%{name}-%{version}
+cp -v doc/{awkforai.txt,*.{eps,pdf,jpg}} %{buildroot}%{_defaultdocdir}/%{name}-%{version}
+rm -rf %{buildroot}%{_infodir}
+find %{buildroot}%{_libdir} -name '*.la' -delete
+%find_lang %{name}
+%check
+make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+%files -f %{name}.lang
+%defattr(-,root,root)
+%{_bindir}/*
+%{_libdir}/%{name}/*
+%{_includedir}/*
+%{_libexecdir}/*
+%{_datarootdir}/awk/*
+%{_defaultdocdir}/%{name}-%{version}/*
+%{_mandir}/*/*
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 4.2.0-1
--	Initial build.	First version
+*	Sat May 11 2013 baho-utot <baho-utot@columbus.rr.com> 4.1.0-1
+-	Upgrade version
+*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 4.0.2-1
+-	Upgrade version
