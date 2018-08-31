@@ -5,6 +5,16 @@ set +h
 source ./config.inc
 source ./function.inc
 
+change_ownership() {
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+    > ${_logfile}
+    build " chown -R root:root $LFS/tools" "chown -R root:root /mnt/lfs/tools" ${_logfile}
+    >  ${_complete}
+    return 0
+}
+
 linux_api_headers() {
     local   _pkgname="linux_api_headers"
     local   _pkgver="4.15.3"
@@ -16,8 +26,8 @@ linux_api_headers() {
     build " Change directory: BUILD" "pushd BUILD" ${_logfile}
     unpack "${PWD}" "${_pkgname}-${_pkgver}"
     build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
-    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
-    build " Change directory: ../build" "pushd ../build" ${_logfile}
+    #build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    #build " Change directory: ../build" "pushd ../build" ${_logfile}
 
 
     build "+ make mrproper" "make mrproper" ${_logfile}
@@ -411,6 +421,7 @@ gmp() {
 
 # Build all packages from shell scripts
 
+change_ownership
 linux_api_headers
 man_pages
 glibc

@@ -58,7 +58,7 @@ fi
 
 # Change ownership of $LFS to root
 msg_line "Change ownership of ${LFS} to root: "
-chown -R 0:0 $LFS/*
+chown -R 0:0 ${LFS}/*
 msg_success
 
 # Mount kernel filesystems
@@ -73,6 +73,7 @@ msg_success
 
 # Enter chroot and start the build
 msg_section "Starting Shell Script Build"
+mount_kernel_vfs
 build_shell
 msg_section "Shell Script Build Complete"
 
