@@ -175,7 +175,7 @@ glibc() {
     unpack "${PWD}" "${_pkgname}-${_pkgver}"
     build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
     build "+ patch -Np1 -i ../../SOURCES/glibc-2.27-fhs-1.patch" "patch -Np1 -i ../../SOURCES/glibc-2.27-fhs-1.patch" ${_logfile}
-    
+
     build " Create work directory" "install -vdm 755 ../build" ${_logfile}
     build " Change directory: ../build" "pushd ../build" ${_logfile}
 
@@ -195,7 +195,7 @@ glibc() {
     build "+ unset GCC_INCDIR" "unset GCC_INCDIR" ${_logfile}
     build "+ make" "make" ${_logfile}
     build "+ touch /etc/ld.so.conf" "touch /etc/ld.so.conf" ${_logfile}
-    build "+ sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile" "sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile" ${_logfile}
+    build "+ sed '/test-installation/s@\$(PERL)@echo not running@' -i ../Makefile" "sed '/test-installation/s@\$(PERL)@echo not running@' -i ../Makefile" ${_logfile}
     build "+ cp -v ../nscd/nscd.conf /etc/nscd.conf" "cp -v ../nscd/nscd.conf /etc/nscd.conf" ${_logfile}
     build "+ mkdir -pv /var/cache/nscd" "mkdir -pv /var/cache/nscd" ${_logfile}
     build "+ install -v -Dm644 ../nscd/nscd.tmpfiles /usr/lib/tmpfiles.d/nscd.conf" "install -v -Dm644 ../nscd/nscd.tmpfiles /usr/lib/tmpfiles.d/nscd.conf" ${_logfile}
@@ -277,22 +277,23 @@ EOF
 }
 
 adjust_toolchain() {
-    mv -v /tools/bin/{ld,ld-old}
-    mv -v /tools/$(uname -m)-pc-linux-gnu/bin/{ld,ld-old}
-    mv -v /tools/bin/{ld-new,ld}
-    ln -sv /tools/bin/ld /tools/$(uname -m)-pc-linux-gnu/bin/ld
+    build "+ mv -v /tools/bin/{ld,ld-old}" "mv -v /tools/bin/{ld,ld-old}" ${_logfile}
+    build "+ mv -v /tools/$(uname -m)-pc-linux-gnu/bin/{ld,ld-old}" "mv -v /tools/$(uname -m)-pc-linux-gnu/bin/{ld,ld-old}" ${_logfile}
+    build "+ mv -v /tools/bin/{ld-new,ld}" "mv -v /tools/bin/{ld-new,ld}" ${_logfile}
+    build "+ ln -sv /tools/bin/ld /tools/$(uname -m)-pc-linux-gnu/bin/ld" "ln -sv /tools/bin/ld /tools/$(uname -m)-pc-linux-gnu/bin/ld" ${_logfile}
     gcc -dumpspecs | sed -e 's@/tools@@g'                   \
         -e '/\*startfile_prefix_spec:/{n;s@.*@/usr/lib/ @}' \
         -e '/\*cpp:/{n;s@$@ -isystem /usr/include@}' >      \
         `dirname $(gcc --print-libgcc-file-name)`/specs
-    echo 'int main(){}' > dummy.c
-    cc dummy.c -v -Wl,--verbose &> dummy.log
-    readelf -l a.out | grep ': /lib'
-    grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log
-    grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'
-    grep "/lib.*/libc.so.6 " dummy.log
-    grep found dummy.log
-    rm -v dummy.c a.out dummy.log
+    build "+ echo 'int main(){}' > dummy.c" "echo 'int main(){}' > dummy.c" ${_logfile}
+    build "+ cc dummy.c -v -Wl,--verbose &> dummy.log" "cc dummy.c -v -Wl,--verbose &> dummy.log" ${_logfile}
+    build "+ readelf -l a.out | grep ': /lib'" "readelf -l a.out | grep ': /lib'" ${_logfile}
+    build "+ grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log" "grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log" ${_logfile}
+    build "+ grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'" "grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'" ${_logfile}
+    build "+ grep \"/lib.*/libc.so.6 \" dummy.log" "grep \"/lib.*/libc.so.6 \" dummy.log" ${_logfile}
+    build "+ grep found dummy.log" "grep found dummy.log" ${_logfile}
+    build "+ rm -v dummy.c a.out dummy.log" "rm -v dummy.c a.out dummy.log" ${_logfile}
+
 }
 
 zlib() {
@@ -309,7 +310,7 @@ zlib() {
     build " Create work directory" "install -vdm 755 ../build" ${_logfile}
     build " Change directory: ../build" "pushd ../build" ${_logfile}
 
-    build "+ ./configure --prefix=/usr" "./configure --prefix=/usr" ${_logfile}
+    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr" "../${_pkgname}-${_pkgver}/configure --prefix=/usr" ${_logfile}
     build "+ make" "make" ${_logfile}
     build "+ make check" "make check" ${_logfile}
     build "+ make install" "make install" ${_logfile}
@@ -337,7 +338,7 @@ file() {
     build " Create work directory" "install -vdm 755 ../build" ${_logfile}
     build " Change directory: ../build" "pushd ../build" ${_logfile}
 
-    build "+ ./configure --prefix=/usr" "./configure --prefix=/usr" ${_logfile}
+    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr" "../${_pkgname}-${_pkgver}/configure --prefix=/usr" ${_logfile}
     build "+ make" "make" ${_logfile}
     build "+ make check" "make check" ${_logfile}
     build "+ make install" "make install" ${_logfile}
@@ -366,7 +367,7 @@ readline() {
 
     build "+ sed -i '/MV.*old/d' Makefile.in" "sed -i '/MV.*old/d' Makefile.in" ${_logfile}
     build "+ sed -i '/{OLDSUFF}/c:' support/shlib-install" "sed -i '/{OLDSUFF}/c:' support/shlib-install" ${_logfile}
-    build "+ ./configure --prefix=/usr --disable-static --docdir=/usr/share/doc/readline-7.0" "./configure --prefix=/usr --disable-static --docdir=/usr/share/doc/readline-7.0" ${_logfile}
+    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-static --docdir=/usr/share/doc/readline-7.0" "../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-static --docdir=/usr/share/doc/readline-7.0" ${_logfile}
     build "+ make SHLIB_LIBS="-L/tools/lib -lncursesw"" "make SHLIB_LIBS="-L/tools/lib -lncursesw"" ${_logfile}
 
     build "+ make SHLIB_LIBS="-L/tools/lib -lncurses" install" "make SHLIB_LIBS="-L/tools/lib -lncurses" install" ${_logfile}
@@ -396,7 +397,7 @@ m4() {
     build " Create work directory" "install -vdm 755 ../build" ${_logfile}
     build " Change directory: ../build" "pushd ../build" ${_logfile}
 
-    build "+ ./configure --prefix=/usr" "./configure --prefix=/usr" ${_logfile}
+    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr" "../${_pkgname}-${_pkgver}/configure --prefix=/usr" ${_logfile}
     build "+ make" "make" ${_logfile}
     build "+ make check" "make check" ${_logfile}
     build "+ make install" "make install" ${_logfile}
@@ -438,7 +439,7 @@ EOF
     build "+ ln -sv /tools/lib/libncursesw.so.6 /usr/lib/libncursesw.so.6" "ln -sv /tools/lib/libncursesw.so.6 /usr/lib/libncursesw.so.6" ${_logfile}
     build "+ ln -sfv libncurses.so.6 /usr/lib/libncurses.so" "ln -sfv libncurses.so.6 /usr/lib/libncurses.so" ${_logfile}
     build "+ sed -i -e '/flex/s/as_fn_error/: ;; # &/' configure" "sed -i -e '/flex/s/as_fn_error/: ;; # &/' configure" ${_logfile}
-    build "+ ./configure --prefix=/usr --with-readline --mandir=/usr/share/man --infodir=/usr/share/info" "../${_pkgname}-${_pkgver}/configure --prefix=/usr --with-readline --mandir=/usr/share/man --infodir=/usr/share/info" ${_logfile}
+    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr --with-readline --mandir=/usr/share/man --infodir=/usr/share/info" "../${_pkgname}-${_pkgver}/configure --prefix=/usr --with-readline --mandir=/usr/share/man --infodir=/usr/share/info" ${_logfile}
     build "+ make" "make" ${_logfile}
     build "+ echo "quit" | ./bc/bc -l Test/checklib.b" "echo "quit" | ./bc/bc -l Test/checklib.b" ${_logfile}
     build "+ make install" "make install" ${_logfile}
@@ -465,7 +466,7 @@ binutils() {
     build " Create work directory" "install -vdm 755 ../build" ${_logfile}
     build " Change directory: ../build" "pushd ../build" ${_logfile}
 
-    build "+ ./configure --prefix=/usr --enable-gold --enable-ld=default --enable-plugins --enable-shared --disable-werror --enable-64-bit-bfd --with-system-zlib" "./configure --prefix=/usr --enable-gold --enable-ld=default --enable-plugins --enable-shared --disable-werror --enable-64-bit-bfd --with-system-zlib" ${_logfile}
+    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr --enable-gold --enable-ld=default --enable-plugins --enable-shared --disable-werror --enable-64-bit-bfd --with-system-zlib" "../${_pkgname}-${_pkgver}/configure --prefix=/usr --enable-gold --enable-ld=default --enable-plugins --enable-shared --disable-werror --enable-64-bit-bfd --with-system-zlib" ${_logfile}
     build "+ make tooldir=/usr" "make tooldir=/usr" ${_logfile}
     build "+ make -k check" "make -k check" ${_logfile}
     build "+ make tooldir=/usr install" "make tooldir=/usr install" ${_logfile}
@@ -492,7 +493,7 @@ gmp() {
     build " Create work directory" "install -vdm 755 ../build" ${_logfile}
     build " Change directory: ../build" "pushd ../build" ${_logfile}
 
-    build "+ ./configure --prefix=/usr --enable-cxx --disable-static --docdir=/usr/share/doc/gmp-6.1.2" "./configure --prefix=/usr --enable-cxx --disable-static --docdir=/usr/share/doc/gmp-6.1.2" ${_logfile}
+    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr --enable-cxx --disable-static --docdir=/usr/share/doc/gmp-6.1.2" "../${_pkgname}-${_pkgver}/configure --prefix=/usr --enable-cxx --disable-static --docdir=/usr/share/doc/gmp-6.1.2" ${_logfile}
     build "+ make" "make" ${_logfile}
     build "+ make html" "make html" ${_logfile}
     build "+ make check 2>&1 | tee gmp-check-log" "make check 2>&1 | tee gmp-check-log" ${_logfile}
@@ -508,7 +509,63 @@ gmp() {
     return 0
 }
 
+mpfr() {
+    local   _pkgname="mpfr"
+    local   _pkgver="4.0.1"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
+    > ${_logfile}
+    build " Clean build directory" 'rm -rf BUILD/*' ${_logfile}
+    build " Change directory: BUILD" "pushd BUILD" ${_logfile}
+    unpack "${PWD}" "${_pkgname}-${_pkgver}"
+    build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    build " Change directory: ../build" "pushd ../build" ${_logfile}
 
+    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-static --enable-thread-safe --docdir=/usr/share/doc/mpfr-4.0.1" "../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-static --enable-thread-safe --docdir=/usr/share/doc/mpfr-4.0.1" ${_logfile}
+    build "+ make" "make" ${_logfile}
+    build "+ make html" "make html" ${_logfile}
+    build "+ make check" "make check" ${_logfile}
+    build "+ make install" "make install" ${_logfile}
+    build "+ make install-html" "make install-html" ${_logfile}
+
+
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
+}
+
+mpc() {
+    local   _pkgname="mpc"
+    local   _pkgver="1.1.0"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
+    > ${_logfile}
+    build " Clean build directory" 'rm -rf BUILD/*' ${_logfile}
+    build " Change directory: BUILD" "pushd BUILD" ${_logfile}
+    unpack "${PWD}" "${_pkgname}-${_pkgver}"
+    build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    build " Change directory: ../build" "pushd ../build" ${_logfile}
+
+    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-static --docdir=/usr/share/doc/mpc-1.1.0" "../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-static --docdir=/usr/share/doc/mpc-1.1.0" ${_logfile}
+    build "+ make" "make" ${_logfile}
+    build "+ make html" "make html" ${_logfile}
+    build "+ make check" "make check" ${_logfile}
+    build "+ make install" "make install" ${_logfile}
+    build "+ make install-html" "make install-html" ${_logfile}
+
+
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
+}
 
 
 
