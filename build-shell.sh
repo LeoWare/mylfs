@@ -194,12 +194,13 @@ glibc() {
     build "+ CC=\"gcc -isystem $GCC_INCDIR -isystem /usr/include\" ../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-werror --enable-kernel=3.2 --enable-stack-protector=strong libc_cv_slibdir=/lib" "CC=\"gcc -isystem $GCC_INCDIR -isystem /usr/include\" ../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-werror --enable-kernel=3.2 --enable-stack-protector=strong libc_cv_slibdir=/lib" ${_logfile}
     build "+ unset GCC_INCDIR" "unset GCC_INCDIR" ${_logfile}
     build "+ make" "make" ${_logfile}
+    build "+ make check" "make check" ${_logfile}
     build "+ touch /etc/ld.so.conf" "touch /etc/ld.so.conf" ${_logfile}
-    build "+ sed '/test-installation/s@\$(PERL)@echo not running@' -i ../Makefile" "sed '/test-installation/s@\$(PERL)@echo not running@' -i ../Makefile" ${_logfile}
-    build "+ cp -v ../nscd/nscd.conf /etc/nscd.conf" "cp -v ../nscd/nscd.conf /etc/nscd.conf" ${_logfile}
+    build "+ sed '/test-installation/s@\$(PERL)@echo not running@' -i ../${_pkgname}-${_pkgver}/Makefile" "sed '/test-installation/s@\$(PERL)@echo not running@' -i ../${_pkgname}-${_pkgver}/Makefile" ${_logfile}
+    build "+ cp -v ../${_pkgname}-${_pkgver}/nscd/nscd.conf /etc/nscd.conf" "cp -v ../${_pkgname}-${_pkgver}/nscd/nscd.conf /etc/nscd.conf" ${_logfile}
     build "+ mkdir -pv /var/cache/nscd" "mkdir -pv /var/cache/nscd" ${_logfile}
-    build "+ install -v -Dm644 ../nscd/nscd.tmpfiles /usr/lib/tmpfiles.d/nscd.conf" "install -v -Dm644 ../nscd/nscd.tmpfiles /usr/lib/tmpfiles.d/nscd.conf" ${_logfile}
-    build "+ install -v -Dm644 ../nscd/nscd.service /lib/systemd/system/nscd.service" "install -v -Dm644 ../nscd/nscd.service /lib/systemd/system/nscd.service" ${_logfile}
+    build "+ install -v -Dm644 ../${_pkgname}-${_pkgver}/nscd/nscd.tmpfiles /usr/lib/tmpfiles.d/nscd.conf" "install -v -Dm644 ../${_pkgname}-${_pkgver}/nscd/nscd.tmpfiles /usr/lib/tmpfiles.d/nscd.conf" ${_logfile}
+    build "+ install -v -Dm644 ../${_pkgname}-${_pkgver}/nscd/nscd.service /lib/systemd/system/nscd.service" "install -v -Dm644 ../${_pkgname}-${_pkgver}/nscd/nscd.service /lib/systemd/system/nscd.service" ${_logfile}
     build "+ " "" ${_logfile}
     build "+ mkdir -pv /usr/lib/locale" "mkdir -pv /usr/lib/locale" ${_logfile}
     build "+ localedef -i cs_CZ -f UTF-8 cs_CZ.UTF-8" "localedef -i cs_CZ -f UTF-8 cs_CZ.UTF-8" ${_logfile}
@@ -242,8 +243,8 @@ rpc: files
 
 # End /etc/nsswitch.conf
 EOF
-    build " Adding time zone data" "make" ${_logfile}
-    tar -xf ../../tzdata2018c.tar.gz
+    build " Adding time zone data" "" ${_logfile}
+    tar -xf ../../SOURCES/tzdata2018c.tar.gz
 
     ZONEINFO=/usr/share/zoneinfo
     mkdir -pv $ZONEINFO/{posix,right}
