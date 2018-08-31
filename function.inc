@@ -153,6 +153,32 @@ build_filesystem() {
 	[ -e ${LFS}/dev/null ]		|| build "mknod -m 666 ${LFS}/dev/null c 1 3" "mknod -m 666 ${LFS}/dev/null c 1 3" "${_logfile}"
 	return 0
 }
+
+build_shell_filesystem() {
+	local _logfile="${LOGDIR}/filesystem.log"
+	mkdir -pv $LFS/{dev,proc,sys,run}
+	mkdir -pv $LFS/{bin,boot,etc/{opt,sysconfig},home,lib/firmware,mnt,opt}
+	mkdir -pv $LFS/{media/{floppy,cdrom},sbin,srv,var}
+	install -dv -m 0750 $LFS/root
+	install -dv -m 1777 $LFS/tmp $LFS/var/tmp
+	mkdir -pv $LFS/usr/{,local/}{bin,include,lib,sbin,src}
+	mkdir -pv $LFS/usr/{,local/}share/{color,dict,doc,info,locale,man}
+	mkdir -v  $LFS/usr/{,local/}share/{misc,terminfo,zoneinfo}
+	mkdir -v  $LFS/usr/libexec
+	mkdir -pv $LFS/usr/{,local/}share/man/man{1..8}
+
+	case $(uname -m) in
+		x86_64) mkdir -v $LFS/lib64 ;;
+	esac
+
+	mkdir -v $LFS/var/{log,mail,spool}
+	ln -sv /run $LFS/var/run
+	ln -sv /run/lock $LFS/var/lock
+	mkdir -pv $LFS/var/{opt,cache,lib/{color,misc,locate},local}
+	touch ${LOGDIR}/filesystem.completed
+	return 0
+}
+
 install_filesystem() {
 	return 1
 }
