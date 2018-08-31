@@ -49,7 +49,8 @@ if [ -e "${LOGDIR}/filesystem.completed" ]; then
 else
 	msg_warning "No"
 	msg_section "Building Filesystem"
-	build_filesystem
+	#build_filesystem
+	build_shell_filesystem
 #	msg_line "Installing Filesystem: "
 #	install_filesystem
 	msg_success

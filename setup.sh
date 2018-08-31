@@ -3,8 +3,8 @@ set -o errexit
 set -o nounset
 set +h
 
-source config.inc
-source function.inc
+source ./config.inc
+source ./function.inc
 
 PRGNAME=${0##*/}
 LOGFILE="${LOGDIR}/${PRGNAME}-${LOGFILE}"
@@ -95,12 +95,12 @@ LIST+="macros "									# configuration files
 LIST+="md5sums-lfs md5sums-rpm wget-lfs wget-rpm "				# source package data
 LIST+="locale-gen.sh version-check.sh "						# lfs scripts
 LIST+="config.inc function.inc "						# build system includes
-LIST+="toolchain.sh build-lfs.sh build-rpms.sh"							# build system scripts
+LIST+="toolchain.sh build-lfs.sh build-rpms.sh build-shell.sh"							# build system scripts
 msg "Install build system: "
 build "	Installing directories" "install -vdm 755 ${LFS}${PARENT}/{BOOK,BUILD,BUILDROOT,LOGS,RPMS,SOURCES,SPECS,SRPMS}" "${LOGFILE}"
 build "	Copying files" "cp -var ${LIST} ${LFS}${PARENT}" "${LOGFILE}"
 build "	Setting ownership to lfs user" "chown -R ${LFS_USER}:${LFS_USER} ${LFS}" "${LOGFILE}"
 
-build " Changing directory - ${LFS}${PARENT}:" "cd ${LFS}${PARENT}" "${LOGFILE}"
+#build " Changing directory - ${LFS}${PARENT}:" "cd ${LFS}${PARENT}" "${LOGFILE}"
 
 exit 0 
