@@ -44,7 +44,7 @@ chapter-05-05() {
 	local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
 	local	_pwd=${PWD}/BUILD
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -59,7 +59,7 @@ chapter-05-05() {
 	build "	Symlinking mpfr" "ln -vs ../mpfr-4.0.1 mpfr" ${_logfile}
 	build "	Fixing headers" 'for file in $(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h); do cp -uv $file{,.orig};sed -e "s@/lib\(64\)\?\(32\)\?/ld@/tools&@g" -e "s@/usr@/tools@g" $file.orig > $file;printf "\n%s\n%s\n%s\n%s\n\n" "#undef STANDARD_STARTFILE_PREFIX_1" "#undef STANDARD_STARTFILE_PREFIX_2" "#define STANDARD_STARTFILE_PREFIX_1 \"/tools/lib/\"" "#define STANDARD_STARTFILE_PREFIX_2 \"\" ">> $file;touch $file.orig;done' ${_logfile}
 	#build "	sed -i '/k prot/agcc_cv_libc_provides_ssp=yes' gcc/configure" "sed -i '/k prot/agcc_cv_libc_provides_ssp=yes' gcc/configure" ${_logfile}
-	[ "x86_64" == $(uname -m) ] && build " Set lib directory" "sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64" "${_logfile}"
+	[ "x86_64" == $(uname -m) ] && build "	Set lib directory" "sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64" "${_logfile}"
 	build "	Change directory: ../build" "pushd ../build" ${_logfile}
 	build "	Configure" "../${_pkgname}-${_pkgver}/configure --target=${LFS_TGT} --prefix=/tools --with-glibc-version=2.11 --with-sysroot=${LFS} --with-newlib --without-headers --with-local-prefix=/tools --with-native-system-header-dir=/tools/include --disable-nls --disable-shared --disable-multilib --disable-decimal-float --disable-threads --disable-libatomic --disable-libgomp --disable-libmpx --disable-libquadmath --disable-libssp --disable-libvtv --disable-libstdcxx --enable-languages=c,c++ " ${_logfile}
 	build "	Make" "make ${MKFLAGS}" ${_logfile}
@@ -76,7 +76,7 @@ chapter-05-06() {
 	local	_pkgver="4.15.3"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -96,7 +96,7 @@ chapter-05-07() {
 	local	_pkgver="2.27"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -130,7 +130,7 @@ chapter-05-08() {
 	local	_pkgver="7.3.0"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -152,7 +152,7 @@ chapter-05-09() {
 	local	_pkgver="2.30"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -178,7 +178,7 @@ chapter-05-10() {
 	local	_pwd=${PWD}/BUILD
 	local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -192,7 +192,7 @@ chapter-05-10() {
 	build "	Symlinking mpfr" "ln -vs ../mpfr-4.0.1 mpfr" ${_logfile}
 	build "	Fixing limits.h" 'cat gcc/limitx.h gcc/glimits.h gcc/limity.h > $(dirname $( ${LFS_TGT}-gcc -print-libgcc-file-name))/include-fixed/limits.h' ${_logfile}
 	build "	Fixing headers" 'for file in $(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h); do cp -uv $file{,.orig};sed -e "s@/lib\(64\)\?\(32\)\?/ld@/tools&@g" -e "s@/usr@/tools@g" $file.orig > $file;printf "\n%s\n%s\n%s\n%s\n\n" "#undef STANDARD_STARTFILE_PREFIX_1" "#undef STANDARD_STARTFILE_PREFIX_2" "#define STANDARD_STARTFILE_PREFIX_1 \"/tools/lib/\"" "#define STANDARD_STARTFILE_PREFIX_2 \"\" ">> $file;touch $file.orig;done' ${_logfile}
-	[ "x86_64" == $(uname -m) ] && build " Set lib directory" "sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64" "${_logfile}"
+	[ "x86_64" == $(uname -m) ] && build "	Set lib directory" "sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64" "${_logfile}"
 	build "	Create work directory" "install -vdm 755 ../build" ${_logfile}
 	build "	Change directory: ../build" "pushd ../build" ${_logfile}
 	build "	Configure" "CC=${LFS_TGT}-gcc CXX=${LFS_TGT}-g++ AR=${LFS_TGT}-ar RANLIB=${LFS_TGT}-ranlib ../${_pkgname}-${_pkgver}/configure --prefix=/tools --with-local-prefix=/tools --with-native-system-header-dir=/tools/include --enable-languages=c,c++ --disable-libstdcxx-pch --disable-multilib --disable-bootstrap --disable-libgomp" ${_logfile}
@@ -222,7 +222,7 @@ chapter-05-11() {
 	local	_pkgver="8.6.8"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -244,7 +244,7 @@ chapter-05-12() {
 	local	_pkgver="5.45.4"
 	local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -265,7 +265,7 @@ chapter-05-13() {
 	local	_pkgver="1.6.1"
 	local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -284,7 +284,7 @@ chapter-05-14() {
 	local	_pkgver="1.4.18"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -303,7 +303,7 @@ chapter-05-15() {
 	local	_pkgver="6.1"
 	local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -323,7 +323,7 @@ chapter-05-16() {
 	local	_pkgver="4.4.18"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -343,7 +343,7 @@ chapter-05-17 () {
 	local	_pkgver="3.0.4"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -362,7 +362,7 @@ chapter-05-18() {
 	local	_pkgver="1.0.6"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -380,7 +380,7 @@ chapter-05-19() {
 	local	_pkgver="8.29"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -399,7 +399,7 @@ chapter-05-20() {
 	local	_pkgver="3.6"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -418,7 +418,7 @@ chapter-05-21() {
 	local	_pkgver="5.32"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -437,7 +437,7 @@ chapter-05-22() {
 	local	_pkgver="4.6.0"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -456,7 +456,7 @@ chapter-05-23() {
 	local	_pkgver="4.2.0"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -475,7 +475,7 @@ chapter-05-24() {
 	local	_pkgver="0.19.8.1"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -498,7 +498,7 @@ chapter-05-25() {
 	local	_pkgver="3.1"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -517,7 +517,7 @@ chapter-05-26() {
 	local	_pkgver="1.9"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -536,7 +536,7 @@ chapter-05-27() {
 	local	_pkgver="4.2.1"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -556,7 +556,7 @@ chapter-05-28() {
 	local	_pkgver="2.7.6"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -575,7 +575,7 @@ chapter-05-29() {
 	local	_pkgver="5.26.1"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -596,7 +596,7 @@ chapter-05-30() {
 	local	_pkgver="4.4"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -615,7 +615,7 @@ chapter-05-31() {
 	local	_pkgver="1.30"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -634,7 +634,7 @@ chapter-05-32() {
 	local	_pkgver="6.5"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -653,7 +653,7 @@ chapter-05-33() {
 	local	_pkgver="2.31.1"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -672,7 +672,7 @@ chapter-05-34() {
 	local	_pkgver="5.2.3"
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -689,7 +689,7 @@ chapter-05-34() {
 chapter-05-35() {
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build 'strip --strip-debug /tools/lib/*' 'strip --strip-debug /tools/lib/* || true' ${_logfile}
 	build '/usr/bin/strip --strip-unneeded /tools/{,s}bin/*' '/usr/bin/strip --strip-unneeded /tools/{,s}bin/* || true' ${_logfile}
@@ -700,7 +700,7 @@ chapter-05-35() {
 chapter-05-36() {
     local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	chown -R root:root $LFS/tools" "su -c 'chown -R root:root /mnt/lfs/tools'" ${_logfile}
 	>  ${_complete}
@@ -714,7 +714,7 @@ chapter-05-zlib() {
 	local	_pkgver="1.2.11"
       	local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -733,7 +733,7 @@ chapter-05-nspr() {
 	local _pkgver="4.10.3"
       	local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -755,7 +755,7 @@ chapter-05-nss() {
 	local _pkgver="3.15.4"
       	local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -784,7 +784,7 @@ chapter-05-popt() {
 	local _pkgver="1.16"
       	local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -803,7 +803,7 @@ chapter-05-readline() {
 	local _pkgver="6.2"
       	local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -825,7 +825,7 @@ chapter-05-elfutils() {
 	local _pkgver="0.158"
       	local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -844,7 +844,7 @@ chapter-05-rpm() {
 	local _pkgver="4.11.2"
       	local	_complete="${PWD}/LOGS/${FUNCNAME}.completed"
 	local	_logfile="${PWD}/LOGS/${FUNCNAME}.log"
-	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+	[ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${_pkgname}: Building"
 	> ${_logfile}
 	build "	Clean build directory" 'rm -rf BUILD/*' ${_logfile}
 	build "	Change directory: BUILD" "pushd BUILD" ${_logfile}
@@ -913,7 +913,7 @@ chapter-05-readline	#
 chapter-05-elfutils	#
 chapter-05-rpm		#
 #	The following are not used
-chapter-05-35	#	5.35. Stripping
+#chapter-05-35	#	5.35. Stripping
 #chapter-05-36	#	5.36. Changing Ownership
 touch "$LOGDIR/toolchain.completed"
 exit 0

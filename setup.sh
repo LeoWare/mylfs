@@ -40,7 +40,7 @@ msg_section "LFS RPM BUILD SYSTEM SETUP"
 	getent passwd ${LFS_USER} > /dev/null 2>&1 || build "	Creating lfs user" "useradd -c 'LFS user' -g ${LFS_USER} -m -k /dev/null -s /bin/bash ${LFS_USER}" "${LOGFILE}"
 	# create .bashrc for the lfs user
 	msg_line "    Creating /home/${LFS_USER}/.bashrc: "
-	cat > /home/$LFS_USER/.bashrc << "EOF"
+	cat > /home/${LFS_USER}/.bashrc <<- EOF
 set +h
 umask 022
 LFS=${LFS}
@@ -48,7 +48,7 @@ PARENT=${PARENT}
 LC_ALL=POSIX
 LFS_TGT=$(uname -m)-lfs-linux-gnu
 PATH=/tools/bin:/bin:/usr/bin
-export LFS LC_ALL LFS_TGT PATH
+export LFS LC_ALL LFS_TGT PARENT PATH
 alias ls='ls -C --color=auto'
 EOF
 	msg_success

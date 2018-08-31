@@ -127,6 +127,7 @@ build_toolchain() {
 		cd ~
 		source ~/.bashrc
 		cd ${LFS}${PARENT}
+		pwd
 		./toolchain.sh
 		EOF
 	return 0
@@ -154,6 +155,7 @@ build_filesystem() {
 	return 0
 }
 
+# this function is called in the host context
 build_shell_filesystem() {
 	local _logfile="${LOGDIR}/filesystem.log"
 	mkdir -pv $LFS/{dev,proc,sys,run}
@@ -175,6 +177,8 @@ build_shell_filesystem() {
 	ln -sv /run $LFS/var/run
 	ln -sv /run/lock $LFS/var/lock
 	mkdir -pv $LFS/var/{opt,cache,lib/{color,misc,locate},local}
+	[ -e ${LFS}/dev/console ]	|| build "mknod -m 600 ${LFS}/dev/console c 5 1" "mknod -m 600 ${LFS}/dev/console c 5 1" "${_logfile}"
+	[ -e ${LFS}/dev/null ]		|| build "mknod -m 666 ${LFS}/dev/null c 1 3" "mknod -m 666 ${LFS}/dev/null c 1 3" "${_logfile}"
 	touch ${LOGDIR}/filesystem.completed
 	return 0
 }
@@ -182,6 +186,7 @@ build_shell_filesystem() {
 install_filesystem() {
 	return 1
 }
+
 mount_kernel_vfs() {
 	if ! mountpoint ${LFS}/dev	>/dev/null 2>&1; then mount --bind /dev ${LFS}/dev; fi
 	if ! mountpoint ${LFS}/dev/pts	>/dev/null 2>&1; then mount -t devpts devpts ${LFS}/dev/pts -o gid=5,mode=620; fi
