@@ -174,10 +174,12 @@ glibc() {
     build " Change directory: BUILD" "pushd BUILD" ${_logfile}
     unpack "${PWD}" "${_pkgname}-${_pkgver}"
     build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+    build "+ patch -Np1 -i ../../SOURCES/glibc-2.27-fhs-1.patch" "patch -Np1 -i ../../SOURCES/glibc-2.27-fhs-1.patch" ${_logfile}
+    
     build " Create work directory" "install -vdm 755 ../build" ${_logfile}
     build " Change directory: ../build" "pushd ../build" ${_logfile}
 
-    build "+ patch -Np1 -i ../../SOURCES/glibc-2.27-fhs-1.patch" "patch -Np1 -i ../../SOURCES/glibc-2.27-fhs-1.patch" ${_logfile}
+    
     build "+ ln -sfv /tools/lib/gcc /usr/lib" "ln -sfv /tools/lib/gcc /usr/lib" ${_logfile}
     case $(uname -m) in
         i?86)   build "+ GCC_INCDIR=/usr/lib/gcc/$(uname -m)-pc-linux-gnu/7.3.0/include" "GCC_INCDIR=/usr/lib/gcc/$(uname -m)-pc-linux-gnu/7.3.0/include" ${_logfile}
@@ -189,7 +191,7 @@ glibc() {
         ;;
     esac
     build "+ rm -f /usr/include/limits.h" "rm -f /usr/include/limits.h" ${_logfile}
-    build "+ CC="gcc -isystem $GCC_INCDIR -isystem /usr/include" ../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-werror --enable-kernel=3.2 --enable-stack-protector=strong libc_cv_slibdir=/lib" "CC="gcc -isystem $GCC_INCDIR -isystem /usr/include" ../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-werror --enable-kernel=3.2 --enable-stack-protector=strong libc_cv_slibdir=/lib" ${_logfile}
+    build "+ CC=\"gcc -isystem $GCC_INCDIR -isystem /usr/include\" ../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-werror --enable-kernel=3.2 --enable-stack-protector=strong libc_cv_slibdir=/lib" "CC=\"gcc -isystem $GCC_INCDIR -isystem /usr/include\" ../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-werror --enable-kernel=3.2 --enable-stack-protector=strong libc_cv_slibdir=/lib" ${_logfile}
     build "+ unset GCC_INCDIR" "unset GCC_INCDIR" ${_logfile}
     build "+ make" "make" ${_logfile}
     build "+ touch /etc/ld.so.conf" "touch /etc/ld.so.conf" ${_logfile}
