@@ -108,7 +108,7 @@ EOF
 }
 
 linux_api_headers() {
-    local   _pkgname="linux_api_headers"
+    local   _pkgname="linux"
     local   _pkgver="4.15.3"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
     local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
@@ -129,7 +129,7 @@ linux_api_headers() {
     build "+ cp -rv dest/include/* /usr/include" "cp -rv dest/include/* /usr/include" ${_logfile}
 
 
-    build " Restore directory" "popd " /dev/null
+    #build " Restore directory" "popd " /dev/null
     build " Restore directory" "popd " /dev/null
     build " Restore directory" "popd " /dev/null
     >  ${_complete}
@@ -137,7 +137,7 @@ linux_api_headers() {
 }
 
 man_pages() {
-    local   _pkgname="man_pages"
+    local   _pkgname="man-pages"
     local   _pkgver="4.15"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
     local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
@@ -147,8 +147,8 @@ man_pages() {
     build " Change directory: BUILD" "pushd BUILD" ${_logfile}
     unpack "${PWD}" "${_pkgname}-${_pkgver}"
     build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
-    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
-    build " Change directory: ../build" "pushd ../build" ${_logfile}
+    #build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    #build " Change directory: ../build" "pushd ../build" ${_logfile}
 
 
 
@@ -156,7 +156,7 @@ man_pages() {
     build "+ make install" "make install" ${_logfile}
 
 
-    build " Restore directory" "popd " /dev/null
+    #build " Restore directory" "popd " /dev/null
     build " Restore directory" "popd " /dev/null
     build " Restore directory" "popd " /dev/null
     >  ${_complete}
@@ -183,9 +183,9 @@ glibc() {
         i?86)   build "+ GCC_INCDIR=/usr/lib/gcc/$(uname -m)-pc-linux-gnu/7.3.0/include" "GCC_INCDIR=/usr/lib/gcc/$(uname -m)-pc-linux-gnu/7.3.0/include" ${_logfile}
                 build "+ ln -sfv ld-linux.so.2 /lib/ld-lsb.so.3" "ln -sfv ld-linux.so.2 /lib/ld-lsb.so.3" ${_logfile}
         ;;
-        x86_64) GCC_INCDIR=/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include
-                build "ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64" "ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64" ${_logfile}
-                build "ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3" "ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3" ${_logfile}}
+        x86_64) build "+ GCC_INCDIR=/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include" "GCC_INCDIR=/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include" ${_logfile}
+                build "+ ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64" "ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64" ${_logfile}
+                build "+ ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3" "ln -sfv ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3" ${_logfile}}
         ;;
     esac
     build "+ rm -f /usr/include/limits.h" "rm -f /usr/include/limits.h" ${_logfile}
@@ -518,13 +518,13 @@ files_and_symlinks
 linux_api_headers
 man_pages
 glibc
-adjust_toolchain
-zlib
-file
-readline
-m4
-bc
-binutils
+#adjust_toolchain
+#zlib
+#file
+#readline
+#4
+#bc
+#binutils
 #gmp
 #mpfr
 #gcc
