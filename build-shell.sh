@@ -514,6 +514,7 @@ gmp() {
 # Build all packages from shell scripts
 
 change_ownership
+files_and_symlinks
 linux_api_headers
 man_pages
 glibc
