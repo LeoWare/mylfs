@@ -391,7 +391,7 @@ readline() {
     build "+ mv -v /usr/lib/lib{readline,history}.so.* /lib" "mv -v /usr/lib/lib{readline,history}.so.* /lib" ${_logfile}
     build "+ ln -sfv ../../lib/$(readlink /usr/lib/libreadline.so) /usr/lib/libreadline.so" "ln -sfv ../../lib/$(readlink /usr/lib/libreadline.so) /usr/lib/libreadline.so" ${_logfile}
     build "+ ln -sfv ../../lib/$(readlink /usr/lib/libhistory.so ) /usr/lib/libhistory.so" "ln -sfv ../../lib/$(readlink /usr/lib/libhistory.so ) /usr/lib/libhistory.so" ${_logfile}
-    build "+ install -v -m644 doc/*.{ps,pdf,html,dvi} /usr/share/doc/readline-7.0" "install -v -m644 doc/*.{ps,pdf,html,dvi} /usr/share/doc/readline-7.0" ${_logfile}
+    build "+ install -v -m644 ../${_pkgname}-${_pkgver}doc/*.{ps,pdf,html,dvi} /usr/share/doc/readline-7.0" "install -v -m644 ../${_pkgname}-${_pkgver}doc/*.{ps,pdf,html,dvi} /usr/share/doc/readline-7.0" ${_logfile}
 
     build " Restore directory" "popd " /dev/null
     build " Restore directory" "popd " /dev/null
@@ -453,9 +453,9 @@ sed -e '1   s/^/{"/' \
 sed -e '$ s/$/0}/' \
     -i libmath.h
 EOF
-    build "+ ln -sv /tools/lib/libncursesw.so.6 /usr/lib/libncursesw.so.6" "ln -sv /tools/lib/libncursesw.so.6 /usr/lib/libncursesw.so.6" ${_logfile}
+    build "+ ln -sfv /tools/lib/libncursesw.so.6 /usr/lib/libncursesw.so.6" "ln -sfv /tools/lib/libncursesw.so.6 /usr/lib/libncursesw.so.6" ${_logfile}
     build "+ ln -sfv libncurses.so.6 /usr/lib/libncurses.so" "ln -sfv libncurses.so.6 /usr/lib/libncurses.so" ${_logfile}
-    build "+ sed -i -e '/flex/s/as_fn_error/: ;; # &/' configure" "sed -i -e '/flex/s/as_fn_error/: ;; # &/' configure" ${_logfile}
+    build "+ sed -i -e '/flex/s/as_fn_error/: ;; # &/' ../${_pkgname}-${_pkgver}/configure" "sed -i -e '/flex/s/as_fn_error/: ;; # &/' ../${_pkgname}-${_pkgver}/configure" ${_logfile}
     build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr --with-readline --mandir=/usr/share/man --infodir=/usr/share/info" "../${_pkgname}-${_pkgver}/configure --prefix=/usr --with-readline --mandir=/usr/share/man --infodir=/usr/share/info" ${_logfile}
     build "+ make" "make" ${_logfile}
     build "+ echo \"quit\" | ./bc/bc -l Test/checklib.b" "echo \"quit\" | ./bc/bc -l Test/checklib.b" ${_logfile}
@@ -514,7 +514,7 @@ gmp() {
     build "+ make" "make" ${_logfile}
     build "+ make html" "make html" ${_logfile}
     build "+ make check 2>&1 | tee gmp-check-log" "make check 2>&1 | tee gmp-check-log" ${_logfile}
-    build "+ awk '/# PASS:/{total+=$3} ; END{print total}' gmp-check-log" "awk '/# PASS:/{total+=$3} ; END{print total}' gmp-check-log" ${_logfile}
+    build "+ awk '/# PASS:/{total+=\$3} ; END{print total}' gmp-check-log" "awk '/# PASS:/{total+=\$3} ; END{print total}' gmp-check-log" ${_logfile}
     build "+ make install" "make install" ${_logfile}
     build "+ make install-html" "make install-html" ${_logfile}
 
@@ -584,7 +584,58 @@ mpc() {
     return 0
 }
 
+gcc() {
+    local   _pkgname="mpc"
+    local   _pkgver="1.1.0"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
+    > ${_logfile}
+    build " Clean build directory" 'rm -rf BUILD/*' ${_logfile}
+    build " Change directory: BUILD" "pushd BUILD" ${_logfile}
+    unpack "${PWD}" "${_pkgname}-${_pkgver}"
+    build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+    case $(uname -m) in
+      x86_64)
+        build "+ sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64" "sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64" ${_logfile}
+      ;;
+    esac
+    build "+ rm -f /usr/lib/gcc" "rm -f /usr/lib/gcc" ${_logfile}
 
+    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    build " Change directory: ../build" "pushd ../build" ${_logfile}
+
+
+    build "+ SED=sed ../${_pkgname}-${_pkgver}/configure --prefix=/usr --enable-languages=c,c++ --disable-multilib --disable-bootstrap --with-system-zlib" "SED=sed ../${_pkgname}-${_pkgver}/configure --prefix=/usr --enable-languages=c,c++ --disable-multilib --disable-bootstrap --with-system-zlib" ${_logfile}
+    build "+ make" "make" ${_logfile}
+    #build "+ ulimit -s 32768" "ulimit -s 32768" ${_logfile}
+    #build "+ make -k check" "make -k check" ${_logfile}
+    #build "+ ../${_pkgname}-${_pkgver}/contrib/test_summary" "../${_pkgname}-${_pkgver}/contrib/test_summary" ${_logfile}
+    build "+ make install" "make install" ${_logfile}
+
+    build "+ ln -sfv ../usr/bin/cpp /lib" "ln -sfv ../usr/bin/cpp /lib" ${_logfile}
+    build "+ ln -sfv gcc /usr/bin/cc" "ln -sfv gcc /usr/bin/cc" ${_logfile}
+    build "+ install -v -dm755 /usr/lib/bfd-plugins" "install -v -dm755 /usr/lib/bfd-plugins" ${_logfile}
+    build "+ ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/7.3.0/liblto_plugin.so /usr/lib/bfd-plugins/" "ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/7.3.0/liblto_plugin.so /usr/lib/bfd-plugins/" ${_logfile}
+    
+    build "+ echo 'int main(){}' > dummy.c" "echo 'int main(){}' > dummy.c" ${_logfile}
+    build "+ cc dummy.c -v -Wl,--verbose &> dummy.log" "cc dummy.c -v -Wl,--verbose &> dummy.log" ${_logfile}
+    build "+ readelf -l a.out | grep ': /lib'" "readelf -l a.out | grep ': /lib'" ${_logfile}
+    build "+ grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log" "grep -o '/usr/lib.*/crt[1in].*succeeded' dummy.log" ${_logfile}
+    build "+ grep -B4 '^ /usr/include' dummy.log" "grep -B4 '^ /usr/include' dummy.log" ${_logfile}
+    build "+ grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'" "grep 'SEARCH.*/usr/lib' dummy.log |sed 's|; |\n|g'" ${_logfile}
+    build "+ grep \"/lib.*/libc.so.6 \" dummy.log" "grep \"/lib.*/libc.so.6 \" dummy.log" ${_logfile}
+    build "+ grep found dummy.log" "grep found dummy.log" ${_logfile}
+    build "+ rm -v dummy.c a.out dummy.log" "rm -v dummy.c a.out dummy.log" ${_logfile}
+    build "+ mkdir -pv /usr/share/gdb/auto-load/usr/lib" "mkdir -pv /usr/share/gdb/auto-load/usr/lib" ${_logfile}
+    build "+ mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib" "mv -v /usr/lib/*gdb.py /usr/share/gdb/auto-load/usr/lib" ${_logfile}
+
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
+}
 
 
 # Build all packages from shell scripts
@@ -598,11 +649,12 @@ adjust_toolchain
 zlib
 file
 readline
-4
+m4
 bc
 binutils
 gmp
 mpfr
+mpc
 gcc
 bzip2
 pkg_config
