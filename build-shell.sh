@@ -194,9 +194,12 @@ glibc() {
     build "+ CC=\"gcc -isystem $GCC_INCDIR -isystem /usr/include\" ../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-werror --enable-kernel=3.2 --enable-stack-protector=strong libc_cv_slibdir=/lib" "CC=\"gcc -isystem $GCC_INCDIR -isystem /usr/include\" ../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-werror --enable-kernel=3.2 --enable-stack-protector=strong libc_cv_slibdir=/lib" ${_logfile}
     build "+ unset GCC_INCDIR" "unset GCC_INCDIR" ${_logfile}
     build "+ make" "make" ${_logfile}
-    build "+ make check" "make check" ${_logfile}
+    #set +o errexit
+    #build "+ make check" "make check" ${_logfile}
+    #set -o errexit
     build "+ touch /etc/ld.so.conf" "touch /etc/ld.so.conf" ${_logfile}
     build "+ sed '/test-installation/s@\$(PERL)@echo not running@' -i ../${_pkgname}-${_pkgver}/Makefile" "sed '/test-installation/s@\$(PERL)@echo not running@' -i ../${_pkgname}-${_pkgver}/Makefile" ${_logfile}
+    build "+ make install" "make install" ${_logfile}
     build "+ cp -v ../${_pkgname}-${_pkgver}/nscd/nscd.conf /etc/nscd.conf" "cp -v ../${_pkgname}-${_pkgver}/nscd/nscd.conf /etc/nscd.conf" ${_logfile}
     build "+ mkdir -pv /var/cache/nscd" "mkdir -pv /var/cache/nscd" ${_logfile}
     build "+ install -v -Dm644 ../${_pkgname}-${_pkgver}/nscd/nscd.tmpfiles /usr/lib/tmpfiles.d/nscd.conf" "install -v -Dm644 ../${_pkgname}-${_pkgver}/nscd/nscd.tmpfiles /usr/lib/tmpfiles.d/nscd.conf" ${_logfile}
@@ -224,7 +227,7 @@ glibc() {
     build "+ localedef -i ru_RU -f UTF-8 ru_RU.UTF-8" "localedef -i ru_RU -f UTF-8 ru_RU.UTF-8" ${_logfile}
     build "+ localedef -i tr_TR -f UTF-8 tr_TR.UTF-8" "localedef -i tr_TR -f UTF-8 tr_TR.UTF-8" ${_logfile}
     build "+ localedef -i zh_CN -f GB18030 zh_CN.GB18030" "localedef -i zh_CN -f GB18030 zh_CN.GB18030" ${_logfile}
-    build "+ make localedata/install-locales" "make localedata/install-locales" ${_logfile}
+    #build "+ make localedata/install-locales" "make localedata/install-locales" ${_logfile}
     build " Adding nsswitch.conf" "" ${_logfile}
     cat > /etc/nsswitch.conf << "EOF"
 # Begin /etc/nsswitch.conf
@@ -275,9 +278,20 @@ include /etc/ld.so.conf.d/*.conf
 
 EOF
     mkdir -pv /etc/ld.so.conf.d
+
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
 }
 
 adjust_toolchain() {
+    local   _pkgname="adjust_toolchain"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: Building"
+    > ${_logfile}
     build "+ mv -v /tools/bin/{ld,ld-old}" "mv -v /tools/bin/{ld,ld-old}" ${_logfile}
     build "+ mv -v /tools/$(uname -m)-pc-linux-gnu/bin/{ld,ld-old}" "mv -v /tools/$(uname -m)-pc-linux-gnu/bin/{ld,ld-old}" ${_logfile}
     build "+ mv -v /tools/bin/{ld-new,ld}" "mv -v /tools/bin/{ld-new,ld}" ${_logfile}
@@ -295,6 +309,8 @@ adjust_toolchain() {
     build "+ grep found dummy.log" "grep found dummy.log" ${_logfile}
     build "+ rm -v dummy.c a.out dummy.log" "rm -v dummy.c a.out dummy.log" ${_logfile}
 
+    > ${_complete}
+    return 0
 }
 
 zlib() {
@@ -578,71 +594,71 @@ files_and_symlinks
 linux_api_headers
 man_pages
 glibc
-#adjust_toolchain
-#zlib
-#file
-#readline
-#4
-#bc
-#binutils
-#gmp
-#mpfr
-#gcc
-#bzip2
-#pkg_config
-#ncurses
-#attr
-#acl
-#libcap
-#sed_build
-#shadow
-#psmisc
-#iana_etc_2
-#bison
-#flex
-#grep_build
-#bash
-#libtool
-#gdbm
-#gperf
-#expat
-#inetutils
-#perl
-#xml_parser
-#intltool
-#autoconf
-#automake
-#xz
-#kmod
-#gettext
-#libelf
-#libiffi
-#openssl
-#python3
-#ninja
-#meson
-#systemd
-#procps_ng
-#e2fsprogs
-#coreutils
-#check
-#gawk
-#findutils
-#groff
-#grub
-#less_build
-#gzip
-#iproute2
-#kbd
-#libpipeline
-#make
-#patch
-#dbus
-#util_linux
-#mandb
-#tar
-#texinfo
-#vim
+adjust_toolchain
+zlib
+file
+readline
+4
+bc
+binutils
+gmp
+mpfr
+gcc
+bzip2
+pkg_config
+ncurses
+attr
+acl
+libcap
+sed_build
+shadow
+psmisc
+iana_etc_2
+bison
+flex
+grep_build
+bash
+libtool
+gdbm
+gperf
+expat
+inetutils
+perl
+xml_parser
+intltool
+autoconf
+automake
+xz
+kmod
+gettext
+libelf
+libiffi
+openssl
+python3
+ninja
+meson
+systemd
+procps_ng
+e2fsprogs
+coreutils
+check
+gawk
+findutils
+groff
+grub
+less_build
+gzip
+iproute2
+kbd
+libpipeline
+make
+patch
+dbus
+util_linux
+mandb
+tar
+texinfo
+vim
 #
 #strip_debug
 #clean_up
