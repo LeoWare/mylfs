@@ -10,7 +10,7 @@
 #	This allows me to run LFS-8.2 under Fedora 28
 #
 MOUNTPOINT=/mnt
-MOUNTPARTITION=/dev/sdd4
+MOUNTPARTITION=/dev/sda5
 mount "${MOUNTPARTITION}" "${MOUNTPOINT}"
 #
 #	Mount Virtual Kernel File Systems

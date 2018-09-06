@@ -79,7 +79,7 @@ _wget_list() {
 		http://ftp.gnu.org/gnu/bc/bc-1.07.1.tar.gz
 		http://ftp.gnu.org/gnu/binutils/binutils-2.30.tar.xz
 		http://ftp.gnu.org/gnu/bison/bison-3.0.4.tar.xz
-		http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz
+		http://anduin.linuxfromscratch.org/LFS/bzip2-1.0.6.tar.gz
 		https://github.com/libcheck/check/releases/download/0.12.0/check-0.12.0.tar.gz
 		http://ftp.gnu.org/gnu/coreutils/coreutils-8.29.tar.xz
 		http://dbus.freedesktop.org/releases/dbus/dbus-1.12.4.tar.gz
