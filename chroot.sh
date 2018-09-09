@@ -1,11 +1,11 @@
 #!/tools/bin/bash
-##########################################
-#       Title: 04-chroot.sh              #
-#        Date: 2017-01-03                #
-#     Version: 1.1                       #
-#      Author: baho-utot@columbus.rr.com #
-#     Options:                           #
-##########################################
+#-----------------------------------------------------------------------------
+#	Title: chroot.sh
+#	Date: 2017-01-03
+#	Version: 1.1
+#	Author: baho-utot@columbus.rr.com
+#	Options:
+#-----------------------------------------------------------------------------
 #set -o errexit		# exit if error...insurance ;)
 set -o nounset		# exit if variable not initalized
 set +h				# disable hashall
@@ -16,9 +16,8 @@ PARENT=/usr/src/LFS-RPM
 LOGFILE=$(date +%Y-%m-%d).log
 LOGFILE=${TOPDIR}/LOGS/${PRGNAME}
 #LOGFILE=/dev/null		# uncomment to disable log file
-#
+#-----------------------------------------------------------------------------
 #	Standard functions
-#
 die() {
 	local _red="\\033[1;31m"
 	local _normal="\\033[0;39m"
@@ -43,9 +42,8 @@ msg_success() {
 	printf "${_green}%s${_normal}\n" "SUCCESS"
 	return 0
 }
-#
+#-----------------------------------------------------------------------------
 #	Main line function
-#
 _virtual() {	#	6.2. Preparing Virtual Kernel File Systems
 	[ -d ${LFS}/dev ]         || mkdir -p ${LFS}/dev
 	[ -d ${LFS}/proc ]        || mkdir -p ${LFS}/proc
@@ -85,9 +83,8 @@ _chown() {
 	chown -R root:root ${LFS}
 return
 }
-#
+#-----------------------------------------------------------------------------
 #	Main line
-#
 [ ${EUID} -eq 0 ] 	|| die "${PRGNAME}: Need to be root user: FAILURE"
 LIST+="_chown _virtual _umount _mount _chroot"
 for i in ${LIST};do

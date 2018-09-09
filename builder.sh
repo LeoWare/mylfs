@@ -1,11 +1,11 @@
 #!/bin/bash
-##########################################
-#       Title: builder.sh                #
-#        Date: 2018-04-04                #
-#     Version: 1.0                       #
-#      Author: baho-utot@columbus.rr.com #
-#     Options:                           #
-##########################################
+#-----------------------------------------------------------------------------
+#	Title: builder.sh
+#	Date: 2018-04-04
+#	Version: 1.0
+#	Author: baho-utot@columbus.rr.com
+#	Options:
+#-----------------------------------------------------------------------------
 PRGNAME=${0##*/}			# script name minus the path
 TOPDIR=${PWD}				# parent directory
 PARENT=/usr/src/LFS-RPM		# rpm build directory
@@ -16,9 +16,8 @@ PROVIDES=PROVIDES			# rpm provides log directory
 REQUIRES=REQUIRES			# rpm requires log directory
 RPMS=RPMS					# rpm binary package directory
 LOGPATH=${TOPDIR}/LOGS		# path to log directory
-#
+#-----------------------------------------------------------------------------
 #	Common support functions
-#
 die() {
 	local _red="\\033[1;31m"
 	local _normal="\\033[0;39m"
@@ -56,9 +55,8 @@ end_run() {
 	printf "${_green}%s${_normal}\n" "Run Complete - ${rpm_name}"
 	return
 }
-#
+#-----------------------------------------------------------------------------
 #	Variables
-#
 rpm_name=""
 rpm_version=""
 rpm_release=""
@@ -69,9 +67,8 @@ rpm_arch=""
 rpm_binary=""
 rpm_package=""
 rpm_exists=""
-#
+#-----------------------------------------------------------------------------
 #	Funcions
-#
 rpm_params() {
 	local i=""
 	rpm_arch=$(uname -m)
@@ -245,9 +242,8 @@ rpm_status() {
 	fi
 	return
 }
-#
+#-----------------------------------------------------------------------------
 #	Main line
-#
 if [ -z "$1" ]; then
   echo "Usage: builder.sh <filespec.spec>"
   exit -1

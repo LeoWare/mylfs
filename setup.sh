@@ -1,12 +1,11 @@
 #!/bin/bash
-##########################################
-#       Title: 01-setup.sh               #
-#        Date: 2018-03-21                #
-#     Version: 1.3                       #
-#      Author: baho-utot@columbus.rr.com #
-#     Options:                           #
-##########################################
-#
+#-----------------------------------------------------------------------------
+#	Title: 01-setup.sh
+#	Date: 2018-03-21
+#	Version: 1.3
+#	Author: baho-utot@columbus.rr.com
+#	Options:
+#-----------------------------------------------------------------------------
 set -o errexit		# exit if error...insurance ;)
 set -o nounset		# exit if variable not initalized
 set +h				# disable hashall
@@ -15,9 +14,8 @@ TOPDIR=${PWD}
 LFS=/mnt/lfs
 PARENT=/usr/src/LFS-RPM
 LOGFILE=$(date +%Y-%m-%d).log
-#
+#-----------------------------------------------------------------------------
 #	Common support functions
-#
 die() {
 	local _red="\\033[1;31m"
 	local _normal="\\033[0;39m"
@@ -55,9 +53,8 @@ end-run() {
 	printf "${_green}%s${_normal}\n" "Run Complete"
 	return
 }
-#
+#-----------------------------------------------------------------------------
 #	Functions
-#
 _setup_directories() {
 	#	Setup base directories
 	msg_line "	Creating base directories: "
@@ -329,9 +326,8 @@ _setup_user() {
 	msg_success
 	return
 }
-#
+#-----------------------------------------------------------------------------
 #	Main line
-#
 [ ${EUID} -eq 0 ]		|| { echo "${PRGNAME}: Need to be root user";exit 1; }
 [ -z ${LFS} ]			&& { echo "${PRGNAME}: LFS: not set";exit 1; }
 [ -z ${PARENT} ]		&& { echo "${PRGNAME}: PARENT: not set";exit 1; }

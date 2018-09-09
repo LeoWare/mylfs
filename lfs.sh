@@ -1,16 +1,17 @@
 #!/bin/bash
-##########################################
-#       Title: lfs.sh                    #
-#        Date:	2018-04-04               #
-#     Version:	1.0                      #
-#      Author: baho-utot@columbus.rr.com #
-#     Options:                           #
-##########################################
+#-----------------------------------------------------------------------------
+#	Title: 		lfs.sh
+#	Date:		2018-04-04
+#	Version:	1.0
+#	Author: 	baho-utot@columbus.rr.com
+#	Options:
+#-----------------------------------------------------------------------------
 set -o errexit		# exit if error...insurance ;)
 set -o nounset		# exit if variable not initalized
 set +h				# disable hashall
 PRGNAME=${0##*/}	# script name minus the path
 TOPDIR=${PWD}		# script lives here
+#-----------------------------------------------------------------------------
 #		Build variables
 LC_ALL=POSIX
 PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin
@@ -23,9 +24,8 @@ SPECPATH=${TOPDIR}/SPECS
 PROVIDESPATH=${TOPDIR}/PROVIDES
 REQUIRESPATH=${TOPDIR}/REQUIRES
 RPMPATH=${TOPDIR}/RPMS
-#
+#-----------------------------------------------------------------------------
 #	Build functions
-#
 die() {
 	local _red="\\033[1;31m"
 	local _normal="\\033[0;39m"
@@ -56,9 +56,8 @@ end-run() {
 	printf "${_green}%s${_normal}\n" "Run Complete"
 	return
 }
-#
+#-----------------------------------------------------------------------------
 #	Functions
-#
 _prepare() {
 	local _log="${LOGPATH}/prepare"
 	if [ ! -e ${_log} ]; then
@@ -247,9 +246,8 @@ _config() {
 	touch ${_log}
 	return
 }
-#
+#-----------------------------------------------------------------------------
 #	LFS Base system
-#
 msg "Building LFS base"
 _prepare
 _directories
