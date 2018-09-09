@@ -1,3 +1,4 @@
+#-----------------------------------------------------------------------------
 Summary:	The OpenSSH package contains ssh clients and the sshd daemon.
 Name:		openssh
 Version:	7.5p1
@@ -15,6 +16,7 @@ Patch0:		openssh-7.5p1-openssl-1.1.0-1.patch
 	The OpenSSH package contains ssh clients and the sshd daemon. This is useful for encrypting authentication
 	and subsequent traffic over a network. The ssh and scp commands are secure implementations of telnet and
 	rcp respectively. 
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %setup -q -T -D -a 1 -n %{name}-%{version}
@@ -50,6 +52,7 @@ Patch0:		openssh-7.5p1-openssl-1.1.0-1.patch
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
+#-----------------------------------------------------------------------------
 %pre
 	/usr/sbin/groupadd -g 50 sshd
 	/usr/sbin/useradd  -c 'sshd PrivSep' -d /var/lib/sshd -g sshd -s /bin/false -u 50 sshd
@@ -60,6 +63,7 @@ Patch0:		openssh-7.5p1-openssl-1.1.0-1.patch
 	ssh-keygen -t dsa     -N '' -f /etc/ssh/ssh_host_dsa_key
 %postun
 	/usr/sbin/userdel sshd
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%dir /var/lib/sshd
@@ -67,6 +71,7 @@ Patch0:		openssh-7.5p1-openssl-1.1.0-1.patch
 	%{_mandir}/man1/*.gz
 	%{_mandir}/man5/*.gz
 	%{_mandir}/man8/*.gz
+#-----------------------------------------------------------------------------
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> -1
 -	Initial build.	First version

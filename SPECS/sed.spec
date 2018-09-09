@@ -1,3 +1,4 @@
+#-----------------------------------------------------------------------------
 Summary:	The Sed package contains a stream editor
 Name:		sed
 Version:	4.4
@@ -7,8 +8,10 @@ URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
+BuildRequires:	libcap
 %description
 			The Sed package contains a stream editor
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 	sed -i 's/usr/tools/' build-aux/help2man
@@ -24,19 +27,22 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 	install -d -m755 %{buildroot}%{_docdir}/%{NAME}-%{VERSION}
 	install -m644 doc/sed.html %{buildroot}%{_docdir}/%{NAME}-%{VERSION}
 	rm -rf %{buildroot}/%{_infodir}
-	#	Copy license/copying file
+#-----------------------------------------------------------------------------
+#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
+#-----------------------------------------------------------------------------
+#	Create file list
+#	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%clean
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_mandir}/man1/*.gz
+#-----------------------------------------------------------------------------
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 4.4-1
 -	Initial build.	First version

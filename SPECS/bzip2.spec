@@ -1,3 +1,4 @@
+#-----------------------------------------------------------------------------
 Summary:	The Bzip2 package contains programs for compressing and decompressing files
 Name:		bzip2
 Version:	1.0.6
@@ -8,10 +9,12 @@ Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://www.%{name}.org/%{version}/%{name}-%{version}.tar.gz
 Patch0:		http://www.linuxfromscratch.org/patches/lfs/8.1/%{name}-%{version}-install_docs-1.patch
+BuildRequires:	gcc-test
 %description
 	The Bzip2 package contains programs for compressing and decompressing files
 	Compressing text files with bzip2 yields a much better compression percentage
 	than with the traditional gzip.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %patch0 -p1
@@ -37,18 +40,22 @@ Patch0:		http://www.linuxfromscratch.org/patches/lfs/8.1/%{name}-%{version}-inst
 	rm -v %{buildroot}%{_bindir}/{bunzip2,bzcat,bzip2}
 	ln -sv bzip2 %{buildroot}/bin/bunzip2
 	ln -sv bzip2 %{buildroot}/bin/bzcat
-	#	Copy license/copying file
+#-----------------------------------------------------------------------------
+#	Copy license/copying file
 	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
+#-----------------------------------------------------------------------------
+#	Create file list
+#	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_mandir}/man1/*.gz
+#-----------------------------------------------------------------------------
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 1.0.6-1
 -	Initial build.	First version

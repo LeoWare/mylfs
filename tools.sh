@@ -67,11 +67,11 @@ end-run() {
 #	what is needed to run rpm
 msg "	Post processing:"
 #	This preserves all the libraries that are needed
-#	and removees evertything else so that only the static built
+#	and removes evertything else so that only the static built
 #	rpm and its libraries that are needed are left.
 #	Keeps the LFS build clean of external packages.
 #	rpm was placed into /usr/bin and /usr/lib
-#	The chapter 6 iles will over write these files
+#	The chapter 6 rpm files will over write these files
 if [ ! -e ${LOGPATH}/${PRGNAME} ]; then
 	LIST="tools-zlib tools-popt tools-openssl tools-libelf tools-rpm"
 	rm -rf ${TOPDIR}/BUILDROOT/* || true

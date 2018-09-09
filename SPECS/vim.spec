@@ -1,3 +1,4 @@
+#-----------------------------------------------------------------------------
 Summary:	The Vim package contains a powerful text editor.
 Name:		vim
 Version:	8.0.586
@@ -7,9 +8,11 @@ URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	ftp://ftp.vim.org/pub/vim/unix/%{name}-%{version}.tar.bz2
-%define	_optflags	-march=x86-64 -mtune=generic -O2 -pipe -fPIC
+# %%define	_optflags	-march=x86-64 -mtune=generic -O2 -pipe -fPIC
+BuildRequires:	texinfo
 %description
 	The Vim package contains a powerful text editor.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}80
 	echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h
@@ -35,9 +38,11 @@ Source0:	ftp://ftp.vim.org/pub/vim/unix/%{name}-%{version}.tar.bz2
 		" End /etc/vimrc
 	EOF
 	rm -rf %{buildroot}/usr/share/info/dir
-	#	Copy license/copying file
+#-----------------------------------------------------------------------------
+#	Copy license/copying file
 	install -D -m644 README.txt %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 #	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
@@ -56,6 +61,7 @@ Source0:	ftp://ftp.vim.org/pub/vim/unix/%{name}-%{version}.tar.bz2
 	sed -i '/man\/ru.KOI8-R/d'  filelist.rpm
 	sed -i '/man\/fr.ISO8859-1/d'  filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,root,root)
 #	%%{_infodir}/*.gz
@@ -72,6 +78,7 @@ Source0:	ftp://ftp.vim.org/pub/vim/unix/%{name}-%{version}.tar.bz2
 	%{_mandir}/pl/man1/*.gz
 	%{_mandir}/ru.KOI8-R/man1/*.gz
 	%{_mandir}/ru.UTF-8/man1/*.gz
+#-----------------------------------------------------------------------------
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 8.0.586-1
 -	Initial build.	First version

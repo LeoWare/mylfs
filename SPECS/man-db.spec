@@ -1,3 +1,4 @@
+#-----------------------------------------------------------------------------
 Summary:	The Man-DB package contains programs for finding and viewing man pages.
 Name:		man-db
 Version:	2.8.1
@@ -7,8 +8,10 @@ URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://download.savannah.gnu.org/releases/man-db/%{name}-%{version}.tar.xz
+BuildRequires:	util-linux
 %description
 	The Man-DB package contains programs for finding and viewing man pages.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %build
@@ -25,8 +28,10 @@ Source0:	http://download.savannah.gnu.org/releases/man-db/%{name}-%{version}.tar
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file
+#-----------------------------------------------------------------------------
+#	Copy license/copying file
 	install -D -m644 README %{buildroot}/usr/share/licenses/%{name}/LICENSE
+#-----------------------------------------------------------------------------
 #	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
@@ -35,6 +40,7 @@ Source0:	http://download.savannah.gnu.org/releases/man-db/%{name}-%{version}.tar
 	sed -i '/man\/es/d'  filelist.rpm	
 	sed -i '/man\/it/d'  filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,root,root)
 #	%%{_infodir}/*.gz
@@ -48,6 +54,7 @@ Source0:	http://download.savannah.gnu.org/releases/man-db/%{name}-%{version}.tar
 	%{_mandir}/it/man1/*.gz
 	%{_mandir}/it/man5/*.gz
 	%{_mandir}/it/man8/*.gz
+#-----------------------------------------------------------------------------
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.8.1-1
 -	Initial build.	First version

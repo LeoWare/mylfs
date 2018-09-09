@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+#-----------------------------------------------------------------------------
 Summary:	The Bzip2 package contains programs for compressing and decompressing files.
 Name:		tools-bzip2
 Version:	1.0.6
@@ -14,6 +16,7 @@ Patch0:	bzip2-%{version}-install_docs-1.patch
 	The Bzip2 package contains programs for compressing and decompressing files.
 	Compressing text files with bzip2 yields a much better compression percentage
 	than with the traditional gzip
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n bzip2-%{version}
 %patch0 -p1
@@ -35,12 +38,15 @@ Patch0:	bzip2-%{version}-install_docs-1.patch
 	ln -sv bzmore %{buildroot}%{_bindir}/bzless
 	rm -rf %{buildroot}%{_docdir}
 	rm -rf %{buildroot}%{_mandir}
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
    %defattr(-,lfs,lfs)
+#-----------------------------------------------------------------------------
 %changelog
 *	Sun Mar 11 2018 baho-utot <baho-utot@columbus.rr.com> 1.0.6-2
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 1.0.6-1

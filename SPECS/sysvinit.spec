@@ -1,3 +1,4 @@
+#-----------------------------------------------------------------------------
 Summary:	Controls the start up, running and shutdown of the system
 Name:		sysvinit
 Version:	2.88dsf
@@ -8,9 +9,11 @@ Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://download.savannah.gnu.org/releases/sysvinit/%{name}-%{version}.tar.bz2
 Patch:		sysvinit-2.88dsf-consolidated-1.patch
+BuildRequires:	sysklogd
 %description
 	Contains programs for controlling the start up, running and
 	shutdown of the system
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %patch	-p1
@@ -21,22 +24,26 @@ Patch:		sysvinit-2.88dsf-consolidated-1.patch
 		MANDIR=%{_mandir} \
 		STRIP=/bin/true \
 		BIN_OWNER=`id -nu` BIN_GROUP=`id -ng` install
-	#	Copy license/copying file
+#-----------------------------------------------------------------------------
+#	Copy license/copying file
 	install -D -m644 COPYRIGHT %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 #	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,root,root)
 #	%%{_infodir}/*.gz
 	%{_mandir}/man5/*.gz
 	%{_mandir}/man8/*.gz
 	
+#-----------------------------------------------------------------------------
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.88dsf-1
 -	Initial build.	First version

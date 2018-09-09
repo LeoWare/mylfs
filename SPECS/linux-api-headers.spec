@@ -1,3 +1,4 @@
+#-----------------------------------------------------------------------------
 Summary:	Linux API header files
 Name:		linux-api-headers
 Version:	4.15.3
@@ -7,8 +8,10 @@ URL:		http://www.kernel.org/
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://www.kernel.org/pub/linux/kernel/v4.x/linux-%{version}.tar.xz
+BuildRequires: filesystem
 %description
 The Linux API Headers expose the kernel's API for use by Glibc.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n linux-%{version}
 %build
@@ -19,17 +22,21 @@ The Linux API Headers expose the kernel's API for use by Glibc.
 	find dest/include \( -name .install -o -name ..install.cmd \) -delete
 	install -vdm 755 %{buildroot}%{_includedir}
 	cp -rv dest/include/* %{buildroot}%{_includedir}
-	#	Copy license/copying file
+#-----------------------------------------------------------------------------
+#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
+#-----------------------------------------------------------------------------
+#	Create file list
+#	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,root,root)
+#-----------------------------------------------------------------------------
 %changelog
 *	Thu Mar 15 2018 baho-utot <baho-utot@columbus.rr.com> 4.15.3-1
 *	Wed Jan 31 2018 baho-utot <baho-utot@columbus.rr.com> 4.9.67-2

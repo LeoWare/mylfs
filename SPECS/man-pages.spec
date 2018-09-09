@@ -1,3 +1,4 @@
+#-----------------------------------------------------------------------------
 Summary:	Man pages
 Name:		man-pages
 Version:	4.15
@@ -6,24 +7,28 @@ License:	GPLv2
 URL:		http://www.kernel.org/doc/man-pages
 Group:		LFS/Base
 Vendor:		Octothorpe
-
-Source:	http://www.kernel.org/pub/linux/docs/man-pages/%{name}-%{version}.tar.xz
+Source:		http://www.kernel.org/pub/linux/docs/man-pages/%{name}-%{version}.tar.xz
+BuildRequires:	linux-api-headers
 %description
 The Man-pages package contains over 1,900 man pages.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q
 %build
 %install
 	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file
+#-----------------------------------------------------------------------------
+#	Copy license/copying file
 	install -D -m644 man-pages-%{version}.Announce %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
+#-----------------------------------------------------------------------------
+#	Create file list
+#	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
+#-----------------------------------------------------------------------------
 %files
 	%defattr(-,root,root)
 	%{_mandir}/man1/*.gz
@@ -35,6 +40,7 @@ The Man-pages package contains over 1,900 man pages.
 	%{_mandir}/man7/*.gz
 	%{_mandir}/man8/*.gz
 	%{_datarootdir}/licenses/man-pages/LICENSE
+#-----------------------------------------------------------------------------
 %changelog
 *	Mon Mar 19 2018 baho-utot <baho-utot@columbus.rr.com> 4.15-1
 *	Tue Dec 19 2017 baho-utot <baho-utot@columbus.rr.com> 4.12-1

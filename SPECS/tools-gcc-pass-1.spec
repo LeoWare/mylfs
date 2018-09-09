@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+#-----------------------------------------------------------------------------
 Summary:	Contains the GNU compiler collection
 Name:		tools-gcc-pass-1
 Version:	7.3.0
@@ -12,6 +14,7 @@ Source2:	http://www.multiprecision.org/mpc/download/mpc-1.1.0.tar.gz
 Source3:	http://www.mpfr.org/mpfr-3.1.5/mpfr-4.0.1.tar.xz
 %description
 	The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n gcc-%{version}
 %setup -q -T -D -a 1 -n gcc-%{version}
@@ -66,12 +69,15 @@ Source3:	http://www.mpfr.org/mpfr-3.1.5/mpfr-4.0.1.tar.xz
 	find %{buildroot}/tools -name '*.la' -delete
 	rm -rf %{buildroot}%{_infodir}
 	rm -rf %{buildroot}%{_mandir}
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,lfs,lfs)
+#-----------------------------------------------------------------------------
 %changelog
 *	Sat Mar 10 2018 baho-utot <baho-utot@columbus.rr.com> 7.3.0-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 7.2.0-1

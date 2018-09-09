@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+#-----------------------------------------------------------------------------
 Summary:	The Coreutils package contains utilities for showing and setting the basic system characteristics.
 Name:		tools-coreutils
 Version:	8.29
@@ -10,6 +12,7 @@ BuildRequires:	tools-bzip2
 Source0:	http://ftp.gnu.org/gnu/coreutils/coreutils-%{version}.tar.xz
 %description
 	The Coreutils package contains utilities for showing and setting the basic system characteristics.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n coreutils-%{version}
 %build
@@ -22,12 +25,15 @@ Source0:	http://ftp.gnu.org/gnu/coreutils/coreutils-%{version}.tar.xz
 	rm -rf %{buildroot}%{_infodir}
 	rm -rf %{buildroot}%{_mandir}
 	rm -rf %{buildroot}%{_datarootdir}/locale
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
    %defattr(-,lfs,lfs)
+#-----------------------------------------------------------------------------
 %changelog
 *	Sun Mar 11 2018 baho-utot <baho-utot@columbus.rr.com> 8.29-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 8.27-1

@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+#-----------------------------------------------------------------------------
 Summary:	The Bash package contains the Bourne-Again SHell.
 Name:		tools-bash
 Version:	4.4.18
@@ -10,6 +12,7 @@ BuildRequires:	tools-ncurses
 Source0:	http://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
 %description
 	The Bash package contains the Bourne-Again SHell.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n bash-%{version}
 %build
@@ -22,12 +25,15 @@ Source0:	http://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
 	ln -sv bash %{buildroot}%{_bindir}/sh
 	find %{buildroot}/tools -name '*.la' -delete
 	rm -rf %{buildroot}%{_datarootdir}
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
    %defattr(-,lfs,lfs)
+#-----------------------------------------------------------------------------
 %changelog
 *	 Sun Mar 11 2018 baho-utot <baho-utot@columbus.rr.com> 4.4.18-1
 *	 Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 4.4-1

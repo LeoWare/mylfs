@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+#-----------------------------------------------------------------------------
 Summary:	The Gzip package contains programs for compressing and decompressing files.
 Name:		tools-gzip
 Version:	1.9
@@ -10,6 +12,7 @@ BuildRequires:	tools-grep
 Source0:	http://ftp.gnu.org/gnu/gzip/gzip-%{version}.tar.xz
 %description
 	The Gzip package contains programs for compressing and decompressing files.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n gzip-%{version}
 %build
@@ -20,12 +23,15 @@ Source0:	http://ftp.gnu.org/gnu/gzip/gzip-%{version}.tar.xz
 	make DESTDIR=%{buildroot} install
 	rm -rf %{buildroot}%{_infodir}
 	rm -rf %{buildroot}%{_mandir}
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
    %defattr(-,lfs,lfs)
+#-----------------------------------------------------------------------------
 %changelog
 *	Sun Mar 11 2018 baho-utot <baho-utot@columbus.rr.com> 1.9-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 1.8-1

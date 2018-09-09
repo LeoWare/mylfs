@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+#-----------------------------------------------------------------------------
 Summary:	The Glibc package contains the main C library.
 Name:		tools-glibc
 Version:	2.27
@@ -14,6 +16,7 @@ Source0:	http://ftp.gnu.org/gnu/glibc/glibc-%{version}.tar.xz
 	searching directories, opening and closing files,
 	reading and writing files, string handling,
 	pattern matching, arithmetic, and so on.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n glibc-%{version}
 mkdir -v build
@@ -34,10 +37,12 @@ mkdir -v build
 	cd -
 	find %{buildroot}/tools -name '*.la' -delete
 	rm -rf %{buildroot}%{_datarootdir}
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+#-----------------------------------------------------------------------------
 %post
 	_log="%_topdir/LOGS/%{NAME}.test"
 	> ${_log}
@@ -52,8 +57,10 @@ mkdir -v build
 	rm dummy.c a.out || true
 	printf "%s\n" "SUCCESS" >> ${_log} 2>&1
 	cd - >> ${_log} 2>&1
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,lfs,lfs)
+#-----------------------------------------------------------------------------
 %changelog
 *	Sat Mar 10 2018 baho-utot <baho-utot@columbus.rr.com> 2.27-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 2.26-1

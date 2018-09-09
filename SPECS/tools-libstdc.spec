@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+#-----------------------------------------------------------------------------
 Summary:	Libstdc++ is the standard C++ library.
 Name:		tools-libstdc
 Version:	7.3.0
@@ -10,6 +12,7 @@ BuildRequires:	tools-glibc
 Source0:	http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 %description
 	Libstdc++ is the standard C++ library. It is needed for the correct operation of the g++ compiler.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n gcc-%{version}
 mkdir -v build
@@ -29,12 +32,15 @@ mkdir -v build
 	make DESTDIR=%{buildroot} install
 	cd -
 	find %{buildroot}%{_prefix} -name '*.la' -delete
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,lfs,lfs)
+#-----------------------------------------------------------------------------
 %changelog
 *	Sun Mar 11 2018 baho-utot <baho-utot@columbus.rr.com> 7.3.0-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 7.2.0-1

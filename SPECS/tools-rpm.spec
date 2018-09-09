@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+#-----------------------------------------------------------------------------
 Summary:	RPM package manager
 Name:		tools-rpm
 Version:	4.14.1
@@ -12,6 +14,7 @@ Source1:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
 %define	LFS	/mnt/lfs
 %description
 	RPM package manager
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n rpm-%{version}
 %setup -q -T -D -a 1 -n rpm-%{version}
@@ -37,8 +40,8 @@ Source1:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
 %install
 	install -vdm 755 %{buildroot}%{LFS}
 	make DESTDIR=%{buildroot}%{LFS} install
-	#	rm -rf %{buildroot}/tools/share
-	#	Thin the herd
+#	rm -rf %{buildroot}/tools/share
+#	Thin the herd
 	rm -rf	%{buildroot}%{LFS}/usr/include
 	rm 	%{buildroot}%{LFS}/usr/lib/librpm.a
 	rm 	%{buildroot}%{LFS}/usr/lib/librpmbuild.a
@@ -46,12 +49,15 @@ Source1:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
 	rm 	%{buildroot}%{LFS}/usr/lib/librpmsign.a
 	rm 	%{buildroot}%{LFS}/usr/lib/pkgconfig/rpm.pc
 	rm -rf	%{buildroot}%{LFS}/usr/share
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
    %defattr(-,lfs,lfs)
+#-----------------------------------------------------------------------------
 %changelog
 *	Tue Mar 13 2018 baho-utot <baho-utot@columbus.rr.com> 4.14.1-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 4.14.0-1

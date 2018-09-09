@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+#-----------------------------------------------------------------------------
 Summary:	The Binutils package contains a linker, an assembler, and other tools for handling object files.
 Name:		tools-binutils-pass-2
 Version:	2.30
@@ -10,6 +12,7 @@ BuildRequires:	tools-libstdc
 Source0:	http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
 %description
 	The Binutils package contains a linker, an assembler, and other tools for handling object files.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n binutils-%{version}
 mkdir -v build
@@ -35,12 +38,15 @@ mkdir -v build
 	cd -
 	rm -rf %{buildroot}%{_infodir}
 	rm -rf %{buildroot}%{_mandir}
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,lfs,lfs)
+#-----------------------------------------------------------------------------
 %changelog
 *	Sun Mar 11 2018 baho-utot <baho-utot@columbus.rr.com> 2.30-1
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 2.29-1

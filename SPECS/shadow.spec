@@ -1,3 +1,4 @@
+#-----------------------------------------------------------------------------
 Summary:	The Shadow package contains programs for handling passwords in a secure way.
 Name:		shadow
 Version:	4.5
@@ -7,8 +8,10 @@ URL:		Any
 Group:		LFS/Base
 Vendor:	    Octothorpe
 Source0:	https://github.com/shadow-maint/shadow/releases/download/4.5/%{name}-%{version}.tar.xz
+BuildRequires:	sed
 %description
 			The Shadow package contains programs for handling passwords in a secure way.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 	sed -i 's/groups$(EXEEXT) //' src/Makefile.in
@@ -27,9 +30,11 @@ Source0:	https://github.com/shadow-maint/shadow/releases/download/4.5/%{name}-%{
 	make DESTDIR=%{buildroot} install
 	install -vdm 755 %{buildroot}/bin
 	mv -v %{buildroot}/usr/bin/passwd %{buildroot}/bin
-	#	Copy license/copying file
+#-----------------------------------------------------------------------------
+#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 	rm -rf %{buildroot}/%{_mandir}/cs
 	rm -rf %{buildroot}/%{_mandir}/da
 	rm -rf %{buildroot}/%{_mandir}/de
@@ -50,7 +55,7 @@ Source0:	https://github.com/shadow-maint/shadow/releases/download/4.5/%{name}-%{
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man/d' filelist.rpm
-%clean
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_mandir}/man1/*.gz
@@ -60,6 +65,7 @@ Source0:	https://github.com/shadow-maint/shadow/releases/download/4.5/%{name}-%{
 %post
 	pwconv
 	grpconv
+#-----------------------------------------------------------------------------
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 4.5-1
 -	Initial build.	First version

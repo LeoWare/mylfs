@@ -1,3 +1,4 @@
+#-----------------------------------------------------------------------------
 Summary:	The Ncurses package contains libraries for terminal-independent handling of character screens.
 Name:		ncurses
 Version:	6.1
@@ -7,8 +8,10 @@ URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu//ncurses/%{name}-%{version}.tar.gz
+BuildRequires:	pkg-config
 %description
 	The Ncurses package contains libraries for terminal-independent handling of character screens.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 	sed -i '/LIBTOOL_INSTALL/d' c++/Makefile.in
@@ -35,24 +38,27 @@ Source0:	http://ftp.gnu.org/gnu//ncurses/%{name}-%{version}.tar.gz
 	rm -vf %{buildroot}%{_libdir}/libcursesw.so
 	echo "INPUT(-lncursesw)" > %{buildroot}%{_libdir}/libcursesw.so
 	ln -sfv libncurses.so %{buildroot}%{_libdir}/libcurses.so
-	#	install -vdm 755 %{buildroot}%{_docdir}/%{NAME}-%{VERSION}
-	#	cp -v -R doc/* %{buildroot}%{_docdir}/%{NAME}-%{VERSION}
-	#	Copy license/copying file
+#	install -vdm 755 %{buildroot}%{_docdir}/%{NAME}-%{VERSION}
+#	cp -v -R doc/* %{buildroot}%{_docdir}/%{NAME}-%{VERSION}
+#-----------------------------------------------------------------------------
+#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
+#-----------------------------------------------------------------------------
+#	Create file list
+#	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%clean
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_mandir}/man1/*.gz
 	%{_mandir}/man3/*.gz
 	%{_mandir}/man5/*.gz
 	%{_mandir}/man7/*.gz
+#-----------------------------------------------------------------------------
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 6.1-1
 -	Initial build.	First version

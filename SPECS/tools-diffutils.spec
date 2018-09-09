@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+#-----------------------------------------------------------------------------
 Summary:	The Diffutils package contains programs that show the differences between files or directories.
 Name:		tools-diffutils
 Version:	3.6
@@ -10,6 +12,7 @@ BuildRequires:	tools-coreutils
 Source0:	http://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 %description
 	The Diffutils package contains programs that show the differences between files or directories.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n diffutils-%{version}
 %build
@@ -21,12 +24,15 @@ Source0:	http://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 	rm -rf %{buildroot}%{_infodir}
 	rm -rf %{buildroot}%{_mandir}
 	rm -rf %{buildroot}%{_datarootdir}/locale
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
    %defattr(-,lfs,lfs)
+#-----------------------------------------------------------------------------
 %changelog
 *	Sun Mar 11 2018 baho-utot <baho-utot@columbus.rr.com> 3.6-2
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 3.6-1

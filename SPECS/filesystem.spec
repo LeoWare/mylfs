@@ -1,3 +1,4 @@
+#-----------------------------------------------------------------------------
 Summary:	Default file system
 Name:		filesystem
 Version:	8.1
@@ -11,6 +12,7 @@ URL:		http://www.linuxfromscratch.org
 		on a Linux system. Filesystem contains the basic directory
 		layout for a Linux operating system, including the correct permissions
 		for the directories.
+#-----------------------------------------------------------------------------
 %prep
 %build
 %install
@@ -430,6 +432,7 @@ URL:		http://www.linuxfromscratch.org
 		DISTRIB_CODENAME="<your name here>"
 		DISTRIB_DESCRIPTION="Linux From Scratch"
 	EOF
+#-----------------------------------------------------------------------------
 %files
 	%defattr(-,root,root)
    #
@@ -518,7 +521,6 @@ URL:		http://www.linuxfromscratch.org
    %dir	%attr(1777,root,root) /tmp
    %dir	/proc
    %dir	/run
-   %dir	%attr(0750,root,root) /root
    #
    #	Files
    #
@@ -548,6 +550,7 @@ URL:		http://www.linuxfromscratch.org
    %attr(600,root,root)	/var/log/btmp
    %attr(664,root,utmp) /var/log/lastlog
    %attr(-,root,root)	/var/log/wtmp
+#-----------------------------------------------------------------------------
 %changelog
 *	Tue Dec 12 2017 baho-utot <baho-utot@columbus.rr.com> 8.1-1
 -	Update to LFS-8.1

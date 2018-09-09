@@ -1,3 +1,4 @@
+#-----------------------------------------------------------------------------
 Summary:	Package manager
 Name:		rpm
 Version:	4.14.1
@@ -8,8 +9,10 @@ Group:		LFS/BASE
 Vendor:		Octothorpe
 Source0:	http://ftp.rpm.org/releases/rpm-4.14.x/%{name}-%{version}.tar.bz2
 Source1:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
+BuildRequires:	popt
 %description
 	Package manager
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{name}-%{version}
 %setup -q -T -D -a 1 -n %{name}-%{version}
@@ -32,10 +35,12 @@ sed -i 's/--srcdir=$db_dist/--srcdir=$db_dist --with-pic/' db3/configure
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file 
+#-----------------------------------------------------------------------------
+#	Copy license/copying file 
 	install -D -m644 COPYING %{buildroot}%{_datarootdir}/licenses/%{name}-%{version}/COPYING
 	install -D -m644 INSTALL %{buildroot}%{_datarootdir}/licenses/%{name}-%{version}/INSTALL
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 #	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
@@ -48,6 +53,7 @@ sed -i 's/--srcdir=$db_dist/--srcdir=$db_dist --with-pic/' db3/configure
 	sed -i '/man\/ko/d' filelist.rpm
 	sed -i '/man\/ja/d' filelist.rpm
 	sed -i '/man\/ru/d' filelist.rpm	
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_mandir}/man1/*.gz
@@ -59,6 +65,7 @@ sed -i 's/--srcdir=$db_dist/--srcdir=$db_dist --with-pic/' db3/configure
 	%{_mandir}/pl/man8/*.gz
 	%{_mandir}/ru/man8/*.gz
 	%{_mandir}/sk/man8/*.gz
+#-----------------------------------------------------------------------------
 %changelog
 *	Sat Jul 28 2018 baho-utot <baho-utot@columbus.rr.com> 4.14.1-1
 *	Sat Mar 10 2018 baho-utot <baho-utot@columbus.rr.com> 4.14.0-4

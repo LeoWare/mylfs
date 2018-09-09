@@ -1,4 +1,6 @@
 #	%%global _default_patch_fuzz 2
+%define	GCC_INCDIR	/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include
+#-----------------------------------------------------------------------------
 Summary:	Main C library
 Name:		glibc
 Version:	2.27
@@ -9,12 +11,13 @@ Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu/glibc/%{name}-%{version}.tar.xz
 Patch0:		glibc-2.27-fhs-1.patch
+BuildRequires:	man-pages
 %description
 This library provides the basic routines for allocating memory,
 searching directories, opening and closing files, reading and
 writing files, string handling, pattern matching, arithmetic,
 and so on.
-%define	GCC_INCDIR	/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %patch0 -p1
@@ -30,17 +33,17 @@ and so on.
 		make %{?_smp_mflags}
 %install
 	cd build
-	#	touch /etc/ld.so.conf - already installed by filesystem
-	#	sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile - not needed
+#	touch /etc/ld.so.conf - already installed by filesystem
+#	sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile - not needed
 	make install_root=%{buildroot} install
-	#	add symlinks
+#	add symlinks
 		install -vdm 755 %{buildroot}/lib64
 		ln -sfv ../lib/ld-linux-x86-64.so.2 %{buildroot}/lib64
 		ln -sfv ../lib/ld-linux-x86-64.so.2 %{buildroot}/lib64/ld-lsb-x86-64.so.3
-	#	Create directories
+#	Create directories
 	install -vdm 755 %{buildroot}/etc
 	install -vdm 755 %{buildroot}/sbin
-	#	Install the configuration file and runtime directory for nscd:
+#	Install the configuration file and runtime directory for nscd:
 	install -vDm 644 ../nscd/nscd.conf %{buildroot}/etc/nscd.conf
 	install -vdm 755 %{buildroot}/var/cache/nscd
 	cd -
@@ -129,18 +132,22 @@ and so on.
 		echo "Generation complete."
 	EOF
 	chmod 755 %{buildroot}/sbin/locale-gen.sh
-	#	Copy license/copying file
+#-----------------------------------------------------------------------------
+#	Copy license/copying file
 	install -D -m644 LICENSES %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_infodir}/libc.*
+#-----------------------------------------------------------------------------
 %changelog
 *	Mon Mar 19 2018 baho-utot <baho-utot@columbus.rr.com> 2.27-1
 *	Wed Dec 20 2017 baho-utot <baho-utot@columbus.rr.com> 2.26-1

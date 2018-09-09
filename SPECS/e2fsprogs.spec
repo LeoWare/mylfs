@@ -1,3 +1,4 @@
+#-----------------------------------------------------------------------------
 Summary:	The E2fsprogs package contains the utilities for handling the ext2 file system.
 Name:		e2fsprogs
 Version:	1.43.9
@@ -7,9 +8,11 @@ URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.43.5/%{name}-%{version}.tar.gz
+BuildRequires:	procps-ng
 %description
 	The E2fsprogs package contains the utilities for handling the ext2 file system.
 	It also supports the ext3 and ext4 journaling file systems.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 	mkdir build
@@ -39,15 +42,18 @@ Source0:	http://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.43.5/%{
 	makeinfo -o doc/com_err.info lib/et/com_err.texinfo
 	install -v -m644 doc/com_err.info %{buildroot}%{_infodir}
 	install-info --dir-file=%{_infodir}/dir %{buildroot}%{_infodir}/com_err.info
-	#	Copy license/copying file
+#-----------------------------------------------------------------------------
+#	Copy license/copying file
 	install -D -m644 NOTICE %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_infodir}/*.gz
@@ -55,6 +61,7 @@ Source0:	http://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.43.5/%{
 	%{_mandir}/man3/*.gz
 	%{_mandir}/man5/*.gz
 	%{_mandir}/man8/*.gz
+#-----------------------------------------------------------------------------
 %changelog
 *	Wed Jul 25 2018 baho-utot <baho-utot@columbus.rr.com> 1.43.9-1
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 1.43.5-1

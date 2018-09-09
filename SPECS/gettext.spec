@@ -1,3 +1,4 @@
+#-----------------------------------------------------------------------------
 Summary:	The Gettext package contains utilities for internationalization and localization.
 Name:		gettext
 Version:	0.19.8.1
@@ -7,10 +8,12 @@ URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu/gettext/%{name}-%{version}.tar.xz
+BuildRequires:	kmod
 %description
 	The Gettext package contains utilities for internationalization and localization.
 	These allow programs to be compiled with NLS (Native Language Support), enabling
 	them to output messages in the user's native language.
+#-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 	sed -i '/^TESTS =/d' gettext-runtime/tests/Makefile.in
@@ -25,20 +28,24 @@ Source0:	http://ftp.gnu.org/gnu/gettext/%{name}-%{version}.tar.xz
 	make DESTDIR=%{buildroot} install
 	chmod -v 0755 %{buildroot}%{_libdir}/preloadable_libintl.so
 	rm -rf %{buildroot}%{_docdir}/%{NAME}-%{VERSION}
-	#	Copy license/copying file
+#-----------------------------------------------------------------------------
+#	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
+#-----------------------------------------------------------------------------
+#	Create file list
 	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_infodir}/*.gz
 	%{_mandir}/man1/*.gz
 	%{_mandir}/man3/*.gz
+#-----------------------------------------------------------------------------
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 0.19.8.1-1
 -	Initial build.	First version

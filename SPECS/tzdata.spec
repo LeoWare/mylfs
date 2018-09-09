@@ -1,3 +1,5 @@
+%define blddir	%{name}-%{version}
+#-----------------------------------------------------------------------------
 Summary:		Time zone data
 Name:			tzdata
 Version:		2018c
@@ -7,9 +9,10 @@ License	:   	public-domain
 Group:			LFS/Base
 Vendor:	        Octothorpe
 Source0:		http://www.iana.org//time-zones/repository/releases/%{name}%{version}.tar.gz
+BuildRequires:	glibc
 %description
 	Sources for time zone and daylight saving time data
-%define blddir	%{name}-%{version}
+#-----------------------------------------------------------------------------
 %prep
 	rm -rf %{blddir}
 	install -vdm 755 %{blddir}
@@ -30,18 +33,22 @@ Source0:		http://www.iana.org//time-zones/repository/releases/%{name}%{version}.
 	cp -v zone.tab zone1970.tab iso3166.tab $ZONEINFO
 	zic -d $ZONEINFO -p America/New_York
 	install -vDm 555 %{buildroot}/usr/share/zoneinfo/America/New_York %{buildroot}/etc/localtime
-	#	Copy license/copying file
+#-----------------------------------------------------------------------------
+#	Copy license/copying file
 	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	cd -
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
+#-----------------------------------------------------------------------------
+#	Create file list
+#	rm  %{buildroot}%{_infodir}/dir
 	find %{buildroot} -name '*.la' -delete
 	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
 	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
 	sed -i '/man\/man/d' filelist.rpm
 	sed -i '/\/usr\/share\/info/d' filelist.rpm
+#-----------------------------------------------------------------------------
 %files -f filelist.rpm
 	%defattr(-,root,root)
+#-----------------------------------------------------------------------------
 %changelog
 *	Mon Mar 19 2018 baho-utot <baho-utot@columbus.rr.com> 2018c-1
 *	Wed Dec 20 2014 baho-utot <baho-utot@columbus.rr.com> 2017b-1
