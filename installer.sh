@@ -6,16 +6,20 @@
 #	Author: baho-utot@columbus.rr.com
 #	Options:
 #-----------------------------------------------------------------------------
-#	This script installs rpms to a partition mounted at /mnt
+#	This script installs LFS base rpms to a partition mounted at /mnt
 #	the partition should be a new/clean partition as it will be overwritten
 #-----------------------------------------------------------------------------
 set -o errexit	# exit if error...insurance ;)
 set -o nounset	# exit if variable not initalized
 set +h			# disable hashall
 #-----------------------------------------------------------------------------
-REPOPATH="RPMS/x86_64"
-ROOTPATH="/mnt"
-DBPATH="/var/lib/rpm"
+PRGNAME=${0##*/}		#	script name minus the path
+REPOPATH="RPMS/x86_64"	#	path to the binary rpms
+ROOTPATH="/mnt"			#	path to install filesystem
+DBPATH="/var/lib/rpm"	#	path to the rpm database rel to ROOTPATH
+RPM=""					#	path/binary to rpm
+#-----------------------------------------------------------------------------
+#		filesystem rpm should be installed first
 LIST="filesystem "
 LIST+="acl attr autoconf automake "
 LIST+="bash bc binutils bison bzip2 "
@@ -40,23 +44,48 @@ LIST+="vim "
 LIST+="wget "
 LIST+="XML-Parser xz "
 LIST+="zlib "
-install -vdm 755 ${ROOTPATH}/${DBPATH}
+#-----------------------------------------------------------------------------
+die() {
+	local _red="\\033[1;31m"
+	local _normal="\\033[0;39m"
+	[ -n "$*" ] && printf "${_red}$*${_normal}\n"
+	exit 1
+}
+#-----------------------------------------------------------------------------
+[ ${EUID} -eq 0 ] || die 
+if mountpoint ${ROOTPATH} > /dev/null 2>&1; then die "Hey $ROOTPATH} is not mounted"; if
+if [ -e /bin/rpm ]; then
+	RPM=/bin/rpm
+else
+	[ -e /tools/bin/rpm ] && RPM=/tools/bin/rpm
+fi
+[ -z "${RPM}" ] && die "${PRGNAME}: Can not find executable: rpm"
+install -vdm 755 "${ROOTPATH}/${DBPATH}"
 rpmdb --verbose --initdb --dbpath=${ROOTPATH}/${DBPATH}
 for i in ${LIST}; do
-		rpm -Uvh --nodeps --noscripts --root ${ROOTPATH} --dbpath ${DBPATH} RPMS/x86_64/${i}-[0-9]*-*.*.rpm
+		rpm --upgrade --nodeps --noscripts --root ${ROOTPATH} --dbpath ${DBPATH} RPMS/x86_64/${i}-[0-9]*-*.*.rpm
 done
-_list="${ROOTPATH}/etc/sysconfig/clock "
-_list+="${ROOTPATH}/etc/passwd "
-_list+="${ROOTPATH}/etc/hosts "
-_list+="${ROOTPATH}/etc/hostname "
-_list+="${ROOTPATH}/etc/fstab "
-_list+="${ROOTPATH}/etc/sysconfig/ifconfig.enp5s0 "
-_list+="${ROOTPATH}/etc/resolv.conf "
-_list+="${ROOTPATH}/etc/lsb-release "
-_list+="${ROOTPATH}/etc/sysconfig/rc.site"
-for i in ${_list}; do vim "${i}"; done
-printf "\n%s\n" "boot to new system and run: /sbin/ldconfig"
-printf "\n%s\n" "boot to new system and run: /sbin/locale-gen.sh"
-printf "\n%s\n" "boot to new system and run: /usr/sbin/pwconv"
-printf "\n%s\n" "boot to new system and run: /usr/sbin/grpconv"
-printf "\n%s\n" "boot to new system and run: /bin/passwd"
+cat > "${ROOTPATH}/tmp/script.sh" <<- "EOF"
+	/sbin/ldconfig
+	/sbin/locale-gen.sh
+	/usr/sbin/pwconv
+	/usr/sbin/grpconv
+	/usr/bin/vim /etc/sysconfig/clock
+	/usr/bin/vim /etc/passwd
+	/usr/bin/vim /etc/hosts
+	/usr/bin/vim /etc/hostname
+	/usr/bin/vim /etc/fstab
+	/usr/bin/vim /etc/sysconfig/ifconfig.enp5s0 "
+	/usr/bin/vim /etc/resolv.conf
+	/usr/bin/vim /etc/lsb-release "
+	/usr/bin/vim /etc/sysconfig/rc.site"
+EOF	
+chmod =x "${ROOTPATH}/tmp/script.sh"
+chroot ${ROOTPATH} /usr/bin/env -i \
+	HOME=/root \
+	TERM="${TERM}" \
+	PS1='(intsaller) \u:\w:\$' \
+	PATH=/bin:/usr/bin:/sbin:/usr/sbin \
+	/bin/bash --login -c 'cd /tmp;./script.sh'
+printf "%s\n" "Installation is complete"
+
