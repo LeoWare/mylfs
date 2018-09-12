@@ -8,7 +8,7 @@ URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source:		%{name}-%{version}.tar.gz
-BuildRequires:	linux
+BuildRequires:	wget
 %description
 		Firmware for radeon graphics cards
 #-----------------------------------------------------------------------------

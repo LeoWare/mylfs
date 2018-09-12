@@ -1,4 +1,3 @@
-#make -f udev-lfs-20140408/Makefile.lfs install
 #-----------------------------------------------------------------------------
 Summary:	The Eudev package contains programs for dynamic creation of device nodes.
 Name:		eudev

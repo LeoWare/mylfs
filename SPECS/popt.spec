@@ -8,9 +8,9 @@ URL:		http://rpm5.org/files/popt
 Group:		BLFS/General_Libraries 
 Vendor:		Octothorpe
 Source0:	http://rpm5.org/files/popt/%{name}-%{version}.tar.gz
-BuildRequires:	lfs-bootscripts
+BuildRequires:	linux
 %description
-		The popt package contains the popt libraries which are used by some programs to parse command-line options.
+		The popt package contains the popt libraries which are used by some programs parse command-line options.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{name}-%{version}

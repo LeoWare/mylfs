@@ -1,4 +1,5 @@
 %global debug_package %{nil}
+%define	_optflags -march=x86-64 -mtune=generic -O2 -pipe -fPIC
 #-----------------------------------------------------------------------------
 Summary:	The Bzip2 package contains programs for compressing and decompressing files.
 Name:		tools-bzip2
@@ -11,7 +12,6 @@ Vendor:		Octothorpe
 BuildRequires:	tools-bison
 Source0:	http://www.bzip.org/1.0.6/bzip2-%{version}.tar.gz
 Patch0:	bzip2-%{version}-install_docs-1.patch
-%define	_optflags -march=x86-64 -mtune=generic -O2 -pipe -fPIC
 %description
 	The Bzip2 package contains programs for compressing and decompressing files.
 	Compressing text files with bzip2 yields a much better compression percentage

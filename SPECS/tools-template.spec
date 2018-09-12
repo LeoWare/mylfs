@@ -20,7 +20,6 @@ Patch0:
 #	  CFLAGS='%_optflags ' \
 #	CXXFLAGS='%_optflags ' \
 #	LDFLAGS='%_ldflags ' \
-
 	make %{?_smp_mflags}
 
 %install

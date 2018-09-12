@@ -50,6 +50,28 @@ This build system requires the following:
 	wget is added to this build so you can fetch BLFS packages if your
 	network is setup and working
 		
+The build process has been changed to be recursive.  This was done so
+I can use the same bash script to build lfs and blfs.  See the Build.Order.text
+for the build chain.  If you want to make changes to the build order simply
+change the BuildRequires: parameter to point to the previous package to build 
+in the list.  For example You can run ./builder.sh tools-rpm.spec and it will
+recurse the list to the beginning package tools-binutils-pass-1 and it will
+start there, and work down through the build order either building the package
+or giving the status.
+
+I have also added a mkinitramfs step ( which requires cpio ) so if you need a
+initrd to boot it creates one.  If your kernel configured so a initrd is not
+required the inird is still created just ignore it when you make the entry into
+grub.cfg
+
+The installer.sh script will take the binary rpms ( chapter 6 ) and install them
+into a partition that YOU mounted on /mnt.  If you want to install elseware then
+change ROOTPATH="/mnt" to the installation partition mounted by YOU.
+
+###		TODO	###
+I am presently working on adding yum to the base build, I will add it to the
+end of the build order so it can be skipped if not needed/wanted.
+###		TODO	###
 
 Build Procedure goes as follows:
 
@@ -63,9 +85,9 @@ extract it to your HOME directory
 You are responsible for the next four steps,  make sure you knowed
 what you are doing!
 
-fdisk /dev/sdx			partition drive, you need to do this
-mkfs.ext4 /dev/sdxx		create ext4 filesystem
-mkdir /mnt/lfs			create work directory
+fdisk /dev/sdx				partition drive, you need to do this
+mkfs.ext4 /dev/sdxx			create ext4 filesystem
+mkdir /mnt/lfs				create work directory
 mount /dev/sdxx /mnt/lfs	mount partition to work directory
 
 #
@@ -96,7 +118,6 @@ cd /mnt/lfs/usr/src/LFS-RPM
 chroot.sh
 cd /usr/src/LFS-RPM	change to build directory
 ./lfs.sh
-
 
 The last step will remove the toolchain and use vim to make
 modification to the conf files so when you reboot it will do the

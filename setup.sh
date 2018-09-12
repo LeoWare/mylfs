@@ -154,6 +154,7 @@ _wget_list() {
 		http://www.linuxfromscratch.org/patches/lfs/8.2/kbd-2.0.4-backspace-1.patch
 		http://www.linuxfromscratch.org/patches/lfs/8.2/ninja-1.8.2-add_NINJAJOBS_var-1.patch
 		http://www.linuxfromscratch.org/patches/lfs/8.2/sysvinit-2.88dsf-consolidated-1.patch
+		https://ftp.gnu.org/gnu/cpio/cpio-2.12.tar.bz2
 	EOF
 	#
 	#	Add rpm packages and openssh
@@ -258,6 +259,7 @@ _md5sum_list(){
 		f75cca16a38da6caa7d52151f7136895  SOURCES/kbd-2.0.4-backspace-1.patch
 		f537a633532492e805aa342fa869ca45  SOURCES/ninja-1.8.2-add_NINJAJOBS_var-1.patch
 		0b7b5ea568a878fdcc4057b2bf36e5cb  SOURCES/sysvinit-2.88dsf-consolidated-1.patch
+		93eea9f07c0058c097891c73e4955456  SOURCES/cpio-2.12.tar.bz2
 	EOF
 	return
 }

@@ -1,4 +1,5 @@
 %global debug_package %{nil}
+%define	_optflags -march=x86-64 -mtune=generic -O2 -pipe -fPIC
 #-----------------------------------------------------------------------------
 Summary:	The Zlib package contains compression and decompression routines used by some programs.
 Name:		tools-zlib
@@ -10,7 +11,6 @@ Group:		LFS/Tools
 Vendor:		Octothorpe
 BuildRequires:	tools-xz
 Source0:	http://zlib.net/zlib-%{version}.tar.xz
-%define	_optflags -march=x86-64 -mtune=generic -O2 -pipe -fPIC
 %description
 	The Zlib package contains compression and decompression routines used by some programs.
 #-----------------------------------------------------------------------------

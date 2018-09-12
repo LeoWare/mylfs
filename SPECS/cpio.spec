@@ -1,32 +1,36 @@
-#	%%define	_optflags -march=x86-64 -mtune=generic -O2 -pipe
+#	URL:	https://ftp.gnu.org/gnu/cpio/cpio-2.12.tar.bz2
+#	MD5SUM:	93eea9f07c0058c097891c73e4955456
 #-----------------------------------------------------------------------------
-Summary:	The GRUB package contains the GRand Unified Bootloader.
-Name:		grub
-Version:	2.02
+Summary:	The cpio package contains tools for archiving
+Name:		cpio
+Version:	2.12
 Release:	1
 License:	GPLv3
 URL:		Any
-Group:		LFS/Base
+Group:		BLFS/System_Utilities 
 Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/grub/%{name}-%{version}.tar.xz
-BuildRequires:	groff
+BuildRequires:	lfs-bootscripts
+Source0:	https://ftp.gnu.org/gnu/cpio/%{name}-%{version}.tar.bz2
+
 %description
-	The GRUB package contains the GRand Unified Bootloader.
-#-----------------------------------------------------------------------------
+	The cpio package contains tools for archiving
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %build
 	./configure \
 		--prefix=%{_prefix} \
-		--sbindir=/sbin \
-		--sysconfdir=/etc \
-		--disable-efiemu \
-		--disable-werror
+		--bindir=/bin \
+		--enable-mt \
+		--with-rmt=/usr/libexec/rmt
 	make %{?_smp_mflags}
+	makeinfo --html            -o doc/html      doc/cpio.texi
+	makeinfo --html --no-split -o doc/cpio.html doc/cpio.texi
+	makeinfo --plaintext       -o doc/cpio.txt  doc/cpio.texi
 %install
 	make DESTDIR=%{buildroot} install
 #-----------------------------------------------------------------------------
 #	Copy license/copying file
+#	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
 #-----------------------------------------------------------------------------
 #	Create file list
@@ -40,7 +44,19 @@ BuildRequires:	groff
 %files -f filelist.rpm
 	%defattr(-,root,root)
 	%{_infodir}/*.gz
+	%{_mandir}/man1/*.gz
+#-----------------------------------------------------------------------------
+%post
+	pushd /usr/share/info
+	rm -v dir
+	for f in *; do install-info $f dir 2>/dev/null; done
+	popd
+%postun
+	pushd /usr/share/info
+	rm -v dir
+	for f in *; do install-info $f dir 2>/dev/null; done
+	popd
 #-----------------------------------------------------------------------------
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.02-1
+*	Wed Feb 14 2018 baho-utot <baho-utot@columbus.rr.com> cpio-2.12-1
 -	Initial build.	First version

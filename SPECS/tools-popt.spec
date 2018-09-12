@@ -11,7 +11,7 @@ Vendor:		Octothorpe
 BuildRequires:	tools-openssl
 Source0:	http://rpm5.org/files/popt/popt-%{version}.tar.gz
 %description
-	The popt package contains the popt libraries which are used by some programs to parse command-line options.
+	The popt package contains the popt libraries which are used by some programs parse command-line options.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n popt-%{version}

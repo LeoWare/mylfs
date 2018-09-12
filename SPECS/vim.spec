@@ -1,3 +1,4 @@
+# %%define	_optflags	-march=x86-64 -mtune=generic -O2 -pipe -fPIC
 #-----------------------------------------------------------------------------
 Summary:	The Vim package contains a powerful text editor.
 Name:		vim
@@ -8,7 +9,6 @@ URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	ftp://ftp.vim.org/pub/vim/unix/%{name}-%{version}.tar.bz2
-# %%define	_optflags	-march=x86-64 -mtune=generic -O2 -pipe -fPIC
 BuildRequires:	texinfo
 %description
 	The Vim package contains a powerful text editor.

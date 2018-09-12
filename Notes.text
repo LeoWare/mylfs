@@ -73,15 +73,12 @@ Move configure file to filesystem
 
 Allow post processing by rpmbuild
 
-NON-STANDARD
-procps-ng
-
-#	RPM add user
+#	RPM SPEC file: add user
 Requires(pre): /usr/sbin/useradd, /usr/bin/getent
 Requires(postun): /usr/sbin/userdel
 
 %pre
-/usr/bin/getent group myservice || /usr/sbin/groupadd -r myservice
+/usr/bin/getent group myservice  || /usr/sbin/groupadd -r myservice
 /usr/bin/getent passwd myservice || /usr/sbin/useradd -r -d /path/to/program -s /sbin/nologin myservice
 
 %postun

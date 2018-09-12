@@ -8,8 +8,8 @@ URL:		https://www.kernel.org
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	https://www.kernel.org/pub/linux/kernel/v4.x/%{name}-%{version}.tar.xz
-Patch0:		linux-4.15.3.patch
-BuildRequires:	wget
+Source1:	config-%%{VERSION}
+BuildRequires:	mkinitramfs
 %description
 	The Linux package contains the Linux kernel.
 #-----------------------------------------------------------------------------
@@ -17,13 +17,9 @@ BuildRequires:	wget
 %setup -q -n %{NAME}-%{VERSION}
 %build
 	make mrproper
-	make defconfig
-#	patch -i %{_sourcedir}/linux-4.15.3.patch
-	patch -i %{_sourcedir}/linux-4.15.3-device-drivers.patch
-	patch -i %{_sourcedir}/linux-4.15.3-filesystems.patch
-#	patch -i %{_sourcedir}/linux-4.15.3-kernel-hacking.patch
-	patch -i %{_sourcedir}/linux-4.15.3-security.patch
-	patch -i %{_sourcedir}/linux-4.15.3-virtualization.patch
+#	make defconfig
+#	make allmodconfig
+	cp %{_sourcedir}/config-%{VERSION} .config
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} INSTALL_MOD_PATH=%{buildroot} modules_install
@@ -35,7 +31,7 @@ BuildRequires:	wget
 	cp -r Documentation/* %{buildroot}%{_docdir}/%{NAME}-%{version}
 #-----------------------------------------------------------------------------
 #	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
+	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}-%{VERSION}/LICENSE
 #-----------------------------------------------------------------------------
 #	Create file list
 #	rm  %{buildroot}%{_infodir}/dir
@@ -49,6 +45,18 @@ BuildRequires:	wget
 	%defattr(-,root,root)
 #	%%{_infodir}/*.gz
 #	%%{_mandir}/man1/*.gz
+#-----------------------------------------------------------------------------
+%post
+		pushd /boot
+		touch initrd.img-%{VERSION}
+		rm initrd.img-%{VERSION}
+		mkinitramfs %{VERSION}
+		popd
+%postun
+		pushd /boot
+		touch initrd.img-%{VERSION}
+		rm initrd.img-%{VERSION}
+		popd
 #-----------------------------------------------------------------------------
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 4.15.3-1
