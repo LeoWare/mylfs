@@ -11,19 +11,18 @@
 #-----------------------------------------------------------------------------
 set -o errexit	# exit if error...insurance ;)
 set -o nounset	# exit if variable not initalized
-set +h			# disable hashall
+set +h		# disable hashall
 #-----------------------------------------------------------------------------
-PRGNAME=${0##*/}		#	script name minus the path
+PRGNAME=${0##*/}	#	script name minus the path
 REPOPATH="RPMS/x86_64"	#	path to the binary rpms
-ROOTPATH="/mnt"			#	path to install filesystem
+ROOTPATH="/mnt"		#	path to install filesystem
 DBPATH="/var/lib/rpm"	#	path to the rpm database rel to ROOTPATH
-RPM=""					#	path/binary to rpm
 #-----------------------------------------------------------------------------
-#		filesystem rpm should be installed first
+#	filesystem rpm should be installed first
 LIST="filesystem "
 LIST+="acl attr autoconf automake "
 LIST+="bash bc binutils bison bzip2 "
-LIST+="check coreutils "
+LIST+="check coreutils cpio "
 LIST+="diffutils "
 LIST+="e2fsprogs eudev expat "
 LIST+="file findutils firmware-radeon firmware-realtek flex "
@@ -31,7 +30,7 @@ LIST+="gawk gcc gdbm gettext glibc gmp gperf grep groff grub gzip "
 LIST+="iana-etc inetutils intltool iproute2 "
 LIST+="kbd kmod "
 LIST+="less lfs-bootscripts libcap libelf libffi libpipeline libtool "
-LIST+="linux linux-api-headers "
+LIST+="mkinitramfs linux linux-api-headers "
 LIST+="m4 make man-db man-pages meson mpc mpfr "
 LIST+="ncurses ninja "
 LIST+="openssl "
@@ -52,20 +51,15 @@ die() {
 	exit 1
 }
 #-----------------------------------------------------------------------------
-[ ${EUID} -eq 0 ] || die 
-if mountpoint ${ROOTPATH} > /dev/null 2>&1; then die "Hey $ROOTPATH} is not mounted"; if
-if [ -e /bin/rpm ]; then
-	RPM=/bin/rpm
-else
-	[ -e /tools/bin/rpm ] && RPM=/tools/bin/rpm
-fi
-[ -z "${RPM}" ] && die "${PRGNAME}: Can not find executable: rpm"
+[ ${EUID} -eq 0 ] || die
+if [ ! mountpoint ${ROOTPATH} > /dev/null 2>&1 ]; then die "Hey ${ROOTPATH} is not mounted"; fi
 install -vdm 755 "${ROOTPATH}/${DBPATH}"
 rpmdb --verbose --initdb --dbpath=${ROOTPATH}/${DBPATH}
 for i in ${LIST}; do
-		rpm --upgrade --nodeps --noscripts --root ${ROOTPATH} --dbpath ${DBPATH} RPMS/x86_64/${i}-[0-9]*-*.*.rpm
+	rpm --upgrade --nodeps --noscripts --root ${ROOTPATH} --dbpath ${DBPATH} ${REPOPATH}/${i}-[0-9]*-*.*.rpm
+	echo ${i}
 done
-cat > "${ROOTPATH}/tmp/script.sh" <<- "EOF"
+cat > ${ROOTPATH}/tmp/script.sh <<- EOF
 	/sbin/ldconfig
 	/sbin/locale-gen.sh
 	/usr/sbin/pwconv
@@ -75,12 +69,12 @@ cat > "${ROOTPATH}/tmp/script.sh" <<- "EOF"
 	/usr/bin/vim /etc/hosts
 	/usr/bin/vim /etc/hostname
 	/usr/bin/vim /etc/fstab
-	/usr/bin/vim /etc/sysconfig/ifconfig.enp5s0 "
+	/usr/bin/vim /etc/sysconfig/ifconfig.enp5s0 
 	/usr/bin/vim /etc/resolv.conf
-	/usr/bin/vim /etc/lsb-release "
-	/usr/bin/vim /etc/sysconfig/rc.site"
-EOF	
-chmod =x "${ROOTPATH}/tmp/script.sh"
+	/usr/bin/vim /etc/lsb-release
+	/usr/bin/vim /etc/sysconfig/rc.site
+EOF
+chmod +x ${ROOTPATH}/tmp/script.sh
 chroot ${ROOTPATH} /usr/bin/env -i \
 	HOME=/root \
 	TERM="${TERM}" \
@@ -88,4 +82,3 @@ chroot ${ROOTPATH} /usr/bin/env -i \
 	PATH=/bin:/usr/bin:/sbin:/usr/sbin \
 	/bin/bash --login -c 'cd /tmp;./script.sh'
 printf "%s\n" "Installation is complete"
-
