@@ -584,9 +584,9 @@ mpc() {
     return 0
 }
 
-gcc() {
-    local   _pkgname="mpc"
-    local   _pkgver="1.1.0"
+gcc_build() {
+    local   _pkgname="gcc"
+    local   _pkgver="7.3.0"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
     local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
     [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
@@ -600,7 +600,7 @@ gcc() {
         build "+ sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64" "sed -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64" ${_logfile}
       ;;
     esac
-    build "+ rm -f /usr/lib/gcc" "rm -f /usr/lib/gcc" ${_logfile}
+    [ -h "/usr/lib/gcc" ] && build "+ rm -fv /usr/lib/gcc" "rm -fv /usr/lib/gcc" ${_logfile}
 
     build " Create work directory" "install -vdm 755 ../build" ${_logfile}
     build " Change directory: ../build" "pushd ../build" ${_logfile}
@@ -637,6 +637,110 @@ gcc() {
     return 0
 }
 
+bzip2_build() {
+    local   _pkgname="bzip2"
+    local   _pkgver="1.0.6"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
+    > ${_logfile}
+    build " Clean build directory" 'rm -rf BUILD/*' ${_logfile}
+    build " Change directory: BUILD" "pushd BUILD" ${_logfile}
+    unpack "${PWD}" "${_pkgname}-${_pkgver}"
+    build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+
+    build "+ patch -Np1 -i ../../SOURCES/bzip2-1.0.6-install_docs-1.patch" "patch -Np1 -i ../../SOURCES/bzip2-1.0.6-install_docs-1.patch" ${_logfile}
+    build "+ sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile" "sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile" ${_logfile}
+    build "+ sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile" "sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile" ${_logfile}
+    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    build " Change directory: ../build" "pushd ../build" ${_logfile}
+
+   
+    build "+ make -f Makefile-libbz2_so" "make -f Makefile-libbz2_so" ${_logfile}
+    build "+ make clean" "make clean" ${_logfile}
+    build "+ make" "make" ${_logfile}
+
+    build "+ make PREFIX=/usr install" "make PREFIX=/usr install" ${_logfile}
+    build "+ cp -v bzip2-shared /bin/bzip2" "cp -v bzip2-shared /bin/bzip2" ${_logfile}
+    build "+ cp -av libbz2.so* /lib" "cp -av libbz2.so* /lib" ${_logfile}
+    build "+ ln -sv ../../lib/libbz2.so.1.0 /usr/lib/libbz2.so" "ln -sv ../../lib/libbz2.so.1.0 /usr/lib/libbz2.so" ${_logfile}
+    build "+ rm -v /usr/bin/{bunzip2,bzcat,bzip2}" "rm -v /usr/bin/{bunzip2,bzcat,bzip2}" ${_logfile}
+    build "+ ln -sv bzip2 /bin/bunzip2" "ln -sv bzip2 /bin/bunzip2" ${_logfile}
+    build "+ ln -sv bzip2 /bin/bzcat" "ln -sv bzip2 /bin/bzcat" ${_logfile}
+
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
+}
+
+pkg_config() {
+    local   _pkgname="pkg_config"
+    local   _pkgver="0.29.2"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
+    > ${_logfile}
+    build " Clean build directory" 'rm -rf BUILD/*' ${_logfile}
+    build " Change directory: BUILD" "pushd BUILD" ${_logfile}
+    unpack "${PWD}" "${_pkgname}-${_pkgver}"
+    build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+
+
+    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    build " Change directory: ../build" "pushd ../build" ${_logfile}
+    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr --with-internal-glib --disable-host-too --docdir=/usr/share/doc/pkg-config-0.29.2" "./configure --prefix=/usr --with-internal-glib --disable-host-too --docdir=/usr/share/doc/pkg-config-0.29.2" ${_logfile}
+    build "+ make" "make" ${_logfile}
+    build "+ make check" "make check" ${_logfile}
+    build "+ make install" "make install" ${_logfile}
+
+
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
+}
+
+ncurses() {
+    local   _pkgname="ncurses"
+    local   _pkgver="6.1"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
+    > ${_logfile}
+    build " Clean build directory" 'rm -rf BUILD/*' ${_logfile}
+    build " Change directory: BUILD" "pushd BUILD" ${_logfile}
+    unpack "${PWD}" "${_pkgname}-${_pkgver}"
+    build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+    build "+ sed -i '/LIBTOOL_INSTALL/d' c++/Makefile.in" "sed -i '/LIBTOOL_INSTALL/d' c++/Makefile.in" ${_logfile}
+
+    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    build " Change directory: ../build" "pushd ../build" ${_logfile}
+    build "+ ./configure --prefix=/usr --mandir=/usr/share/man --with-shared --without-debug --without-normal --enable-pc-files --enable-widec" "./configure --prefix=/usr --mandir=/usr/share/man --with-shared --without-debug --without-normal --enable-pc-files --enable-widec" ${_logfile}
+    build "+ make" "make" ${_logfile}
+
+    build "+ make install" "make install" ${_logfile}
+    build "+ mv -v /usr/lib/libncursesw.so.6* /lib" "mv -v /usr/lib/libncursesw.so.6* /lib" ${_logfile}
+    build "+ ln -sfv ../../lib/$(readlink /usr/lib/libncursesw.so) /usr/lib/libncursesw.so" "ln -sfv ../../lib/$(readlink /usr/lib/libncursesw.so) /usr/lib/libncursesw.so" ${_logfile}
+    for lib in ncurses form panel menu ; do
+        build "+ rm -vf /usr/lib/lib${lib}.so" "rm -vf /usr/lib/lib${lib}.so" ${_logfile}
+        build "+ echo 'INPUT(-l${lib}w)' > /usr/lib/lib${lib}.so" "echo 'INPUT(-l${lib}w)' > /usr/lib/lib${lib}.so" ${_logfile}
+        build "+ ln -sfv ${lib}w.pc /usr/lib/pkgconfig/${lib}.pc" "ln -sfv ${lib}w.pc /usr/lib/pkgconfig/${lib}.pc" ${_logfile}
+    done
+    build "+ rm -vf                     /usr/lib/libcursesw.so" "rm -vf                     /usr/lib/libcursesw.so" ${_logfile}
+    build "+ echo 'INPUT(-lncursesw)' > /usr/lib/libcursesw.so" "echo 'INPUT(-lncursesw)' > /usr/lib/libcursesw.so" ${_logfile}
+    build "+ ln -sfv libncurses.so      /usr/lib/libcurses.so" "ln -sfv libncurses.so      /usr/lib/libcurses.so" ${_logfile}
+    build "+ mkdir -v       /usr/share/doc/ncurses-6.1" "mkdir -v       /usr/share/doc/ncurses-6.1" ${_logfile}
+    build "+ cp -v -R doc/* /usr/share/doc/ncurses-6.1" "cp -v -R doc/* /usr/share/doc/ncurses-6.1" ${_logfile}
+
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
+}
 
 # Build all packages from shell scripts
 
@@ -655,8 +759,8 @@ binutils
 gmp
 mpfr
 mpc
-gcc
-bzip2
+gcc_build
+bzip2_build
 pkg_config
 ncurses
 attr
