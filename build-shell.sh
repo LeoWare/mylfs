@@ -742,7 +742,7 @@ ncurses() {
     return 0
 }
 
-attr() {
+attr_build() {
     local   _pkgname="attr"
     local   _pkgver="2.4.47"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
@@ -831,7 +831,7 @@ libcap() {
     return 0
 }
 
-sed() {
+sed_build() {
     local   _pkgname="sed"
     local   _pkgver="4.4"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
@@ -947,7 +947,7 @@ iana_etc_2() {
 }
 
 
-bison() {
+bison_build() {
     local   _pkgname="bison"
     local   _pkgver="3.0.4"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
@@ -975,7 +975,7 @@ bison() {
     return 0
 }
 
-flex() {
+flex_build() {
     local   _pkgname="flex"
     local   _pkgver="2.6.4"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
@@ -1003,7 +1003,7 @@ flex() {
     return 0
 }
 
-grep() {
+grep_build() {
     local   _pkgname="grep"
     local   _pkgver="3.1"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
@@ -1031,7 +1031,7 @@ grep() {
     return 0
 }
 
-bash() {
+bash_build() {
     local   _pkgname="bash"
     local   _pkgver="4.4.18"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
@@ -1193,7 +1193,7 @@ inetutils() {
     return 0
 }
 
-perl() {
+perl_build() {
     local   _pkgname="perl"
     local   _pkgver="5.26.1"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
@@ -1266,7 +1266,7 @@ intltool() {
     return 0
 }
 
-autoconf() {
+autoconf_build() {
     local   _pkgname="autoconf"
     local   _pkgver="2.69"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
@@ -1293,7 +1293,7 @@ autoconf() {
     return 0
 }
 
-automake() {
+automake_build() {
     local   _pkgname="automake"
     local   _pkgver="1.15.1"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
@@ -1320,7 +1320,7 @@ automake() {
     return 0
 }
 
-xz() {
+xz_build() {
     local   _pkgname="xz"
     local   _pkgver="5.2.3"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
@@ -1349,7 +1349,7 @@ xz() {
     return 0
 }
 
-kmod() {
+kmod_build() {
     local   _pkgname="kmod"
     local   _pkgver="25"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
@@ -1379,7 +1379,7 @@ kmod() {
     return 0
 }
 
-gettext() {
+gettext_build() {
     local   _pkgname="gettext"
     local   _pkgver="0.19.8.1"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
@@ -1461,7 +1461,7 @@ libffi() {
     return 0
 }
 
-openssl() {
+openssl_build() {
     local   _pkgname="openssl"
     local   _pkgver="1.1.0g"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
@@ -1538,7 +1538,7 @@ gcc_build
 bzip2_build
 pkg_config
 ncurses
-attr
+attr_build
 acl
 libcap
 sed_build
@@ -1546,26 +1546,26 @@ shadow
 # set root password
 psmisc
 iana_etc_2
-bison
-flex
+bison_build
+flex_build
 grep_build
-bash
+bash_build
 libtool
 gdbm
 gperf
 expat
 inetutils
-perl
+perl_build
 xml_parser
 intltool
-autoconf
-automake
-xz
-kmod
-gettext
+autoconf_build
+automake_build
+xz_build
+kmod_build
+gettext_build
 libelf
 libiffi
-openssl
+openssl_build
 python3_build
 ninja
 meson
