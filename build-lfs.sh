@@ -57,9 +57,10 @@ else
 fi
 
 # Change ownership of $LFS to root
-msg_line "Change ownership of ${LFS} to root: "
-build "chown -R 0:0 ${LFS}/*" "chown -R 0:0 ${LFS}/*" "${LOGDIR}/change_ownership.completed"
-msg_success
+if [ ! -e ${LOGDIR}/change_ownership.completed ]; then
+	msg_line "Change ownership of ${LFS} to root: "
+	build "chown -R 0:0 ${LFS}/*" "chown -R 0:0 ${LFS}/*" "${LOGDIR}/change_ownership.completed"
+fi
 
 # Mount kernel filesystems
 msg_line "Mounting kernel virtual filesystems: "

@@ -757,17 +757,17 @@ attr_build() {
     build "+ sed -i -e \"/SUBDIRS/s|man[25]||g\" man/Makefile" "sed -i -e \"/SUBDIRS/s|man[25]||g\" man/Makefile" ${_logfile}
     build "+ sed -i 's:{(:\\{(:' test/run" "sed -i 's:{(:\\{(:' test/run" ${_logfile}
 
-    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
-    build " Change directory: ../build" "pushd ../build" ${_logfile}
+    #build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    #build " Change directory: ../build" "pushd ../build" ${_logfile}
     build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-static" "../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-static" ${_logfile}
     build "+ make" "make" ${_logfile}
-    build "+ make -j1 tests root-tests" "make -j1 tests root-tests" ${_logfile}
+    #build "+ make -j1 tests root-tests" "make -j1 tests root-tests" ${_logfile}
     build "+ make install install-dev install-lib" "make install install-dev install-lib" ${_logfile}
     build "+ chmod -v 755 /usr/lib/libattr.so" "chmod -v 755 /usr/lib/libattr.so" ${_logfile}
     build "+ mv -v /usr/lib/libattr.so.* /lib" "mv -v /usr/lib/libattr.so.* /lib" ${_logfile}
     build "+ ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so" "ln -sfv ../../lib/$(readlink /usr/lib/libattr.so) /usr/lib/libattr.so" ${_logfile}
 
-    build " Restore directory" "popd " /dev/null
+    #build " Restore directory" "popd " /dev/null
     build " Restore directory" "popd " /dev/null
     build " Restore directory" "popd " /dev/null
     >  ${_complete}
@@ -790,8 +790,8 @@ acl() {
     build "+ sed -i 's/{(/\\{(/' test/run" "sed -i 's/{(/\\{(/' test/run" ${_logfile}
     build "+ sed -i -e \"/TABS-1;/a if (x > (TABS-1)) x = (TABS-1);\" libacl/__acl_to_any_text.c" "sed -i -e \"/TABS-1;/a if (x > (TABS-1)) x = (TABS-1);\" libacl/__acl_to_any_text.c" ${_logfile}
 
-    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
-    build " Change directory: ../build" "pushd ../build" ${_logfile}
+    #build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    #build " Change directory: ../build" "pushd ../build" ${_logfile}
     build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-static --libexecdir=/usr/lib" "../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-static --libexecdir=/usr/lib" ${_logfile}
     build "+ make" "make" ${_logfile}
 
@@ -800,7 +800,7 @@ acl() {
     build "+ mv -v /usr/lib/libacl.so.* /lib" "mv -v /usr/lib/libacl.so.* /lib" ${_logfile}
     build "+ ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so" "ln -sfv ../../lib/$(readlink /usr/lib/libacl.so) /usr/lib/libacl.so" ${_logfile}
 
-    build " Restore directory" "popd " /dev/null
+    #build " Restore directory" "popd " /dev/null
     build " Restore directory" "popd " /dev/null
     build " Restore directory" "popd " /dev/null
     >  ${_complete}
@@ -1014,11 +1014,9 @@ grep_build() {
     build " Change directory: BUILD" "pushd BUILD" ${_logfile}
     unpack "${PWD}" "${_pkgname}-${_pkgver}"
     build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
-    build "+ sed -i \"/math.h/a #include <malloc.h>\" src/flexdef.h" "sed -i \"/math.h/a #include <malloc.h>\" src/flexdef.h" ${_logfile}
-
     build " Create work directory" "install -vdm 755 ../build" ${_logfile}
     build " Change directory: ../build" "pushd ../build" ${_logfile}
-    build "+ ../${_pkgname}-${_pkgver}configure --prefix=/usr --bindir=/bin" "../${_pkgname}-${_pkgver}configure --prefix=/usr --bindir=/bin" ${_logfile}
+    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr --bindir=/bin" "../${_pkgname}-${_pkgver}/configure --prefix=/usr --bindir=/bin" ${_logfile}
     build "+ make" "make" ${_logfile}
     build "+ make check" "make check" ${_logfile}
     build "+ make install" "make install" ${_logfile}
@@ -1390,7 +1388,7 @@ gettext_build() {
     build " Change directory: BUILD" "pushd BUILD" ${_logfile}
     unpack "${PWD}" "${_pkgname}-${_pkgver}"
     build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
-    build "+ sed -i '/^TESTS =/d' gettext-runtime/tests/Makefile.in &&" "sed -i '/^TESTS =/d' gettext-runtime/tests/Makefile.in &&" ${_logfile}
+    build "+ sed -i '/^TESTS =/d' gettext-runtime/tests/Makefile.in" "sed -i '/^TESTS =/d' gettext-runtime/tests/Makefile.in" ${_logfile}
     build "+ sed -i 's/test-lock..EXEEXT.//' gettext-tools/gnulib-tests/Makefile.in" "sed -i 's/test-lock..EXEEXT.//' gettext-tools/gnulib-tests/Makefile.in" ${_logfile}
     build " Create work directory" "install -vdm 755 ../build" ${_logfile}
     build " Change directory: ../build" "pushd ../build" ${_logfile}
@@ -1408,7 +1406,7 @@ gettext_build() {
 }
 
 libelf() {
-    local   _pkgname="libelf"
+    local   _pkgname="elfutils"
     local   _pkgver="0.170"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
     local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
@@ -1425,7 +1423,7 @@ libelf() {
     build "+ make" "make" ${_logfile}
 
     build "+ make -C libelf install" "make -C libelf install" ${_logfile}
-    build "+ install -vm644 ../${_pkgname}-${_pkgver}/config/libelf.pc /usr/lib/pkgconfig" "install -vm644 ../${_pkgname}-${_pkgver}/config/libelf.pc /usr/lib/pkgconfig" ${_logfile}
+    build "+ install -vm644 ./config/libelf.pc /usr/lib/pkgconfig" "install -vm644 ../${_pkgname}-${_pkgver}/config/libelf.pc /usr/lib/pkgconfig" ${_logfile}
 
     build " Restore directory" "popd " /dev/null
     build " Restore directory" "popd " /dev/null
@@ -1452,7 +1450,7 @@ libffi() {
     build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-static" "../${_pkgname}-${_pkgver}/configure --prefix=/usr --disable-static" ${_logfile}
     build "+ make" "make" ${_logfile}
     build "+ make check" "make check" ${_logfile}
-    build "+ make -C libelf install" "make -C libelf install" ${_logfile}
+    build "+ make install" "make install" ${_logfile}
 
     build " Restore directory" "popd " /dev/null
     build " Restore directory" "popd " /dev/null
@@ -1475,9 +1473,8 @@ openssl_build() {
 
     build " Create work directory" "install -vdm 755 ../build" ${_logfile}
     build " Change directory: ../build" "pushd ../build" ${_logfile}
-    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic" "../${_pkgname}-${_pkgver}/configure --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic" ${_logfile}
+    build "+ ../${_pkgname}-${_pkgver}/config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic" "../${_pkgname}-${_pkgver}/config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic" ${_logfile}
     build "+ make" "make" ${_logfile}
-    build "+ make check" "make check" ${_logfile}
     build "+ sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile" "sed -i '/INSTALL_LIBS/s/libcrypto.a libssl.a//' Makefile" ${_logfile}
     build "+ make MANSUFFIX=ssl install" "make MANSUFFIX=ssl install" ${_logfile}
     build "+ mv -v /usr/share/doc/openssl /usr/share/doc/${_pkgname}-${_pkgver}" "mv -v /usr/share/doc/openssl /usr/share/doc/${_pkgname}-${_pkgver}" ${_logfile}
@@ -1564,7 +1561,7 @@ xz_build
 kmod_build
 gettext_build
 libelf
-libiffi
+libffi
 openssl_build
 python3_build
 ninja
