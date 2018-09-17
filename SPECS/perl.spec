@@ -9,6 +9,24 @@ Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://www.cpan.org/src/5.0/%{name}-%{version}.tar.xz
 BuildRequires:	inetutils
+Provides:	perl = 0:5.00405
+Provides:	perl = 1:5
+Provides:	perl = 1:5.0
+Provides:	perl = 1:5.024
+Provides:	perl = 1:5.6
+Provides:	perl = 1:5.8.0
+Provides:	perl = 0:5.003000
+Provides:	perl = 0:5.00503
+Provides:	perl = 0:5.006001
+Provides:	perl = 0:5.006002
+Provides:	perl = 0:5.007003
+Provides:	perl = 0:5.008001
+Provides:	perl = 0:5.009001
+Provides:	perl = 0:5.009004
+Provides:	perl = 0:5.009005
+Provides:	perl = 1:5.010001
+Provides:	perl = 1:5.010_000
+
 %description
 	The Perl package contains the Practical Extraction and Report Language.
 #-----------------------------------------------------------------------------

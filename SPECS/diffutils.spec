@@ -8,7 +8,7 @@ URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu/diffutils/%{name}-%{version}.tar.xz
-BuildRequires:	check
+BuildRequires:	coreutils
 %description
 	The Diffutils package contains programs that show the differences between files or directories.
 #-----------------------------------------------------------------------------

@@ -8,7 +8,7 @@ URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source:		%{name}-%{version}.tar.gz
-BuildRequires:	coreutils
+BuildRequires:	gawk
 %description
 	Check is a unit testing framework for C.
 #-----------------------------------------------------------------------------

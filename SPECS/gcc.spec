@@ -9,6 +9,10 @@ Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}/%{name}-%{version}.tar.xz
 BuildRequires:	mpc
+Provides:	libgcc_s.so.1()(64bit)
+Provides:	libgcc_s.so.1(GCC_3.0)(64bit)
+Provides:	libgcc_s.so.1(GCC_3.3)(64bit)
+Provides:	libgcc_s.so.1(GCC_4.2.0)(64bit)
 %description
 			The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
 #-----------------------------------------------------------------------------

@@ -9,6 +9,7 @@ Group:		LFS/BASE
 Vendor:		Octothorpe
 Source0:	http://ftp.rpm.org/releases/rpm-4.14.x/%{name}-%{version}.tar.bz2
 Source1:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
+Source2:	macros
 BuildRequires:	popt
 %description
 	Package manager
@@ -35,6 +36,8 @@ sed -i 's/--srcdir=$db_dist/--srcdir=$db_dist --with-pic/' db3/configure
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
+	install -vdm 755	%{buildroot}/etc/rpm
+	install -vm  644	%{_sourcedir}/macros %{buildroot}/etc/rpm
 #-----------------------------------------------------------------------------
 #	Copy license/copying file 
 	install -D -m644 COPYING %{buildroot}%{_datarootdir}/licenses/%{name}-%{version}/COPYING

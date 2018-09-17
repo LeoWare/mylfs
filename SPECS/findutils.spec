@@ -8,7 +8,7 @@ URL:		Any
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu/findutils/%{name}-%{version}.tar.gz
-BuildRequires:	gawk
+BuildRequires:	check
 %description
 	The Findutils package contains programs to find files. These programs
 	are provided to recursively search through a directory tree and to

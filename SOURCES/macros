@@ -1,0 +1,17 @@
+#
+#	System settings
+#
+%_topdir			/usr/src/LFS-RPM
+%_prefix			/usr
+%_lib				/lib
+%_libdir			/usr/lib
+%_lib64				/lib64
+%_libdir64			/usr/lib64
+%_var				/var
+%_sharedstatedir	/var/lib
+%_localstatedir		/var
+%_docdir			%{_prefix}/share/doc
+%_tmppath	/var/tmp
+%_dbpath	/var/lib/rpm
+#	Do not compress man or info files - breaks file list
+%_build_id_links	none

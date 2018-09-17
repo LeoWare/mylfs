@@ -95,9 +95,9 @@ meson.spec
 procps-ng.spec
 e2fsprogs.spec
 coreutils.spec
-check.spec
 diffutils.spec
 gawk.spec
+check.spec
 findutils.spec
 groff.spec
 grub.spec
