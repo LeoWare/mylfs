@@ -335,6 +335,7 @@ _setup_user() {
 [ -z ${PARENT} ]		&& { echo "${PRGNAME}: PARENT: not set";exit 1; }
 [ -z ${LOGFILE} ]		&& { echo "${PRGNAME}: LOGFILE: not set";exit 1; }
 [ -x /usr/bin/getent ]		|| { echo "${PRGNAME}: getent: missing: can not continue";exit 1; }
+if [ ! mountpoint ${LFS} > /dev/null 2>&1 ]; then die "Hey ${LFS} is not mounted"; fi
 _setup_directories		#	Setup directories
 _copy_source			#	Copy build system to $LFS
 _wget_list			#	Create wget list
