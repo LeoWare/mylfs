@@ -1487,7 +1487,7 @@ openssl_build() {
 }
 
 python3_build() {
-    local   _pkgname="python"
+    local   _pkgname="Python"
     local   _pkgver="3.6.4"
     local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
     local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
@@ -1514,6 +1514,251 @@ python3_build() {
     return 0
 }
 
+ninja() {
+    local   _pkgname="ninja"
+    local   _pkgver="1.8.2"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
+    > ${_logfile}
+    build " Clean build directory" 'rm -rf BUILD/*' ${_logfile}
+    build " Change directory: BUILD" "pushd BUILD" ${_logfile}
+    unpack "${PWD}" "${_pkgname}-${_pkgver}"
+    build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+    build "+ export NINJAJOBS=4" "export NINJAJOBS=4" ${_logfile}
+    build "+ patch -Np1 -i ../ninja-1.8.2-add_NINJAJOBS_var-1.patch" "patch -Np1 -i ../ninja-1.8.2-add_NINJAJOBS_var-1.patch" ${_logfile}
+    build "+ python3 configure.py --bootstrap" "python3 configure.py --bootstrap" ${_logfile}
+    #build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    #build " Change directory: ../build" "pushd ../build" ${_logfile}
+
+    build "+ python3 configure.py" "python3 configure.py" ${_logfile}
+    build "+ ./ninja ninja_test" "./ninja ninja_test" ${_logfile}
+    build "+ ./ninja_test --gtest_filter=-SubprocessTest.SetWithLots" "./ninja_test --gtest_filter=-SubprocessTest.SetWithLots" ${_logfile}
+    build "+ install -vm755 ninja /usr/bin/" "install -vm755 ninja /usr/bin/" ${_logfile}
+    build "+ install -vDm644 misc/bash-completion /usr/share/bash-completion/completions/ninja" "install -vDm644 misc/bash-completion /usr/share/bash-completion/completions/ninja" ${_logfile}
+    build "+ install -vDm644 misc/zsh-completion  /usr/share/zsh/site-functions/_ninja" "install -vDm644 misc/zsh-completion  /usr/share/zsh/site-functions/_ninja" ${_logfile}
+
+    #build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
+}
+
+meson() {
+    local   _pkgname="meson"
+    local   _pkgver="0.44.0"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
+    > ${_logfile}
+    build " Clean build directory" 'rm -rf BUILD/*' ${_logfile}
+    build " Change directory: BUILD" "pushd BUILD" ${_logfile}
+    unpack "${PWD}" "${_pkgname}-${_pkgver}"
+    build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+    build "+ python3 setup.py build" "python3 setup.py build" ${_logfile}
+    #build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    #build " Change directory: ../build" "pushd ../build" ${_logfile}
+
+
+    build "+ python3 setup.py install" "python3 setup.py install" ${_logfile}
+
+    #build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
+}
+
+systemd() {
+    local   _pkgname="systemd"
+    local   _pkgver="237"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
+    > ${_logfile}
+    build " Clean build directory" 'rm -rf BUILD/*' ${_logfile}
+    build " Change directory: BUILD" "pushd BUILD" ${_logfile}
+    unpack "${PWD}" "${_pkgname}-${_pkgver}"
+    build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+    build "+ ln -sf /tools/bin/true /usr/bin/xsltproc" "ln -sf /tools/bin/true /usr/bin/xsltproc" ${_logfile}
+    build "+ tar -xf ../../SOURCES/systemd-man-pages-237.tar.xz" "tar -xf ../../SOURCES/systemd-man-pages-237.tar.xz" ${_logfile}
+    build "+ sed '178,222d' -i src/resolve/meson.build" "sed '178,222d' -i src/resolve/meson.build" ${_logfile}
+    build "+ sed -i 's/GROUP=\"render\", //' rules/50-udev-default.rules.in" "sed -i 's/GROUP=\"render\", //' rules/50-udev-default.rules.in" ${_logfile}
+    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    build " Change directory: ../build" "pushd ../build" ${_logfile}
+    #build "+ LANG=en_US.UTF-8 meson --prefix=/usr --sysconfdir=/etc --localstatedir=/var -Dblkid=true -Dbuildtype=release -Ddefault-dnssec=no -Dfirstboot=false -Dinstall-tests=false -Dkill-path=/bin/kill -Dkmod-path=/bin/kmod -Dldconfig=false -Dmount-path=/bin/mount -Drootprefix= -Drootlibdir=/lib -Dsplit-usr=true -Dsulogin-path=/sbin/sulogin -Dsysusers=false -Dumount-path=/bin/umount -Db_lto=false ../${_pkgname}-${_pkgver}" "LANG=en_US.UTF-8 meson --prefix=/usr --sysconfdir=/etc --localstatedir=/var -Dblkid=true -Dbuildtype=release -Ddefault-dnssec=no -Dfirstboot=false -Dinstall-tests=false -Dkill-path=/bin/kill -Dkmod-path=/bin/kmod -Dldconfig=false -Dmount-path=/bin/mount -Drootprefix= -Drootlibdir=/lib -Dsplit-usr=true -Dsulogin-path=/sbin/sulogin -Dsysusers=false -Dumount-path=/bin/umount -Db_lto=false ../${_pkgname}-${_pkgver}" ${_logfile}
+    #build "+ LANG=en_US.UTF-8 ninja" "LANG=en_US.UTF-8 ninja" ${_logfile}
+
+    build "+ LANG=en_US.UTF-8 ninja install" "LANG=en_US.UTF-8 ninja install" ${_logfile}
+    build "+ rm -rfv /usr/lib/rpm" "rm -rfv /usr/lib/rpm" ${_logfile}
+    for tool in runlevel reboot shutdown poweroff halt telinit; do
+        build "+ ln -sfv ../bin/systemctl /sbin/${tool}" "ln -sfv ../bin/systemctl /sbin/${tool}" ${_logfile}
+    done
+    build "+ ln -sfv ../lib/systemd/systemd /sbin/init" "ln -sfv ../lib/systemd/systemd /sbin/init" ${_logfile}
+    build "+ rm -f /usr/bin/xsltproc" "rm -f /usr/bin/xsltproc" ${_logfile}
+    build "+ systemd-machine-id-setup" "systemd-machine-id-setup" ${_logfile}
+    msg_line "Creating /lib/systemd/systemd-user-sessions"
+    cat > /lib/systemd/systemd-user-sessions << "EOF"
+    #!/bin/bash
+    rm -f /run/nologin
+    EOF
+    msg_success
+    build "+ chmod 755 /lib/systemd/systemd-user-sessions" "chmod 755 /lib/systemd/systemd-user-sessions" ${_logfile}
+    #build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
+}
+
+procps-ng() {
+    local   _pkgname="procps-ng"
+    local   _pkgver="3.3.12"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
+    > ${_logfile}
+    build " Clean build directory" 'rm -rf BUILD/*' ${_logfile}
+    build " Change directory: BUILD" "pushd BUILD" ${_logfile}
+    unpack "${PWD}" "${_pkgname}-${_pkgver}"
+    build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+
+    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    build " Change directory: ../build" "pushd ../build" ${_logfile}
+    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr --exec-prefix= --libdir=/usr/lib --docdir=/usr/share/doc/${_pkgname}-${_pkgver} --disable-static --disable-kill --with-systemd" "../${_pkgname}-${_pkgver}/configure --prefix=/usr --exec-prefix= --libdir=/usr/lib --docdir=/usr/share/doc/${_pkgname}-${_pkgver} --disable-static --disable-kill --with-systemd" ${_logfile}
+    build "+ make" "make" ${_logfile}
+    #build "+ sed -i -r 's|(pmap_initname)\\\$|\1|' testsuite/pmap.test/pmap.exp" "sed -i -r 's|(pmap_initname)\\\$|\1|' testsuite/pmap.test/pmap.exp" ${_logfile}
+    #build "+ sed -i '/set tty/d' testsuite/pkill.test/pkill.exp" "sed -i '/set tty/d' testsuite/pkill.test/pkill.exp" ${_logfile}
+    #build "+ rm testsuite/pgrep.test/pgrep.exp" "rm testsuite/pgrep.test/pgrep.exp" ${_logfile}
+    #build "+ make check" "make check" ${_logfile}
+    build "+ make install" "make install" ${_logfile}
+    build "+ mv -v /usr/lib/libprocps.so.* /lib" "mv -v /usr/lib/libprocps.so.* /lib" ${_logfile}
+    build "+ ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so" "ln -sfv ../../lib/$(readlink /usr/lib/libprocps.so) /usr/lib/libprocps.so" ${_logfile}
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
+}
+
+e2fsprogs() {
+    local   _pkgname="e2fsprogs"
+    local   _pkgver="1.43.9"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
+    > ${_logfile}
+    build " Clean build directory" 'rm -rf BUILD/*' ${_logfile}
+    build " Change directory: BUILD" "pushd BUILD" ${_logfile}
+    unpack "${PWD}" "${_pkgname}-${_pkgver}"
+    build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+
+    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    build " Change directory: ../build" "pushd ../build" ${_logfile}
+    build "+ LIBS=-L/tools/lib CFLAGS=-I/tools/include PKG_CONFIG_PATH=/tools/lib/pkgconfig ../${_pkgname}-${_pkgver}/configure --prefix=/usr --bindir=/bin --with-root-prefix="" --enable-elf-shlibs --disable-libblkid --disable-libuuid --disable-uuidd --disable-fsck" "LIBS=-L/tools/lib CFLAGS=-I/tools/include PKG_CONFIG_PATH=/tools/lib/pkgconfig ../${_pkgname}-${_pkgver}/configure --prefix=/usr --bindir=/bin --with-root-prefix="" --enable-elf-shlibs --disable-libblkid --disable-libuuid --disable-uuidd --disable-fsck" ${_logfile}
+    build "+ make" "make" ${_logfile}
+    build "+ ln -sfv /tools/lib/lib{blk,uu}id.so.1 lib" "ln -sfv /tools/lib/lib{blk,uu}id.so.1 lib" ${_logfile}
+    build "+ make LD_LIBRARY_PATH=/tools/lib check" "make LD_LIBRARY_PATH=/tools/lib check" ${_logfile}
+    build "+ make install" "make install" ${_logfile}
+    build "+ make instal-libs" "make instal-libs" ${_logfile}
+    build "+ chmod -v u+w /usr/lib/{libcom_err,libe2p,libext2fs,libss}.a" "chmod -v u+w /usr/lib/{libcom_err,libe2p,libext2fs,libss}.a" ${_logfile}
+    build "+ gunzip -v /usr/share/info/libext2fs.info.gz" "gunzip -v /usr/share/info/libext2fs.info.gz" ${_logfile}
+    build "+ install-info --dir-file=/usr/share/info/dir /usr/share/info/libext2fs.info" "install-info --dir-file=/usr/share/info/dir /usr/share/info/libext2fs.info" ${_logfile}
+    build "+ makeinfo -o      doc/com_err.info ../lib/et/com_err.texinfo" "makeinfo -o      doc/com_err.info ../lib/et/com_err.texinfo" ${_logfile}
+    build "+ install -v -m644 doc/com_err.info /usr/share/info" "install -v -m644 doc/com_err.info /usr/share/info" ${_logfile}
+    build "+ install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info" "install-info --dir-file=/usr/share/info/dir /usr/share/info/com_err.info" ${_logfile}
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
+}
+
+coreutils() {
+    local   _pkgname="coreutils"
+    local   _pkgver="8.29"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
+    > ${_logfile}
+    build " Clean build directory" 'rm -rf BUILD/*' ${_logfile}
+    build " Change directory: BUILD" "pushd BUILD" ${_logfile}
+    unpack "${PWD}" "${_pkgname}-${_pkgver}"
+    build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+    build "+ patch -Np1 -i ../../SOURCES/coreutils-8.29-i18n-1.patch" "patch -Np1 -i ../../SOURCES/coreutils-8.29-i18n-1.patch" ${_logfile}
+    build "+ sed -i '/test.lock/s/^/#/' gnulib-tests/gnulib.mk" "sed -i '/test.lock/s/^/#/' gnulib-tests/gnulib.mk" ${_logfile}
+    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    build " Change directory: ../build" "pushd ../build" ${_logfile}
+    build "+ FORCE_UNSAFE_CONFIGURE=1 ../${_pkgname}-${_pkgver}/configure --prefix=/usr --enable-no-install-program=kill,uptime" "FORCE_UNSAFE_CONFIGURE=1 ../${_pkgname}-${_pkgver}/configure --prefix=/usr --enable-no-install-program=kill,uptime" ${_logfile}
+    build "+ FORCE_UNSAFE_CONFIGURE=1 make" "FORCE_UNSAFE_CONFIGURE=1 make" ${_logfile}
+
+    build "+ make install" "make install" ${_logfile}
+    build "+ mv -v /usr/bin/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} /bin" "mv -v /usr/bin/{cat,chgrp,chmod,chown,cp,date,dd,df,echo} /bin" ${_logfile}
+    build "+ mv -v /usr/bin/{false,ln,ls,mkdir,mknod,mv,pwd,rm} /bin" "mv -v /usr/bin/{false,ln,ls,mkdir,mknod,mv,pwd,rm} /bin" ${_logfile}
+    build "+ mv -v /usr/bin/{rmdir,stty,sync,true,uname} /bin" "mv -v /usr/bin/{rmdir,stty,sync,true,uname} /bin" ${_logfile}
+    build "+ mv -v /usr/bin/chroot /usr/sbin" "mv -v /usr/bin/chroot /usr/sbin" ${_logfile}
+    build "+ mv -v /usr/share/man/man1/chroot.1 /usr/share/man/man8/chroot.8" "mv -v /usr/share/man/man1/chroot.1 /usr/share/man/man8/chroot.8" ${_logfile}
+    build "+ sed -i s/\\"1\\"/\\"8\\"/1 /usr/share/man/man8/chroot.8" "sed -i s/\\"1\\"/\\"8\\"/1 /usr/share/man/man8/chroot.8" ${_logfile}
+    build "+ mv -v /usr/bin/{head,sleep,nice} /bin" "mv -v /usr/bin/{head,sleep,nice} /bin" ${_logfile}
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
+}
+
+check() {
+    local   _pkgname="check"
+    local   _pkgver="0.12.0"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
+    > ${_logfile}
+    build " Clean build directory" 'rm -rf BUILD/*' ${_logfile}
+    build " Change directory: BUILD" "pushd BUILD" ${_logfile}
+    unpack "${PWD}" "${_pkgname}-${_pkgver}"
+    build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+
+    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    build " Change directory: ../build" "pushd ../build" ${_logfile}
+    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr" "../${_pkgname}-${_pkgver}/configure --prefix=/usr" ${_logfile}
+    build "+ make" "make" ${_logfile}
+    #build "+ make check" "make check" ${_logfile}
+    build "+ make installl" "make installl" ${_logfile}
+
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
+}
+
+diffutils() {
+    local   _pkgname="diffutils"
+    local   _pkgver="3.6"
+    local   _complete="${PWD}/LOGS/${FUNCNAME}.completed"
+    local   _logfile="${PWD}/LOGS/${FUNCNAME}.log"
+    [ -e ${_complete} ] && { msg "${FUNCNAME}: SKIPPING";return 0; } || msg "${FUNCNAME}: ${_pkgname} ${_pkgver}: Building"
+    > ${_logfile}
+    build " Clean build directory" 'rm -rf BUILD/*' ${_logfile}
+    build " Change directory: BUILD" "pushd BUILD" ${_logfile}
+    unpack "${PWD}" "${_pkgname}-${_pkgver}"
+    build " Change directory: ${_pkgname}-${_pkgver}" "pushd ${_pkgname}-${_pkgver}" ${_logfile}
+
+    build " Create work directory" "install -vdm 755 ../build" ${_logfile}
+    build " Change directory: ../build" "pushd ../build" ${_logfile}
+    build "+ ../${_pkgname}-${_pkgver}/configure --prefix=/usr" "../${_pkgname}-${_pkgver}/configure --prefix=/usr" ${_logfile}
+    build "+ make" "make" ${_logfile}
+    #build "+ make check" "make check" ${_logfile}
+    build "+ make installl" "make installl" ${_logfile}
+
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    build " Restore directory" "popd " /dev/null
+    >  ${_complete}
+    return 0
+}
 # Build all packages from shell scripts
 
 change_ownership
