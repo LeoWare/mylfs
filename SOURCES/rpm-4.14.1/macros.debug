@@ -1,0 +1,47 @@
+# macros to include to generate debuginfo
+# Note don't define/enable a feature here if it is already the default in
+# macros.in. Otherwise it cannot simply be --undefined on the command line
+# in the tests (it needs to be undefined multiple times then).
+
+%_enable_debug_packages 1
+%_include_minidebuginfo 1
+%_include_gdb_index    	1
+
+# Expanded at end of %install scriptlet
+
+%__arch_install_post %{nil}
+
+%__os_install_post \
+    %{_rpmconfigdir}/brp-compress \
+    %{!?__debug_package:\
+    %{_rpmconfigdir}/brp-strip %{__strip} \
+    %{_rpmconfigdir}/brp-strip-comment-note %{__strip} %{__objdump} \
+    } \
+    %{_rpmconfigdir}/brp-strip-static-archive %{__strip} \
+%{nil}
+
+%__spec_install_post\
+    %{?__debug_package:%{__debug_install_post}}\
+    %{__arch_install_post}\
+    %{__os_install_post}\
+%{nil}
+
+%install %{?_enable_debug_packages:%{?buildsubdir:%{debug_package}}}\
+%%install\
+%{nil}
+
+# Should missing buildids terminate a build?
+%_missing_build_ids_terminate_build    1
+
+# Number of debugging information entries (DIEs) above which
+# dwz will stop considering file for multifile optimizations
+# and enter a low memory mode, in which it will optimize
+# in about half the memory needed otherwise.
+%_dwz_low_mem_die_limit		 10000000
+# Number of DIEs above which dwz will stop processing
+# a file altogether.
+%_dwz_max_die_limit     	 50000000
+
+%_find_debuginfo_dwz_opts --run-dwz\\\
+   --dwz-low-mem-die-limit %{_dwz_low_mem_die_limit}\\\
+   --dwz-max-die-limit %{_dwz_max_die_limit}

@@ -41,13 +41,13 @@ tools-rpm.spec
 #-----------------------------------------------------------------------------
 Chapter 6 Build Order
 #-----------------------------------------------------------------------------
-filesystem.spec
+filesystem.spec             *
 linux-api-headers.spec
 man-pages.spec
 glibc.spec
 tzdata.spec
-locales.spec
-adjust-tool-chain.spec
+locales.spec                *
+adjust-tool-chain.spec      *
 zlib.spec
 file.spec
 readline.spec
@@ -58,7 +58,7 @@ gmp.spec
 mpfr.spec
 mpc.spec
 gcc.spec
-gcc-test.spec
+gcc-test.spec               *
 bzip2.spec
 pkg-config.spec
 ncurses.spec
@@ -117,12 +117,12 @@ tar.spec
 texinfo.spec
 vim.spec
 lfs-bootscripts.spec
-cpio.spec
-mkinitramfs.spec
+cpio.spec                   B
+mkinitramfs.spec            B
 linux.spec
-popt.spec
-rpm.spec
-wget.spec
-firmware-radeon.spec
-firmware-realtek.spec
-
+popt.spec                   B
+python2			B
+rpm.spec                    *
+wget.spec                   B
+firmware-radeon.spec        B
+firmware-realtek.spec       B

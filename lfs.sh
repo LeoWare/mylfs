@@ -193,15 +193,15 @@ _cleanup() {
 			rpm -e --nodeps ${i} > /dev/null 2>&1 || true
 		done
 		msg_success
-		msg_line "	Removing /tools directory: "
-			rm -rf /tools
-		msg_success
 		msg_line "	Removing Builder helper rpms: "
 			_list+="adjust-tool-chain locales gcc-test "
 		for i in ${_list};do
 			rpm -e --nodeps ${i} > /dev/null 2>&1 || true
 		done
 		msg_success
+		msg_line "	Removing /tools directory: "; rm -rf /tools; msg_success
+#		msg_line "	Removing lfs user: ";	userdel -r lfs
+        msg_success
 		msg_line "	Installing system rpm macro file: "
 		cat > /etc/rpm/macros <<- EOF
 			#

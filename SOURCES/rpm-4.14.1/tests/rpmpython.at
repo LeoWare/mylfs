@@ -1,0 +1,429 @@
+#    rpmpython.at: test rpm python bindings
+#    TODO: conditionalize on python availability
+
+AT_BANNER([Python bindings])
+
+RPMPY_TEST([module import],[
+myprint(rpm.__version__)
+],
+[AT_PACKAGE_VERSION]
+)
+
+RPMPY_TEST([macro manipulation],[
+def prexp(m):
+    myprint(rpm.expandMacro('%%{?%s}' % m))
+
+mname = '__no_such_macro_yet'
+prexp(mname)
+rpm.addMacro(mname, '/bin/sh')
+prexp(mname)
+rpm.addMacro(mname, '/bin/false')
+prexp(mname)
+rpm.delMacro(mname)
+prexp(mname)
+rpm.delMacro(mname)
+prexp(mname)
+],
+[
+/bin/sh
+/bin/false
+/bin/sh
+
+],
+[])
+
+RPMPY_TEST([basic rpmio],[
+msg = 'Killroy was here\n'
+data = msg * 10
+# TODO: test other compression types too if built in
+for iot in [ 'fpio', 'fdio', 'ufdio', 'gzdio' ]:
+    fn = 'pyio.%s' % iot
+    fd = rpm.fd(fn, 'w', iot)
+    pos = fd.tell()
+    if pos != -2 and pos != 0:
+        myprint('bad start pos %d' % fd.tell())
+    if fd.write(data) != len(data):
+        myprint('%s write fail' % iot)
+    if fn != fd.name:
+        myprint('bad file name %s' % fd.name)
+    fd.flush()
+    pos = fd.tell()
+    if pos != -2 and pos != len(data):
+        myprint('bad end pos %d' % fd.tell())
+    fd = rpm.fd(fn, 'r', iot)
+    rdata = fd.read()
+    if rdata != data:
+        myprint('%s read fail (got %d bytes)\n%s' % (iot, len(rdata), rdata))
+    # compressed io types can't seek
+    if iot == 'ufdio':
+        fd.seek(0)
+    else:
+        fd = rpm.fd(fn, 'r', iot)
+    if fn != fd.name:
+        myprint('bad file name %s' % fd.name)
+    rdata = fd.read(len(msg))
+    if rdata != msg:
+        myprint('%s sized read fail (got %d bytes)\n%s' % (iot, len(rdata), rdata))
+],
+[])
+
+RPMPY_TEST([spec parse],[
+# TODO: add a better test spec with sub-packages etc
+spec = rpm.spec('${RPMDATA}/SPECS/hello.spec')
+for (name, num, flags) in spec.sources:
+    myprint('src %s %d %d' % (name, num, flags))
+for pkg in spec.packages:
+    myprint(pkg.header.format('%{nvr}'))
+myprint(spec.sourceHeader.format('%{nvr}'))
+],
+[src hello-1.0-modernize.patch 0 2
+src hello-1.0.tar.gz 0 1
+hello-1.0-1
+hello-1.0-1
+])
+
+RPMPY_TEST([basic header manipulation],[
+h = rpm.hdr()
+h['name'] = 'testpkg'
+h['version'] = '1.0'
+h['release'] = '1'
+h['epoch'] = 5
+h['arch'] = 'noarch'
+myprint(h['nevra'])
+del h['epoch']
+myprint(h['nevra'])
+for a in ['name', 'bugurl', '__class__', '__foo__', ]:
+    try:
+        x = getattr(h, a)
+        myprint(x)
+    except AttributeError, exc:
+        myprint(exc)
+],
+[testpkg-5:1.0-1.noarch
+testpkg-1.0-1.noarch
+testpkg
+None
+<type 'rpm.hdr'>
+'rpm.hdr' object has no attribute '__foo__']
+)
+
+RPMPY_TEST([invalid header data],[
+h1 = rpm.hdr()
+h1['basenames'] = ['bing', 'bang', 'bong']
+h1['dirnames'] = ['/opt/', '/flopt/']
+h1['dirindexes'] = [ 1, 0, 3 ]
+h2 = rpm.hdr()
+h2['basenames'] = ['bing', 'bang', 'bong']
+h2['dirnames'] = ['/opt/', '/flopt/']
+h2['dirindexes'] = [ 0, 0, 1 ]
+for h in [h1, h2]:
+    try:
+        myprint(','.join(h['filenames']))
+    except rpm.error, exc:
+        myprint(exc)
+],
+[invalid header data
+/opt/bing,/opt/bang,/flopt/bong]
+)
+
+RPMPY_TEST([reading a package file],[
+ts = rpm.ts()
+h = ts.hdrFromFdno('${RPMDATA}/RPMS/hello-1.0-1.ppc64.rpm')
+myprint(h['arch'])
+],
+[ppc64]
+)
+
+RPMPY_TEST([reading a signed package file 1],[
+ts = rpm.ts()
+# avoid rpmlog spew with absolute path to package
+sink = open('/dev/null', 'w')
+rpm.setLogFile(sink)
+try:
+    h = ts.hdrFromFdno('${RPMDATA}/RPMS/hello-2.0-1.x86_64-signed.rpm')
+    myprint(h['arch'])
+except rpm.error, e:
+    myprint(e)
+],
+[public key not available
+],
+)
+
+RPMPY_TEST([reading a signed package file 2],[
+
+keydata = open('${RPMDATA}/keys/rpm.org-rsa-2048-test.pub').read()
+pubkey = rpm.pubkey(keydata)
+keyring = rpm.keyring()
+keyring.addKey(pubkey)
+
+ts = rpm.ts()
+ts.setKeyring(keyring)
+try:
+    h = ts.hdrFromFdno('${RPMDATA}/RPMS/hello-2.0-1.x86_64-signed.rpm')
+    myprint(h['arch'])
+except rpm.error, e:
+    myprint(e)
+],
+[x86_64]
+)
+
+RPMPY_TEST([add package to transaction],[
+ts = rpm.ts()
+ts.addInstall('${RPMDATA}/RPMS/foo-1.0-1.noarch.rpm', 'u')
+for e in ts:
+    myprint(e.NEVRA())
+ts.clear()
+for e in ts:
+    myprint(e.NEVRA())
+],
+[foo-1.0-1.noarch]
+)
+
+RPMPY_TEST([add bogus package to transaction 1],[
+ts = rpm.ts()
+h = rpm.hdr()
+h['name'] = "foo"
+try:
+    ts.addInstall(h, 'foo', 'u')
+except rpm.error, err:
+    myprint(err)
+for e in ts:
+    myprint(e.NEVRA())
+],
+[adding package to transaction failed]
+)
+
+RPMPY_TEST([add bogus package to transaction 2],[
+ts = rpm.ts()
+h = rpm.hdr()
+h['name'] = 'foo'
+h['version'] = '1.0'
+h['release'] = '1'
+h['os'] = 'linux'
+h['arch'] = 'noarch'
+h['basenames'] = ['bing', 'bang', 'bong']
+h['dirnames'] = ['/opt' '/flopt']
+h['dirindexes'] = [ 1, 2, 3 ]
+try:
+    ts.addInstall(h, 'foo', 'u')
+except rpm.error, err:
+    myprint(err)
+for e in ts:
+    myprint(e.NEVRA())
+],
+[adding package to transaction failed]
+)
+
+AT_SETUP([database iterators])
+AT_KEYWORDS([python rpmdb])
+AT_CHECK([
+RPMDB_CLEAR
+RPMDB_INIT
+runroot rpm -i \
+  --justdb --nodeps --ignorearch --ignoreos \
+  /data/RPMS/foo-1.0-1.noarch.rpm \
+  /data/RPMS/hello-2.0-1.i686.rpm
+],
+[0],
+[],
+[])
+
+RPMPY_CHECK([
+ts = rpm.ts()
+ix = 0
+mi = ts.dbMatch()
+mi.pattern('name', rpm.RPMMIRE_STRCMP, 'hello')
+for h in mi:
+    ix = h['dbinstance']
+    break
+del mi
+for h in ts.dbMatch('packages', ix):
+    myprint(h['nevra'])
+],
+[hello-2.0-1.i686
+],
+[])
+
+RPMPY_CHECK([
+ts = rpm.ts()
+mi = ts.dbMatch()
+mi.pattern('name', rpm.RPMMIRE_DEFAULT, 'f*')
+for h in mi:
+    myprint(h['nevra'])
+],
+[foo-1.0-1.noarch
+],
+[])
+
+RPMPY_CHECK([
+ts = rpm.ts()
+for h in ts.dbMatch('name'):
+    myprint(h['nevra'])
+],
+[foo-1.0-1.noarch
+hello-2.0-1.i686
+],
+[])
+
+RPMPY_CHECK([
+ts = rpm.ts()
+for h in ts.dbMatch('obsoletes'):
+    myprint(h['nevra'])
+],
+[foo-1.0-1.noarch
+],
+[])
+
+RPMPY_CHECK([
+ts = rpm.ts()
+for h in ts.dbMatch('provides', 'hi'):
+    myprint(h['nevra'])
+],
+[foo-1.0-1.noarch
+],
+[])
+
+RPMPY_CHECK([
+ts = rpm.ts()
+for h in ts.dbMatch('basenames', '/usr/share/doc/hello-2.0/FAQ'):
+    myprint(h['nevra'])
+],
+[hello-2.0-1.i686
+],
+[])
+RPMPY_CHECK([
+ts = rpm.ts()
+for di in sorted(ts.dbIndex('obsoletes')):
+    myprint(di)
+],
+[howdy
+],
+[])
+
+RPMPY_CHECK([
+ts = rpm.ts()
+for di in sorted(ts.dbIndex('provides')):
+    myprint(di)
+],
+[foo
+hello
+hello(x86-32)
+hi
+],
+[])
+AT_CLEANUP
+
+RPMPY_TEST([dependency sets 1],[
+ts = rpm.ts()
+h = ts.hdrFromFdno('${RPMDATA}/RPMS/hello-1.0-1.ppc64.rpm')
+for dep in rpm.ds(h, 'requires'):
+    myprint(dep.DNEVR())
+],
+[R /bin/sh
+R /bin/sh
+R /bin/sh
+R /bin/sh
+R libc.so.6
+R libc.so.6(GLIBC_2.0)
+R rpmlib(CompressedFileNames) <= 3.0.4-1
+R rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+R rtld(GNU_HASH)]
+)
+
+RPMPY_TEST([dependency sets 2],[
+ts = rpm.ts()
+h = ts.hdrFromFdno('${RPMDATA}/RPMS/hello-2.0-1.i686.rpm')
+ds = rpm.ds(h, 'provides')
+myprint('%d %d' % (ds.Instance(), ds.Count()))
+],
+[0 2
+],
+[])
+
+RPMPY_TEST([file info sets 1],[
+ts = rpm.ts()
+h = ts.hdrFromFdno('${RPMDATA}/RPMS/hello-2.0-1.i686.rpm')
+fi = rpm.fi(h)
+myprint(fi.FC())
+for f in fi:
+   myprint('%x: %s' % (fi.FFlags(), fi.FN()))
+],
+[5
+0: /usr/bin/hello
+0: /usr/share/doc/hello-2.0
+2: /usr/share/doc/hello-2.0/COPYING
+2: /usr/share/doc/hello-2.0/FAQ
+2: /usr/share/doc/hello-2.0/README
+],
+[])
+
+RPMPY_TEST([string pool 1],[
+p = rpm.strpool()
+for s in ['foo', 'bar', 'foo', 'zoo']:
+    p.str2id(s)
+myprint('%s' % len(p))
+for i in range(1, len(p)+1):
+    myprint('%s: %s' % (i, p[i]))
+],
+[3
+1: foo
+2: bar
+3: zoo
+],
+[])
+
+RPMPY_TEST([string pool 2],[
+p = rpm.strpool()
+d1 = rpm.ds(('foo', rpm.RPMSENSE_EQUAL, '2.0'), rpm.RPMTAG_PROVIDES, pool=p)
+d2 = rpm.ds(('bar', rpm.RPMSENSE_EQUAL, '2.0'), rpm.RPMTAG_PROVIDES, pool=p)
+d3 = rpm.ds(('bar', rpm.RPMSENSE_EQUAL, '2.0'), rpm.RPMTAG_PROVIDES, pool=p)
+myprint('%s' % len(p))
+del p
+myprint(d1.DNEVR())
+myprint(d2.DNEVR())
+myprint(d3.DNEVR())
+],
+[3
+P foo = 2.0
+P bar = 2.0
+P bar = 2.0
+],
+[])
+
+RPMPY_TEST([archive 1],[
+import hashlib
+ts = rpm.ts()
+fd = rpm.fd.open('${RPMDATA}/SRPMS/hello-1.0-1.src.rpm')
+h = ts.hdrFromFdno(fd)
+payload = rpm.fd.open(fd, flags=h['payloadcompressor'])
+files = rpm.files(h)
+archive = files.archive(payload)
+for f in archive:
+    if not f.fflags & rpm.RPMFILE_SPECFILE:
+        continue
+    spec = archive.read()
+    hash = hashlib.md5(spec)
+    if f.digest != hash.hexdigest():
+        myprint('%s should be %s' % (hash.hexdigest(), f.digest))
+    break
+],
+[],
+[])
+
+RPMPY_TEST([header unload],[
+ts = rpm.ts()
+h = ts.hdrFromFdno('${RPMDATA}/RPMS/hello-2.0-1.i686.rpm')
+# Add some garbage to header to make it non-sorted
+h['installtime'] = 0
+# RhBug:1061730 causes export of non-sorted header to be larger than it should
+len1 = len(h.unload())
+# Accessing the header before export forces sorting to take place even on
+# buggy versions
+t = h['installtime']
+len2 = len(h.unload())
+myprint(len1 == len2)
+],
+[True
+],
+[])
+

@@ -52,14 +52,14 @@ die() {
 }
 #-----------------------------------------------------------------------------
 [ ${EUID} -eq 0 ] || die
-if [ ! mountpoint ${ROOTPATH} > /dev/null 2>&1 ]; then die "Hey ${ROOTPATH} is not mounted"; fi
-install -vdm 755 "${ROOTPATH}/${DBPATH}"
-rpmdb --verbose --initdb --dbpath=${ROOTPATH}/${DBPATH}
+if [ ! /usr/bin/mountpoint ${ROOTPATH} > /dev/null 2>&1 ]; then die "Hey ${ROOTPATH} is not mounted"; fi
+/usr/bin/install -vdm 755 "${ROOTPATH}/${DBPATH}"
+/usr/bin/rpmdb --verbose --initdb --dbpath=${ROOTPATH}/${DBPATH}
 for i in ${LIST}; do
-	rpm --upgrade --nodeps --noscripts --root ${ROOTPATH} --dbpath ${DBPATH} ${REPOPATH}/${i}-[0-9]*-*.*.rpm
-	echo ${i}
+	/bin/rpm --upgrade --nodeps --noscripts --root ${ROOTPATH} --dbpath ${DBPATH} ${REPOPATH}/${i}-[0-9]*-*.*.rpm
+	/bin/echo ${i}
 done
-cat > ${ROOTPATH}/tmp/script.sh <<- EOF
+/bin/cat > ${ROOTPATH}/tmp/script.sh <<- EOF
 	/sbin/ldconfig
 	/sbin/locale-gen.sh
 	/usr/sbin/pwconv
@@ -74,8 +74,8 @@ cat > ${ROOTPATH}/tmp/script.sh <<- EOF
 	/usr/bin/vim /etc/lsb-release
 	/usr/bin/vim /etc/sysconfig/rc.site
 EOF
-chmod +x ${ROOTPATH}/tmp/script.sh
-chroot ${ROOTPATH} /usr/bin/env -i \
+/bin/chmod +x ${ROOTPATH}/tmp/script.sh
+/usr/sbin/chroot ${ROOTPATH} /usr/bin/env -i \
 	HOME=/root \
 	TERM="${TERM}" \
 	PS1='(intsaller) \u:\w:\$' \

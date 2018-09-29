@@ -1,0 +1,52 @@
+LD_LIBRARY_PATH="${abs_builddir}/testing@usrlibdir@"
+export LD_LIBRARY_PATH
+PATH="${abs_builddir}/testing@rpmbindir@:${abs_builddir}/testing@usrbindir@:$PATH"
+export PATH
+
+PYLIBDIR=`python -c "from distutils.sysconfig import get_python_lib; import sys; sys.stdout.write(get_python_lib(1,0,'@execprefix@'))"`
+PYTHONPATH="${abs_builddir}/testing${PYLIBDIR}"
+export PYTHONPATH
+
+RPMTEST="${abs_builddir}/testing"
+RPMDATA="${abs_srcdir}/data/"
+
+RPM_CONFIGDIR="${RPMTEST}/@RPMCONFIGDIR@"
+RPM_POPTEXEC_PATH="${RPMTEST}/@usrbindir@"
+export RPM_CONFIGDIR RPM_POPTEXEC_PATH
+
+# Popt looks into $HOME
+HOME="${RPMTEST}"
+export HOME
+
+TZ=UTC
+export TZ
+
+TOPDIR="${RPMTEST}/build"
+
+RPM_XFAIL=${RPM_XFAIL-1}
+
+function run()
+{
+    "$@" --define "_tmppath ${RPMTEST}/tmp" --define "_topdir ${TOPDIR}" --dbpath="${RPMTEST}/var/lib/rpm/"
+}
+
+function rundebug()
+{
+    cp ${top_srcdir}/macros.debug ${RPM_CONFIGDIR}/macros.d/
+    "$@" --define "_tmppath ${RPMTEST}/tmp" --define "_topdir ${TOPDIR}" --dbpath="${RPMTEST}/var/lib/rpm/"
+    rm -f ${RPM_CONFIGDIR}/macros.d/macros.debug
+}
+
+function runroot()
+{
+    (unset RPM_CONFIGDIR RPM_POPTEXEC_PATH; cd ${RPMTEST} && \
+     MAGIC="/magic/magic" FAKECHROOT_BASE="${RPMTEST}" fakechroot "$@" --define "_topdir /build" --noplugins
+    )
+}
+
+function runroot_other()
+{
+    (unset RPM_CONFIGDIR RPM_POPTEXEC_PATH; cd ${RPMTEST} && \
+     FAKECHROOT_BASE="${RPMTEST}" fakechroot "$@"
+    )
+}

@@ -1,0 +1,250 @@
+#    rpmscript.at: rpm scriptlet tests
+
+AT_BANNER([RPM scriptlets])
+
+# ------------------------------
+# 
+AT_SETUP([basic scripts and arguments])
+AT_KEYWORDS([verify])
+AT_CHECK([
+RPMDB_CLEAR
+RPMDB_INIT
+rm -rf "${TOPDIR}"
+
+runroot rpmbuild --quiet -bb /data/SPECS/fakeshell.spec
+runroot rpmbuild --quiet -bb --define "rel 1" /data/SPECS/scripts.spec
+runroot rpmbuild --quiet -bb --define "rel 2" /data/SPECS/scripts.spec
+
+runroot rpm -U /build/RPMS/noarch/fakeshell-1.0-1.noarch.rpm
+runroot rpm -Vvp /build/RPMS/noarch/scripts-1.0-1.noarch.rpm
+runroot rpm -U /build/RPMS/noarch/scripts-1.0-1.noarch.rpm
+runroot rpm -U /build/RPMS/noarch/scripts-1.0-2.noarch.rpm
+runroot rpm -Vv scripts
+runroot rpm -e scripts
+],
+[0],
+[scripts-1.0-1 VERIFY 0
+scripts-1.0-1 PRETRANS 1
+scripts-1.0-1 PRE 1
+scripts-1.0-1 POST 1
+scripts-1.0-1 POSTTRANS 1
+scripts-1.0-2 PRETRANS 2
+scripts-1.0-2 PRE 2
+scripts-1.0-2 POST 2
+scripts-1.0-1 PREUN 1
+scripts-1.0-1 POSTUN 1
+scripts-1.0-2 POSTTRANS 1
+scripts-1.0-2 VERIFY 1
+scripts-1.0-2 PREUN 0
+scripts-1.0-2 POSTUN 0
+],
+[])
+AT_CLEANUP
+
+AT_SETUP([basic trigger scripts and arguments])
+AT_KEYWORDS([trigger script])
+AT_CHECK([
+RPMDB_CLEAR
+RPMDB_INIT
+rm -rf "${TOPDIR}"
+
+runroot rpmbuild --quiet -bb /data/SPECS/fakeshell.spec
+runroot rpmbuild --quiet -bb --define "rel 1" /data/SPECS/scripts.spec
+runroot rpmbuild --quiet -bb --define "rel 2" /data/SPECS/scripts.spec
+runroot rpmbuild --quiet -bb --define "rel 1" --define "trigpkg scripts" /data/SPECS/triggers.spec
+runroot rpmbuild --quiet -bb --define "rel 2" --define "trigpkg scripts" /data/SPECS/triggers.spec
+
+runroot rpm -U /build/RPMS/noarch/fakeshell-1.0-1.noarch.rpm
+echo TRIGGERS 1
+runroot rpm -U /build/RPMS/noarch/triggers-1.0-1.noarch.rpm
+echo SCRIPTS 1
+runroot rpm -U /build/RPMS/noarch/scripts-1.0-1.noarch.rpm
+echo SCRIPTS 2
+runroot rpm -U /build/RPMS/noarch/scripts-1.0-2.noarch.rpm
+echo TRIGGERS 2
+runroot rpm -U /build/RPMS/noarch/triggers-1.0-2.noarch.rpm
+echo ERASE
+runroot rpm -e scripts
+],
+[0],
+[TRIGGERS 1
+SCRIPTS 1
+scripts-1.0-1 PRETRANS 1
+triggers-1.0-1 TRIGGERPREIN 1 0
+scripts-1.0-1 PRE 1
+scripts-1.0-1 POST 1
+triggers-1.0-1 TRIGGERIN 1 1
+scripts-1.0-1 POSTTRANS 1
+SCRIPTS 2
+scripts-1.0-2 PRETRANS 2
+triggers-1.0-1 TRIGGERPREIN 1 1
+scripts-1.0-2 PRE 2
+scripts-1.0-2 POST 2
+triggers-1.0-1 TRIGGERIN 1 2
+triggers-1.0-1 TRIGGERUN 1 1
+scripts-1.0-1 PREUN 1
+scripts-1.0-1 POSTUN 1
+triggers-1.0-1 TRIGGERPOSTUN 1 1
+scripts-1.0-2 POSTTRANS 1
+TRIGGERS 2
+triggers-1.0-2 TRIGGERPREIN 1 1
+triggers-1.0-2 TRIGGERIN 2 1
+triggers-1.0-1 TRIGGERUN 1 1
+ERASE
+triggers-1.0-2 TRIGGERUN 1 0
+scripts-1.0-2 PREUN 0
+scripts-1.0-2 POSTUN 0
+triggers-1.0-2 TRIGGERPOSTUN 1 0
+],
+[])
+AT_CLEANUP
+
+AT_SETUP([basic file trigger scripts])
+AT_KEYWORDS([file trigger script])
+AT_CHECK([
+RPMDB_CLEAR
+RPMDB_INIT
+rm -rf "${TOPDIR}"
+
+runroot rpmbuild --quiet -bb /data/SPECS/fakeshell.spec
+runroot rpmbuild --quiet -bb /data/SPECS/hello-script.spec
+runroot rpmbuild --quiet -bb /data/SPECS/hlinktest.spec
+runroot rpmbuild --quiet -bb /data/SPECS/filetriggers.spec
+
+runroot rpm -U /build/RPMS/noarch/fakeshell-1.0-1.noarch.rpm
+runroot rpm -U /build/RPMS/noarch/filetriggers-1.0-1.noarch.rpm
+echo INSTALLATION
+runroot rpm -U /build/RPMS/noarch/hello-script-1.0-1.noarch.rpm \
+/build/RPMS/noarch/hlinktest-1.0-1.noarch.rpm
+echo ERASE
+runroot rpm -e hello-script hlinktest
+],
+[0],
+[INSTALLATION
+filetriggerin(/foo*):
+/foo/aaaa
+/foo/copyllo
+/foo/hello
+/foo/hello-bar
+/foo/hello-foo
+/foo/hello-world
+/foo/zzzz
+
+filetriggerin(/foo*)<lua>:
+/foo/aaaa
+/foo/copyllo
+/foo/hello
+/foo/hello-bar
+/foo/hello-foo
+/foo/hello-world
+/foo/zzzz
+
+filetriggerin(/usr/bin*):
+/usr/bin/hello
+
+filetriggerin(/usr/bin*)<lua>:
+/usr/bin/hello
+
+transfiletriggerin(/usr/bin*):
+/usr/bin/hello
+
+transfiletriggerin(/foo*):
+/foo/aaaa
+/foo/copyllo
+/foo/hello
+/foo/hello-bar
+/foo/hello-foo
+/foo/hello-world
+/foo/zzzz
+
+ERASE
+transfiletriggerun(/usr/bin*):
+/usr/bin/hello
+
+transfiletriggerun(/foo*):
+/foo/aaaa
+/foo/copyllo
+/foo/hello
+/foo/hello-bar
+/foo/hello-foo
+/foo/hello-world
+/foo/zzzz
+
+filetriggerun(/foo*):
+/foo/aaaa
+/foo/copyllo
+/foo/hello
+/foo/hello-bar
+/foo/hello-foo
+/foo/hello-world
+/foo/zzzz
+
+filetriggerpostun(/foo*):
+/foo/aaaa
+/foo/copyllo
+/foo/hello
+/foo/hello-bar
+/foo/hello-foo
+/foo/hello-world
+/foo/zzzz
+
+filetriggerun(/usr/bin*):
+/usr/bin/hello
+
+filetriggerpostun(/usr/bin*):
+/usr/bin/hello
+
+transfiletriggerpostun(/usr/bin*):
+
+transfiletriggerpostun(/foo*):
+
+],
+[])
+AT_CLEANUP
+
+AT_SETUP([basic file triggers 2])
+AT_KEYWORDS([filetrigger script])
+AT_CHECK([
+RPMDB_CLEAR
+RPMDB_INIT
+rm -rf "${TOPDIR}"
+
+runroot rpmbuild --quiet -bb /data/SPECS/fakeshell.spec
+for v in 1.0 2.0 3.0; do
+    runroot rpmbuild --quiet -bb --define "ver ${v}" /data/SPECS/parallel.spec
+done
+
+runroot rpm -U /build/RPMS/noarch/fakeshell-1.0-1.noarch.rpm 
+runroot rpm -i \
+	/build/RPMS/noarch/parallel-1.0-1.noarch.rpm \
+	/build/RPMS/noarch/parallel-2.0-1.noarch.rpm \
+	/build/RPMS/noarch/parallel-3.0-1.noarch.rpm
+
+echo INSTALL:
+runroot rpm -U /build/RPMS/noarch/parallel-trigger-1.0-1.noarch.rpm
+echo UPGRADE:
+runroot rpm -U /build/RPMS/noarch/parallel-trigger-2.0-1.noarch.rpm
+echo ERASE:
+runroot rpm -e parallel-trigger
+
+],
+[0],
+[INSTALL:
+%filetriggerin: 0 0
+36
+%transfiletriggerin: 0 0
+36
+UPGRADE:
+%transfiletriggerun: 0 0
+36
+%filetriggerin: 0 0
+36
+%transfiletriggerin: 0 0
+36
+ERASE:
+%transfiletriggerun: 0 0
+36
+],
+[])
+AT_CLEANUP
+

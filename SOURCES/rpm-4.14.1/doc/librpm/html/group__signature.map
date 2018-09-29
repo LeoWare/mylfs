@@ -1,0 +1,7 @@
+<map id="Signature Tags API." name="Signature Tags API.">
+<area shape="rect" id="node1" href="$group__header.html" title="How to manipulate package headers (which carries all information about a package). " alt="" coords="469,5,568,32"/>
+<area shape="rect" id="node2" href="$group__buildsign.html" title="Building &amp; signing\l packages:" alt="" coords="5,74,145,115"/>
+<area shape="rect" id="node3" href="$group__rpmcli.html" title="Parsing RPM command line arguments. " alt="" coords="444,56,593,83"/>
+<area shape="rect" id="node4" href="$group__rpmdb.html" title="Opening &amp; accessing the RPM indices using Berkeley DB (the so called rpmdb) " alt="" coords="462,107,575,133"/>
+<area shape="rect" id="node6" href="$group__rpmrc.html" title="Reading config files and getting some important configuration values. " alt="" coords="483,157,554,184"/>
+</map>

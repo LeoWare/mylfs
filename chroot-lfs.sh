@@ -1,35 +1,31 @@
 #!/bin/bash -e
-#-----------------------------------------------------------------------------
-#	Title: chroot-lfs.sh
-#	Date: 2018-08-27
-#	Version: 1.0
-#	Author: baho-utot@columbus.rr.com
-#	Options:
-#-----------------------------------------------------------------------------
-#	This allows me to run LFS-8.2 under Fedora 28
 #
-MOUNTPOINT=/mnt
-MOUNTPARTITION=/dev/sda5
-mount "${MOUNTPARTITION}" "${MOUNTPOINT}"
+#   Partition to mount @ /mnt
 #
-#	Mount Virtual Kernel File Systems
+PARTITION=/dev/sda5
+[ mountpoint '/mnt' > /dev/null 2>&1 ] || /bin/mount ${PARTITION} /mnt
 #
-mount -v --bind /dev /mnt/dev
-mount -vt devpts devpts /mnt/dev/pts -o gid=5,mode=620
-mount -vt proc proc /mnt/proc
-mount -vt sysfs sysfs /mnt/sys
-mount -vt tmpfs tmpfs /mnt/run
-#-----------------------------------------------------------------------------
-#	Git it did
-chroot /mnt /usr/bin/env -i HOME=/root TERM=$TERM PS1='(blfs builder) \u:\w\$ ' PATH=/bin:/usr/bin:/sbin:/usr/sbin /bin/bash --login
-#-----------------------------------------------------------------------------
-#	Cleanup
-umount /mnt/run
-umount /mnt/sys
-umount /mnt/proc
-umount /mnt/dev/pts
-umount /mnt/dev
-umount /mnt
-#-----------------------------------------------------------------------------
-#	See it is clean
-mount
+#   Mount kernel filesystems
+#
+/bin/mount -v --bind /dev /mnt/dev
+/bin/mount -vt devpts devpts /mnt/dev/pts -o gid=5,mode=620
+/bin/mount -vt proc proc /mnt/proc
+/bin/mount -vt sysfs sysfs /mnt/sys
+/bin/mount -vt tmpfs tmpfs /mnt/run
+#
+#   chroot
+#
+/usr/sbin/chroot /mnt /usr/bin/env -i  \
+    HOME=/root TERM=$TERM              \
+    PS1='(lfs builder) \u:\w\$ '       \
+    PATH=/bin:/usr/bin:/sbin:/usr/sbin \
+    /bin/bash --login
+#
+#   Cleanup
+#
+/bin/umount /mnt/run
+/bin/umount /mnt/sys
+/bin/umount /mnt/proc
+/bin/umount /mnt/dev/pts
+/bin/umount /mnt/dev
+/bin/umount /mnt

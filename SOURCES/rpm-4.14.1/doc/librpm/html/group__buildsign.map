@@ -1,0 +1,5 @@
+<map id="Building &amp; signing packages:" name="Building &amp; signing packages:">
+<area shape="rect" id="node1" href="$group__rpmbuild.html" title="API for building packages. " alt="" coords="225,5,309,32"/>
+<area shape="rect" id="node3" href="$group__signature.html" title="List of signature tags. " alt="" coords="193,56,340,83"/>
+<area shape="rect" id="node4" href="$group__rpmsign.html" title="How to add or remove a signature from a package header. " alt="" coords="210,107,323,133"/>
+</map>

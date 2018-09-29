@@ -20,7 +20,7 @@ die() {
 	local _red="\\033[1;31m"
 	local _normal="\\033[0;39m"
 	[ -n "$*" ] && printf "${_red}$*${_normal}\n"
-	false
+	/bin/false
 	exit 1
 }
 msg() {
@@ -58,16 +58,16 @@ end-run() {
 _setup_directories() {
 	#	Setup base directories
 	msg_line "	Creating base directories: "
-	[ -d ${LFS} ] 	&& rm -rf ${LFS}/*
-	[ -d ${LFS} ] 	|| install -dm 755 ${LFS}
-	[ -d ${LFS}/tools ]	|| install -dm 755 ${LFS}/tools
-	[ -h /tools ]		|| ln -vs ${LFS}/tools /
+	[ -d ${LFS} ]		&& /bin/rm -rf ${LFS}/*
+	[ -d ${LFS} ]		|| /usr/bin/install -dm 755 ${LFS}
+	[ -d ${LFS}/tools ]	|| /usr/bin/install -dm 755 ${LFS}/tools
+	[ -h /tools ]		|| /bin/ln -vs ${LFS}/tools /
 	msg_success
 	return
 }
 _wget_list() {
 	msg_line "	Creating wget-list: "
-	cat > ${LFS}/${PARENT}/SOURCES/wget-list <<- EOF
+	/bin/cat > ${LFS}/${PARENT}/SOURCES/wget-list <<- EOF
 		http://download.savannah.gnu.org/releases/acl/acl-2.2.52.src.tar.gz
 		http://download.savannah.gnu.org/releases/attr/attr-2.4.47.src.tar.gz
 		http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz
@@ -155,11 +155,12 @@ _wget_list() {
 		http://www.linuxfromscratch.org/patches/lfs/8.2/ninja-1.8.2-add_NINJAJOBS_var-1.patch
 		http://www.linuxfromscratch.org/patches/lfs/8.2/sysvinit-2.88dsf-consolidated-1.patch
 		https://ftp.gnu.org/gnu/cpio/cpio-2.12.tar.bz2
+		https://www.python.org/ftp/python/2.7.14/Python-2.7.14.tar.xz
 	EOF
 	#
 	#	Add rpm packages and openssh
 	#
-	cat >> ${LFS}/${PARENT}/SOURCES/wget-list <<- EOF
+	/bin/cat >> ${LFS}/${PARENT}/SOURCES/wget-list <<- EOF
 		http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.1.tar.bz2
 		http://rpm5.org/files/popt/popt-1.16.tar.gz
 		http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
@@ -175,7 +176,7 @@ _md5sum_list(){
 	#
 	#	Add rpm packages and openssh
 	#
-	cat >> ${LFS}/${PARENT}/SOURCES/md5sum-list <<- EOF
+	/bin/cat >> ${LFS}/${PARENT}/SOURCES/md5sum-list <<- EOF
 		a61415312426e9c2212bd7dc7929abda  SOURCES/acl-2.2.52.src.tar.gz
 		84f58dec00b60f2dc8fd1c9709291cc7  SOURCES/attr-2.4.47.src.tar.gz
 		50f97f4159805e374639a73e2636f22e  SOURCES/autoconf-2.69.tar.xz
@@ -260,6 +261,7 @@ _md5sum_list(){
 		f537a633532492e805aa342fa869ca45  SOURCES/ninja-1.8.2-add_NINJAJOBS_var-1.patch
 		0b7b5ea568a878fdcc4057b2bf36e5cb  SOURCES/sysvinit-2.88dsf-consolidated-1.patch
 		93eea9f07c0058c097891c73e4955456  SOURCES/cpio-2.12.tar.bz2
+		1f6db41ad91d9eb0a6f0c769b8613c5b  SOURCES/Python-2.7.14.tar.xz
 	EOF
 	return
 }
@@ -268,14 +270,14 @@ _copy_source() {
 	#	Directories to copy
 	msg_line "	Installing build system: "
 	[ ${EUID} -eq 0 ] || die "Need to be root user"
-	install -dm 755 ${LFS}/${PARENT}
-	install -dm 755 ${LFS}/${PARENT}/INFO
-	install -dm 755 ${LFS}/${PARENT}/LOGS
-	install -dm 755 ${LFS}/${PARENT}/PROVIDES
-	install -dm 755 ${LFS}/${PARENT}/REQUIRES
-	install -dm 755 ${LFS}/${PARENT}/SOURCES
-	cp -ar * ${LFS}${PARENT}
-	chmod 777 ${LFS}${PARENT}/*.sh
+	/usr/bin/install -dm 755 ${LFS}/${PARENT}
+	/usr/bin/install -dm 755 ${LFS}/${PARENT}/INFO
+	/usr/bin/install -dm 755 ${LFS}/${PARENT}/LOGS
+	/usr/bin/install -dm 755 ${LFS}/${PARENT}/PROVIDES
+	/usr/bin/install -dm 755 ${LFS}/${PARENT}/REQUIRES
+	/usr/bin/install -dm 755 ${LFS}/${PARENT}/SOURCES
+	/bin/cp -ar * ${LFS}${PARENT}
+	/bin/chmod 777 ${LFS}${PARENT}/*.sh
 	msg_success
 	return
 }
@@ -287,10 +289,10 @@ _setup_user() {
 	/usr/bin/getent passwd lfs > /dev/null 2>&1 || /usr/sbin/useradd  -c 'LFS user' -g lfs -m -k /dev/null -s /bin/bash lfs
 	/usr/bin/getent passwd lfs > /dev/null 2>&1 && passwd --delete lfs > /dev/null 2>&1
 	[ -d /home/lfs ] || install -dm 755 /home/lfs
-	cat > /home/lfs/.bash_profile <<- EOF
-		exec env -i HOME=/home/lfs TERM=${TERM} PS1='\u:\w\$ ' /bin/bash
+	/bin/cat > /home/lfs/.bash_profile <<- EOF
+		exec /usr/bin/env -i HOME=/home/lfs TERM=${TERM} PS1='\u:\w\$ ' /bin/bash
 	EOF
-	cat > /home/lfs/.bashrc <<- EOF
+	/bin/cat > /home/lfs/.bashrc <<- EOF
 		set +h
 		umask 022
 		LFS=/mnt/lfs
@@ -299,7 +301,7 @@ _setup_user() {
 		PATH=/tools/bin:/bin:/usr/bin
 		export LFS LC_ALL LFS_TGT PATH
 	EOF
-	cat > /home/lfs/.rpmmacros <<- EOF
+	/bin/cat > /home/lfs/.rpmmacros <<- EOF
 		#
 		#	System settings
 		#
@@ -319,23 +321,23 @@ _setup_user() {
 		%_tmppath		%{_prefix}/var/tmp
 		%_build_id_links	none
 	EOF
-	echo "%LFS_TGT		$(uname -m)-lfs-linux-gnu" >> /home/lfs/.rpmmacros
-	[ -d ${LFS} ]			|| install -dm 755 ${LFS}
-	[ -d ${LFS}/tools ]		|| install -dm 755 ${LFS}/tools
-	[ -h /tools ]			|| ln -s ${LFS}/tools /
-	chown -R lfs:lfs /home/lfs	|| die "${FUNCNAME}: FAILURE"
-	chown -R lfs:lfs ${LFS}	|| die "${FUNCNAME}: FAILURE"
+	echo "%LFS_TGT			$(/bin/uname -m)-lfs-linux-gnu" >> /home/lfs/.rpmmacros
+	[ -d ${LFS} ]				|| /usr/bin/install -dm 755 ${LFS}
+	[ -d ${LFS}/tools ]			|| /usr/bin/install -dm 755 ${LFS}/tools
+	[ -h /tools ]				|| ln -s ${LFS}/tools /
+	/bin/chown -R lfs:lfs /home/lfs	|| die "${FUNCNAME}: FAILURE"
+	/bin/chown -R lfs:lfs ${LFS}	|| die "${FUNCNAME}: FAILURE"
 	msg_success
 	return
 }
 #-----------------------------------------------------------------------------
 #	Main line
-[ ${EUID} -eq 0 ]		|| { echo "${PRGNAME}: Need to be root user";exit 1; }
-[ -z ${LFS} ]			&& { echo "${PRGNAME}: LFS: not set";exit 1; }
-[ -z ${PARENT} ]		&& { echo "${PRGNAME}: PARENT: not set";exit 1; }
-[ -z ${LOGFILE} ]		&& { echo "${PRGNAME}: LOGFILE: not set";exit 1; }
-[ -x /usr/bin/getent ]		|| { echo "${PRGNAME}: getent: missing: can not continue";exit 1; }
-if [ ! mountpoint ${LFS} > /dev/null 2>&1 ]; then die "Hey ${LFS} is not mounted"; fi
+[ ${EUID} -eq 0 ]		|| { /bin/echo "${PRGNAME}: Need to be root user";exit 1; }
+[ -z ${LFS} ]			&& { /bin/echo "${PRGNAME}: LFS: not set";exit 1; }
+[ -z ${PARENT} ]		&& { /bin/echo "${PRGNAME}: PARENT: not set";exit 1; }
+[ -z ${LOGFILE} ]		&& { /bin/echo "${PRGNAME}: LOGFILE: not set";exit 1; }
+[ -x /usr/bin/getent ]		|| { /usr/bin/echo "${PRGNAME}: getent: missing: can not continue";exit 1; }
+if [ ! /usr/bin/mountpoint ${LFS} > /dev/null 2>&1 ]; then die "Hey ${LFS} is not mounted"; fi
 _setup_directories		#	Setup directories
 _copy_source			#	Copy build system to $LFS
 _wget_list			#	Create wget list

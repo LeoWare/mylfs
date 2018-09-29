@@ -1,0 +1,812 @@
+#    rpmquery.at: test rpmquery
+#
+#    Copyright (C) 2007  Ralf Corsépius <corsepiu@fedoraproject.org>
+#
+#    This program is free software; you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation; either version 2 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program; if not, write to the Free Software
+#    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+AT_BANNER([RPM queries])
+
+# ------------------------------
+AT_SETUP([rpm --qf -p *.i386.rpm])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  -q --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}\n" \
+  -p /data/RPMS/hello-1.0-1.i386.rpm
+],
+[0],
+[hello-1.0-1.i386
+],
+[ignore])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([rpm --qf -p *.src.rpm])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  -q --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}\n" \
+  -p /data/SRPMS/hello-1.0-1.src.rpm
+],
+[0],
+[hello-1.0-1.i386
+],
+[ignore])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([rpm -ql -p *.src.rpm])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  -ql \
+  -p /data/SRPMS/hello-1.0-1.src.rpm
+],
+[0],
+[hello-1.0.tar.gz
+hello.spec
+],
+[ignore])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([rpmspec -q])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpmspec \
+  -q --qf "%{name}" /data/SPECS/hello.spec
+],
+[0],
+[hello],
+[])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([rpm -ql -p *.i386.rpm])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  -ql \
+  -p /data/RPMS/hello-1.0-1.i386.rpm
+],
+[0],
+[/usr/local/bin/hello
+/usr/share/doc/hello-1.0
+/usr/share/doc/hello-1.0/FAQ
+],
+[ignore])
+AT_CLEANUP
+
+# ------------------------------
+# Test query on manifest
+AT_SETUP([rpm -qp <manifest>])
+AT_KEYWORDS([query])
+AT_CHECK([
+cat << EOF > ${RPMTEST}/query.mft
+/data/RPMS/hello-1.0-1.i386.rpm
+/data/RPMS/hello-1.0-1.ppc64.rpm
+/data/RPMS/foo-1.0-1.noarch.rpm
+EOF
+runroot rpm -qp --qf "%{nvr}\n" /query.mft
+],
+[0],
+[hello-1.0-1
+hello-1.0-1
+foo-1.0-1
+],
+[])
+AT_CLEANUP
+
+# ------------------------------
+# Try to check "scripts"
+# * Gets rpmpopt-$(VERSION) involved
+AT_SETUP([rpm -q --scripts -p *.i386.rpm])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  -q --scripts \
+  -p /data/RPMS/hello-1.0-1.i386.rpm
+],
+[0],
+[preinstall program: /bin/sh
+postinstall program: /bin/sh
+preuninstall program: /bin/sh
+postuninstall program: /bin/sh
+],
+[ignore])
+AT_CLEANUP
+
+
+# ------------------------------
+# install a package into a local rpmdb
+# * Shall only work with relocation
+# * Use --ignorearch because we don't know the arch
+AT_SETUP([rpm -q on installed package])
+AT_KEYWORDS([rpmdb install query])
+
+AT_CHECK([
+RPMDB_CLEAR
+RPMDB_INIT
+
+runroot rpm \
+  --noscripts --nodeps --ignorearch --relocate=/usr=/check \
+  -i /data/RPMS/hello-1.0-1.ppc64.rpm
+],
+[0])
+
+# check common NVRA combinations
+AT_CHECK([
+runroot rpm \
+  -q hello hello-1.0 hello-1.0-1 \
+     hello.ppc64 hello-1.0.ppc64 hello-1.0-1.ppc64 
+],
+[0],
+[hello-1.0-1.ppc64
+hello-1.0-1.ppc64
+hello-1.0-1.ppc64
+hello-1.0-1.ppc64
+hello-1.0-1.ppc64
+hello-1.0-1.ppc64
+],
+[ignore])
+
+
+AT_CHECK([
+runroot rpm \
+  -ql hello
+],
+[0],
+[/check/local/bin/hello
+/check/share/doc/hello-1.0
+/check/share/doc/hello-1.0/FAQ
+],
+[ignore])
+
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([integer array query])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="[[%{filemodes}\n]]" \
+  -qp /data/RPMS/hello-1.0-1.i386.rpm
+],
+[0],
+[33257
+16877
+33188
+],
+[])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([formatted filesbypkg query])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="[[%-10{=NAME} %{FILENAMES}\n]]" \
+  -qp /data/RPMS/hello-1.0-1.i386.rpm
+],
+[0],
+[hello      /usr/local/bin/hello
+hello      /usr/share/doc/hello-1.0
+hello      /usr/share/doc/hello-1.0/FAQ
+],
+[])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([hex formatted integer array extension query])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="[[%5{longfilesizes:hex}\n]]" \
+  -qp /data/RPMS/hello-1.0-1.i386.rpm
+],
+[0],
+[  b40
+ 1000
+   24
+],
+[])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([base64 extension query])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="%{pkgid:base64}" \
+  -qp /data/RPMS/foo-1.0-1.noarch.rpm
+],
+[0],
+[qt8W635v5FKy1pILrW+0uw==
+],
+[])
+AT_CLEANUP
+
+AT_SETUP([pgpsig extension query])
+AT_KEYWORDS([query signature])
+AT_CHECK([
+runroot rpm \
+    --queryformat="%{rsaheader:pgpsig}" \
+    -qp /data/RPMS/hello-2.0-1.x86_64-signed.rpm
+],
+[0],
+[RSA/SHA256, Thu Apr  6 13:02:33 2017, Key ID 4344591e1964c5fc],
+[warning: /data/RPMS/hello-2.0-1.x86_64-signed.rpm: Header V4 RSA/SHA256 Signature, key ID 1964c5fc: NOKEY
+])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([integer array perms format query])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="[[%{filemodes:perms}\n]]" \
+  -qp /data/RPMS/hello-1.0-1.i386.rpm
+],
+[0],
+[-rwxr-x--x
+drwxr-xr-x
+-rw-r--r--
+],
+[])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([string array query])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="[[%{basenames} ]]" \
+  -qp /data/RPMS/hello-1.0-1.i386.rpm
+],
+[0],
+[hello hello-1.0 FAQ ],
+[])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([empty string array query])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="[[%{basenames}]]" \
+  -qp /data/RPMS/foo-1.0-1.noarch.rpm
+],
+[0],
+[],
+[])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([empty string array extension array format])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="[[%{filenames}]]" \
+  -qp /data/RPMS/foo-1.0-1.noarch.rpm
+],
+[0],
+[],
+[])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([empty string array extension query])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="%{filenames}" \
+  -qp /data/RPMS/foo-1.0-1.noarch.rpm
+],
+[0],
+[(none)],
+[])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([different sizes arrays query 1])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="[[%{basenames} %{changelogname}]\n]" \
+  -qp /data/RPMS/hello-1.0-1.i386.rpm
+],
+[0],
+[],
+[error: incorrect format: array iterator used with different sized arrays
+])
+AT_CLEANUP
+
+# ------------------------------
+# This is succeeds because there happens to be exactly one changelog entry
+# so the size matches with name.
+AT_SETUP([different sizes arrays query 2])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="[[%{name} %{changelogtime}]\n]" \
+  -qp /data/RPMS/hello-1.0-1.i386.rpm
+],
+[0],
+[hello 908877600
+],
+[])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([different sizes arrays query 3])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="[[%{name} %{basenames}]\n]" \
+  -qp /data/RPMS/hello-1.0-1.i386.rpm
+],
+[0],
+[],
+[error: incorrect format: array iterator used with different sized arrays
+])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([different sizes arrays query 4])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="[[%{=name} %{basenames}\n]]" \
+  -qp /data/RPMS/hello-1.0-1.i386.rpm
+],
+[0],
+[hello hello
+hello hello-1.0
+hello FAQ
+],
+[])
+
+AT_CLEANUP
+# ------------------------------
+AT_SETUP([non-existent string tag])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="%{vendor}" \
+  -qp /data/RPMS/foo-1.0-1.noarch.rpm
+],
+[0],
+[(none)],
+[])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([non-existent integer tag query])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="%{installcolor}" \
+  -qp /data/RPMS/foo-1.0-1.noarch.rpm
+],
+[0],
+[(none)],
+[])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([conditional queryformat])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="%|name?{%{name}}:{no}| %|installtime?{%{installtime}}:{(not installed)}|" \
+  -qp /data/RPMS/foo-1.0-1.noarch.rpm
+],
+[0],
+[foo (not installed)],
+[])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([invalid tag query])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="%{notag}" \
+  -qp /data/RPMS/foo-1.0-1.noarch.rpm
+],
+[0],
+[],
+[error: incorrect format: unknown tag: "notag"
+])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([invalid data for format query])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="%{name:depflags}" \
+  -qp /data/RPMS/foo-1.0-1.noarch.rpm
+],
+[0],
+[(not a number)],
+[])
+AT_CLEANUP
+
+# ------------------------------
+AT_SETUP([invalid format width query])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm \
+  --queryformat="%ss{size}" \
+  -qp /data/RPMS/foo-1.0-1.noarch.rpm
+],
+[0],
+[],
+[error: incorrect format: invalid field width
+])
+AT_CLEANUP
+
+AT_SETUP([xml format])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpm -qp --xml  data/RPMS/hello-2.0-1.x86_64.rpm
+],
+[0],
+[<rpmHeader>
+  <rpmTag name="Headeri18ntable">
+	<string>C</string>
+  </rpmTag>
+  <rpmTag name="Sigsize">
+	<integer>5411</integer>
+  </rpmTag>
+  <rpmTag name="Sigmd5">
+	<base64>E3yh2LNcygKhhUujAcVDLg==
+</base64>
+  </rpmTag>
+  <rpmTag name="Sha1header">
+	<string>5cd9874c510b67b44483f9e382a1649ef7743bac</string>
+  </rpmTag>
+  <rpmTag name="Sha256header">
+	<string>ef920781af3bf072ae9888eec3de1c589143101dff9cc0b561468d395fb766d9</string>
+  </rpmTag>
+  <rpmTag name="Name">
+	<string>hello</string>
+  </rpmTag>
+  <rpmTag name="Version">
+	<string>2.0</string>
+  </rpmTag>
+  <rpmTag name="Release">
+	<string>1</string>
+  </rpmTag>
+  <rpmTag name="Summary">
+	<string>hello -- hello, world rpm</string>
+  </rpmTag>
+  <rpmTag name="Description">
+	<string>Simple rpm demonstration.</string>
+  </rpmTag>
+  <rpmTag name="Buildtime">
+	<integer>1227355200</integer>
+  </rpmTag>
+  <rpmTag name="Buildhost">
+	<string>localhost</string>
+  </rpmTag>
+  <rpmTag name="Size">
+	<integer>7243</integer>
+  </rpmTag>
+  <rpmTag name="License">
+	<string>GPL</string>
+  </rpmTag>
+  <rpmTag name="Group">
+	<string>Testing</string>
+  </rpmTag>
+  <rpmTag name="Os">
+	<string>linux</string>
+  </rpmTag>
+  <rpmTag name="Arch">
+	<string>x86_64</string>
+  </rpmTag>
+  <rpmTag name="Filesizes">
+	<integer>7120</integer>
+	<integer>4096</integer>
+	<integer>48</integer>
+	<integer>36</integer>
+	<integer>39</integer>
+  </rpmTag>
+  <rpmTag name="Filemodes">
+	<integer>33257</integer>
+	<integer>16877</integer>
+	<integer>33188</integer>
+	<integer>33188</integer>
+	<integer>33188</integer>
+  </rpmTag>
+  <rpmTag name="Filerdevs">
+	<integer>0</integer>
+	<integer>0</integer>
+	<integer>0</integer>
+	<integer>0</integer>
+	<integer>0</integer>
+  </rpmTag>
+  <rpmTag name="Filemtimes">
+	<integer>1489670606</integer>
+	<integer>1489670606</integer>
+	<integer>908894882</integer>
+	<integer>908895030</integer>
+	<integer>908884468</integer>
+  </rpmTag>
+  <rpmTag name="Filedigests">
+	<string>c89fa87aeb1143969c0b6be9334b21d932f77f74e8f60120b5de316406369cf0</string>
+	<string/>
+	<string>fac3b28492ecdc16da172a6f1a432ceed356ca4d9248157b2a962b395e37b3b0</string>
+	<string>678b87e217a415f05e43460e2c7b668245b412e2b4f18a75aa7399d9774ed0b4</string>
+	<string>d63fdc6c986106f57230f217d36b2395d83ecf491d2b7187af714dc8db9629e9</string>
+  </rpmTag>
+  <rpmTag name="Filelinktos">
+	<string/>
+	<string/>
+	<string/>
+	<string/>
+	<string/>
+  </rpmTag>
+  <rpmTag name="Fileflags">
+	<integer>0</integer>
+	<integer>0</integer>
+	<integer>2</integer>
+	<integer>2</integer>
+	<integer>2</integer>
+  </rpmTag>
+  <rpmTag name="Fileusername">
+	<string>root</string>
+	<string>root</string>
+	<string>root</string>
+	<string>root</string>
+	<string>root</string>
+  </rpmTag>
+  <rpmTag name="Filegroupname">
+	<string>root</string>
+	<string>root</string>
+	<string>root</string>
+	<string>root</string>
+	<string>root</string>
+  </rpmTag>
+  <rpmTag name="Sourcerpm">
+	<string>hello-2.0-1.src.rpm</string>
+  </rpmTag>
+  <rpmTag name="Fileverifyflags">
+	<integer>4294967295</integer>
+	<integer>0</integer>
+	<integer>4294967295</integer>
+	<integer>4294967295</integer>
+	<integer>4294967295</integer>
+  </rpmTag>
+  <rpmTag name="Archivesize">
+	<integer>8060</integer>
+  </rpmTag>
+  <rpmTag name="Providename">
+	<string>hello</string>
+	<string>hello(x86-64)</string>
+  </rpmTag>
+  <rpmTag name="Requireflags">
+	<integer>16384</integer>
+	<integer>16384</integer>
+	<integer>16777226</integer>
+	<integer>16777226</integer>
+	<integer>16777226</integer>
+	<integer>16384</integer>
+  </rpmTag>
+  <rpmTag name="Requirename">
+	<string>libc.so.6()(64bit)</string>
+	<string>libc.so.6(GLIBC_2.2.5)(64bit)</string>
+	<string>rpmlib(CompressedFileNames)</string>
+	<string>rpmlib(FileDigests)</string>
+	<string>rpmlib(PayloadFilesHavePrefix)</string>
+	<string>rtld(GNU_HASH)</string>
+  </rpmTag>
+  <rpmTag name="Requireversion">
+	<string/>
+	<string/>
+	<string>3.0.4-1</string>
+	<string>4.6.0-1</string>
+	<string>4.0-1</string>
+	<string/>
+  </rpmTag>
+  <rpmTag name="Rpmversion">
+	<string>4.13.90</string>
+  </rpmTag>
+  <rpmTag name="Changelogtime">
+	<integer>1227355200</integer>
+	<integer>908884800</integer>
+  </rpmTag>
+  <rpmTag name="Changelogname">
+	<string>Panu Matilainen &lt;pmatilai@redhat.com&gt;</string>
+	<string>Jeff Johnson &lt;jbj@redhat.com&gt;</string>
+  </rpmTag>
+  <rpmTag name="Changelogtext">
+	<string>- updated version</string>
+	<string>- create.</string>
+  </rpmTag>
+  <rpmTag name="Filedevices">
+	<integer>1</integer>
+	<integer>1</integer>
+	<integer>1</integer>
+	<integer>1</integer>
+	<integer>1</integer>
+  </rpmTag>
+  <rpmTag name="Fileinodes">
+	<integer>1</integer>
+	<integer>2</integer>
+	<integer>3</integer>
+	<integer>4</integer>
+	<integer>5</integer>
+  </rpmTag>
+  <rpmTag name="Filelangs">
+	<string/>
+	<string/>
+	<string/>
+	<string/>
+	<string/>
+  </rpmTag>
+  <rpmTag name="Prefixes">
+	<string>/usr</string>
+  </rpmTag>
+  <rpmTag name="Provideflags">
+	<integer>8</integer>
+	<integer>8</integer>
+  </rpmTag>
+  <rpmTag name="Provideversion">
+	<string>2.0-1</string>
+	<string>2.0-1</string>
+  </rpmTag>
+  <rpmTag name="Dirindexes">
+	<integer>0</integer>
+	<integer>1</integer>
+	<integer>2</integer>
+	<integer>2</integer>
+	<integer>2</integer>
+  </rpmTag>
+  <rpmTag name="Basenames">
+	<string>hello</string>
+	<string>hello-2.0</string>
+	<string>COPYING</string>
+	<string>FAQ</string>
+	<string>README</string>
+  </rpmTag>
+  <rpmTag name="Dirnames">
+	<string>/usr/bin/</string>
+	<string>/usr/share/doc/</string>
+	<string>/usr/share/doc/hello-2.0/</string>
+  </rpmTag>
+  <rpmTag name="Optflags">
+	<string>-O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -m64 -mtune=generic</string>
+  </rpmTag>
+  <rpmTag name="Payloadformat">
+	<string>cpio</string>
+  </rpmTag>
+  <rpmTag name="Payloadcompressor">
+	<string>gzip</string>
+  </rpmTag>
+  <rpmTag name="Payloadflags">
+	<string>9</string>
+  </rpmTag>
+  <rpmTag name="Platform">
+	<string>x86_64-redhat-linux-gnu</string>
+  </rpmTag>
+  <rpmTag name="Filecolors">
+	<integer>2</integer>
+	<integer>0</integer>
+	<integer>0</integer>
+	<integer>0</integer>
+	<integer>0</integer>
+  </rpmTag>
+  <rpmTag name="Fileclass">
+	<integer>0</integer>
+	<integer>1</integer>
+	<integer>2</integer>
+	<integer>2</integer>
+	<integer>2</integer>
+  </rpmTag>
+  <rpmTag name="Classdict">
+	<string>ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 2.6.32, BuildID[[sha1]]=775fdcb927e4300adbe83cfacec3cfeb1f63fe17, stripped</string>
+	<string>directory</string>
+	<string>ASCII text</string>
+  </rpmTag>
+  <rpmTag name="Filedependsx">
+	<integer>0</integer>
+	<integer>0</integer>
+	<integer>0</integer>
+	<integer>0</integer>
+	<integer>0</integer>
+  </rpmTag>
+  <rpmTag name="Filedependsn">
+	<integer>3</integer>
+	<integer>0</integer>
+	<integer>0</integer>
+	<integer>0</integer>
+	<integer>0</integer>
+  </rpmTag>
+  <rpmTag name="Dependsdict">
+	<integer>1375731713</integer>
+	<integer>1375731712</integer>
+	<integer>1375731717</integer>
+  </rpmTag>
+  <rpmTag name="Filedigestalgo">
+	<integer>8</integer>
+  </rpmTag>
+  <rpmTag name="Encoding">
+	<string>utf-8</string>
+  </rpmTag>
+  <rpmTag name="Payloaddigest">
+	<string>84a7338287bf19715c4eed0243f5cdb447eeb0ade37b2af718d4060aefca2f7c</string>
+  </rpmTag>
+  <rpmTag name="Payloaddigestalgo">
+	<integer>8</integer>
+  </rpmTag>
+</rpmHeader>
+],
+[])
+AT_CLEANUP
+
+AT_SETUP([query file attribute filtering])
+AT_KEYWORDS([query])
+AT_CHECK([
+runroot rpmbuild -bb --quiet \
+  /data/SPECS/vattrtest.spec
+
+pkg="/build/RPMS/noarch/vattrtest-1.0-1.noarch.rpm"
+cmd="rpm -qpl"
+for filter in --noconfig --noghost --noartifact -A -c -d -L; do
+    echo ${filter}
+    runroot ${cmd} ${filter} ${pkg}
+done
+],
+[0],
+[--noconfig
+/opt/vattrtest
+/opt/vattrtest/a
+/opt/vattrtest/d
+/opt/vattrtest/g
+/opt/vattrtest/l
+/opt/vattrtest/m
+/opt/vattrtest/r
+--noghost
+/opt/vattrtest
+/opt/vattrtest/a
+/opt/vattrtest/c
+/opt/vattrtest/cn
+/opt/vattrtest/d
+/opt/vattrtest/l
+/opt/vattrtest/m
+/opt/vattrtest/r
+--noartifact
+/opt/vattrtest
+/opt/vattrtest/c
+/opt/vattrtest/cn
+/opt/vattrtest/d
+/opt/vattrtest/g
+/opt/vattrtest/l
+/opt/vattrtest/m
+/opt/vattrtest/r
+-A
+/opt/vattrtest/a
+-c
+/opt/vattrtest/c
+/opt/vattrtest/cn
+-d
+/opt/vattrtest/d
+-L
+/opt/vattrtest/l
+],
+[])
+AT_CLEANUP

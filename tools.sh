@@ -73,39 +73,39 @@ msg "	Post processing:"
 #	The chapter 6 rpm files will over write these files
 if [ ! -e ${LOGPATH}/${PRGNAME} ]; then
 	LIST="tools-zlib tools-popt tools-openssl tools-libelf tools-rpm"
-	rm -rf ${TOPDIR}/BUILDROOT/* || true
+	/bin/rm -rf ${TOPDIR}/BUILDROOT/* || true
 	msg_line "	Saving libraries: "
-	install -dm 755 ${TOPDIR}/BUILDROOT/tools/lib
-	cp -a /tools/lib/libelf-0.170.so ${TOPDIR}/BUILDROOT/tools/lib
-	cp -a /tools/lib/libelf.so ${TOPDIR}/BUILDROOT/tools/lib
-	cp -a /tools/lib/libelf.so.1 ${TOPDIR}/BUILDROOT/tools/lib
+	/usr/bin/install -dm 755 ${TOPDIR}/BUILDROOT/tools/lib
+	/bin/cp -a /tools/lib/libelf-0.170.so ${TOPDIR}/BUILDROOT/tools/lib
+	/bin/cp -a /tools/lib/libelf.so ${TOPDIR}/BUILDROOT/tools/lib
+	/bin/cp -a /tools/lib/libelf.so.1 ${TOPDIR}/BUILDROOT/tools/lib
 	#	Saving rpm
-	install -dm 755 ${TOPDIR}/BUILDROOT${LFS}/usr/bin
-	install -dm 755 ${TOPDIR}/BUILDROOT${LFS}/usr/lib
-	cp -ar ${LFS}/usr/bin/* ${TOPDIR}/BUILDROOT${LFS}/usr/bin
-	cp -ar ${LFS}/usr/lib/* ${TOPDIR}/BUILDROOT${LFS}/usr/lib
+	/usr/bin/install -dm 755 ${TOPDIR}/BUILDROOT${LFS}/usr/bin
+	/usr/bin/install -dm 755 ${TOPDIR}/BUILDROOT${LFS}/usr/lib
+	/bin/cp -ar ${LFS}/usr/bin/* ${TOPDIR}/BUILDROOT${LFS}/usr/bin
+	/bin/cp -ar ${LFS}/usr/lib/* ${TOPDIR}/BUILDROOT${LFS}/usr/lib
 	msg_success
 	for i in ${LIST}; do
 		msg_line "	Removing: ${i}: "
-		rpm -e --nodeps ${i} > /dev/null 2>&1 || true
+		/bin/rpm -e --nodeps ${i} > /dev/null 2>&1 || true
 		msg_success
 	done
 	msg_line "	Moving libraries: "
-	mv ${TOPDIR}/BUILDROOT/tools/lib/* /tools/lib
-	install -dm 755 ${LFS}/usr/bin
-	install -dm 755 ${LFS}/usr/lib
-	cp -ar ${TOPDIR}/BUILDROOT${LFS}/usr/bin/* ${LFS}/usr/bin
-	cp -ar ${TOPDIR}/BUILDROOT${LFS}/usr/lib/* ${LFS}/usr/lib
+	/bin/mv ${TOPDIR}/BUILDROOT/tools/lib/* /tools/lib
+	/usr/bin/install -dm 755 ${LFS}/usr/bin
+	/usr/bin/install -dm 755 ${LFS}/usr/lib
+	/bin/cp -ar ${TOPDIR}/BUILDROOT${LFS}/usr/bin/* ${LFS}/usr/bin
+	/bin/cp -ar ${TOPDIR}/BUILDROOT${LFS}/usr/lib/* ${LFS}/usr/lib
 	msg_success
 	msg_line "	Creating directories: "
-	install -dm 755 ${LFS}/var/tmp
-	chmod 1777 ${LFS}/var/tmp
-	install -dm 755 ${LFS}/etc/rpm
-	install -dm 755 ${LFS}/bin
-	ln -s /tools/bin/bash ${LFS}/bin
-	ln -s /tools/bin/sh ${LFS}/bin
+	/usr/bin/install -dm 755 ${LFS}/var/tmp
+	/bin/chmod 1777 ${LFS}/var/tmp
+	/usr/bin/install -dm 755 ${LFS}/etc/rpm
+	/usr/bin/install -dm 755 ${LFS}/bin
+	/bin/ln -s /tools/bin/bash ${LFS}/bin
+	/bin/ln -s /tools/bin/sh ${LFS}/bin
 	msg_success
-	touch ${LOGPATH}/${PRGNAME}
+	/usr/bin/touch ${LOGPATH}/${PRGNAME}
 else
 		msg "	Post processing: Skipping"
 fi
