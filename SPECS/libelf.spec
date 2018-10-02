@@ -6,7 +6,7 @@ Release:	1
 License:	GPLv3
 URL:		https://sourceware.org/ftp/elfutils
 Group:		LFS/BASE
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	https://sourceware.org/ftp/elfutils/0.170/elfutils-%{version}.tar.bz2
 BuildRequires:	gettext
 %description

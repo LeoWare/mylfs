@@ -25,8 +25,9 @@ BuildRequires:	popt
 cd %{_builddir}
 %setup -q -n "Python-%{VERSION}"
 #	%%setup -q -T -D -a 1  -n Python-%{VERSION}
-%build
+	sed -i '/^#!.*local\//s|local/||' Lib/cgi.py Tools/pybench/pybench.py
 	sed -i '/#SSL/,+3 s/^#//' Modules/Setup.dist
+%build
 	./configure --prefix=%{_prefix} \
             --enable-shared \
             --with-system-expat \
@@ -37,6 +38,7 @@ cd %{_builddir}
 %install
 	make DESTDIR=%{buildroot} install
 	chmod -v 755 %{buildroot}/usr/lib/libpython2.7.so.1.0
+#	rm %%{buildroot}/usr/lib/python2.7/cgi.*
 #-----------------------------------------------------------------------------
 #	Copy license/copying file 
 	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE

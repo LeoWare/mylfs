@@ -1,0 +1,200 @@
+Perl Modules:
+
+WWW::Curl::Easy			WWW-Curl-4.17.tar.gz		pkgbuild
+Locale::gettext_xs			libintl-perl-1.29.tar.gz	pkgbuild
+
+
+File::HomeDir				File-HomeDir-1.004.tar.gz
+Perl4::CoreLibs			Perl4-CoreLibs-0.004.tar.gz	pkgbuild
+
+Locale::Codes::Country_Codes	Locale-Codes-3.58.tar.gz	
+Locale::Codes::Country_Retired
+Locale::Codes::Currency_Codes
+Locale::Codes::Currency_Retired
+Locale::Codes::LangExt_Codes
+Locale::Codes::LangExt_Retired
+Locale::Codes::LangFam_Codes
+Locale::Codes::LangFam_Retired
+Locale::Codes::LangVar_Codes
+Locale::Codes::LangVar_Retired
+Locale::Codes::Language_Codes
+Locale::Codes::Language_Retired
+Locale::Codes::Script_Codes
+Locale::Codes::Script_Retired
+
+
+Standard Installation of Perl Modules
+
+Install Perl modules by running the following commands:
+
+For Data::Uniqid-0.12, first apply the required patch with:
+
+patch -Np1 -i ../Data-Uniqid-0.12-disable_failing_test-1.patch
+
+Then, or for all other modules using the standard installation, proceed with:
+
+perl Makefile.PL &&
+make &&
+make test
+
+Note
+
+If the module is described as using the unsafe variant of the Standard Installation, and you are using perl-5.26.0 or later, 
+(the use of the current directory in @INC was removed for security reasons) you should change the perl invocation to:
+
+PERL_USE_UNSAFE_INC=1 &&
+
+If, however, you are using the Auto Installation described below, that environment variable will be set whenever the cpan shell install is used.
+
+Now, as the root user:
+
+make install
+
+####  make install DESTDIR="$pkgdir"
+
+Note
+
+When reinstalling a Perl module, sometimes older versions of the module being reinstalled are in other directories specified in @INC.
+To delete all other versions of the module being reinstalled (not simply older ones) set the UNINST variable:
+
+make install UNINST=1
+
+Installation of Perl Modules which use Build.PL
+
+Install Perl modules which use Build.PL by running the following commands:
+
+perl Build.PL &&
+./Build &&
+./Build test
+
+Now, as the root user:
+
+./Build install
+
+
+From 292c05a8aa9c18bd27d0aaff0b4ee601d9b87b92 Mon Sep 17 00:00:00 2001
+From: Slaven Rezic <cpansand@cvrsnica-freebsd-101.herceg.de>
+Date: Sun, 16 Apr 2017 22:17:00 +0200
+Subject: [PATCH] compilation fixes for curl 7.50.2 and newer (RT #117793)
+
+---
+ Makefile.PL | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.PL b/Makefile.PL
+index f9170bb..bb852e4 100644
+--- a/Makefile.PL
++++ b/Makefile.PL
+@@ -127,7 +127,7 @@ if (!defined($curl_h)) {
+     close H;
+ 
+     for my $e (sort @syms) {
+-       if($e =~ /(OBSOLETE|^CURL_EXTERN|_LAST\z|_LASTENTRY\z)/) {
++       if($e =~ /(OBSOLETE|^CURL_EXTERN|^CURL_STRICTER\z|^CURL_DID_MEMORY_FUNC_TYPEDEFS\z|_LAST\z|_LASTENTRY\z)/) {
+           next;
+        }
+        my ($group) = $e =~ m/^([^_]+_)/;
+-- 
+2.1.2
+
+
+
+# Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Maintainer: Charles Mauch <cmauch@gmail.com>
+
+pkgname=perl-www-curl
+pkgver=4.17
+pkgrel=8
+pkgdesc="Perl/CPAN Module WWW::Curl"
+arch=('x86_64')
+url="http://search.cpan.org/dist/WWW-Curl/"
+license=("GPL" "PerlArtistic")
+depends=("curl")
+options=('!emptydirs')
+source=("http://search.cpan.org/CPAN/authors/id/S/SZ/SZBALINT/WWW-Curl-${pkgver}.tar.gz"
+        'curl-7.50.2.patch')
+md5sums=('997ac81cd6b03b30b36f7cd930474845'
+         '84916bb88dd596cf9ec1a0924cd97913')
+
+prepare() {
+  cd WWW-Curl-${pkgver}
+
+  # https://rt.cpan.org/Public/Bug/Display.html?id=117793
+  patch -Np1 -i ../curl-7.50.2.patch
+}
+
+build() {
+  cd WWW-Curl-${pkgver}
+
+  PERL_USE_UNSAFE_INC=1 \
+  PERL_MM_USE_DEFAULT=1 perl Makefile.PL INSTALLDIRS=vendor
+
+  make
+}
+
+package() {
+  cd WWW-Curl-${pkgver}
+
+  make install DESTDIR="$pkgdir"
+
+  find "$pkgdir" -name '.packlist' -delete
+  find "$pkgdir" -name '*.pod' -delete
+}
+
+pkgname=perl-libintl-perl
+pkgver=1.29
+pkgrel=2
+pkgdesc="Perl Module: Localization support"
+arch=('x86_64')
+license=('LGPL')
+url="http://search.cpan.org/dist/libintl-perl"
+depends=('coreutils' 'gettext' 'perl')
+options=('!emptydirs')
+source=("http://www.cpan.org/authors/id/G/GU/GUIDO/libintl-perl-$pkgver.tar.gz")
+sha512sums=('fc3b3e526aa9f5fc9f69da4cbd6653c27fbc380f0139bc5e642c5299def533209cab0112702b1faa13a52b1392f028dbb943b09974bdbc09812f11dee0ccfc7f')
+
+build() {
+  cd libintl-perl-$pkgver
+  perl Makefile.PL INSTALLDIRS=vendor
+  make
+}
+
+check() {
+  cd libintl-perl-$pkgver
+  make test
+}
+
+package() {
+  cd libintl-perl-$pkgver
+  PERL_USE_UNSAFE_INC=1 \
+  make install DESTDIR="$pkgdir"
+}
+
+pkgname=perl-perl4-corelibs
+pkgver=0.004
+pkgrel=3
+pkgdesc="Libraries historically supplied with Perl 4"
+arch=('any')
+url="https://metacpan.org/release/Perl4-CoreLibs"
+license=('PerlArtistic' 'GPL')
+depends=('perl')
+makedepends=('perl-module-build')
+options=('!emptydirs')
+source=("http://search.cpan.org/CPAN/authors/id/Z/ZE/ZEFRAM/Perl4-CoreLibs-$pkgver.tar.gz")
+sha512sums=('71083f1640e95559ee4bc5a7f1bbe6beacec048a073e211ab7f6ee4de26463f6ae3d87e99e00a41ea8f2f93a5e96367bafe907ef3367e400de35123c22eb7b88')
+
+build() {
+  cd Perl4-CoreLibs-$pkgver
+  perl Build.PL
+  ./Build
+}
+
+check() {
+  cd Perl4-CoreLibs-$pkgver
+  ./Build test
+}
+
+package() {
+  cd Perl4-CoreLibs-$pkgver
+  ./Build install installdirs=vendor destdir="$pkgdir"
+}

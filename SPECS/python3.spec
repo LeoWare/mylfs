@@ -19,6 +19,7 @@ BuildRequires:	openssl
 cd %{_builddir}
 %setup -q -n "Python-%{VERSION}"
 %setup -q -T -D -a 1  -n Python-%{VERSION}
+sed -i '/^#!.*local\//s|local/||' Lib/cgi.py Tools/pybench/pybench.py
 %build
 	./configure \
 		--prefix=%{_prefix} \
@@ -33,12 +34,12 @@ cd %{_builddir}
 	chmod -v 755 %{buildroot}/usr/lib/libpython3.so
 	install -v -dm755 %{buildroot}/usr/share/doc/python-%{version}/html
 	cp -var python-%{version}-docs-html/* %{buildroot}/usr/share/doc/python-%{version}/html
-	rm %{buildroot}/usr/lib/python3.6/cgi.py
+#	rm %%{buildroot}/usr/lib/python3.6/cgi.*
 #-----------------------------------------------------------------------------
 #	Copy license/copying file 
 	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	rm "%{buildroot}/usr/lib/python3.6/site-packages/setuptools/command/launcher manifest.xml"
-	rm "%{buildroot}/usr/lib/python3.6/site-packages/setuptools/script (dev).tmpl"
+#	rm "%{buildroot}/usr/lib/python3.6/site-packages/setuptools/command/launcher manifest.xml"
+#	rm "%{buildroot}/usr/lib/python3.6/site-packages/setuptools/script (dev).tmpl"
 #-----------------------------------------------------------------------------
 #	Create file list
 #	rm  %{buildroot}%{_infodir}/dir

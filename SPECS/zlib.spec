@@ -9,6 +9,7 @@ Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://zlib.net/%{name}-%{version}.tar.xz
 BuildRequires:	adjust-tool-chain
+Provides:		pkgconfig(zlib)
 %description
 	The Zlib package contains compression and decompression routines used by some programs.
 #-----------------------------------------------------------------------------

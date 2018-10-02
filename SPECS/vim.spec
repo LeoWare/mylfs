@@ -19,7 +19,10 @@ BuildRequires:	texinfo
 	sed -i '/call/{s/split/xsplit/;s/303/492/}' src/testdir/test_recover.vim
 %build
 	./configure \
-		--prefix=%{_prefix}
+		--prefix=%{_prefix} \
+		--localstatedir=/var/lib/vim \
+		--with-x=no \
+		--disable-gui
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install

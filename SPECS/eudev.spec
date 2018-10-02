@@ -39,6 +39,8 @@ BuildRequires:	sysvinit
 %install
 	make DESTDIR=%{buildroot} LD_LIBRARY_PATH=/tools/lib install
 	make -f udev-lfs-20171102/Makefile.lfs DESTDIR=%{buildroot} install
+	mv %{buildroot}/usr/share/pkgconfig/udev.pc %{buildroot}/usr/lib/pkgconfig
+	rm -rf %{buildroot}/usr/share/pkgconfig
 #-----------------------------------------------------------------------------
 #	Copy license/copying file
 	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE

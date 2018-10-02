@@ -26,6 +26,8 @@ Provides:	perl = 0:5.009004
 Provides:	perl = 0:5.009005
 Provides:	perl = 1:5.010001
 Provides:	perl = 1:5.010_000
+Provides:	perl(subs)
+Provides:	perl(locale)
 
 %description
 	The Perl package contains the Practical Extraction and Report Language.

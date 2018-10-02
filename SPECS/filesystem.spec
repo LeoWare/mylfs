@@ -17,31 +17,34 @@ URL:		http://www.linuxfromscratch.org
 %build
 %install
 	#
-	#	6.2. Preparing Virtual Kernel File Systems
-	#
-	install -vdm 755	%{buildroot}/{dev,proc,sys,run}
-	mknod -m 600 %{buildroot}/dev/console c 5 1
-	mknod -m 666 %{buildroot}/dev/null c 1 3
-	#
 	#	6.5.  Creating Directories
 	#
-	install -vdm 755 %{buildroot}/{bin,boot,etc/{opt,sysconfig},home,lib/firmware,mnt,opt}
-	install -vdm 755 %{buildroot}/{media/{floppy,cdrom},sbin,srv,var}
-	install -dv -m 0750 %{buildroot}/root
-	install -dv -m 1777 %{buildroot}/tmp %{buildroot}/var/tmp
+	#	root directories
+	install -vdm 755 %{buildroot}/{bin,boot,dev,etc,home,lib,lib64,media,mnt,opt,proc,root,run,sbin,srv,sys,tmp,usr,var}
+	#	etc directories
+	install -vdm 755 %{buildroot}/etc/{ld.so.conf.d,opt,profile.d,skel,sysconfig}
+	#	lib directories
+	install -vdm 755 %{buildroot}/lib/firmware
+	#	media directories
+	install -vdm 755 %{buildroot}/media/{floppy,cdrom}
+	#	usr directories
 	install -vdm 755 %{buildroot}/usr/{,local/}{bin,include,lib,sbin,src}
 	install -vdm 755 %{buildroot}/usr/{,local/}share/{color,dict,doc,info,locale,man}
 	install -vdm 755 %{buildroot}/usr/{,local/}share/{misc,terminfo,zoneinfo}
 	install -vdm 755 %{buildroot}/usr/libexec
 	install -vdm 755 %{buildroot}/usr/{,local/}share/man/man{1..8}
-	install -vdm 755 %{buildroot}/lib64
-	install -vdm 755 %{buildroot}/var/{log,mail,spool}
-	install -vdm 755 %{buildroot}/run
+	#	var directories
+	install -vdm 755 %{buildroot}/var/{log,mail,spool,tmp}
+	install -vdm 755 %{buildroot}/var/{opt,cache,lib/{color,misc,locate},local}
+	#	symlinks
 	ln -sv /run %{buildroot}/var/run
 	ln -sv /run/lock %{buildroot}/var/lock
-	install -vdm 755 %{buildroot}/var/{opt,cache,lib/{color,misc,locate},local}
-	#	mounted filesystems
 	ln -sv /proc/self/mounts %{buildroot}/etc/mtab
+	#
+	#	6.2. Preparing Virtual Kernel File Systems
+	#
+	mknod -m 600 %{buildroot}/dev/console c 5 1
+	mknod -m 666 %{buildroot}/dev/null c 1 3
 	#
 	#	6.6. Creating Essential Files and Symlinks
 	#
@@ -101,14 +104,11 @@ URL:		http://www.linuxfromscratch.org
 		# Begin /etc/ld.so.conf
 		/usr/local/lib
 		/opt/lib
-
 	EOF
 	cat >> %{buildroot}/etc/ld.so.conf <<- "EOF"
 		# Add an include directory
 		include /etc/ld.so.conf.d/*.conf
-
 	EOF
-	install -vdm 755 %{buildroot}/etc/ld.so.conf.d
 	#
 	#	6.63.2. Configuring Sysklogd
 	#
@@ -130,7 +130,7 @@ URL:		http://www.linuxfromscratch.org
 	#
 	cat > %{buildroot}/etc/sysconfig/ifconfig.enp5s0 <<- "EOF"
 		ONBOOT=yes
-		IFACE=enp5s0
+		IFACE=enp7s0
 		SERVICE=ipv4-static
 		IP=192.168.1.2
 		GATEWAY=192.168.1.1
@@ -143,7 +143,7 @@ URL:		http://www.linuxfromscratch.org
 	cat > %{buildroot}/etc/resolv.conf <<- "EOF"
 		# Begin /etc/resolv.conf
 
-		domain     <Your Domain Name>
+		domain     <example.org>
 		nameserver <IP address of your primary nameserver>
 		nameserver <IP address of your secondary nameserver>
 
@@ -152,7 +152,7 @@ URL:		http://www.linuxfromscratch.org
 	#
 	#	7.5.3. Configuring the system hostname
 	#
-	echo "<lfs>" > %{buildroot}/etc/hostname
+	echo "<lfs.example.org>" > %{buildroot}/etc/hostname
 	#
 	#	7.5.4. Customizing the /etc/hosts File
 	#
@@ -160,11 +160,11 @@ URL:		http://www.linuxfromscratch.org
 		# Begin /etc/hosts
 
 		127.0.0.1	localhost
-		127.0.1.1	<FQDN> <HOSTNAME>
-		<192.168.1.2>	<FQDN> <HOSTNAME> [alias1] [alias2 ...]
+		#	127.0.1.1	<lfs.example.org> <lfs>
+		192.168.1.2	<lfs.example.org> <lfs>
 		::1		localhost ip6-localhost ip6-loopback
-		ff02::1		ip6-allnodes
-		ff02::2		ip6-allrouters
+		ff02::1	ip6-allnodes
+		ff02::2	ip6-allrouters
 
 		# End /etc/hosts
 	EOF
@@ -314,11 +314,11 @@ URL:		http://www.linuxfromscratch.org
 		#KEYMAP_CORRECTIONS="euro2"
 		#FONT="lat0-16 -m 8859-15"
 		#LEGACY_CHARSET=
-
 	EOF
 	#
 	#	7.7. The Bash Shell Startup Files
 	#	Conflicts with blfs package,  profile scripts are entirely different
+	#	See below
 	#
 #	cat > %{buildroot}/etc/profile <<- "EOF"
 #		# Begin /etc/profile
@@ -433,8 +433,238 @@ URL:		http://www.linuxfromscratch.org
 		DISTRIB_DESCRIPTION="Linux From Scratch"
 	EOF
 #-----------------------------------------------------------------------------
+#	BLFS scripts	-	About System Users and Groups
+#-----------------------------------------------------------------------------
+		cat > %{buildroot}/etc/profile <<- "EOF"
+		# Begin /etc/profile
+		# Written for Beyond Linux From Scratch
+		# by James Robertson <jameswrobertson@earthlink.net>
+		# modifications by Dagmar d'Surreal <rivyqntzne@pbzpnfg.arg>
+
+		# System wide environment variables and startup programs.
+
+		# System wide aliases and functions should go in /etc/bashrc.  Personal
+		# environment variables and startup programs should go into
+		# ~/.bash_profile.  Personal aliases and functions should go into
+		# ~/.bashrc.
+
+		# Functions to help us manage paths.  Second argument is the name of the
+		# path variable to be modified (default: PATH)
+		pathremove () {
+			local IFS=':'
+			local NEWPATH
+			local DIR
+			local PATHVARIABLE=${2:-PATH}
+			for DIR in ${!PATHVARIABLE} ; do
+				if [ "$DIR" != "$1" ] ; then
+					NEWPATH=${NEWPATH:+$NEWPATH:}$DIR
+				fi
+			done
+			export $PATHVARIABLE="$NEWPATH"
+		}
+		pathprepend () {
+			pathremove $1 $2
+			local PATHVARIABLE=${2:-PATH}
+			export $PATHVARIABLE="$1${!PATHVARIABLE:+:${!PATHVARIABLE}}"
+		}
+		pathappend () {
+			pathremove $1 $2
+			local PATHVARIABLE=${2:-PATH}
+			export $PATHVARIABLE="${!PATHVARIABLE:+${!PATHVARIABLE}:}$1"
+		}
+		export -f pathremove pathprepend pathappend
+		# Set the initial path
+		export PATH=/bin:/usr/bin
+		if [ $EUID -eq 0 ] ; then
+			pathappend /sbin:/usr/sbin
+			unset HISTFILE
+		fi
+		# Setup some environment variables.
+		export HISTSIZE=1000
+		export HISTIGNORE="&:[bf]g:exit"
+		# Set some defaults for graphical systems
+		export XDG_DATA_DIRS=${XDG_DATA_DIRS:-/usr/share/}
+		export XDG_CONFIG_DIRS=${XDG_CONFIG_DIRS:-/etc/xdg/}
+		export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp/xdg-$USER}
+		# Setup a red prompt for root and a green one for users.
+		NORMAL="\[\e[0m\]"
+		RED="\[\e[1;31m\]"
+		GREEN="\[\e[1;32m\]"
+		if [[ $EUID == 0 ]] ; then
+			PS1="$RED\u [ $NORMAL\w$RED ]# $NORMAL"
+		else
+			PS1="$GREEN\u [ $NORMAL\w$GREEN ]\$ $NORMAL"
+		fi
+		for script in /etc/profile.d/*.sh ; do
+			if [ -r $script ] ; then
+				. $script
+			fi
+		done
+		unset script RED GREEN NORMAL
+		# End /etc/profile
+	EOF
+	cat > %{buildroot}/etc/profile.d/bash_completion.sh <<- "EOF"
+		# Begin /etc/profile.d/bash_completion.sh
+		# Import bash completion scripts
+		for script in /etc/bash_completion.d/*.sh ; do
+			if [ -r $script ] ; then
+				. $script
+			fi
+		done
+		# End /etc/profile.d/bash_completion.sh
+	EOF
+	cat > %{buildroot}/etc/profile.d/dircolors.sh <<- "EOF"
+		# Setup for /bin/ls and /bin/grep to support color, the alias is in /etc/bashrc.
+		if [ -f "/etc/dircolors" ] ; then
+			eval $(dircolors -b /etc/dircolors)
+		fi
+		if [ -f "$HOME/.dircolors" ] ; then
+			eval $(dircolors -b $HOME/.dircolors)
+		fi
+		alias ls='ls --color=auto'
+		alias grep='grep --color=auto'
+	EOF
+	cat > %{buildroot}/etc/profile.d/extrapaths.sh <<- "EOF"
+		if [ -d /usr/local/lib/pkgconfig ] ; then
+			pathappend /usr/local/lib/pkgconfig PKG_CONFIG_PATH
+		fi
+		if [ -d /usr/local/bin ]; then
+			pathprepend /usr/local/bin
+		fi
+		if [ -d /usr/local/sbin -a $EUID -eq 0 ]; then
+			pathprepend /usr/local/sbin
+		fi
+		# Set some defaults before other applications add to these paths.
+		pathappend /usr/share/man  MANPATH
+		pathappend /usr/share/info INFOPATH
+	EOF
+	cat > %{buildroot}/etc/profile.d/readline.sh <<- "EOF"
+		# Setup the INPUTRC environment variable.
+		if [ -z "$INPUTRC" -a ! -f "$HOME/.inputrc" ] ; then
+			INPUTRC=/etc/inputrc
+		fi
+		export INPUTRC
+	EOF
+	cat > %{buildroot}/etc/profile.d/umask.sh <<- "EOF"
+		# By default, the umask should be set.
+		if [ "$(id -gn)" = "$(id -un)" -a $EUID -gt 99 ] ; then
+			umask 002
+		else
+			umask 022
+		fi
+	EOF
+	cat > %{buildroot}/etc/profile.d/i18n.sh <<- "EOF"
+		# Set up i18n variables
+		#export LANG=<ll>_<CC>.<charmap><@modifiers>
+	EOF
+	cat > %{buildroot}/etc/bashrc <<- "EOF"
+		# Begin /etc/bashrc
+		# Written for Beyond Linux From Scratch
+		# by James Robertson <jameswrobertson@earthlink.net>
+		# updated by Bruce Dubbs <bdubbs@linuxfromscratch.org>
+
+		# System wide aliases and functions.
+
+		# System wide environment variables and startup programs should go into
+		# /etc/profile.  Personal environment variables and startup programs
+		# should go into ~/.bash_profile.  Personal aliases and functions should
+		# go into ~/.bashrc
+
+		# Provides colored /bin/ls and /bin/grep commands.  Used in conjunction
+		# with code in /etc/profile.
+		alias ls='ls --color=auto'
+		alias grep='grep --color=auto'
+		# Provides prompt for non-login shells, specifically shells started
+		# in the X environment. [Review the LFS archive thread titled
+		# PS1 Environment Variable for a great case study behind this script
+		# addendum.]
+		NORMAL="\[\e[0m\]"
+		RED="\[\e[1;31m\]"
+		GREEN="\[\e[1;32m\]"
+		if [[ $EUID == 0 ]] ; then
+			PS1="$RED\u [ $NORMAL\w$RED ]# $NORMAL"
+		else
+			PS1="$GREEN\u [ $NORMAL\w$GREEN ]\$ $NORMAL"
+		fi
+		unset RED GREEN NORMAL
+		# End /etc/bashrc
+	EOF
+	cat > %{buildroot}/etc/vimrc <<- "EOF"
+		" Begin .vimrc
+		set columns=80
+		set wrapmargin=8
+		set ruler
+		" End .vimrc
+	EOF
+	cat > %{buildroot}/etc/skel/.bash_profile <<- "EOF"
+		# Begin ~/.bash_profile
+		# Written for Beyond Linux From Scratch
+		# by James Robertson <jameswrobertson@earthlink.net>
+		# updated by Bruce Dubbs <bdubbs@linuxfromscratch.org>
+
+		# Personal environment variables and startup programs.
+
+		# Personal aliases and functions should go in ~/.bashrc.  System wide
+		# environment variables and startup programs are in /etc/profile.
+		# System wide aliases and functions are in /etc/bashrc.
+		if [ -f "$HOME/.bashrc" ] ; then
+			source $HOME/.bashrc
+		fi
+		if [ -d "$HOME/bin" ] ; then
+			pathprepend $HOME/bin
+		fi
+		# Having . in the PATH is dangerous
+		#if [ $EUID -gt 99 ]; then
+		#	pathappend .
+		#fi
+		# End ~/.bash_profile
+	EOF
+	cat > %{buildroot}/etc/skel/.profile <<- "EOF"
+		# Begin ~/.profile
+		# Personal environment variables and startup programs.
+		if [ -d "$HOME/bin" ] ; then
+			pathprepend $HOME/bin
+		fi
+		# Set up user specific i18n variables
+		#export LANG=<ll>_<CC>.<charmap><@modifiers>
+		# End ~/.profile
+	EOF
+	cat > %{buildroot}/etc/skel/.bashrc <<- "EOF"
+		# Begin ~/.bashrc
+		# Written for Beyond Linux From Scratch
+		# by James Robertson <jameswrobertson@earthlink.net>
+
+		# Personal aliases and functions.
+
+		# Personal environment variables and startup programs should go in
+		# ~/.bash_profile.  System wide environment variables and startup
+		# programs are in /etc/profile.  System wide aliases and functions are
+		# in /etc/bashrc.
+		if [ -f "/etc/bashrc" ] ; then
+			source /etc/bashrc
+		fi
+		# Set up user specific i18n variables
+		#export LANG=<ll>_<CC>.<charmap><@modifiers>
+		# End ~/.bashrc
+	EOF
+	cat > %{buildroot}/etc/skel/.bash_logout <<- "EOF"
+		# Begin ~/.bash_logout
+		# Written for Beyond Linux From Scratch
+		# by James Robertson <jameswrobertson@earthlink.net>
+
+		# Personal items to perform on logout.
+
+		# End ~/.bash_logout
+	EOF
+#-----------------------------------------------------------------------------
 %files
 	%defattr(-,root,root)
+	%attr(600,root,root)		/var/log/btmp
+	%attr(664,root,utmp)		/var/log/lastlog
+	%attr(-,root,root)		/var/log/wtmp
+	%attr(750,root,root)		/root
+	%attr(1777,root,root)	/tmp
+	%attr(1777,root,root)	/var/tmp
    #
    #	Directories
    #
@@ -453,10 +683,13 @@ URL:		http://www.linuxfromscratch.org
    %dir	/var/lib/misc
    %dir	/var/lib/color
    %dir	/var/opt
-   %dir	%attr(1777,root,root) /var/tmp
+   %dir	/var/tmp
    %dir	/etc
    %dir	/etc/sysconfig
    %dir	/etc/opt
+   %dir	/etcld.so.conf.d
+   %dir	/etc/opt
+   %dir	/etc/profile.d
    %dir	/lib64
    %dir	/usr
    %dir	/usr/src
@@ -518,7 +751,7 @@ URL:		http://www.linuxfromscratch.org
    %dir	/dev
    %dir	/opt
    %dir	/sys
-   %dir	%attr(1777,root,root) /tmp
+   %dir	/tmp
    %dir	/proc
    %dir	/run
    #
@@ -535,7 +768,7 @@ URL:		http://www.linuxfromscratch.org
    %config(noreplace)	/etc/lfs-release
    %config(noreplace)	/etc/lsb-release
    %config(noreplace)	/etc/modprobe.d/usb.conf
-#   %%config(noreplace)	/etc/profile
+   %config(noreplace)	/etc/profile
    %config(noreplace)	/etc/resolv.conf
    %config(noreplace)	/etc/shells
    %config(noreplace)	/etc/sysconfig/clock
@@ -547,9 +780,6 @@ URL:		http://www.linuxfromscratch.org
    /var/log/faillog
    /var/lock
    /var/run
-   %attr(600,root,root)	/var/log/btmp
-   %attr(664,root,utmp) /var/log/lastlog
-   %attr(-,root,root)	/var/log/wtmp
 #-----------------------------------------------------------------------------
 %changelog
 *	Tue Dec 12 2017 baho-utot <baho-utot@columbus.rr.com> 8.1-1

@@ -9,6 +9,10 @@ Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 BuildRequires:	findutils
+Provides:	perl(main_subs.pl)
+Provides:	perl(man.pl)
+Provides:	perl(oop_fh.pl)
+Provides:	perl(subs.pl)
 %description
 	The Groff package contains programs for processing and formatting text.
 #-----------------------------------------------------------------------------

@@ -1,5 +1,0 @@
-<map id="Querying package headers:" name="Querying package headers:">
-<area shape="rect" id="node1" href="$group__header.html" title="How to manipulate package headers (which carries all information about a package). " alt="" coords="307,5,406,32"/>
-<area shape="rect" id="node3" href="$group__rpmtag.html" title="Manipulating RPM tags (accessing values, types, ...) " alt="" coords="304,56,409,83"/>
-<area shape="rect" id="node4" href="$group__rpmtd.html" title="How to retrieve data from package headers. " alt="" coords="253,107,460,133"/>
-</map>
