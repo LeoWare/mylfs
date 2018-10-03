@@ -81,7 +81,7 @@ rpm_params() {
 		while  read i; do
 			i=$(echo ${i} | tr -d '[:cntrl:][:space:]')
 			case ${i} in
-				Source:*)		rpm_source=${i##Source:}			;;
+#				Source?:*)		rpm_source=${i##Source?:}			;;
 				Name:*)		rpm_name=${i##Name:}				;;
 				Version:*)		rpm_version=${i##Version:}			;;
 				Release:*)		rpm_release=${i##Release:}			;;
@@ -89,7 +89,7 @@ rpm_params() {
 				?TARBALL:*)		rpm_tarballs+="${i##?TARBALL:} "		;;
 				?MD5SUM:*)		rpm_md5sums+="${i##?MD5SUM:} "		;;
 				?PATCHES:*)		rpm_patches+="${i##?PATCHES:} "		;;
-				?FILE:*)		rpm_filespec+="${i##?FILE:} "		;;
+				?FILE:*)		rpm_filespec+="${i##?FILE:}"		;;
 				*)									;;
 			esac
 		done < ${rpm_spec}
@@ -103,6 +103,7 @@ rpm_params() {
 	return
 }
 rpm_build() {
+	local i=""
 	local _log="${LOGS}/${rpm_name}"
 	> ${_log}
 	> ${INFOS}/${rpm_name}
@@ -114,15 +115,16 @@ rpm_build() {
 	msg "Version----->	${rpm_version}"
 	msg "Release----->	${rpm_release}"
 	msg "Arch-------->	${rpm_arch}"
-	msg "Requires---->	${rpm_requires}"
-	msg "Installed--->	${rpm_installed}"
+	for i in ${rpm_requires};do msg "Requires---->	${i}";done
 	msg "Package----->	${rpm_package}"
 	msg "Binary------>	${rpm_binary}"
 	msg "Exists------>	${rpm_exists}"
-	msg "Source------>	${rpm_source}"
-	msg "MD5SUM------>	${rpm_md5sums}"
-	msg "Patches----->	${rpm_patches}"
-	msg_line "Building: ${rpm_name}: "
+	msg "Installed--->	${rpm_installed}"
+#	msg "Source------>	${rpm_source}"
+	msg "Md5sum------>	${rpm_filespec}"
+	for i in ${rpm_tarballs}; do msg "Tarball----->	${i}";done
+	for i in ${rpm_md5sums}; do  msg "MD5SUM------>	${i}";done
+	for i in ${rpm_patches}; do  msg "Patch------->	${i}";done
 	#rpm_tarballs=""
 	#rpm_md5sums=""
 	#rpm_patches=""
@@ -223,6 +225,7 @@ rpm_build() {
 		*)	;;
 	esac
 	rpm_fetch	#	fetch packages
+	msg_line "Building: ${rpm_name}: "
 	rpmbuild -ba ${rpm_spec} >> ${_log} 2>&1	 && msg_success || die "ERROR: ${rpm_binary}"
 	rpm_exists
 	[ "F" == ${rpm_exists} ] && die "ERROR: Binary Missing: ${rpm_binary}"
@@ -277,6 +280,7 @@ rpm_fetch() {
 	for i in ${rpm_tarballs}; do
 		msg_line "Fetching source tarball: ${i}: "
 		/usr/bin/wget --no-clobber --no-check-certificate --directory-prefix=SOURCES ${i} > /dev/null 2>&1 || die "Error: ${i}"
+#		/usr/bin/wget --no-clobber --no-check-certificate --directory-prefix=SOURCES ${i} || die "Error: ${i}"
 		msg_success
 	done
 	for i in ${rpm_patches}; do
@@ -284,15 +288,13 @@ rpm_fetch() {
 		/usr/bin/wget --no-clobber --no-check-certificate --directory-prefix=SOURCES ${i} > /dev/null 2>&1 || die "Error: ${i}"
 		msg_success
 	done
-	> SOURCES/${rpm_filespec}
-	for i in "${rpm_md5sums}"; do
-		retval=$(echo ${i} | tr ";" " ")
-		echo "${retval}" >> SOURCES/${rpm_filespec}
-	done
-	# do md5sum check
-	msg "Checking source: "
-	/usr/bin/md5sum -c SOURCES/${rpm_filespec} || msg_failure
-	msg_success
+	if [ ! -z "${rpm_filespec}" ]; then
+		> SOURCES/${rpm_filespec}
+		for i in ${rpm_md5sums}; do printf "%s\n" "$(echo ${i} | tr ";" " ")" >> SOURCES/${rpm_filespec};done
+		# do md5sum check
+		msg "Checking source: "
+		/usr/bin/md5sum -c SOURCES/${rpm_filespec} || msg_failure
+	fi
 	return
 }
 #-----------------------------------------------------------------------------

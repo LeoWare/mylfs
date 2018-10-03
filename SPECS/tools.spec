@@ -13,8 +13,8 @@ Vendor:	Octothorpe
 #	LFS tool chain packages
 #
 Requires:	tools-binutils-pass-1
-#Requires:	tools-gcc-pass-1
-#Requires:	tools-linux-api-headers
+Requires:	tools-gcc-pass-1
+Requires:	tools-linux-api-headers
 #Requires:	tools-glibc
 #Requires:	tools-libstdc
 #Requires:	tools-binutils-pass-2

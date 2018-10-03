@@ -340,7 +340,7 @@ _setup_user() {
 if [ ! /usr/bin/mountpoint ${LFS} > /dev/null 2>&1 ]; then die "Hey ${LFS} is not mounted"; fi
 _setup_directories		#	Setup directories
 _copy_source			#	Copy build system to $LFS
-_wget_list			#	Create wget list
-_md5sum_list			#	Create md5sum list
+#	_wget_list			#	Create wget list
+#	_md5sum_list			#	Create md5sum list
 _setup_user			#	Create lfs user
 end-run
