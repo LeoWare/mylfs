@@ -314,7 +314,7 @@ _setup_user() {
 		%_lib			%{_prefix}/lib
 		%_bindir		%{_prefix}/bin
 		%_libdir		%{_prefix}/lib
-		%_lib64			%{_prefix}/lib64
+		%_lib64		%{_prefix}/lib64
 		%_var			%{_prefix}/var
 		%_sharedstatedir	%{_prefix}/var/lib
 		%_localstatedir	%{_prefix}/var

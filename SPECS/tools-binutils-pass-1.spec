@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/binutils/binutils-2.30.tar.xz
+#MD5SUM:	ffc476dd46c96f932875d1b2e27e929f;SOURCES/binutils-2.30.tar.xz
+#PATCHES:
+#FILE:		binutils-2.30.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Binutils package contains a linker, an assembler, and tools
 Name:		tools-binutils-pass-1
@@ -7,11 +11,11 @@ Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/binutils
 Group:		LFS/Tools
-Vendor:		Octothorpe
-Source:		http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
+Vendor:	Octothorpe
+Source:	binutils-2.30.tar.xz
 %description
-		The Binutils package contains a linker, an assembler,
-		and other tools for handling object files.
+The Binutils package contains a linker, an assembler,
+and other tools for handling object files.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n binutils-%{version}
@@ -28,10 +32,8 @@ Source:		http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
 %install
 	cd build
 	make DESTDIR=%{buildroot} install
-%ifarch x86_64
 	install -vdm 755 %{buildroot}%{_libdir}
 	ln -sv lib %{buildroot}%_lib64
-%endif
 	rm -rf %{buildroot}%{_datarootdir}
 	cd -
 #-----------------------------------------------------------------------------

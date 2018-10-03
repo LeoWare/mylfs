@@ -8,7 +8,7 @@ Release:	1
 License:	Any
 URL:		http://zlib.net
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 BuildRequires:	tools-xz
 Source0:	http://zlib.net/zlib-%{version}.tar.xz
 %description

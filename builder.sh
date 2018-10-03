@@ -9,12 +9,12 @@
 PRGNAME=${0##*/}			# script name minus the path
 TOPDIR=${PWD}				# parent directory
 PARENT=/usr/src/LFS-RPM		# rpm build directory
-LOGS=LOGS					# build logs directory
-INFOS=INFO					# rpm info log directory
-SPECS=SPECS					# rpm spec file directory
+LOGS=LOGS				# build logs directory
+INFOS=INFO				# rpm info log directory
+SPECS=SPECS				# rpm spec file directory
 PROVIDES=PROVIDES			# rpm provides log directory
 REQUIRES=REQUIRES			# rpm requires log directory
-RPMS=RPMS					# rpm binary package directory
+RPMS=RPMS				# rpm binary package directory
 LOGPATH=${TOPDIR}/LOGS		# path to log directory
 #-----------------------------------------------------------------------------
 #	Common support functions
@@ -67,6 +67,11 @@ rpm_arch=""
 rpm_binary=""
 rpm_package=""
 rpm_exists=""
+rpm_source=""
+rpm_tarballs=""
+rpm_md5sums=""
+rpm_patches=""
+rpm_filespec=""
 #-----------------------------------------------------------------------------
 #	Funcions
 rpm_params() {
@@ -76,11 +81,16 @@ rpm_params() {
 		while  read i; do
 			i=$(echo ${i} | tr -d '[:cntrl:][:space:]')
 			case ${i} in
-				Name:*)				rpm_name=${i##Name:}					;;
-				Version:*)			rpm_version=${i##Version:}				;;
-				Release:*)			rpm_release=${i##Release:}				;;
-				BuildRequires:*)	rpm_requires+="${i##BuildRequires:} "	;;
-				*)															;;
+				Source:*)		rpm_source=${i##Source:}			;;
+				Name:*)		rpm_name=${i##Name:}				;;
+				Version:*)		rpm_version=${i##Version:}			;;
+				Release:*)		rpm_release=${i##Release:}			;;
+				Requires:*)		rpm_requires+="${i##Requires:} "		;;
+				?TARBALL:*)		rpm_tarballs+="${i##?TARBALL:} "		;;
+				?MD5SUM:*)		rpm_md5sums+="${i##?MD5SUM:} "		;;
+				?PATCHES:*)		rpm_patches+="${i##?PATCHES:} "		;;
+				?FILE:*)		rpm_filespec+="${i##?FILE:} "		;;
+				*)									;;
 			esac
 		done < ${rpm_spec}
 	else
@@ -109,7 +119,14 @@ rpm_build() {
 	msg "Package----->	${rpm_package}"
 	msg "Binary------>	${rpm_binary}"
 	msg "Exists------>	${rpm_exists}"
+	msg "Source------>	${rpm_source}"
+	msg "MD5SUM------>	${rpm_md5sums}"
+	msg "Patches----->	${rpm_patches}"
 	msg_line "Building: ${rpm_name}: "
+	#rpm_tarballs=""
+	#rpm_md5sums=""
+	#rpm_patches=""
+	#rpm_filespec=""
 	rm -rf BUILD BUILDROOT
 	#
 	#	These fixes are for base system chapter 6
@@ -153,8 +170,8 @@ rpm_build() {
 			rm -v dummy.c a.out dummy.log >> ${_log} 2>&1
 			;;
 		"glibc")
-			[ -e /usr/lib/gcc ]					|| ln -sf /tools/lib/gcc /usr/lib
-			[ -e /usr/include/limits.h ]		&& rm -f /usr/include/limits.h
+			[ -e /usr/lib/gcc ]			|| ln -sf /tools/lib/gcc /usr/lib
+			[ -e /usr/include/limits.h ]	&& rm -f /usr/include/limits.h
 			[ -h /lib64/ld-linux-x86-64.so.2 ]	|| ln -sf ../lib/ld-linux-x86-64.so.2 /lib64
 			[ -h /lib64/ld-lsb-x86-64.so.3 ]	|| ln -sf ../lib/ld-linux-x86-64.so.2 /lib64/ld-lsb-x86-64.so.3
 			;;
@@ -205,6 +222,7 @@ rpm_build() {
 			;;
 		*)	;;
 	esac
+	rpm_fetch	#	fetch packages
 	rpmbuild -ba ${rpm_spec} >> ${_log} 2>&1	 && msg_success || die "ERROR: ${rpm_binary}"
 	rpm_exists
 	[ "F" == ${rpm_exists} ] && die "ERROR: Binary Missing: ${rpm_binary}"
@@ -242,6 +260,41 @@ rpm_status() {
 	fi
 	return
 }
+rpm_fetch() {
+	local i=""
+	local retval=""
+	local filespec=""
+	#	Strip whitespace
+	rpm_tarballs=${rpm_tarballs%% }
+	rpm_tarballs=${rpm_tarballs## }
+	rpm_md5sums=${rpm_md5sums%% }
+	rpm_md5sums=${rpm_md5sums## }
+	rpm_patches=${rpm_patches%% }
+	rpm_patches=${rpm_patches## }
+	rpm_filespec=${rpm_filespec%% }
+	rpm_filespec=${rpm_filespec## }
+	#	get it done
+	for i in ${rpm_tarballs}; do
+		msg_line "Fetching source tarball: ${i}: "
+		/usr/bin/wget --no-clobber --no-check-certificate --directory-prefix=SOURCES ${i} > /dev/null 2>&1 || die "Error: ${i}"
+		msg_success
+	done
+	for i in ${rpm_patches}; do
+		msg "Fetching patch: ${rpm_patches}: "
+		/usr/bin/wget --no-clobber --no-check-certificate --directory-prefix=SOURCES ${i} > /dev/null 2>&1 || die "Error: ${i}"
+		msg_success
+	done
+	> SOURCES/${rpm_filespec}
+	for i in "${rpm_md5sums}"; do
+		retval=$(echo ${i} | tr ";" " ")
+		echo "${retval}" >> SOURCES/${rpm_filespec}
+	done
+	# do md5sum check
+	msg "Checking source: "
+	/usr/bin/md5sum -c SOURCES/${rpm_filespec} || msg_failure
+	msg_success
+	return
+}
 #-----------------------------------------------------------------------------
 #	Main line
 if [ -z "$1" ]; then
@@ -257,12 +310,12 @@ set +h			# disable hashall
 [ -e "${LOGS}" ]		||	install -vdm 755 "${LOGS}"
 [ -e "${INFOS}" ]		||	install -vdm 755 "${INFOS}"
 [ -e "${SPECS}" ]		||	install -vdm 755 "${SPECS}"
-[ -e "${PROVIDES}" ]	||	install -vdm 755 "${PROVIDES}"
-[ -e "${REQUIRES}" ]	||	install -vdm 755 "${REQUIRES}"
+[ -e "${PROVIDES}" ]		||	install -vdm 755 "${PROVIDES}"
+[ -e "${REQUIRES}" ]		||	install -vdm 755 "${REQUIRES}"
 [ -e "${RPMS}" ]		||	install -vdm 755 "${RPMS}"
 rpm_spec=${SPECS}/$1.spec	#	rpm spec file to build
-rpm_params					#	get status
-rpm_depends					#	Build dependencies
+rpm_params			#	get status and display
+rpm_depends			#	Build dependencies
 if [ "F" == "${rpm_exists}" ]; then
 	rpm_build || die " FAILURE: rpm_build "
 fi
@@ -272,6 +325,6 @@ if [ "F" == "${rpm_installed}" ]; then
 		rpm -e tools-gcc-pass-1 tools-libstdc
 	fi
 	###
-	rpm_install				#	Install rpm
+	rpm_install		#	Install rpm
 fi
 end_run
