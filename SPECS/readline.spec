@@ -18,10 +18,10 @@ sed -i '/{OLDSUFF}/c:' support/shlib-install
 %build
 ./configure --prefix=/usr    \
 	--disable-static \
-	--docdir=/usr/share/doc/readline-7.0
-make %{?_smp_mflags} SHLIB_LIBS="-L/tools/lib -lncursesw"
+	--docdir=/usr/share/doc/%{name}-%{version}
+make %{?_smp_mflags} SHLIB_LIBS="-lncursesw"
 %install
-make SHLIB_LIBS="-L/tools/lib -lncursesw" DESTDIR=%{buildroot} install
+make SHLIB_LIBS="-lncursesw" DESTDIR=%{buildroot} install
 install -vdm 755 %{buildroot}%{_lib}
 mv -v %{buildroot}%{_libdir}/lib{readline,history}.so.* %{buildroot}%{_lib}
 ln -sfv ../..%{_lib}/$(readlink %{buildroot}%{_libdir}/libreadline.so) %{buildroot}%{_libdir}/libreadline.so

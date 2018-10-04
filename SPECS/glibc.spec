@@ -100,7 +100,7 @@ EOF
 printf "Creating ldconfig cache\n";/sbin/ldconfig
 printf "Creating locale files\n";/sbin/locale-gen.sh
 # if we had to link to the toolchain sed, remove the link now
-[ -h /bin/sed ] && rm -f /bin/sed
+[ -h /bin/sed ] && rm -fv /bin/sed
 %files
 %defattr(-,root,root)
 %dir %{_localstatedir}/cache/nscd

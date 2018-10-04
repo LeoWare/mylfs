@@ -23,7 +23,7 @@ sed -i '/LIBTOOL_INSTALL/d' c++/Makefile.in
             --without-normal        \
             --enable-pc-files       \
             --enable-widec
-make -j1
+make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install
 install -vdm 755 %{buildroot}%{_lib}
