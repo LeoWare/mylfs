@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/patch/patch-2.7.6.tar.xz
+#MD5SUM:	78ad9937e4caadcba1526ef1853730d5;SOURCES/patch-2.7.6.tar.xz
+#PATCHES:
+#FILE:		patch-2.7.6.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Patch package contains a program for modifying or creating files
 Name:		tools-patch
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/patch
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-make
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/patch/patch-%{version}.tar.xz
 %description
-	The Patch package contains a program for modifying or creating files
+The Patch package contains a program for modifying or creating files
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n patch-%{version}

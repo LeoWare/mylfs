@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz
+#MD5SUM:	be2da21680f27624f3a87055c4ba5af2;SOURCES/gcc-7.3.0.tar.xz
+#PATCHES:
+#FILE:		gcc-7.3.0.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	Libstdc++ is the standard C++ library.
 Name:		tools-libstdc
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gcc
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-glibc
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 %description
-	Libstdc++ is the standard C++ library. It is needed for the correct operation of the g++ compiler.
+Libstdc++ is the standard C++ library. It is needed for the correct operation of the g++ compiler.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n gcc-%{version}

@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/tar/tar-1.30.tar.xz
+#MD5SUM:	2d01c6cd1387be98f57a0ec4e6e35826;SOURCES/tar-1.30.tar.xz
+#PATCHES:
+#FILE:		tar-1.30.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Tar package contains an archiving program.
 Name:		tools-tar
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/tar
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-sed
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/tar/tar-%{version}.tar.xz
 %description
-	The Tar package contains an archiving program.
+The Tar package contains an archiving program.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n tar-%{version}

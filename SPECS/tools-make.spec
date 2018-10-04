@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/make/make-4.2.1.tar.bz2
+#MD5SUM:	15b012617e7c44c0ed482721629577ac;SOURCES/make-4.2.1.tar.bz2
+#PATCHES:
+#FILE:		make-4.2.1.tar.bz2.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Make package contains a program for compiling packages.
 Name:		tools-make
@@ -7,11 +11,10 @@ Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/make
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-gzip
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/make/make-%{version}.tar.bz2
 %description
-	The Make package contains a program for compiling packages.
+The Make package contains a program for compiling packages.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n make-%{version}

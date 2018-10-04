@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/binutils/binutils-2.30.tar.xz
+#MD5SUM:	ffc476dd46c96f932875d1b2e27e929f;SOURCES/binutils-2.30.tar.xz
+#PATCHES:
+#FILE:		binutils-2.30.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Binutils package contains a linker, an assembler, and other tools for handling object files.
 Name:		tools-binutils-pass-2
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/binutils
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-libstdc
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
 %description
-	The Binutils package contains a linker, an assembler, and other tools for handling object files.
+The Binutils package contains a linker, an assembler, and other tools for handling object files.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n binutils-%{version}

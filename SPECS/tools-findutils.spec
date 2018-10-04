@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/findutils/findutils-4.6.0.tar.gz
+#MD5SUM:	9936aa8009438ce185bea2694a997fc1;SOURCES/findutils-4.6.0.tar.gz
+#PATCHES:
+#FILE:		findutils-4.6.0.tar.gz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Findutils package contains programs to find files
 Name:		tools-findutils
@@ -7,14 +11,13 @@ Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/findutils
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-file
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/findutils/findutils-%{version}.tar.gz
 %description
-	The Findutils package contains programs to find files. These programs are provided
-	to recursively search through a directory tree and to create, maintain, and search
-	a database (often faster than the recursive find, but unreliable if the database
-	has not been recently updated).
+The Findutils package contains programs to find files. These programs are provided
+to recursively search through a directory tree and to create, maintain, and search
+a database (often faster than the recursive find, but unreliable if the database
+has not been recently updated).
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n findutils-%{version}

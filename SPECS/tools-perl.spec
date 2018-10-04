@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://www.cpan.org/src/5.0/perl-5.26.1.tar.xz
+#MD5SUM:	70e988b4318739b0cf3ad5e120bfde88;SOURCES/perl-5.26.1.tar.xz
+#PATCHES:
+#FILE:		perl-5.26.1.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Perl package contains the Practical Extraction and Report Language.
 Name:		tools-perl
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		http://www.cpan.org/src/5.0
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-patch
+Vendor:	Octothorpe
 Source0:	http://www.cpan.org/src/5.0/perl-%{version}.tar.xz
 %description
-	The Perl package contains the Practical Extraction and Report Language.
+The Perl package contains the Practical Extraction and Report Language.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n perl-%{version}

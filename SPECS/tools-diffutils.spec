@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/diffutils/diffutils-3.6.tar.xz
+#MD5SUM:	07cf286672ced26fba54cd0313bdc071;SOURCES/diffutils-3.6.tar.xz
+#PATCHES:
+#FILE:		diffutils-3.6.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Diffutils package contains programs that show the differences between files or directories.
 Name:		tools-diffutils
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/diffutils
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-coreutils
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 %description
-	The Diffutils package contains programs that show the differences between files or directories.
+The Diffutils package contains programs that show the differences between files or directories.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n diffutils-%{version}

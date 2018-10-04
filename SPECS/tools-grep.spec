@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/grep/grep-3.1.tar.xz
+#MD5SUM:	feca7b3e7c7f4aab2b42ecbfc513b070;SOURCES/grep-3.1.tar.xz
+#PATCHES:
+#FILE:		grep-3.1.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Grep package contains programs for searching through files.
 Name:		tools-grep
@@ -7,11 +11,10 @@ Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/grep
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-gettext
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/grep/grep-%{version}.tar.xz
 %description
-	The Grep package contains programs for searching through files.
+The Grep package contains programs for searching through files.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n grep-%{version}

@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/bash/bash-4.4.18.tar.gz
+#MD5SUM:	518e2c187cc11a17040f0915dddce54e;SOURCES/bash-4.4.18.tar.gz
+#PATCHES:
+#FILE:		bash-4.4.18.tar.gz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Bash package contains the Bourne-Again SHell.
 Name:		tools-bash
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/bash
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-ncurses
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/bash/bash-%{version}.tar.gz
 %description
-	The Bash package contains the Bourne-Again SHell.
+The Bash package contains the Bourne-Again SHell.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n bash-%{version}

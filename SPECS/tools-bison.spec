@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/bison/bison-3.0.4.tar.xz
+#MD5SUM:	c342201de104cc9ce0a21e0ad10d4021;SOURCES/bison-3.0.4.tar.xz
+#PATCHES:
+#FILE:		bison-3.0.4.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Bison package contains a parser generator.
 Name:		tools-bison
@@ -7,11 +11,10 @@ Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/bison
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-bash
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/bison/bison-%{version}.tar.xz
 %description
-	The Bison package contains a parser generator.
+The Bison package contains a parser generator.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n bison-%{version}

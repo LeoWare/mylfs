@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	https://www.kernel.org/pub/linux/utils/util-linux/v2.31/util-linux-2.31.1.tar.xz
+#MD5SUM:	7733b583dcb51518944d42aa62ef19ea;SOURCES/util-linux-2.31.1.tar.xz
+#PATCHES:
+#FILE:		util-linux-2.31.1.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Util-linux package contains miscellaneous utility programs.
 Name:		tools-util-linux
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		https://www.kernel.org/pub/linux/utils/util-linux/v2.30
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-texinfo
+Vendor:	Octothorpe
 Source0:	https://www.kernel.org/pub/linux/utils/util-linux/v2.30/util-linux-%{version}.tar.xz
 %description
-	The Util-linux package contains miscellaneous utility programs.
+The Util-linux package contains miscellaneous utility programs.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n util-linux-%{version}

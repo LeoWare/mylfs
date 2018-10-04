@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/sed/sed-4.4.tar.xz
+#MD5SUM:	e0c583d4c380059abd818cd540fe6938;SOURCES/sed-4.4.tar.xz
+#PATCHES:
+#FILE:		sed-4.4.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Sed package contains a stream editor.
 Name:		tools-sed
@@ -7,11 +11,10 @@ Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/sed
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-perl
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/sed/sed-%{version}.tar.xz
 %description
-	The Sed package contains a stream editor.
+The Sed package contains a stream editor.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n sed-%{version}

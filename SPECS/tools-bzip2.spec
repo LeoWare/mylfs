@@ -1,5 +1,9 @@
 %global debug_package %{nil}
 %define	_optflags -march=x86-64 -mtune=generic -O2 -pipe -fPIC
+#TARBALL:	http://anduin.linuxfromscratch.org/LFS/bzip2-1.0.6.tar.gz
+#MD5SUM:	00b516f4704d4a7cb50a1d97e6e8e15b;SOURCES/bzip2-1.0.6.tar.gz
+#PATCHES:
+#FILE:		bzip2-1.0.6.tar.gz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Bzip2 package contains programs for compressing and decompressing files.
 Name:		tools-bzip2
@@ -8,14 +12,13 @@ Release:	2
 License:	GPL
 URL:		http://www.bzip.org/1.0.6/
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-bison
+Vendor:	Octothorpe
 Source0:	http://www.bzip.org/1.0.6/bzip2-%{version}.tar.gz
 Patch0:	bzip2-%{version}-install_docs-1.patch
 %description
-	The Bzip2 package contains programs for compressing and decompressing files.
-	Compressing text files with bzip2 yields a much better compression percentage
-	than with the traditional gzip
+The Bzip2 package contains programs for compressing and decompressing files.
+Compressing text files with bzip2 yields a much better compression percentage
+than with the traditional gzip
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n bzip2-%{version}

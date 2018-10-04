@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://tukaani.org/xz/xz-5.2.3.tar.xz
+#MD5SUM:	60fb79cab777e3f71ca43d298adacbd5;SOURCES/xz-5.2.3.tar.xz
+#PATCHES:
+#FILE:		xz-5.2.3.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Xz package contains programs for compressing and decompressing files.
 Name:		tools-xz
@@ -7,14 +11,13 @@ Release:	2
 License:	GPL
 URL:		http://tukaani.org/xz
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-util-linux
+Vendor:	Octothorpe
 Source0:	http://tukaani.org/xz/xz-%{version}.tar.xz
 %description
-	The Xz package contains programs for compressing and decompressing files.
-	It provides capabilities for the lzma and the newer xz compression formats.
-	Compressing text files with xz yields a better compression percentage than
-	with the traditional gzip or bzip2 commands.
+The Xz package contains programs for compressing and decompressing files.
+It provides capabilities for the lzma and the newer xz compression formats.
+Compressing text files with xz yields a better compression percentage than
+with the traditional gzip or bzip2 commands.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n xz-%{version}

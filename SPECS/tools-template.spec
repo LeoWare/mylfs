@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	
+#MD5SUM:	
+#PATCHES:
+#FILE:		.md5sum
 #-----------------------------------------------------------------------------
 #	package
 Summary:
@@ -8,7 +12,7 @@ Release:	1
 License:	GPL
 URL:
 Group:		LFS/Tools
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	<name>-%{version}.tar.gz
 Patch0:
 %description

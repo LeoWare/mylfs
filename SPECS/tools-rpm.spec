@@ -1,4 +1,9 @@
 %global debug_package %{nil}
+%define	LFS	/mnt/lfs
+#TARBALL:	
+#MD5SUM:	
+#PATCHES:
+#FILE:		.md5sum
 #-----------------------------------------------------------------------------
 Summary:	RPM package manager
 Name:		tools-rpm
@@ -7,13 +12,11 @@ Release:	1
 License:	GPL
 URL:		http://ftp.rpm.org/releases/rpm-4.14.x
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-popt
+Vendor:	Octothorpe
 Source0:	http://ftp.rpm.org/releases/rpm-4.14.x/rpm-%{version}.tar.bz2
 Source1:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
-%define	LFS	/mnt/lfs
 %description
-	RPM package manager
+RPM package manager
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n rpm-%{version}

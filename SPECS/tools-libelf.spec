@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	
+#MD5SUM:	
+#PATCHES:
+#FILE:		.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The elfutils package contains a set of utilities and libraries for handling ELF files
 Name:		tools-libelf
@@ -7,12 +11,11 @@ Release:	1
 License:	GPL
 URL:		https://sourceware.org/ftp/elfutils
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-zlib
+Vendor:	Octothorpe
 Source0:	https://sourceware.org/ftp/elfutils/0.170/elfutils-%{version}.tar.bz2
 %description
-	The elfutils package contains a set of utilities and libraries for handling ELF
-	(Executable and Linkable Format) files.
+The elfutils package contains a set of utilities and libraries for handling ELF
+(Executable and Linkable Format) files.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n elfutils-%{version}

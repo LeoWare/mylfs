@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/dejagnu/dejagnu-1.6.1.tar.gz
+#MD5SUM:	2ac8405a4c7ca8611d004fe852966c6f;SOURCES/dejagnu-1.6.1.tar.gz
+#PATCHES:
+#FILE:		dejagnu-1.6.1.tar.gz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The DejaGNU package contains a framework for testing other programs.
 Name:		tools-dejagnu
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/dejagnu
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-expect
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/dejagnu/dejagnu-%{version}.tar.gz
 %description
-	The DejaGNU package contains a framework for testing other programs.
+The DejaGNU package contains a framework for testing other programs.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n dejagnu-%{version}

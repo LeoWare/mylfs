@@ -1,4 +1,14 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz
+#TARBALL:	http://ftp.gnu.org/gnu/gmp/gmp-6.1.2.tar.xz
+#TARBALL:	http://ftp.osuosl.org/pub/lfs/lfs-packages/8.2/mpc-1.1.0.tar.gz
+#TARBALL:	http://ftp.osuosl.org/pub/lfs/lfs-packages/8.2/mpfr-4.0.1.tar.xz
+#MD5SUM:	be2da21680f27624f3a87055c4ba5af2;SOURCES/gcc-7.3.0.tar.xz
+#MD5SUM:	f58fa8001d60c4c77595fbbb62b63c1d;SOURCES/gmp-6.1.2.tar.xz
+#MD5SUM:	4125404e41e482ec68282a2e687f6c73;SOURCES/mpc-1.1.0.tar.gz
+#MD5SUM:	b8dd19bd9bb1ec8831a6a582a7308073;SOURCES/mpfr-4.0.1.tar.xz
+#PATCHES:
+#FILE:		gcc-7.3.0.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
 Name:		tools-gcc-pass-2
@@ -7,14 +17,13 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gcc/gcc-%{version}
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-binutils-pass-2
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 Source1:	http://ftp.gnu.org/gnu/gmp/gmp-6.1.2.tar.xz
 Source2:	http://www.multiprecision.org/mpc/download/mpc-1.1.0.tar.gz
 Source3:	http://www.mpfr.org/mpfr-3.1.5/mpfr-4.0.1.tar.xz
 %description
-	The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
+The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n gcc-%{version}

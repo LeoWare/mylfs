@@ -288,6 +288,7 @@ rpm_fetch() {
 		/usr/bin/wget --no-clobber --no-check-certificate --directory-prefix=SOURCES ${i} > /dev/null 2>&1 || die "Error: ${i}"
 		msg_success
 	done
+	rpm_filespec="MD5SUM"
 	if [ ! -z "${rpm_filespec}" ]; then
 		> SOURCES/${rpm_filespec}
 		for i in ${rpm_md5sums}; do printf "%s\n" "$(echo ${i} | tr ";" " ")" >> SOURCES/${rpm_filespec};done

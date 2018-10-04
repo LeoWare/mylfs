@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	https://downloads.sourceforge.net/tcl/tcl8.6.8-src.tar.gz
+#MD5SUM:	81656d3367af032e0ae6157eff134f89;SOURCES/tcl8.6.8-src.tar.gz
+#PATCHES:
+#FILE:		tcl8.6.8-src.tar.gz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Tcl package contains the Tool Command Language.
 Name:		tools-tcl-core
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		http://sourceforge.net/projects/tcl/files/Tcl/8.6.7
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-gcc-pass-2
+Vendor:	Octothorpe
 Source0:	http://sourceforge.net/projects/tcl/files/Tcl/8.6.7/tcl%{version}-src.tar.gz
 %description
-	The Tcl package contains the Tool Command Language.
+The Tcl package contains the Tool Command Language.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n tcl%{version}

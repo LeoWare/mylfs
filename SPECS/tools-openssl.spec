@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	
+#MD5SUM:	
+#PATCHES:
+#FILE:		.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The OpenSSL package contains management tools and libraries relating to cryptography
 Name:		tools-openssl
@@ -7,13 +11,12 @@ Release:	1
 License:	GPL
 URL:		https://openssl.org/source
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-libelf
+Vendor:	Octothorpe
 Source0:	https://openssl.org/source/openssl-%{version}.tar.gz
 %description
-	The OpenSSL package contains management tools and libraries relating to cryptography.
-	These are useful for providing cryptographic functions to other packages, such as OpenSSH,
-	email applications and web browsers (for accessing HTTPS sites).
+The OpenSSL package contains management tools and libraries relating to cryptography.
+These are useful for providing cryptographic functions to other packages, such as OpenSSH,
+email applications and web browsers (for accessing HTTPS sites).
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n openssl-%{version}

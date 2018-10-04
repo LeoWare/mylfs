@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/gzip/gzip-1.9.tar.xz
+#MD5SUM:	9492c6ccb2239ff679a5475a7bb543ed;SOURCES/gzip-1.9.tar.xz
+#PATCHES:
+#FILE:		gzip-1.9.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Gzip package contains programs for compressing and decompressing files.
 Name:		tools-gzip
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gzip
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-grep
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/gzip/gzip-%{version}.tar.xz
 %description
-	The Gzip package contains programs for compressing and decompressing files.
+The Gzip package contains programs for compressing and decompressing files.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n gzip-%{version}

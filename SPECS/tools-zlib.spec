@@ -1,5 +1,9 @@
 %global debug_package %{nil}
 %define	_optflags -march=x86-64 -mtune=generic -O2 -pipe -fPIC
+#TARBALL:	
+#MD5SUM:	
+#PATCHES:
+#FILE:		.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Zlib package contains compression and decompression routines used by some programs.
 Name:		tools-zlib
@@ -9,10 +13,9 @@ License:	Any
 URL:		http://zlib.net
 Group:		LFS/Tools
 Vendor:	Octothorpe
-BuildRequires:	tools-xz
 Source0:	http://zlib.net/zlib-%{version}.tar.xz
 %description
-	The Zlib package contains compression and decompression routines used by some programs.
+The Zlib package contains compression and decompression routines used by some programs.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n zlib-%{VERSION}

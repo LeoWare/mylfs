@@ -89,27 +89,19 @@ fdisk /dev/sdx				partition drive, you need to do this
 mkfs.ext4 /dev/sdxx			create ext4 filesystem
 mkdir /mnt/lfs				create work directory
 mount /dev/sdxx /mnt/lfs	mount partition to work directory
-
 #
 #	Install build system
 #
 login as root user
 cd to directory where you placed and extracted the build system.
 ./setup.sh
-
-#
-#	Get the source tarballs
-#
-login as lfs user
-cd /mnt/lfs/usr/src/LFS-RPM
-fetch.sh
-
 #
 #Build tool chain one go with tests
 #	if you need to restart ./tools.sh step then run: rpm -e $(rpm -qa | grep tools)
 #
+login as lfs user
+su - lfs
 ./tools.sh
-
 #
 #	Build LFS system
 #

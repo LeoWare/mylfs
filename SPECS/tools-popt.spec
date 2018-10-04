@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	
+#MD5SUM:	
+#PATCHES:
+#FILE:		.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The popt package contains the popt libraries which are used by some programs parse command-line options.
 Name:		tools-popt
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		http://rpm5.org/files/popt
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-openssl
+Vendor:	Octothorpe
 Source0:	http://rpm5.org/files/popt/popt-%{version}.tar.gz
 %description
-	The popt package contains the popt libraries which are used by some programs parse command-line options.
+The popt package contains the popt libraries which are used by some programs parse command-line options.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n popt-%{version}

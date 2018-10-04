@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://prdownloads.sourceforge.net/expect/expect5.45.4.tar.gz
+#MD5SUM:	789e297f547980fc9ecc036f9a070d49;SOURCES/expat-2.2.5.tar.bz2
+#PATCHES:
+#FILE:		expect5.45.4.tar.gz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Expect package contains a program for carrying out scripted dialogues with other interactive programs.
 Name:		tools-expect
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		http://prdownloads.sourceforge.net/expect
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-tcl-core
+Vendor:	Octothorpe
 Source0:	http://prdownloads.sourceforge.net/expect/expect%{version}.tar.gz
 %description
-	The Expect package contains a program for carrying out scripted dialogues with other interactive programs.
+The Expect package contains a program for carrying out scripted dialogues with other interactive programs.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n expect%{version}

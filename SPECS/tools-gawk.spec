@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/gawk/gawk-4.2.0.tar.xz
+#MD5SUM:	f26c469addc67d88034b01b62ebab284;SOURCES/gawk-4.2.0.tar.xz
+#PATCHES:
+#FILE:		gawk-4.2.0.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Gawk package contains programs for manipulating text files.
 Name:		tools-gawk
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gawk
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-findutils
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/gawk/gawk-%{version}.tar.xz
 %description
-	The Gawk package contains programs for manipulating text files.
+The Gawk package contains programs for manipulating text files.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n gawk-%{version}

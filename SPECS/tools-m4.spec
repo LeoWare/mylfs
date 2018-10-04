@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.xz
+#MD5SUM:	730bb15d96fffe47e148d1e09235af82;SOURCES/m4-1.4.18.tar.xz
+#PATCHES:
+#FILE:		m4-1.4.18.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The M4 package contains a macro processor.
 Name:		tools-m4
@@ -7,11 +11,10 @@ Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/m4
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-dejagnu
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz
 %description
-	The M4 package contains a macro processor.
+The M4 package contains a macro processor.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n m4-%{version}

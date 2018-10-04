@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/coreutils/coreutils-8.29.tar.xz
+#MD5SUM:	960cfe75a42c9907c71439f8eb436303;SOURCES/coreutils-8.29.tar.xz
+#PATCHES:
+#FILE:		coreutils-8.29.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Coreutils package contains utilities for showing and setting the basic system characteristics.
 Name:		tools-coreutils
@@ -7,11 +11,10 @@ Release:	1
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/coreutils
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-bzip2
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/coreutils/coreutils-%{version}.tar.xz
 %description
-	The Coreutils package contains utilities for showing and setting the basic system characteristics.
+The Coreutils package contains utilities for showing and setting the basic system characteristics.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n coreutils-%{version}

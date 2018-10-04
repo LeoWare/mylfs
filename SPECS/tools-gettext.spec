@@ -1,4 +1,8 @@
 %global debug_package %{nil}
+#TARBALL:	http://ftp.gnu.org/gnu/gettext/gettext-0.19.8.1.tar.xz
+#MD5SUM:	df3f5690eaa30fd228537b00cb7b7590;SOURCES/gettext-0.19.8.1.tar.xz
+#PATCHES:
+#FILE:		gettext-0.19.8.1.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Gettext package contains utilities for internationalization and localization
 Name:		tools-gettext
@@ -7,10 +11,10 @@ Release:	2
 License:	GPL
 URL:		http://ftp.gnu.org/gnu/gettext
 Group:		LFS/Tools
-Vendor:		Octothorpe
-BuildRequires:	tools-gawk
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/gettext/gettext-%{version}.tar.xz
 %description
+The Gettext package contains utilities for internationalization and localization
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n gettext-%{version}
