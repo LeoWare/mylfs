@@ -1,6 +1,6 @@
 Summary:	Libraries for terminal handling of character screens
 Name:		ncurses
-Version:	6.0
+Version:	6.1
 Release:	1
 License:	GPLv2
 URL:		http://www.gnu.org/software/ncurses
@@ -32,7 +32,7 @@ ln -sfv ../..%{_lib}/$(readlink %{buildroot}%{_libdir}/libncursesw.so) %{buildro
 for lib in ncurses form panel menu ; do \
     rm -vf %{buildroot}%{_libdir}/lib${lib}.so ; \
     echo "INPUT(-l${lib}w)" > %{buildroot}%{_libdir}/lib${lib}.so ; \
-    ln -sfv ${lib}w.pc %{buildroot}%{_libdir}/pkgconfig/${lib}.pc
+    ln -sfv ${lib}w.pc %{buildroot}%{_datadir}/pkgconfig/${lib}.pc
 done
 rm -vf %{buildroot}%{_libdir}/libcursesw.so
 echo "INPUT(-lncursesw)" > %{buildroot}%{_libdir}/libcursesw.so
@@ -47,6 +47,7 @@ cp -v -R doc/* %{buildroot}%{_defaultdocdir}/%{name}-%{version}
 %{_bindir}/*
 %{_includedir}/*
 %{_libdir}/*
+%{_datadir}/*
 %{_defaultdocdir}/%{name}-%{version}/*
 %{_mandir}/*/*
 %{_datarootdir}/tabset/*

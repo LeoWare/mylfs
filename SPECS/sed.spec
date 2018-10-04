@@ -7,7 +7,7 @@ URL:		http://www.gnu.org/software/sed
 Group:		Applications/Editors
 Vendor:		LeoWare
 Distribution:	MyLFS
-Source:		http://ftp.gnu.org/gnu/sed/%{name}-%{version}.tar.bz2
+Source:		http://ftp.gnu.org/gnu/sed/%{name}-%{version}.tar.xz
 %description
 The Sed package contains a stream editor.
 %prep

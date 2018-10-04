@@ -40,10 +40,8 @@ rm -f /usr/lib/libncursesw.so.6
 rm -f /usr/lib/libncurses.so
 %check
 #make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
-%post
-/sbin/ldconfig
-%postun
-/sbin/ldconfi
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 %files
 %defattr(-,root,root)
 %{_bindir}/*

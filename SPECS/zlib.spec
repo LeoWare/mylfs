@@ -73,7 +73,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_libdir}/libz.a
 %{_libdir}/libz.so
 %{_libdir}/pkgconfig/zlib.pc
-%{_mandir}/man3/zlib.3.gz
+%{_mandir}/man3/zlib.3
 %changelog
 *	Sat Mar 22 2014 baho-utot <baho-utot@columbus.rr.com> 1.2.8-1
 *	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 1.2.7-1
