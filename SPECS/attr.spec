@@ -1,6 +1,6 @@
 Summary:	Administer the extended attributes on filesystem objects
 Name:		attr
-Version:	2.4.48
+Version:	2.4.47
 Release:	1
 License:	GPLv2
 URL:		http://savannah.nongnu.org/projects/attr
@@ -12,22 +12,22 @@ Source:		http://download.savannah.gnu.org/releases/attr/%{name}-%{version}.tar.g
 The attr package contains utilities to administer the extended attributes on filesystem objects.
 %prep
 %setup -q
-#sed -i -e 's|/@pkg_name@|&-@pkg_version@|' include/builddefs.in
-#sed -i -e "/SUBDIRS/s|man[25]||g" man/Makefile
-#sed -i 's:{(:\\{(:' test/run
+sed -i -e 's|/@pkg_name@|&-@pkg_version@|' include/builddefs.in
+sed -i -e "/SUBDIRS/s|man[25]||g" man/Makefile
+sed -i 's:{(:\\{(:' test/run
 %build
 ./configure --prefix=%{_prefix} \
-            --disable-static \
-			--sysconfdir=/etc \
-			--docdir=/usr/share/doc/attr-2.4.48
+            --disable-static
+			#--sysconfdir=/etc \
+			#--docdir=/usr/share/doc/attr-2.4.48
 make %{?_smp_mflags}
 %check
-make -j1
+make -j1 tests root-tests
 %install
 make %{?_smp_mflags} DESTDIR=%{buildroot} install
-#make %{?_smp_mflags} DESTDIR=%{buildroot} install-dev
-#make %{?_smp_mflags} DESTDIR=%{buildroot} install-lib
-#chmod -v 755 %{buildroot}%{_libdir}/libattr.so
+make %{?_smp_mflags} DESTDIR=%{buildroot} install-dev
+make %{?_smp_mflags} DESTDIR=%{buildroot} install-lib
+chmod -v 755 %{buildroot}%{_libdir}/libattr.so
 mv -v %{buildroot}%{_libdir}/libattr.so.* %{buildroot}%{_lib}
 ln -sfv ../../%{_lib}/$(readlink %{buildroot}/usr/lib/libattr.so) %{buildroot}%{_libdir}/libattr.so
 %post	-p /sbin/ldconfig

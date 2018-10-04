@@ -1,23 +1,23 @@
 Summary:	Stream editor
 Name:		sed
-Version:	4.2.2
+Version:	4.4
 Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/sed
 Group:		Applications/Editors
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/sed/%{name}-%{version}.tar.bz2
 %description
 The Sed package contains a stream editor.
 %prep
 %setup -q
+sed -i 's/usr/tools/'                 build-aux/help2man
+sed -i 's/testsuite.panic-tests.sh//' Makefile.in
 %build
 ./configure \
 	--prefix=%{_prefix} \
-	--bindir=/bin \
-	--htmldir=%{_defaultdocdir}/%{name}-%{version} \
-	--disable-silent-rules
+	--bindir=/bin
 make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install
@@ -30,5 +30,5 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 /bin/*
 %{_mandir}/man1/*
 %changelog
-*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 4.2.2-1
--	Upgrade version
+*   Wed Oct 03 2018 Samuel Raynor <samuel@samuelraynor.com> 4.4-1
+-	Initial build.
