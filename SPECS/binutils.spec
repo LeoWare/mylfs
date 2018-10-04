@@ -78,7 +78,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %lang(zh_CN)%{_datarootdir}/locale/zh_CN/LC_MESSAGES/*.mo
 %lang(zh_TW)%{_datarootdir}/locale/zh_TW/LC_MESSAGES/*.mo
  #	Manpages
-%{_mandir}/man1/*.gz
+%{_mandir}/man1/*
 %changelog
 *	Tue Apr 01 2014 baho-utot <baho-utot@columbus.rr.com> 2.24-1
 *	Mon Apr 01 2013 baho-utot <baho-utot@columbus.rr.com> 2.23.2-1

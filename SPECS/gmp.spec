@@ -23,7 +23,7 @@ for arbitrary precision arithmetic.
 	./configure --prefix=/usr    \
 	--enable-cxx     \
 	--disable-static \
-	--docdir=%{docdir}/%{name}-%{version}
+	--docdir=%{_docdir}/%{name}-%{version}
 %endif
 make %{?_smp_mflags}
 make %{?_smp_mflags} html

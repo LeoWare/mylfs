@@ -19,7 +19,7 @@ and so on.
 #sed -i 's/\\$$(pwd)/`pwd`/' timezone/Makefile
 %patch0 -p1
 install -vdm 755 %{_builddir}/%{name}-build
-ln -sfv /tools/lib/gcc /usr/lib
+#ln -sfv /tools/lib/gcc /usr/lib
 %build
 %ifarch x86_64
 	GCC_INCDIR=/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include
@@ -90,7 +90,7 @@ rpc: files
 
 # End /etc/nsswitch.conf
 EOF
-
+rm -rfv %{buildroot}%{_localstatedir}/cache/ldconfig
 %post
 # locale-gen.sh depends on sed
 # sed is not present when building from the toolchain
@@ -100,7 +100,7 @@ EOF
 printf "Creating ldconfig cache\n";/sbin/ldconfig
 printf "Creating locale files\n";/sbin/locale-gen.sh
 # if we had to link to the toolchain sed, remove the link now
-[ -h /bin/sed ] && rm -fv /bin/sed
+[ -h /bin/sed ] && rm -f /bin/sed
 %files
 %defattr(-,root,root)
 %dir %{_localstatedir}/cache/nscd
@@ -110,7 +110,7 @@ printf "Creating locale files\n";/sbin/locale-gen.sh
 %{_lib}/*
 %{_libdir}/*
 %{_lib64}/*
-#%{_lib64dir}/*
+#{_lib64dir}/*
 %else
 %{_lib}/*
 %endif

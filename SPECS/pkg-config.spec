@@ -15,6 +15,7 @@ to build tools during the configure and make file execution.
 %setup -q
 %build
 ./configure --prefix=%{_prefix}              \
+            --with-internal-glib \
             --disable-host-tool        \
             --docdir=%{_docdir}/%{name}-%{version}
 make %{?_smp_mflags}

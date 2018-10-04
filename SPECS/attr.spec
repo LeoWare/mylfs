@@ -7,7 +7,7 @@ URL:		http://savannah.nongnu.org/projects/attr
 Group:		Applications/System
 Vendor:		Bonsai
 Distribution:	LFS
-Source:		http://download.savannah.gnu.org/releases/attr/%{name}-%{version}.tar.gz
+Source:		http://download.savannah.gnu.org/releases/attr/%{name}-%{version}.src.tar.gz
 %description
 The attr package contains utilities to administer the extended attributes on filesystem objects.
 %prep
@@ -27,6 +27,7 @@ make -j1 tests root-tests
 make %{?_smp_mflags} DESTDIR=%{buildroot} install
 make %{?_smp_mflags} DESTDIR=%{buildroot} install-dev
 make %{?_smp_mflags} DESTDIR=%{buildroot} install-lib
+install -vdm 755 %{buildroot}%{_lib}
 chmod -v 755 %{buildroot}%{_libdir}/libattr.so
 mv -v %{buildroot}%{_libdir}/libattr.so.* %{buildroot}%{_lib}
 ln -sfv ../../%{_lib}/$(readlink %{buildroot}/usr/lib/libattr.so) %{buildroot}%{_libdir}/libattr.so
@@ -34,11 +35,20 @@ ln -sfv ../../%{_lib}/$(readlink %{buildroot}/usr/lib/libattr.so) %{buildroot}%{
 %postun	-p /sbin/ldconfig
 %files
 %defattr(-,root,root)
+%{_lib}/*
 %{_bindir}/*
 %{_includedir}/*
 %{_libdir}/*
 %{_defaultdocdir}/%{name}-%{version}/*
 %{_mandir}/*/*
+%{_datadir}/locale/cs/LC_MESSAGES/attr.mo
+%{_datadir}/locale/de/LC_MESSAGES/attr.mo
+%{_datadir}/locale/es/LC_MESSAGES/attr.mo
+%{_datadir}/locale/fr/LC_MESSAGES/attr.mo
+%{_datadir}/locale/gl/LC_MESSAGES/attr.mo
+%{_datadir}/locale/nl/LC_MESSAGES/attr.mo
+%{_datadir}/locale/pl/LC_MESSAGES/attr.mo
+%{_datadir}/locale/sv/LC_MESSAGES/attr.mo
 %changelog
 *   Fri Sep 22 2017 Samuel Raynor <samuel@samuelraynor.com> 2.4.47-1
 -	Initial build.	First version

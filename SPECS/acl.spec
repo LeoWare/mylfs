@@ -30,6 +30,7 @@ make %{?_smp_mflags}
 make %{?_smp_mflags} DESTDIR=%{buildroot} install
 make %{?_smp_mflags} DESTDIR=%{buildroot} install-dev
 make %{?_smp_mflags} DESTDIR=%{buildroot} install-lib
+install -vdm 755 %{buildroot}%{_lib}
 chmod -v 755 %{buildroot}%{_libdir}/libacl.so
 mv -v %{buildroot}%{_libdir}/libacl.so.* %{buildroot}%{_lib}
 ln -sfv ../../%{_lib}/$(readlink %{buildroot}/usr/lib/libacl.so) %{buildroot}%{_libdir}/libacl.so
@@ -37,11 +38,18 @@ ln -sfv ../../%{_lib}/$(readlink %{buildroot}/usr/lib/libacl.so) %{buildroot}%{_
 %postun	-p /sbin/ldconfig
 %files
 %defattr(-,root,root)
+%{_lib}/*
 %{_bindir}/*
 %{_includedir}/*
 %{_libdir}/*
 %{_defaultdocdir}/%{name}-%{version}/*
 %{_mandir}/*/*
+%{_datadir}/locale/de/LC_MESSAGES/acl.mo
+%{_datadir}/locale/es/LC_MESSAGES/acl.mo
+%{_datadir}/locale/fr/LC_MESSAGES/acl.mo
+%{_datadir}/locale/gl/LC_MESSAGES/acl.mo
+%{_datadir}/locale/pl/LC_MESSAGES/acl.mo
+%{_datadir}/locale/sv/LC_MESSAGES/acl.mo
 %changelog
 *   Fri Sep 22 2017 Samuel Raynor <samuel@samuelraynor.com> 2.2.52-1
 -	Initial build.	First version
