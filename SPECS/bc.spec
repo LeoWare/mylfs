@@ -2,11 +2,12 @@ Summary:	The Bc package contains an arbitrary precision numeric processing langu
 Name:		bc
 Version:	1.07.1
 Release:	1
-License:	GPLv3
-URL:		http://www.gnu.org
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
+License:	GPLv2
+URL:		http://alpha.gnu.org/gnu/bc/
+Group:		LFS
+Vendor:		LeoWare
+Distribution:	MyLFS
+Source0:	http://alpha.gnu.org/gnu/bc/%{name}-%{version}.tar.gz
 %description
 	The Bc package contains an arbitrary precision numeric processing language
 %prep

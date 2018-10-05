@@ -7,7 +7,7 @@ License:	BSD
 Group:		Applications/System
 Vendor:		LeoWare
 Distribution:	MyLFS
-Source:		http://cdn.debian.net/debian/pool/main/s/%{name}/%{name}_%{version}.orig.tar.gz
+Source:		http://cdn.debian.net/debian/pool/main/s/%{name}/%{name}-%{version}.tar.xz
 %description
 The Shadow package contains programs for handling passwords
 in a secure way.

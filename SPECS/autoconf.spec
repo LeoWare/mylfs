@@ -6,8 +6,8 @@ License:	GPLv2
 
 URL:		http://www.gnu.org/software/autoconf
 Group:		LFS/Base
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/autoconf/%{name}-%{version}.tar.xz
 %description
 The package contains programs for producing shell scripts that can

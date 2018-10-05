@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://www.nongnu.org/man-db
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		%{name}-%{version}.tar.xz
 %description
 The Man-DB package contains programs for finding and viewing man pages.

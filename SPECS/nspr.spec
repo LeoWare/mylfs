@@ -5,8 +5,8 @@ Release:	1
 License:	MPLv2.0
 URL:		http://ftp.mozilla.org/pub/mozilla.org
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://ftp.mozilla.org/pub/mozilla.org/%{name}/releases/v%{version}/src/%{name}-%{version}.tar.gz
 %description
 Netscape Portable Runtime (NSPR) provides a platform-neutral API

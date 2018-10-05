@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/gmp
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/gmp/%{name}-%{version}.tar.xz
 %description
 The GMP package contains math libraries. These have useful functions

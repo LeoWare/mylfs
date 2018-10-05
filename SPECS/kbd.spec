@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://ftp.altlinux.org/pub/people/legion/kbd
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://ftp.altlinux.org/pub/people/legion/kbd/%{name}-%{version}.tar.gz
 Patch0:		kbd-2.0.1-backspace-1.patch
 %description

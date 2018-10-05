@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv3
 URL:		http://www.mpfr.org
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://www.mpfr.org/%{name}-%{version}/%{name}-%{version}.tar.xz
 %description
 The MPFR package contains functions for multiple precision math.

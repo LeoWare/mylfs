@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://www.freedesktop.org/wiki/Software/systemd/
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source0:	http://www.freedesktop.org/software/systemd/systemd-%{version}.tar.xz
 Source1:	http://anduin.linuxfromscratch.org/sources/other/udev-lfs-%{version}-3.tar.bz2
 %description

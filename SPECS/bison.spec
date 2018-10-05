@@ -39,13 +39,13 @@ Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 =======
 Summary:	Contains a parser generator
 Name:		bison
-Version:	3.0.2
+Version:	3.0.4
 Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/bison
 Group:		LFS/Base
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/bison/%{name}-%{version}.tar.xz
 %description
 This package contains a parser generator
@@ -54,7 +54,7 @@ This package contains a parser generator
 %build
 ./configure \
 	--prefix=%{_prefix} \
-	--disable-silent-rules
+	--docdir=%{_defaultdocdir}/%{name}-%{version}
 make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install

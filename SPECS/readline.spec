@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv3
 URL:		http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/readline/%{name}-%{version}.tar.gz
 %description
 The Readline package is a set of libraries that offers command-line

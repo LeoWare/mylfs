@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/gettext
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/gettext/%{name}-%{version}.tar.gz
 %description
 These allow programs to be compiled with NLS

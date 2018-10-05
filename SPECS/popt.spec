@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv1
 URL:		http://rpm5.org/files/popt
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		ftp://anduin.linuxfromscratch.org/BLFS/svn/p/%{name}-%{version}.tar.gz
 %description
 The popt package contains the popt libraries which are used by

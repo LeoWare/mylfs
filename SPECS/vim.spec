@@ -5,8 +5,8 @@ Release:	1
 License:	Charityware
 URL:		http://www.vim.org
 Group:		Applications/Editors
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		%{name}-%{version}.tar.bz2
 %description
 The Vim package contains a powerful text editor.

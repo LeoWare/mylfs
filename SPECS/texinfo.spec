@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/texinfo/
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source0:	%{name}-%{version}.tar.xz
 %description
 The Texinfo package contains programs for reading, writing,

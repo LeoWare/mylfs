@@ -1,37 +1,46 @@
-Summary:	Gperf generates a perfect hash function from a key set.
-Name:		gperf
-Version:	3.1
-Release:	1
-License:	GPLv3
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/gperf/%{name}-%{version}.tar.gz
+Name:           gperf
+Version:        3.1
+Release:        1%{?dist}
+Summary:        Gperf generates a perfect hash function from a key set.
+Vendor:			LeoWare
+Distribution:	MyLFS
+
+Group:          Applications/System
+License:        GPLv3
+URL:            https://www.gnu.org/software/gperf/
+Source0:        http://ftp.gnu.org/pub/gnu/${name}/%{name}-%{version}.tar.gz
+
+BuildRequires:  
+Requires:       
+
 %description
-	Gperf generates a perfect hash function from a key set.
+Gperf generates a perfect hash function from a key set.
+
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
+
+
 %build
-	./configure \
-		--prefix=%{_prefix} \
-		--docdir=%{_docdir}/%{name}-%{version}
-	make %{?_smp_mflags}
+%configure --docdir=%{_defaultdocdir}/%{name}-%{version}
+make %{?_smp_mflags}
+
+%check
+make -j1 check
+
 %install
-	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
+rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
+
+
 %clean
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
-	%{_mandir}/man1/*.gz
+rm -rf $RPM_BUILD_ROOT
+
+
+%files
+%{!?_licensedir:%global license %%doc}
+%license COPYING
+
+
+
+
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 3.1-1
--	Initial build.	First version

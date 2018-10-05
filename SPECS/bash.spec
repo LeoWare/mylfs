@@ -5,19 +5,22 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
+Vendor:		LeoWare
+Distribution:	MyLFS
+Source0:	http://ftp.gnu.org/gnu/bash/%{name}-%{version}.tar.gz
+Provides:	/bin/sh
+Provides:	/bin/bash
 %description
 	The Bash package contains the Bourne-Again SHell.
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
 %build
-	./configure \
-		--prefix=%{_prefix} \
-		--docdir=%{_docdir}/%{NAME}-%{VERSION} \
-		--without-bash-malloc \
-		--with-installed-readline
-	make %{?_smp_mflags}
+./configure \
+	--prefix=%{_prefix} \
+	--without-bash-malloc \
+	--with-installed-readline \
+	--docdir=%{_defaultdocdir}/%{name}-%{version}
+make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
 	install -vdm 755 %{buildroot}/bin

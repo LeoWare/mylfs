@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv3
 URL:		http://www.linuxfromscratch.org/lfs
 Group:		LFS/Base
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 BuildArch:	noarch
 Source0:	http://www.linuxfromscratch.org/lfs/downloads/development/lfs-%{name}-%{version}.tar.bz2
 %description

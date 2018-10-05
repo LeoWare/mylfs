@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/pub/linux/utils/kernel/kmod
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://www.kernel.org/pub/linux/utils/kernel/kmod/%{name}-%{version}.tar.xz
 %description
 The Kmod package contains libraries and utilities for loading kernel modules

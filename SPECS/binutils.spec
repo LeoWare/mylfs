@@ -5,8 +5,9 @@ Release:	1
 License:	GPLv3
 URL:		http://ftp.gnu.org
 Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
+Vendor:		LeoWare
+Distribution:	MyLFS
+Source0:	http://ftp.gnu.org/gnu/binutils/%{name}-%{version}.tar.xz
 %description
 	The Binutils package contains a linker, an assembler, and other tools for handling object files
 %prep

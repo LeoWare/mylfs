@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv3
 URL:		http://www.greenwoodsoftware.com/less
 Group:		Applications/File
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
 %description
 The Less package contains a text file viewer

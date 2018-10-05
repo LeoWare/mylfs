@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/m4
 Group:		Development/Tools
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/m4/%{name}-%{version}.tar.xz
 %description
 The M4 package contains a macro processor

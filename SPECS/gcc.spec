@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://gcc.gnu.org
 Group:		Development/Tools
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/gcc/%{name}-%{version}/%{name}-%{version}.tar.xz
 Provides:	libgcc_s.so.1
 Provides:       libgcc_s.so.1(GCC_3.0)
@@ -113,8 +113,8 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %lang(zh_CN)%{_datarootdir}/locale/zh_CN/LC_MESSAGES/*.mo
 %lang(zh_TW)%{_datarootdir}/locale/zh_TW/LC_MESSAGES/*.mo
 #	Man pages
-%{_mandir}/man1/*.gz
-%{_mandir}/man7/*.gz
+%{_mandir}/man1/*
+%{_mandir}/man7/*
 %{_datadir}/gdb/*
 %changelog
 *	Tue Apr 01 2014 baho-utot <baho-utot@columbus.rr.com> 4.8.2-1

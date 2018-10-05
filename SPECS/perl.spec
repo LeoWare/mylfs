@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv1
 URL:		http://www.perl.org/
 Group:		Development/Languages
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://www.cpan.org/src/5.0/%{name}-%{version}.tar.bz2
 Provides:	perl >= 0:5.003000
 %description

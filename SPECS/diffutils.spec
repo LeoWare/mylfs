@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/diffutils
 Group:		LFS/Base
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/diffutils/%{name}-%{version}.tar.xz
 %description
 The Diffutils package contains programs that show the

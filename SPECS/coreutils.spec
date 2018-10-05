@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/coreutils
 Group:		LFS/Base
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source0:	http://ftp.gnu.org/gnu/coreutils/%{name}-%{version}.tar.xz
 Patch0:		http://www.linuxfromscratch.org/patches/lfs/7.5/coreutils-8.22-i18n-4.patch
 %description
