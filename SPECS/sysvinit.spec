@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://savannah.nongnu.org/projects/sysvinit
 Group:		System Environment/Daemons
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://download.savannah.gnu.org/releases/sysvinit/%{name}-%{version}.tar.bz2
 Patch:		sysvinit-2.88dsf-consolidated-1.patch
 %description

@@ -5,8 +5,8 @@ Release:	1
 License:	MPLv2.0
 URL:		http://ftp.mozilla.org/pub/mozilla.org/security/nss
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		%{name}-%{version}.tar.gz
 Patch:		nss-3.15.4-standalone-1.patch
 %description

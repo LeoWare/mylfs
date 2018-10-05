@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://www.gentoo.org/proj/en/eudev
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source0:	%{name}-%{version}.tar.gz
 #Source1:	%{name}-%{version}-manpages.tar.bz2
 %description

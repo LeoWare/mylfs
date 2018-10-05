@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://www.freedesktop.org/wiki/Software/pkg-config
 Group:		Development/Tools
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://pkgconfig.freedesktop.org/releases/%{name}-%{version}.tar.gz
 %description
 Contains a tool for passing the include path and/or library paths

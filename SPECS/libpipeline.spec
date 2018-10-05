@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv3
 URL:		http://libpipeline.nongnu.org
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		 http://download.savannah.gnu.org/releases/libpipeline/%{name}-%{version}.tar.gz
 %description
 Contains a library for manipulating pipelines of sub processes

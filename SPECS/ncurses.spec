@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://www.gnu.org/software/ncurses
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		ftp://ftp.gnu.org/gnu/ncurses/%{name}-%{version}.tar.gz
 %description
 The Ncurses package contains libraries for terminal-independent

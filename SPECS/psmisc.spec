@@ -1,12 +1,12 @@
 Summary:	Displays information about running processes
 Name:		psmisc
-Version:	22.20
+Version:	23.1
 Release:	1
 License:	GPLv2
 URL:		http://psmisc.sourceforge.net/
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://prdownloads.sourceforge.net/psmisc/%{name}-%{version}.tar.gz
 %description
 The Psmisc package contains programs for displaying information
@@ -15,8 +15,7 @@ about running processes.
 %setup -q
 %build
 ./configure \
-	--prefix=%{_prefix} \
-	--disable-silent-rules
+	--prefix=%{_prefix}
 make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install

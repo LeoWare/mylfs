@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/doc/man-pages
 Group:		System Environment/Base
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://www.kernel.org/pub/linux/docs/man-pages/%{name}-%{version}.tar.xz
 BuildArch:	noarch
 %description

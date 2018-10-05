@@ -1,36 +1,29 @@
 Summary:	A utility for generating programs that recognize patterns in text
 Name:		flex
-Version:	2.5.38
+Version:	2.6.4
 Release:	1
 License:	BSD
 URL:		http://flex.sourceforge.net
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://prdownloads.sourceforge.net/flex/%{name}-%{version}.tar.bz2
 %description
 The Flex package contains a utility for generating programs
 that recognize patterns in text.
 %prep
 %setup -q
-sed -i -e '/test-bison/d' tests/Makefile.in
+sed -i "/math.h/a #include <malloc.h>" src/flexdef.h
 %build
+HELP2MAN=/tools/bin/true \
 ./configure \
 	--prefix=%{_prefix} \
-	--docdir=%{_defaultdocdir}/%{name}-%{version} \
-	--disable-silent-rules
-make VERBOSE=1 %{?_smp_mflags}
+	--docdir=%{_defaultdocdir}/%{name}-%{version}
+make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install
 find %{buildroot}%{_libdir} -name '*.la' -delete
-cat > %{buildroot}/usr/bin/lex <<- "EOF"
-#!/bin/sh
-# Begin /usr/bin/lex
-
-	exec /usr/bin/flex -l "$@"
-
-# End /usr/bin/lex
-EOF
+ln -sv flex %{buildroot}%{_bindir}/lex
 rm -rf %{buildroot}%{_infodir}
 %find_lang %{name}
 %check

@@ -5,8 +5,8 @@ Release:	1
 License:	MIT
 URL:		http://www.lua.org
 Group:		Development/Tools
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source0:	ttp://www.lua.org/ftp/%{name}-%{version}.tar.gz
 Patch0:		lua-5.2.3-shared_library-1.patch
 %description

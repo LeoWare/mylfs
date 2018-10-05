@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://www.gnu.org/software/binutils
 Group:		LFS/Base
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source0:	http://ftp.gnu.org/gnu/binutils/%{name}-%{version}.tar.xz
 %description
 The Binutils package contains a linker, an assembler,

@@ -5,8 +5,8 @@ Release:	1
 License:	OSLv3
 URL:		http://freshmeat.net/projects/iana-etc
 Group:		System Environment/Base
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 BuildArch:	noarch
 Source:		http://anduin.linuxfromscratch.org/sources/LFS/lfs-packages/conglomeration//iana-etc/%{name}-%{version}.tar.bz2
 %description

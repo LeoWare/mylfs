@@ -5,8 +5,8 @@ Release:	1
 License:	LGPLv3
 URL:		http://www.multiprecision.org
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://www.multiprecision.org/mpc/download/%{name}-%{version}.tar.gz
 %description
 The MPC package contains a library for the arithmetic of complex

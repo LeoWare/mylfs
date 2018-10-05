@@ -5,8 +5,8 @@ Release:	1
 URL:		http://www.zlib.net/
 License:	MIT
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://www.zlib.net/%{name}-%{version}.tar.xz
 %description
 Compression and decompression routines

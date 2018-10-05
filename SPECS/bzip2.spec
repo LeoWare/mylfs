@@ -5,8 +5,8 @@ Release:	1
 License:	BSD
 URL:		http://www.bzip.org/
 Group:		LFS/Base
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://www.bzip.org/%{version}/%{name}-%{version}.tar.gz
 Patch0:		http://www.linuxfromscratch.org/patches/lfs/8.1/bzip2-1.0.6-install_docs-1.patch
 %description

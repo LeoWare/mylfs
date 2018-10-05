@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://www.infodrom.org/projects/sysklogd
 Group:		System Environment/Daemons
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source0:	http://www.infodrom.org/projects/sysklogd/download/%{name}-%{version}.tar.gz
 %description
 The package contains programs for logging system messages

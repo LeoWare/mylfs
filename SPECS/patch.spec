@@ -6,8 +6,8 @@ License:	GPLv3
 URL:		http://www.gnu.org/software/%{name}
 Source:		ftp://ftp.gnu.org/gnu/patch/%{name}-%{version}.tar.xz
 Group:		Development/Tools
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 %description
 Program for modifying or creating files by applying a patch
 file typically created by the diff program.

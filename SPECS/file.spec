@@ -5,8 +5,8 @@ Release:	1
 License:	Other
 URL:		http://www.darwinsys.com/file
 Group:		Applications/File
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		ftp://ftp.astron.com/pub/file/%{name}-%{version}.tar.gz
 %description
 The package contains a utility for determining the type of a

@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://rpm.org
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source0:	http://rpm.org/releases/rpm-4.11.x/%{name}-%{version}.tar.bz2
 Source1:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
 #Source2:	rpm.conf

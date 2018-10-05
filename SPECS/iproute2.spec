@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/pub/linux/utils/net/iproute2
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://www.kernel.org/pub/linux/utils/net/iproute2/%{name}-%{version}.tar.xz
 %description
 The IPRoute2 package contains programs for basic and advanced

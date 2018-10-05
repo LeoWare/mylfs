@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://e2fsprogs.sourceforge.net
 Group:		LFS/Base
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://prdownloads.sourceforge.net/e2fsprogs/%{name}-%{version}.tar.gz
 %description
 The E2fsprogs package contains the utilities for handling

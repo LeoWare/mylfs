@@ -5,8 +5,8 @@ Release:	1
 URL:		http://www.kernel.org/pub/linux/utils/util-linux
 License:	GPLv2
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		%{name}-%{version}.tar.xz
 %description
 Utilities for handling file systems, consoles, partitions,

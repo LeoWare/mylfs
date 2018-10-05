@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://alpha.gnu.org/gnu/bc/
 Group:		LFS
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source0:	http://alpha.gnu.org/gnu/bc/%{name}-%{version}.tar.gz
 %description
 The Bc package contains an arbitrary precision numeric processing language.

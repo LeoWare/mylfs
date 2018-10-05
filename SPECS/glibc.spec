@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/libc
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source0:	http://ftp.gnu.org/gnu/glibc/%{name}-%{version}.tar.xz
 Patch0:		glibc-2.27-fhs-1.patch
 %description

@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://procps.sourceforge.net/
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://sourceforge.net/projects/procps-ng/files/Production/%{name}-%{version}.tar.xz
 %description
 The Procps package contains programs for monitoring processes.

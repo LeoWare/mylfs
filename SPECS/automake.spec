@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://www.gnu.org/software/automake/
 Group:		LFS/Base
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/automake/%{name}-%{version}.tar.xz
 %description
 Contains programs for generating Makefiles for use with Autoconf.

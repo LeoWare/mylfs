@@ -1,12 +1,12 @@
 Summary:	The GNU Database Manager
 Name:		gdbm
-Version:	1.11
+Version:	1.14.1
 Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/gdbm
 Group:		Applications/Databases
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/gdbm/%{name}-%{version}.tar.gz
 %description
 This is a disk file format database which stores key/data-pairs in
@@ -19,7 +19,7 @@ stored in a text file.
 ./configure \
 	--prefix=%{_prefix} \
 	--enable-libgdbm-compat \
-	--disable-silent-rules
+	--disable-static
 make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install

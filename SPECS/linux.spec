@@ -5,8 +5,8 @@ Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/
 Group:		System Environment/Kernel
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source0:	http://www.kernel.org/pub/linux/kernel/v3.x/%{name}-%{version}.tar.xz
 #Source1:	config-%{version}-generic.amd64
 %description

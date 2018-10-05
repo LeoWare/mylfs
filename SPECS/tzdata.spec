@@ -5,8 +5,8 @@ Release:	1
 URL:		http://www.iana.org/time-zones
 License:	GPLv3
 Group:		Applications/System
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source1:	http://www.iana.org//time-zones/repository/releases/%{name}%{version}.tar.gz
 BuildArch:	noarch
 %description

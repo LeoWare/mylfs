@@ -1,12 +1,12 @@
 Summary:	Shared libraries, portable interface
 Name:		libtool
-Version:	2.4.2
+Version:	2.4.6
 Release:	1
 License:	GPLv2
 URL:		http://www.gnu.org/software/libtool
 Group:		Development/Tools
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/libtool/%{name}-%{version}.tar.gz
 %description
 It wraps the complexity of using shared libraries in a 
@@ -15,8 +15,7 @@ consistent, portable interface.
 %setup -q
 %build
 ./configure \
-	--prefix=%{_prefix} \
-	--disable-silent-rules
+	--prefix=%{_prefix}
 make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install

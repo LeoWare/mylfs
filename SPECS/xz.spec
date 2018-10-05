@@ -5,8 +5,8 @@ Release:	1
 URL:		http://tukaani.org/xz
 License:	GPLv2
 Group:		Applications/File
-Vendor:		Bildanet
-Distribution:	Octothorpe
+Vendor:		LeoWare
+Distribution:	MyLFS
 Source:		http://tukaani.org/xz/%{name}-%{version}.tar.xz
 %description
 The Xz package contains programs for compressing and
