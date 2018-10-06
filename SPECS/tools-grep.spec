@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://ftp.gnu.org/gnu/grep/grep-3.1.tar.xz
 #MD5SUM:	feca7b3e7c7f4aab2b42ecbfc513b070;SOURCES/grep-3.1.tar.xz
-#PATCHES:
-#FILE:		grep-3.1.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Grep package contains programs for searching through files.
 Name:		tools-grep

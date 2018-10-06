@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/sed/sed-4.4.tar.xz
+#MD5SUM:	e0c583d4c380059abd818cd540fe6938;SOURCES/sed-4.4.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Sed package contains a stream editor
 Name:		sed
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
-BuildRequires:	libcap
 %description
-			The Sed package contains a stream editor
+The Sed package contains a stream editor
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

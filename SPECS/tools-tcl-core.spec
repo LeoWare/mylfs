@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	https://downloads.sourceforge.net/tcl/tcl8.6.8-src.tar.gz
 #MD5SUM:	81656d3367af032e0ae6157eff134f89;SOURCES/tcl8.6.8-src.tar.gz
-#PATCHES:
-#FILE:		tcl8.6.8-src.tar.gz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Tcl package contains the Tool Command Language.
 Name:		tools-tcl-core

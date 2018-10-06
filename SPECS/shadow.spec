@@ -1,16 +1,16 @@
+#TARBALL:	https://github.com/shadow-maint/shadow/releases/download/4.5/shadow-4.5.tar.xz
+#MD5SUM:	c350da50c2120de6bb29177699d89fe3;SOURCES/shadow-4.5.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Shadow package contains programs for handling passwords in a secure way.
 Name:		shadow
 Version:	4.5
 Release:	1
 License:	Artistic
-URL:		Any
 Group:		LFS/Base
-Vendor:	    Octothorpe
+Vendor:	Octothorpe
 Source0:	https://github.com/shadow-maint/shadow/releases/download/4.5/%{name}-%{version}.tar.xz
-BuildRequires:	sed
 %description
-			The Shadow package contains programs for handling passwords in a secure way.
+The Shadow package contains programs for handling passwords in a secure way.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

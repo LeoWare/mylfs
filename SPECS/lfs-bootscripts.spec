@@ -1,3 +1,5 @@
+#TARBALL:	http://www.linuxfromscratch.org/lfs/downloads/8.2/lfs-bootscripts-20170626.tar.bz2
+#MD5SUM:	8a9f3d5aab3f77a70fef0773e8bc7b2b;SOURCES/lfs-bootscripts-20170626.tar.bz2
 #-----------------------------------------------------------------------------
 Summary:	The LFS-Bootscripts package contains a set of scripts to start/stop the LFS system at bootup/shutdown.
 Name:		lfs-bootscripts
@@ -6,19 +8,19 @@ Release:	1
 License:	None
 URL:		http://www.linuxfromscratch.org
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://www.linuxfromscratch.org/lfs/downloads/8.1/%{name}-%{version}.tar.bz2
-BuildRequires:	vim
 %description
-	The LFS-Bootscripts package contains a set of scripts to start/stop the LFS system
-	at bootup/shutdown. The configuration files and procedures needed to customize the
-	boot process are described in the following sections.
+The LFS-Bootscripts package contains a set of scripts to start/stop the LFS system
+at bootup/shutdown. The configuration files and procedures needed to customize the
+boot process are described in the following sections.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %build
 %install
 	make DESTDIR=%{buildroot} install
+	rm  %{buildroot}/etc/sysconfig/rc.site
 #-----------------------------------------------------------------------------
 #	Create file list
 #	rm  %{buildroot}%{_infodir}/dir

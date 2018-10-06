@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.xz
+#MD5SUM:	730bb15d96fffe47e148d1e09235af82;SOURCES/m4-1.4.18.tar.xz
 #-----------------------------------------------------------------------------
 Summary:    The M4 package contains a macro processor
 Name:       m4
@@ -6,9 +8,8 @@ Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
-BuildRequires:	readline
 %description
 The M4 package contains a macro processor
 #-----------------------------------------------------------------------------

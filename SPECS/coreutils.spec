@@ -1,4 +1,8 @@
 %global _default_patch_fuzz 2
+#TARBALL:	http://ftp.gnu.org/gnu/coreutils/coreutils-8.29.tar.xz
+#MD5SUM:	960cfe75a42c9907c71439f8eb436303;SOURCES/coreutils-8.29.tar.xz
+#TARBALL:	http://www.linuxfromscratch.org/patches/lfs/8.2/coreutils-8.29-i18n-1.patch
+#MD5SUM:	a9404fb575dfd5514f3c8f4120f9ca7d;SOURCES/coreutils-8.29-i18n-1.patch
 #-----------------------------------------------------------------------------
 Summary:	The Coreutils package contains utilities for showing and setting the basic system characteristics.
 Name:		coreutils
@@ -7,12 +11,11 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-Source:		http://ftp.gnu.org/gnu/coreutils/%{name}-%{version}.tar.xz
-Patch0:		coreutils-8.29-i18n-1.patch
-BuildRequires:	e2fsprogs
+Vendor:	Octothorpe
+Source:	http://ftp.gnu.org/gnu/coreutils/%{name}-%{version}.tar.xz
+Patch0:	coreutils-8.29-i18n-1.patch
 %description
-	The Coreutils package contains utilities for showing and setting the basic system characteristics.
+The Coreutils package contains utilities for showing and setting the basic system characteristics.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://ftp.gnu.org/gnu/texinfo/texinfo-6.5.tar.xz
 #MD5SUM:	3715197e62e0e07f85860b3d7aab55ed;SOURCES/texinfo-6.5.tar.xz
-#PATCHES:
-#FILE:		texinfo-6.5.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Texinfo package contains programs for reading, writing, and converting info pages.
 Name:		tools-texinfo

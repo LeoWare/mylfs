@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/groff/groff-1.22.3.tar.gz
+#MD5SUM:	cc825fa64bc7306a885f2fb2268d3ec5;SOURCES/groff-1.22.3.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The Groff package contains programs for processing and formatting text.
 Name:		groff
@@ -6,9 +8,8 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
-BuildRequires:	findutils
 Provides:	perl(main_subs.pl)
 Provides:	perl(man.pl)
 Provides:	perl(oop_fh.pl)

@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/gawk/gawk-4.2.0.tar.xz
+#MD5SUM:	f26c469addc67d88034b01b62ebab284;SOURCES/gawk-4.2.0.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Gawk package contains programs for manipulating text files.
 Name:		gawk
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/gawk/%{name}-%{version}.tar.xz
-BuildRequires:	diffutils
 %description
-	The Gawk package contains programs for manipulating text files.
+The Gawk package contains programs for manipulating text files.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

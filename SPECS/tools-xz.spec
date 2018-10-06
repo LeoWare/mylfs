@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://tukaani.org/xz/xz-5.2.3.tar.xz
 #MD5SUM:	60fb79cab777e3f71ca43d298adacbd5;SOURCES/xz-5.2.3.tar.xz
-#PATCHES:
-#FILE:		xz-5.2.3.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Xz package contains programs for compressing and decompressing files.
 Name:		tools-xz

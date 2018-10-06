@@ -1,3 +1,7 @@
+#TARBALL:	https://github.com/ninja-build/ninja/archive/v1.8.2/ninja-1.8.2.tar.gz
+#MD5SUM:	5fdb04461cc7f5d02536b3bfc0300166;SOURCES/ninja-1.8.2.tar.gz
+#TARBALL:	http://www.linuxfromscratch.org/patches/lfs/8.2/ninja-1.8.2-add_NINJAJOBS_var-1.patch
+#MD5SUM:	f537a633532492e805aa342fa869ca45;SOURCES/ninja-1.8.2-add_NINJAJOBS_var-1.patch
 #-----------------------------------------------------------------------------
 Summary:	Ninja is a small build system with a focus on speed.
 Name:		ninja
@@ -6,11 +10,10 @@ Release:	1
 License:	Any
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-Source:		%{name}-%{version}.tar.gz
-BuildRequires:	python3
+Vendor:	Octothorpe
+Source:	%{name}-%{version}.tar.gz
 %description
-	Ninja is a small build system with a focus on speed.
+Ninja is a small build system with a focus on speed.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

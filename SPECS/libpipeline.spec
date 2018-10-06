@@ -1,3 +1,5 @@
+#TARBALL:	http://download.savannah.gnu.org/releases/libpipeline/libpipeline-1.5.0.tar.gz
+#MD5SUM:	b7437a5020190cfa84f09c412db38902;SOURCES/libpipeline-1.5.0.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The Libpipeline package contains a library for manipulating pipelines of subprocesses in a flexible and convenient way.
 Name:		libpipeline
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://download.savannah.gnu.org/releases/libpipeline/%{name}-%{version}.tar.gz
-BuildRequires:	kbd
 %description
-	The Libpipeline package contains a library for manipulating pipelines of subprocesses in a flexible and convenient way.
+The Libpipeline package contains a library for manipulating pipelines of subprocesses in a flexible and convenient way.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

@@ -1,5 +1,9 @@
 #	%%global _default_patch_fuzz 2
 %define	GCC_INCDIR	/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.0/include
+#TARBALL:	http://ftp.gnu.org/gnu/glibc/glibc-2.27.tar.xz
+#MD5SUM:	898cd5656519ffbc3a03fe811dd89e82;SOURCES/glibc-2.27.tar.xz
+#TARBALL:	http://www.linuxfromscratch.org/patches/lfs/8.2/glibc-2.27-fhs-1.patch
+#MD5SUM:	9a5997c3452909b1769918c759eff8a2;SOURCES/glibc-2.27-fhs-1.patch
 #-----------------------------------------------------------------------------
 Summary:	Main C library
 Name:		glibc
@@ -8,10 +12,9 @@ Release:	1
 License:	GPLv2
 URL:		http://www.gnu.org/software/libc
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/glibc/%{name}-%{version}.tar.xz
 Patch0:		glibc-2.27-fhs-1.patch
-BuildRequires:	man-pages
 %description
 This library provides the basic routines for allocating memory,
 searching directories, opening and closing files, reading and

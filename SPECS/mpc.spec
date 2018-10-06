@@ -1,3 +1,5 @@
+#TARBALL:	https://ftp.gnu.org/gnu/mpc/mpc-1.1.0.tar.gz
+#MD5SUM:	4125404e41e482ec68282a2e687f6c73;SOURCES/mpc-1.1.0.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The MPC package contains a library for the arithmetic of complex numbers
 Name:		mpc
@@ -6,13 +8,12 @@ Release:	1
 License:	LGPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://www.multiprecision.org/%{name}/download/%{name}-%{version}.tar.gz
-BuildRequires:	mpfr
 %description
-	The MPC package contains a library for the arithmetic of
-	complex numbers with arbitrarily high precision and correct
-	rounding of the result.
+The MPC package contains a library for the arithmetic of
+complex numbers with arbitrarily high precision and correct
+rounding of the result.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

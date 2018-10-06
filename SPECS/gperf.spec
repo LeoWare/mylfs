@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/gperf/gperf-3.1.tar.gz
+#MD5SUM:	9e251c0a618ad0824b51117d5d9db87e;SOURCES/gperf-3.1.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	Gperf generates a perfect hash function from a key set.
 Name:		gperf
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/gperf/%{name}-%{version}.tar.gz
-BuildRequires:	gdbm
 %description
-	Gperf generates a perfect hash function from a key set.
+Gperf generates a perfect hash function from a key set.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

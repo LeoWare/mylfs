@@ -1,3 +1,7 @@
+#TARBALL:	https://www.kernel.org/pub/linux/utils/kbd/kbd-2.0.4.tar.xz
+#MD5SUM:	c1635a5a83b63aca7f97a3eab39ebaa6;SOURCES/kbd-2.0.4.tar.xz
+#TARBALL:	http://www.linuxfromscratch.org/patches/lfs/8.2/kbd-2.0.4-backspace-1.patch
+#MD5SUM:	f75cca16a38da6caa7d52151f7136895;SOURCES/kbd-2.0.4-backspace-1.patch
 #-----------------------------------------------------------------------------
 Summary:	The Kbd package contains key-table files, console fonts, and keyboard utilities.
 Name:		kbd
@@ -6,12 +10,11 @@ Release:	1
 License:	Other
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	https://www.kernel.org/pub/linux/utils/kbd/%{name}-%{version}.tar.xz
-Patch0:		kbd-2.0.4-backspace-1.patch
-BuildRequires:	iproute2
+Patch0:	kbd-2.0.4-backspace-1.patch
 %description
-	The Kbd package contains key-table files, console fonts, and keyboard utilities.
+The Kbd package contains key-table files, console fonts, and keyboard utilities.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

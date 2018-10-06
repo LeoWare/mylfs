@@ -1,3 +1,5 @@
+#TARBALL:	http://www.mpfr.org/mpfr-4.0.1/mpfr-4.0.1.tar.xz
+#MD5SUM:	b8dd19bd9bb1ec8831a6a582a7308073;SOURCES/mpfr-4.0.1.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The MPFR package contains functions for multiple precision math.
 Name:		mpfr
@@ -7,9 +9,8 @@ License:	GPLv3
 URL:		Any
 Group:		LFS/Base
 Source0:	http://www.mpfr.org/%{name}-%{version}/%{name}-%{version}.tar.xz
-BuildRequires:	gmp
 %description
-	The MPFR package contains functions for multiple precision math.
+The MPFR package contains functions for multiple precision math.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

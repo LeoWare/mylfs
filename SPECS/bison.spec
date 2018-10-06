@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/bison/bison-3.0.4.tar.xz
+#MD5SUM:	c342201de104cc9ce0a21e0ad10d4021;SOURCES/bison-3.0.4.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Bison package contains a parser generator.
 Name:		bison
@@ -6,11 +8,10 @@ Release:	1
 License:	Any
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
-BuildRequires:	iana-etc
 %description
-	The Bison package contains a parser generator.
+The Bison package contains a parser generator.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

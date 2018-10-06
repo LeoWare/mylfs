@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	
 #MD5SUM:	
-#PATCHES:
-#FILE:		.md5sum
 #-----------------------------------------------------------------------------
 #	package
 Summary:

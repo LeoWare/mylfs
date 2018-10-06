@@ -1,3 +1,5 @@
+#TARBALL:	http://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-2.44.tar.gz
+#MD5SUM:	af4813fe3952362451201ced6fbce379;SOURCES/XML-Parser-2.44.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The XML::Parser module is a Perl interface to James Clark's XML parser, Expat.
 Name:		XML-Parser
@@ -6,11 +8,10 @@ Release:	1
 License:	Non-GPL
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://cpan.metacpan.org/authors/id/T/TO/TODDR/%{name}-%{version}.tar.gz
-BuildRequires:	perl
 %description
-	The XML::Parser module is a Perl interface to James Clark's XML parser, Expat.
+The XML::Parser module is a Perl interface to James Clark's XML parser, Expat.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

@@ -1,8 +1,6 @@
 %global debug_package %{nil}
-#TARBALL:	
-#MD5SUM:	
-#PATCHES:
-#FILE:		.md5sum
+#TARBALL:	https://openssl.org/source/openssl-1.1.0g.tar.gz
+#MD5SUM:	ba5f1b8b835b88cadbce9b35ed9531a6;SOURCES/openssl-1.1.0g.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The OpenSSL package contains management tools and libraries relating to cryptography
 Name:		tools-openssl
@@ -27,6 +25,7 @@ email applications and web browsers (for accessing HTTPS sites).
 		no-shared \
 		no-zlib \
 		enable-md2
+#		--disable-threads
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install

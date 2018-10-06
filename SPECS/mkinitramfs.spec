@@ -6,10 +6,9 @@ Release:	1
 License:	Any
 URL:		www.linuxfromscratch.org/blfs
 Group:		LFS/Base
-Vendor:		Octothorpe
-#Source:		%%{name}-%%{version}
+Vendor:	Octothorpe
+#Source:	%%{name}-%%{version}
 Requires:	cpio
-BuildRequires:	cpio
 %description
 The only purpose of an initramfs is to mount the root filesystem.
 The initramfs is a complete set of directories that you would find on a normal
@@ -319,4 +318,3 @@ Anything else usually means that the kernel was not configured properly.
 %changelog
 *	Sun Sep 09 2018 baho-utot <baho-utot@columbus.rr.com> 8.2-1
 -	Initial build.	First version
- 

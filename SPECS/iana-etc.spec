@@ -1,3 +1,5 @@
+#TARBALL:	http://anduin.linuxfromscratch.org/LFS/iana-etc-2.30.tar.bz2
+#MD5SUM:	3ba3afb1d1b261383d247f46cb135ee8;SOURCES/iana-etc-2.30.tar.bz2
 #-----------------------------------------------------------------------------
 Summary:	The Iana-Etc package provides data for network services and protocols.
 Name:		iana-etc
@@ -6,11 +8,10 @@ Release:	1
 License:	OSLv3.0
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://anduin.linuxfromscratch.org/LFS/%{name}-%{version}.tar.bz2
-BuildRequires:	psmisc
 %description
-	The Iana-Etc package provides data for network services and protocols.
+The Iana-Etc package provides data for network services and protocols.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

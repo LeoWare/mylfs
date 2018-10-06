@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/inetutils/inetutils-1.9.4.tar.xz
+#MD5SUM:	87fef1fa3f603aef11c41dcc097af75e;SOURCES/inetutils-1.9.4.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Inetutils package contains programs for basic networking.
 Name:		inetutils
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/inetutils/%{name}-%{version}.tar.xz
-BuildRequires:	expat
 %description
-	The Inetutils package contains programs for basic networking.
+The Inetutils package contains programs for basic networking.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

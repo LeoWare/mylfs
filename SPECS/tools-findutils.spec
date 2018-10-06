@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://ftp.gnu.org/gnu/findutils/findutils-4.6.0.tar.gz
 #MD5SUM:	9936aa8009438ce185bea2694a997fc1;SOURCES/findutils-4.6.0.tar.gz
-#PATCHES:
-#FILE:		findutils-4.6.0.tar.gz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Findutils package contains programs to find files
 Name:		tools-findutils

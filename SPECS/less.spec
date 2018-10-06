@@ -1,3 +1,5 @@
+#TARBALL:	http://www.greenwoodsoftware.com/less/less-530.tar.gz
+#MD5SUM:	6a39bccf420c946b0fd7ffc64961315b;SOURCES/less-530.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The Less package contains a text file viewer.
 Name:		less
@@ -6,11 +8,10 @@ Release:	1
 License:	Other
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
-BuildRequires:	grub
 %description
-	The Less package contains a text file viewer.
+The Less package contains a text file viewer.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

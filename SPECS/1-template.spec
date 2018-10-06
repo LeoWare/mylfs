@@ -1,6 +1,6 @@
 %global _default_patch_fuzz 2
-#	URL:	https://ftp.gnu.org/gnu/cpio/cpio-2.12.tar.bz2
-#	MD5SUM:	93eea9f07c0058c097891c73e4955456
+#TARBALL:	
+#MD5SUM:	
 #-----------------------------------------------------------------------------
 Summary:	
 Name:		

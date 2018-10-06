@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://ftp.gnu.org/gnu//ncurses/ncurses-6.1.tar.gz
 #MD5SUM:	98c889aaf8d23910d2b92d65be2e737a;SOURCES/ncurses-6.1.tar.gz
-#PATCHES:
-#FILE:		ncurses-6.1.tar.gz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Ncurses package contains libraries for terminal-independent handling of character screens.
 Name:		tools-ncurses

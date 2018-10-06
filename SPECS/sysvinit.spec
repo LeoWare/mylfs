@@ -1,3 +1,7 @@
+#TARBALL:	http://download.savannah.gnu.org/releases/sysvinit/sysvinit-2.88dsf.tar.bz2
+#MD5SUM:	6eda8a97b86e0a6f59dabbf25202aa6f;SOURCES/sysvinit-2.88dsf.tar.bz2
+#TARBALL:	http://www.linuxfromscratch.org/patches/lfs/8.2/sysvinit-2.88dsf-consolidated-1.patch
+#MD5SUM:	0b7b5ea568a878fdcc4057b2bf36e5cb;SOURCES/sysvinit-2.88dsf-consolidated-1.patch
 #-----------------------------------------------------------------------------
 Summary:	Controls the start up, running and shutdown of the system
 Name:		sysvinit
@@ -6,13 +10,12 @@ Release:	1
 License:	GPLv2
 URL:		http://savannah.nongnu.org/projects/sysvinit
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://download.savannah.gnu.org/releases/sysvinit/%{name}-%{version}.tar.bz2
 Patch:		sysvinit-2.88dsf-consolidated-1.patch
-BuildRequires:	sysklogd
 %description
-	Contains programs for controlling the start up, running and
-	shutdown of the system
+Contains programs for controlling the start up, running and
+shutdown of the system
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
@@ -42,7 +45,6 @@ BuildRequires:	sysklogd
 #	%%{_infodir}/*.gz
 	%{_mandir}/man5/*.gz
 	%{_mandir}/man8/*.gz
-	
 #-----------------------------------------------------------------------------
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 2.88dsf-1

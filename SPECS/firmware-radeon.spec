@@ -1,3 +1,4 @@
+#MD5SUM:	55e7c8cf8bca4fbb738be885266a2dc4;SOURCES/firmware-radeon-1.00.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	Firmware for radeon graphics cards
 Name:		firmware-radeon
@@ -6,11 +7,10 @@ Release:	1
 License:	Any
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-Source:		%{name}-%{version}.tar.gz
-BuildRequires:	wget
+Vendor:	Octothorpe
+Source:	%{name}-%{version}.tar.gz
 %description
-		Firmware for radeon graphics cards
+Firmware for radeon graphics cards
 #-----------------------------------------------------------------------------
 %prep
 %build
@@ -37,5 +37,5 @@ BuildRequires:	wget
 #	%%{_mandir}/man1/*.gz
 #-----------------------------------------------------------------------------
 %changelog
-*	Sun Jul 29 2018 baho-utot <baho-utot@columbus.rr.com> 1-1
+*	Sun Jul 29 2018 baho-utot <baho-utot@columbus.rr.com> 1.00-1
 -	Initial build.	First version

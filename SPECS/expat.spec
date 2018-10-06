@@ -1,3 +1,5 @@
+#TARBALL:	http://prdownloads.sourceforge.net/expat/expat-2.2.5.tar.bz2
+#MD5SUM:	789e297f547980fc9ecc036f9a070d49;SOURCES/expat-2.2.5.tar.bz2
 #-----------------------------------------------------------------------------
 Summary:	The Expat package contains a stream oriented C library for parsing XML.
 Name:		expat
@@ -6,11 +8,10 @@ Release:	1
 License:	Other
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://prdownloads.sourceforge.net/expat/%{name}-%{version}.tar.bz2
-BuildRequires:	gperf
 %description
-			The Expat package contains a stream oriented C library for parsing XML.
+The Expat package contains a stream oriented C library for parsing XML.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

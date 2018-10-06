@@ -1,3 +1,5 @@
+#TARBALL:	http://rpm5.org/files/popt/popt-1.16.tar.gz
+#MD5SUM:	3743beefa3dd6247a73f8f7a32c14c33;SOURCES/popt-1.16.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The popt package contains the popt libraries which are used by some programs parse command-line options.
 Name:		popt
@@ -6,11 +8,10 @@ Release:	1
 License:	GPL
 URL:		http://rpm5.org/files/popt
 Group:		BLFS/General_Libraries 
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://rpm5.org/files/popt/%{name}-%{version}.tar.gz
-BuildRequires:	linux
 %description
-		The popt package contains the popt libraries which are used by some programs parse command-line options.
+The popt package contains the popt libraries which are used by some programs parse command-line options.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{name}-%{version}

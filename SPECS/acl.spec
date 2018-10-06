@@ -1,3 +1,5 @@
+#TARBALL:	http://download.savannah.gnu.org/releases/acl/acl-2.2.52.src.tar.gz
+#MD5SUM:	a61415312426e9c2212bd7dc7929abda;SOURCES/acl-2.2.52.src.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The Acl package contains utilities to administer Access Control Lists
 Name:		acl
@@ -6,9 +8,8 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.src.tar.gz
-BuildRequires:	attr
 %description
 	The Acl package contains utilities to administer Access Control Lists, which are
 	used to define more fine-grained discretionary access rights for files and directories.

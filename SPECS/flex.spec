@@ -1,3 +1,5 @@
+#TARBALL:	https://github.com/westes/flex/releases/download/v2.6.4/flex-2.6.4.tar.gz
+#MD5SUM:	2882e3179748cc9f9c23ec593d6adc8d;SOURCES/flex-2.6.4.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The Flex package contains a utility for generating programs that recognize patterns in text.
 Name:		flex
@@ -6,9 +8,8 @@ Release:	1
 License:	BSD
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	https://github.com/westes/flex/releases/download/v2.6.4/%{name}-%{version}.tar.gz
-BuildRequires:	bison
 %description
 The Flex package contains a utility for generating programs that recognize patterns in text.
 #-----------------------------------------------------------------------------

@@ -1,9 +1,9 @@
 %global debug_package %{nil}
 %define	LFS	/mnt/lfs
-#TARBALL:	
-#MD5SUM:	
-#PATCHES:
-#FILE:		.md5sum
+#TARBALL:	http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.1.tar.bz2
+#TARBALL:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
+#MD5SUM:	1058b1a8e96b42b4fc31afc6719c8239;SOURCES/rpm-4.14.1.tar.bz2
+#MD5SUM:	f73afcb308aefde7e6ece4caa87b22a9;SOURCES/db-6.0.20.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	RPM package manager
 Name:		tools-rpm

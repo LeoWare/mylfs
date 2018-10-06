@@ -1,3 +1,7 @@
+#TARBALL:	https://www.python.org/ftp/python/3.6.4/Python-3.6.4.tar.xz
+#MD5SUM:	1325134dd525b4a2c3272a1a0214dd54;SOURCES/Python-3.6.4.tar.xz
+#TARBALL:	https://docs.python.org/ftp/python/doc/3.6.4/python-3.6.4-docs-html.tar.bz2
+#MD5SUM:	205aba4b06fd5e44598d1638a2ff81d8;SOURCES/python-3.6.4-docs-html.tar.bz2
 #-----------------------------------------------------------------------------
 Summary:	The Python 3 package contains the Python development environment.
 Name:		python3
@@ -6,14 +10,13 @@ Release:	1
 License:	Any
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	Python-%{VERSION}.tar.xz
 Source1:	python-%{VERSION}-docs-html.tar.bz2
-BuildRequires:	openssl
 %description
-	The Python 3 package contains the Python development environment.
-	This is useful for object-oriented programming, writing scripts,
-	prototyping large programs or developing entire applications.
+The Python 3 package contains the Python development environment.
+This is useful for object-oriented programming, writing scripts,
+prototyping large programs or developing entire applications.
 #-----------------------------------------------------------------------------
 %prep
 cd %{_builddir}
@@ -38,8 +41,8 @@ sed -i '/^#!.*local\//s|local/||' Lib/cgi.py Tools/pybench/pybench.py
 #-----------------------------------------------------------------------------
 #	Copy license/copying file 
 	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
-#	rm "%{buildroot}/usr/lib/python3.6/site-packages/setuptools/command/launcher manifest.xml"
-#	rm "%{buildroot}/usr/lib/python3.6/site-packages/setuptools/script (dev).tmpl"
+	rm "%{buildroot}/usr/lib/python3.6/site-packages/setuptools/command/launcher manifest.xml"
+	rm "%{buildroot}/usr/lib/python3.6/site-packages/setuptools/script (dev).tmpl"
 #-----------------------------------------------------------------------------
 #	Create file list
 #	rm  %{buildroot}%{_infodir}/dir

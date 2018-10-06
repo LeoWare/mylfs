@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://ftp.gnu.org/gnu/patch/patch-2.7.6.tar.xz
 #MD5SUM:	78ad9937e4caadcba1526ef1853730d5;SOURCES/patch-2.7.6.tar.xz
-#PATCHES:
-#FILE:		patch-2.7.6.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Patch package contains a program for modifying or creating files
 Name:		tools-patch

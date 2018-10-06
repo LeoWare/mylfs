@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://ftp.gnu.org/gnu/tar/tar-1.30.tar.xz
 #MD5SUM:	2d01c6cd1387be98f57a0ec4e6e35826;SOURCES/tar-1.30.tar.xz
-#PATCHES:
-#FILE:		tar-1.30.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Tar package contains an archiving program.
 Name:		tools-tar

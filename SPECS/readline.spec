@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/readline/readline-7.0.tar.gz
+#MD5SUM:	205b03a87fc83dab653b628c59b9fc91;SOURCES/readline-7.0.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The Readline package is a set of libraries that offers command-line editing and history capabilities
 Name:		readline
@@ -6,9 +8,8 @@ Release:	1
 License:	GPLv3
 URL:		http://ftp.gnu.org/gnu/readline/%{name}-%{version}.tar.gz
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
-BuildRequires:	file
 %description
 The Readline package is a set of libraries that offers command-line editing and history capabilities
 #-----------------------------------------------------------------------------

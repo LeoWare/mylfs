@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz
+#MD5SUM:	50f97f4159805e374639a73e2636f22e;SOURCES/autoconf-2.69.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Autoconf package contains programs for producing shell scripts that can automatically configure source code.
 Name:		autoconf
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/autoconf/%{name}-%{version}.tar.xz
-BuildRequires:	intltool
 %description
-	The Autoconf package contains programs for producing shell scripts that can automatically configure source code.
+The Autoconf package contains programs for producing shell scripts that can automatically configure source code.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

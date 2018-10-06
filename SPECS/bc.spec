@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/bc/bc-1.07.1.tar.gz
+#MD5SUM:	cda93857418655ea43590736fc3ca9fc;SOURCES/bc-1.07.1.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The Bc package contains an arbitrary precision numeric processing language
 Name:		bc
@@ -6,9 +8,8 @@ Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
-BuildRequires:	m4
 %description
 The Bc package contains an arbitrary precision numeric processing language
 #-----------------------------------------------------------------------------

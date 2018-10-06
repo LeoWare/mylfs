@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/binutils/binutils-2.30.tar.xz
+#MD5SUM:	ffc476dd46c96f932875d1b2e27e929f;SOURCES/binutils-2.30.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Binutils package contains a linker, an assembler, and other tools for handling object files
 Name:		binutils
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv3
 URL:		http://ftp.gnu.org
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
-BuildRequires:	bc
 %description
-	The Binutils package contains a linker, an assembler, and other tools for handling object files
+The Binutils package contains a linker, an assembler, and other tools for handling object files
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

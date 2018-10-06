@@ -1,3 +1,5 @@
+#TARBALL:	https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-4.15.0.tar.xz
+#MD5SUM:	0681bf4664b2649ad4e12551a3a7a1f9;SOURCES/iproute2-4.15.0.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The IPRoute2 package contains programs for basic and advanced IPV4-based networking.
 Name:		iproute2
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	https://www.kernel.org/pub/linux/utils/net/iproute2/%{NAME}-%{VERSION}.tar.xz
-BuildRequires:	gzip
 %description
-	The IPRoute2 package contains programs for basic and advanced IPV4-based networking.
+The IPRoute2 package contains programs for basic and advanced IPV4-based networking.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

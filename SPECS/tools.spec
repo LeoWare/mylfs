@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 #-----------------------------------------------------------------------------
 #	package
-Summary:	Meta package to build tools tool chain
+Summary:	Meta package to build Chapter 5 tool chain
 Name:		tools
 Version:	8.2
 Release:	1
@@ -12,6 +12,7 @@ Vendor:	Octothorpe
 #
 #	LFS tool chain packages
 #
+Requires:	tools-fetch
 Requires:	tools-binutils-pass-1
 Requires:	tools-gcc-pass-1
 Requires:	tools-linux-api-headers
@@ -26,7 +27,7 @@ Requires:	tools-m4
 Requires:	tools-ncurses
 Requires:	tools-bash
 Requires:	tools-bison
-Requires:	tool-bzip2
+Requires:	tools-bzip2
 Requires:	tools-coreutils
 Requires:	tools-diffutils
 Requires:	tools-file
@@ -46,13 +47,14 @@ Requires:	tools-xz
 #
 #	RPM tool chain packages
 #
-#Requires:	tools-zlib
-#Requires:	tools-libelf
-#Requires:	tools-openssl
-#Requires:	tools-popt
-#Requires:	tools-rpm
+Requires:	tools-zlib
+Requires:	tools-libelf
+Requires:	tools-openssl
+Requires:	tools-popt
+Requires:	tools-rpm
+Requires:	tools-post
 %description
-Meta package to build tools tool chain
+Meta package to build Chapter 5 tool chain
 #-----------------------------------------------------------------------------
 %prep
 %build

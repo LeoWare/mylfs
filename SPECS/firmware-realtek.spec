@@ -1,3 +1,4 @@
+#MD5SUM:	ca0739ca20bd48a6bbfb31c1778e2469;SOURCES/firmware-realtek-1.00.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	Firmware for realtek network cards
 Name:		firmware-realtek
@@ -6,11 +7,10 @@ Release:	1
 License:	Any
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-Source:		%{name}-%{version}.tar.gz
-BuildRequires:	firmware-radeon
+Vendor:	Octothorpe
+Source:	%{name}-%{version}.tar.gz
 %description
-		Firmware for realtek network cards
+Firmware for realtek network cards
 #-----------------------------------------------------------------------------
 %prep
 %build
@@ -37,5 +37,5 @@ BuildRequires:	firmware-radeon
 #	%%{_mandir}/man1/*.gz
 #-----------------------------------------------------------------------------
 %changelog
-*	Sun Jul 29 2018 baho-utot <baho-utot@columbus.rr.com> 1-1
+*	Sun Jul 29 2018 baho-utot <baho-utot@columbus.rr.com> 1.00-1
 -	Initial build.	First version

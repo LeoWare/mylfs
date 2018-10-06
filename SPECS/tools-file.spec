@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	ftp://ftp.astron.com/pub/file/file-5.32.tar.gz
 #MD5SUM:	4f2503752ff041895090ed6435610435;SOURCES/file-5.32.tar.gz
-#PATCHES:
-#FILE:		file-5.32.tar.gz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The File package contains a utility for determining the type of a given file or files.
 Name:		tools-file

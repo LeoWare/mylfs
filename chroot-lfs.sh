@@ -3,7 +3,9 @@
 #   Partition to mount @ /mnt
 #
 PARTITION=/dev/sda5
-[ mountpoint '/mnt' > /dev/null 2>&1 ] || /bin/mount ${PARTITION} /mnt
+LFS=/dev/sdb3
+[ mountpoint '/mnt' > /dev/null 2>&1 ]		|| /bin/mount ${PARTITION} /mnt
+[ mountpoint '/mnt/mnt/lfs' > /dev/null 2>&1 ]	|| /bin/mount ${LFS} /mnt/mnt/lfs
 #
 #   Mount kernel filesystems
 #
@@ -28,4 +30,5 @@ PARTITION=/dev/sda5
 /bin/umount /mnt/proc
 /bin/umount /mnt/dev/pts
 /bin/umount /mnt/dev
+/bin/umount /mnt/mnt/lfs
 /bin/umount /mnt

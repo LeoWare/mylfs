@@ -1,4 +1,6 @@
 #	%%define	_optflags -march=x86-64 -mtune=generic -O2 -pipe
+#TARBALL:	http://ftp.gnu.org/gnu/grub/grub-2.02.tar.xz
+#MD5SUM:	8a4a2a95aac551fb0fba860ceabfa1d3;SOURCES/grub-2.02.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The GRUB package contains the GRand Unified Bootloader.
 Name:		grub
@@ -7,11 +9,10 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/grub/%{name}-%{version}.tar.xz
-BuildRequires:	groff
 %description
-	The GRUB package contains the GRand Unified Bootloader.
+The GRUB package contains the GRand Unified Bootloader.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

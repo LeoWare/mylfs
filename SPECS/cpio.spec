@@ -1,5 +1,5 @@
-#	URL:	https://ftp.gnu.org/gnu/cpio/cpio-2.12.tar.bz2
-#	MD5SUM:	93eea9f07c0058c097891c73e4955456
+#TARBALL:	https://ftp.gnu.org/gnu/cpio/cpio-2.12.tar.bz2
+#MD5SUM:	93eea9f07c0058c097891c73e4955456;SOURCES/cpio-2.12.tar.bz2
 #-----------------------------------------------------------------------------
 Summary:	The cpio package contains tools for archiving
 Name:		cpio
@@ -8,12 +8,10 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		BLFS/System_Utilities 
-Vendor:		Octothorpe
-BuildRequires:	lfs-bootscripts
+Vendor:	Octothorpe
 Source0:	https://ftp.gnu.org/gnu/cpio/%{name}-%{version}.tar.bz2
-
 %description
-	The cpio package contains tools for archiving
+The cpio package contains tools for archiving
 %prep
 %setup -q -n %{NAME}-%{VERSION}
 %build

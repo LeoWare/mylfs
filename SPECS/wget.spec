@@ -1,3 +1,5 @@
+#TARBALL:	https://ftp.gnu.org/gnu/wget/wget-1.19.1.tar.xz
+#MD5SUM:	d30d82186b93fcabb4116ff513bfa9bd;SOURCES/wget-1.19.1.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Wget package contains a utility useful for non-interactive downloading of files from the Web. 
 Name:		wget
@@ -6,11 +8,10 @@ Release:	1
 License:	Any
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	%{name}-%{version}.tar.xz
-BuildRequires:	rpm
 %description
-	The Wget package contains a utility useful for non-interactive downloading of files from the Web. 
+The Wget package contains a utility useful for non-interactive downloading of files from the Web. 
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
@@ -50,5 +51,5 @@ BuildRequires:	rpm
 	popd
 #-----------------------------------------------------------------------------
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> -1
+*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 1.19.1-1
 -	Initial build.	First version

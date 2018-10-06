@@ -1,3 +1,5 @@
+#TARBALL:	https://sourceforge.net/projects/psmisc/files/psmisc/psmisc-23.1.tar.xz
+#MD5SUM:	bbba1f701c02fb50d59540d1ff90d8d1;SOURCES/psmisc-23.1.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Psmisc package contains programs for displaying information about running processes.
 Name:		psmisc
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	https://sourceforge.net/projects/psmisc/files/%{name}/%{name}-%{version}.tar.xz
-BuildRequires:	shadow
 %description
-	The Psmisc package contains programs for displaying information about running processes.
+The Psmisc package contains programs for displaying information about running processes.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

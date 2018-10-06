@@ -1,3 +1,5 @@
+#TARBALL:	http://www.cpan.org/src/5.0/perl-5.26.1.tar.xz
+#MD5SUM:	70e988b4318739b0cf3ad5e120bfde88;SOURCES/perl-5.26.1.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Perl package contains the Practical Extraction and Report Language.
 Name:		perl
@@ -6,9 +8,8 @@ Release:	1
 License:	GPLv1
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://www.cpan.org/src/5.0/%{name}-%{version}.tar.xz
-BuildRequires:	inetutils
 Provides:	perl = 0:5.00405
 Provides:	perl = 1:5
 Provides:	perl = 1:5.0
@@ -28,9 +29,8 @@ Provides:	perl = 1:5.010001
 Provides:	perl = 1:5.010_000
 Provides:	perl(subs)
 Provides:	perl(locale)
-
 %description
-	The Perl package contains the Practical Extraction and Report Language.
+The Perl package contains the Practical Extraction and Report Language.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

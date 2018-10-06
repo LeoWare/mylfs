@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://prdownloads.sourceforge.net/expect/expect5.45.4.tar.gz
-#MD5SUM:	789e297f547980fc9ecc036f9a070d49;SOURCES/expat-2.2.5.tar.bz2
-#PATCHES:
-#FILE:		expect5.45.4.tar.gz.md5sum
+#MD5SUM:	00fce8de158422f5ccd2666512329bd2;SOURCES/expect5.45.4.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The Expect package contains a program for carrying out scripted dialogues with other interactive programs.
 Name:		tools-expect

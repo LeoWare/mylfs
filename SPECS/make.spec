@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/make/make-4.2.1.tar.bz2
+#MD5SUM:	15b012617e7c44c0ed482721629577ac;SOURCES/make-4.2.1.tar.bz2
 #-----------------------------------------------------------------------------
 Summary:	The Make package contains a program for compiling packages.
 Name:		make
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/make/%{name}-%{version}.tar.bz2
-BuildRequires:	libpipeline
 %description
-	The Make package contains a program for compiling packages.
+The Make package contains a program for compiling packages.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

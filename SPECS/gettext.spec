@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/gettext/gettext-0.19.8.1.tar.xz
+#MD5SUM:	df3f5690eaa30fd228537b00cb7b7590;SOURCES/gettext-0.19.8.1.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Gettext package contains utilities for internationalization and localization.
 Name:		gettext
@@ -6,13 +8,12 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/gettext/%{name}-%{version}.tar.xz
-BuildRequires:	kmod
 %description
-	The Gettext package contains utilities for internationalization and localization.
-	These allow programs to be compiled with NLS (Native Language Support), enabling
-	them to output messages in the user's native language.
+The Gettext package contains utilities for internationalization and localization.
+These allow programs to be compiled with NLS (Native Language Support), enabling
+them to output messages in the user's native language.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

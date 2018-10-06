@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/gdbm/gdbm-1.14.1.tar.gz
+#MD5SUM:	c2ddcb3897efa0f57484af2bd4f4f848;SOURCES/gdbm-1.14.1.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The GDBM package contains the GNU Database Manager
 Name:		gdbm
@@ -6,14 +8,13 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/gdbm/%{name}-%{version}.tar.gz
-BuildRequires:	libtool
 %description
-	The GDBM package contains the GNU Database Manager. It is a library of database
-	functions that use extensible hashing and work similar to the standard UNIX dbm.
-	The library provides primitives for storing key/data pairs, searching and
-	retrieving the data by its key and deleting a key along with its data.
+The GDBM package contains the GNU Database Manager. It is a library of database
+functions that use extensible hashing and work similar to the standard UNIX dbm.
+The library provides primitives for storing key/data pairs, searching and
+retrieving the data by its key and deleting a key along with its data.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

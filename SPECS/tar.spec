@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/tar/tar-1.30.tar.xz
+#MD5SUM:	2d01c6cd1387be98f57a0ec4e6e35826;SOURCES/tar-1.30.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Tar package contains an archiving program.
 Name:		tar
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/tar/%{name}-%{version}.tar.xz
-BuildRequires:	man-db
 %description
-	The Tar package contains an archiving program.
+The Tar package contains an archiving program.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

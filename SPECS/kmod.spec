@@ -1,3 +1,5 @@
+#TARBALL:	https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-25.tar.xz
+#MD5SUM:	34f325cab568f842fdde4f8b2182f220;SOURCES/kmod-25.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Kmod package contains libraries and utilities for loading kernel modules
 Name:		kmod
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv2.1
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	https://www.kernel.org/pub/linux/utils/kernel/kmod/%{name}-%{version}.tar.xz
-BuildRequires:	xz
 %description
-	The Kmod package contains libraries and utilities for loading kernel modules
+The Kmod package contains libraries and utilities for loading kernel modules
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://ftp.gnu.org/gnu/make/make-4.2.1.tar.bz2
 #MD5SUM:	15b012617e7c44c0ed482721629577ac;SOURCES/make-4.2.1.tar.bz2
-#PATCHES:
-#FILE:		make-4.2.1.tar.bz2.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Make package contains a program for compiling packages.
 Name:		tools-make

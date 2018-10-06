@@ -1,8 +1,6 @@
 %global debug_package %{nil}
-#TARBALL:	
-#MD5SUM:	
-#PATCHES:
-#FILE:		.md5sum
+#TARBALL:	http://rpm5.org/files/popt/popt-1.16.tar.gz
+#MD5SUM:	3743beefa3dd6247a73f8f7a32c14c33;SOURCES/popt-1.16.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The popt package contains the popt libraries which are used by some programs parse command-line options.
 Name:		tools-popt

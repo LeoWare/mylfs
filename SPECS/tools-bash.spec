@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://ftp.gnu.org/gnu/bash/bash-4.4.18.tar.gz
 #MD5SUM:	518e2c187cc11a17040f0915dddce54e;SOURCES/bash-4.4.18.tar.gz
-#PATCHES:
-#FILE:		bash-4.4.18.tar.gz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Bash package contains the Bourne-Again SHell.
 Name:		tools-bash

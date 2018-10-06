@@ -1,9 +1,5 @@
-#-----------------------------------------------------------------------------
-# PREPKG:	popt
-# URL:  	https://www.python.org/ftp/python/2.7.14/Python-2.7.14.tar.xz
-# URL:		https://docs.python.org/ftp/python/doc/2.7.14/python-2.7.14-docs-html.tar.bz2
-# MD5SUM:	1f6db41ad91d9eb0a6f0c769b8613c5b	Python-2.7.14.tar.xz
-# MD5SUM:	1f6db41ad91d9eb0a6f0c769b8613c5b	python-2.7.14-docs-html.tar.bz2
+#TARBALL:	https://www.python.org/ftp/python/2.7.14/Python-2.7.14.tar.xz
+#MD5SUM:	1f6db41ad91d9eb0a6f0c769b8613c5b;SOURCES/Python-2.7.14.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Python 2 package contains the Python development environment.
 Name:		python2
@@ -14,12 +10,10 @@ URL:		Any
 Group:		LFS/Base
 Vendor:	Octothorpe
 Source0:	Python-%{VERSION}.tar.xz
-#Source1:	python-%%{VERSION}-docs-html.tar.bz2
-BuildRequires:	popt
 %description
-	The Python 3 package contains the Python development environment.
-	This is useful for object-oriented programming, writing scripts,
-	prototyping large programs or developing entire applications.
+The Python 3 package contains the Python development environment.
+This is useful for object-oriented programming, writing scripts,
+prototyping large programs or developing entire applications.
 #-----------------------------------------------------------------------------
 %prep
 cd %{_builddir}

@@ -1,3 +1,5 @@
+#TARBALL:	https://github.com/mesonbuild/meson/releases/download/0.44.0/meson-0.44.0.tar.gz
+#MD5SUM:	26a7ca93ec9cea5facb365664261f9c6;SOURCES/meson-0.44.0.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	Meson is an open source build system
 Name:		meson
@@ -6,11 +8,10 @@ Release:	1
 License:	Any
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-Source:		%{name}-%{version}.tar.gz
-BuildRequires:	ninja
+Vendor:	Octothorpe
+Source:	%{name}-%{version}.tar.gz
 %description
-	Meson is an open source build system meant to be both extremely fast, and, even more importantly, as user friendly as possible.
+Meson is an open source build system meant to be both extremely fast, and, even more importantly, as user friendly as possible.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

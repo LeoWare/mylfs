@@ -1,3 +1,5 @@
+#TARBALL:	http://www.infodrom.org/projects/sysklogd/download/sysklogd-1.5.1.tar.gz
+#MD5SUM:	c70599ab0d037fde724f7210c2c8d7f8;SOURCES/sysklogd-1.5.1.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The Sysklogd package contains programs for logging system messages
 Name:		sysklogd
@@ -6,12 +8,11 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://www.infodrom.org/projects/sysklogd/download/%{name}-%{version}.tar.gz
-BuildRequires:	patch
 %description
-	The Sysklogd package contains programs for logging system messages, such as those
-	given by the kernel when unusual things happen.
+The Sysklogd package contains programs for logging system messages, such as those
+given by the kernel when unusual things happen.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

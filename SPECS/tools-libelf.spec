@@ -1,8 +1,6 @@
 %global debug_package %{nil}
-#TARBALL:	
-#MD5SUM:	
-#PATCHES:
-#FILE:		.md5sum
+#TARBALL:	https://sourceware.org/ftp/elfutils/0.170/elfutils-0.170.tar.bz2
+#MD5SUM:	03599aee98c9b726c7a732a2dd0245d5;SOURCES/elfutils-0.170.tar.bz2
 #-----------------------------------------------------------------------------
 Summary:	The elfutils package contains a set of utilities and libraries for handling ELF files
 Name:		tools-libelf

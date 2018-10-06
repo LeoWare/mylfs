@@ -1,3 +1,5 @@
+#TARBALL:	https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.15.3.tar.xz
+#MD5SUM:	c74d30ec13491aeb24c237d703eace3e;SOURCES/linux-4.15.3.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Linux package contains the Linux kernel.
 Name:		linux
@@ -6,12 +8,12 @@ Release:	1
 License:	GPLv2
 URL:		https://www.kernel.org
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	https://www.kernel.org/pub/linux/kernel/v4.x/%{name}-%{version}.tar.xz
 Source1:	config-%%{VERSION}
-BuildRequires:	mkinitramfs
+Requires:	mkinitramfs
 %description
-	The Linux package contains the Linux kernel.
+The Linux package contains the Linux kernel.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

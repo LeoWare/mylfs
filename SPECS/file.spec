@@ -1,3 +1,5 @@
+#TARBALL:	ftp://ftp.astron.com/pub/file/file-5.32.tar.gz
+#MD5SUM:	4f2503752ff041895090ed6435610435;SOURCES/file-5.32.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The File package contains a utility for determining the type of a given file or files
 Name:		file
@@ -8,9 +10,8 @@ URL:		ftp://ftp.astron.com/pub
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	ftp://ftp.astron.com/pub/%{name}/%{name}-%{version}.tar.gz
-BuildRequires:	zlib
 %description
-	The File package contains a utility for determining the type of a given file or files.
+The File package contains a utility for determining the type of a given file or files.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

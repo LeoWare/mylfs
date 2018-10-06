@@ -1,3 +1,5 @@
+#TARBALL:	http://download.savannah.gnu.org/releases/man-db/man-db-2.8.1.tar.xz
+#MD5SUM:	51842978e06686286421f9498d1009b7;SOURCES/man-db-2.8.1.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Man-DB package contains programs for finding and viewing man pages.
 Name:		man-db
@@ -6,11 +8,10 @@ Release:	1
 License:	Other
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://download.savannah.gnu.org/releases/man-db/%{name}-%{version}.tar.xz
-BuildRequires:	util-linux
 %description
-	The Man-DB package contains programs for finding and viewing man pages.
+The Man-DB package contains programs for finding and viewing man pages.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

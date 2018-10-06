@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/bash/bash-4.4.18.tar.gz
+#MD5SUM:	518e2c187cc11a17040f0915dddce54e;SOURCES/bash-4.4.18.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The Bash package contains the Bourne-Again SHell.
 Name:		bash
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-BuildRequires:	grep
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 %description
-	The Bash package contains the Bourne-Again SHell.
+The Bash package contains the Bourne-Again SHell.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

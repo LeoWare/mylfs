@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/gmp/gmp-6.1.2.tar.xz
+#MD5SUM:	f58fa8001d60c4c77595fbbb62b63c1d;SOURCES/gmp-6.1.2.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The GMP package contains math libraries.
 Name:		gmp
@@ -6,9 +8,8 @@ Release	:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
-BuildRequires:	binutils
 %description
 The GMP package contains math libraries. These have useful functions for arbitrary precision arithmetic.
 #-----------------------------------------------------------------------------

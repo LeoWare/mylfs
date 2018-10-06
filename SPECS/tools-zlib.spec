@@ -1,9 +1,7 @@
 %global debug_package %{nil}
 %define	_optflags -march=x86-64 -mtune=generic -O2 -pipe -fPIC
-#TARBALL:	
-#MD5SUM:	
-#PATCHES:
-#FILE:		.md5sum
+#TARBALL:	http://zlib.net/zlib-1.2.11.tar.xz
+#MD5SUM:	85adef240c5f370b308da8c938951a68;SOURCES/zlib-1.2.11.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Zlib package contains compression and decompression routines used by some programs.
 Name:		tools-zlib

@@ -1,3 +1,5 @@
+#TARBALL:	https://www.kernel.org/pub/linux/utils/util-linux/v2.31/util-linux-2.31.1.tar.xz
+#MD5SUM:	7733b583dcb51518944d42aa62ef19ea;SOURCES/util-linux-2.31.1.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Util-linux package contains miscellaneous utility programs.
 Name:		util-linux
@@ -6,13 +8,12 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	https://www.kernel.org/pub/linux/utils/util-linux/v2.31/%{name}-%{version}.tar.xz
-BuildRequires:	eudev
 %description
-	The Util-linux package contains miscellaneous utility programs.
-	Among them are utilities for handling file systems, consoles,
-	partitions, and messages.
+The Util-linux package contains miscellaneous utility programs.
+Among them are utilities for handling file systems, consoles,
+partitions, and messages.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

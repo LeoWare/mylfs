@@ -1,3 +1,5 @@
+#TARBALL:	https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.15.3.tar.xz
+#MD5SUM:	c74d30ec13491aeb24c237d703eace3e;SOURCES/linux-4.15.3.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	Linux API header files
 Name:		linux-api-headers
@@ -6,9 +8,8 @@ Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://www.kernel.org/pub/linux/kernel/v4.x/linux-%{version}.tar.xz
-BuildRequires: filesystem
 %description
 The Linux API Headers expose the kernel's API for use by Glibc.
 #-----------------------------------------------------------------------------

@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://ftp.gnu.org/gnu/binutils/binutils-2.30.tar.xz
 #MD5SUM:	ffc476dd46c96f932875d1b2e27e929f;SOURCES/binutils-2.30.tar.xz
-#PATCHES:
-#FILE:		binutils-2.30.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Binutils package contains a linker, an assembler, and tools
 Name:		tools-binutils-pass-1

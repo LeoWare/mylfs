@@ -1,3 +1,5 @@
+#TARBALL:	http://zlib.net/zlib-1.2.11.tar.xz
+#MD5SUM:	85adef240c5f370b308da8c938951a68;SOURCES/zlib-1.2.11.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Zlib package contains compression and decompression routines used by some programs.
 Name:		zlib
@@ -8,10 +10,9 @@ URL:		http://zlib.net
 Group:		LFS/Base
 Vendor:		Octothorpe
 Source0:	http://zlib.net/%{name}-%{version}.tar.xz
-BuildRequires:	adjust-tool-chain
-Provides:		pkgconfig(zlib)
+Provides:	pkgconfig(zlib)
 %description
-	The Zlib package contains compression and decompression routines used by some programs.
+The Zlib package contains compression and decompression routines used by some programs.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
@@ -42,5 +43,5 @@ Provides:		pkgconfig(zlib)
 	%_mandir/man3/zlib.3.gz
 #-----------------------------------------------------------------------------
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> -1
+*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 1.2.11-1
 -	Initial build.	First version

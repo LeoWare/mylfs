@@ -1,3 +1,5 @@
+#TARBALL:	https://www.kernel.org/pub/linux/docs/man-pages/man-pages-4.15.tar.xz
+#MD5SUM:	4298feb3d5feffad8ff46bb87b061a07;SOURCES/man-pages-4.15.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	Man pages
 Name:		man-pages
@@ -6,9 +8,8 @@ Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/doc/man-pages
 Group:		LFS/Base
-Vendor:		Octothorpe
-Source:		http://www.kernel.org/pub/linux/docs/man-pages/%{name}-%{version}.tar.xz
-BuildRequires:	linux-api-headers
+Vendor:	Octothorpe
+Source:	http://www.kernel.org/pub/linux/docs/man-pages/%{name}-%{version}.tar.xz
 %description
 The Man-pages package contains over 1,900 man pages.
 #-----------------------------------------------------------------------------

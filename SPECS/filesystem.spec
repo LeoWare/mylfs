@@ -1,17 +1,19 @@
+#TARBALL:
+#MD5SUM:
 #-----------------------------------------------------------------------------
 Summary:	Default file system
 Name:		filesystem
-Version:	8.1
+Version:	8.2
 Release:	1
 License:	None
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 URL:		http://www.linuxfromscratch.org
 %description
-		The filesystem package is one of the basic packages that is installed
-		on a Linux system. Filesystem contains the basic directory
-		layout for a Linux operating system, including the correct permissions
-		for the directories.
+The filesystem package is one of the basic packages that is installed
+on a Linux system. Filesystem contains the basic directory
+layout for a Linux operating system, including the correct permissions
+for the directories.
 #-----------------------------------------------------------------------------
 %prep
 %build
@@ -128,7 +130,7 @@ URL:		http://www.linuxfromscratch.org
 	#
 	#	7.5.1. Creating Network Interface Configuration Files
 	#
-	cat > %{buildroot}/etc/sysconfig/ifconfig.enp5s0 <<- "EOF"
+	cat > %{buildroot}/etc/sysconfig/ifconfig.eth0 <<- "EOF"
 		ONBOOT=yes
 		IFACE=enp7s0
 		SERVICE=ipv4-static
@@ -143,7 +145,7 @@ URL:		http://www.linuxfromscratch.org
 	cat > %{buildroot}/etc/resolv.conf <<- "EOF"
 		# Begin /etc/resolv.conf
 
-		domain     <example.org>
+		domain     example.org
 		nameserver <IP address of your primary nameserver>
 		nameserver <IP address of your secondary nameserver>
 
@@ -160,8 +162,7 @@ URL:		http://www.linuxfromscratch.org
 		# Begin /etc/hosts
 
 		127.0.0.1	localhost
-		#	127.0.1.1	<lfs.example.org> <lfs>
-		192.168.1.2	<lfs.example.org> <lfs>
+		192.168.1.2	lfs.example.org lfs
 		::1		localhost ip6-localhost ip6-loopback
 		ff02::1	ip6-allnodes
 		ff02::2	ip6-allrouters
@@ -429,7 +430,7 @@ URL:		http://www.linuxfromscratch.org
 	cat > %{buildroot}/etc/lsb-release <<- "EOF"
 		DISTRIB_ID="Linux From Scratch"
 		DISTRIB_RELEASE="8.2"
-		DISTRIB_CODENAME="<your name here>"
+		DISTRIB_CODENAME="Octothorpe"
 		DISTRIB_DESCRIPTION="Linux From Scratch"
 	EOF
 #-----------------------------------------------------------------------------
@@ -668,118 +669,126 @@ URL:		http://www.linuxfromscratch.org
    #
    #	Directories
    #
-   /home
-   %dir %attr(750,root,root) /root
-   %dir	/mnt
-   %dir	/boot
-   %dir	/var
-   %dir	/var/log
-   %dir	/var/mail
-   %dir	/var/local
-   %dir	/var/spool
-   %dir	/var/cache
-   %dir	/var/lib
-   %dir	/var/lib/locate
-   %dir	/var/lib/misc
-   %dir	/var/lib/color
-   %dir	/var/opt
-   %dir	/var/tmp
-   %dir	/etc
-   %dir	/etc/sysconfig
-   %dir	/etc/opt
-   %dir	/etcld.so.conf.d
-   %dir	/etc/opt
-   %dir	/etc/profile.d
-   %dir	/lib64
-   %dir	/usr
-   %dir	/usr/src
-   %dir	/usr/local
-   %dir	/usr/local/src
-   %dir	/usr/local/bin
-   %dir	/usr/local/sbin
-   %dir	/usr/local/lib
-   %dir	/usr/local/share
-   %dir	/usr/local/share/misc
-   %dir	/usr/local/share/terminfo
-   %dir	/usr/local/share/doc
-   %dir	/usr/local/share/zoneinfo
-   %dir	/usr/local/share/man
-   %dir	/usr/local/share/man/man3
-   %dir	/usr/local/share/man/man4
-   %dir	/usr/local/share/man/man7
-   %dir	/usr/local/share/man/man1
-   %dir	/usr/local/share/man/man6
-   %dir	/usr/local/share/man/man8
-   %dir	/usr/local/share/man/man5
-   %dir	/usr/local/share/man/man2
-   %dir	/usr/local/share/locale
-   %dir	/usr/local/share/dict
-   %dir	/usr/local/share/color
-   %dir	/usr/local/share/info
-   %dir	/usr/local/include
-   %dir	/usr/bin
-   %dir	/usr/sbin
-   %dir	/usr/lib
-   %dir	/usr/libexec
-   %dir	/usr/share
-   %dir	/usr/share/misc
-   %dir	/usr/share/terminfo
-   %dir	/usr/share/doc
-   %dir	/usr/share/zoneinfo
-   %dir	/usr/share/man
-   %dir	/usr/share/man/man3
-   %dir	/usr/share/man/man4
-   %dir	/usr/share/man/man7
-   %dir	/usr/share/man/man1
-   %dir	/usr/share/man/man6
-   %dir	/usr/share/man/man8
-   %dir	/usr/share/man/man5
-   %dir	/usr/share/man/man2
-   %dir	/usr/share/locale
-   %dir	/usr/share/dict
-   %dir	/usr/share/color
-   %dir	/usr/share/info
-   %dir	/usr/include
-   %dir	/bin
-   %dir	/media
-   %dir	/media/floppy
-   %dir	/media/cdrom
-   %dir	/sbin
-   %dir	/srv
-   %dir	/lib
-   %dir	/lib/firmware
-   %dir	/dev
-   %dir	/opt
-   %dir	/sys
-   %dir	/tmp
-   %dir	/proc
-   %dir	/run
+	%dir	/home
+	%dir	/mnt
+	%dir	/boot
+	%dir	/var
+	%dir	/var/log
+	%dir	/var/mail
+	%dir	/var/local
+	%dir	/var/spool
+	%dir	/var/cache
+	%dir	/var/lib
+	%dir	/var/lib/locate
+	%dir	/var/lib/misc
+	%dir	/var/lib/color
+	%dir	/var/opt
+	%dir	/etc
+	%dir	/etc/sysconfig
+	%dir	/etc/ld.so.conf.d
+	%dir	/etc/opt
+	%dir	/etc/profile.d
+	%dir	/lib64
+	%dir	/usr
+	%dir	/usr/src
+	%dir	/usr/local
+	%dir	/usr/local/src
+	%dir	/usr/local/bin
+	%dir	/usr/local/sbin
+	%dir	/usr/local/lib
+	%dir	/usr/local/share
+	%dir	/usr/local/share/misc
+	%dir	/usr/local/share/terminfo
+	%dir	/usr/local/share/doc
+	%dir	/usr/local/share/zoneinfo
+	%dir	/usr/local/share/man
+	%dir	/usr/local/share/man/man3
+	%dir	/usr/local/share/man/man4
+	%dir	/usr/local/share/man/man7
+	%dir	/usr/local/share/man/man1
+	%dir	/usr/local/share/man/man6
+	%dir	/usr/local/share/man/man8
+	%dir	/usr/local/share/man/man5
+	%dir	/usr/local/share/man/man2
+	%dir	/usr/local/share/locale
+	%dir	/usr/local/share/dict
+	%dir	/usr/local/share/color
+	%dir	/usr/local/share/info
+	%dir	/usr/local/include
+	%dir	/usr/bin
+	%dir	/usr/sbin
+	%dir	/usr/lib
+	%dir	/usr/libexec
+	%dir	/usr/share
+	%dir	/usr/share/misc
+	%dir	/usr/share/terminfo
+	%dir	/usr/share/doc
+	%dir	/usr/share/zoneinfo
+	%dir	/usr/share/man
+	%dir	/usr/share/man/man3
+	%dir	/usr/share/man/man4
+	%dir	/usr/share/man/man7
+	%dir	/usr/share/man/man1
+	%dir	/usr/share/man/man6
+	%dir	/usr/share/man/man8
+	%dir	/usr/share/man/man5
+	%dir	/usr/share/man/man2
+	%dir	/usr/share/locale
+	%dir	/usr/share/dict
+	%dir	/usr/share/color
+	%dir	/usr/share/info
+	%dir	/usr/include
+	%dir	/bin
+	%dir	/media
+	%dir	/media/floppy
+	%dir	/media/cdrom
+	%dir	/sbin
+	%dir	/srv
+	%dir	/lib
+	%dir	/lib/firmware
+	%dir	/dev
+	%dir	/opt
+	%dir	/sys
+	%dir	/proc
+	%dir	/run
    #
    #	Files
    #
-   %config(noreplace)	/etc/group
-   %config(noreplace)	/etc/passwd
-   %config(noreplace)	/etc/syslog.conf
-   %config(noreplace)	/etc/fstab
-   %config(noreplace)	/etc/hostname
-   %config(noreplace)	/etc/hosts
-   %config(noreplace)	/etc/inittab
-   %config(noreplace)	/etc/inputrc
-   %config(noreplace)	/etc/lfs-release
-   %config(noreplace)	/etc/lsb-release
-   %config(noreplace)	/etc/modprobe.d/usb.conf
-   %config(noreplace)	/etc/profile
-   %config(noreplace)	/etc/resolv.conf
-   %config(noreplace)	/etc/shells
-   %config(noreplace)	/etc/sysconfig/clock
-   %config(noreplace)	/etc/sysconfig/ifconfig.enp5s0
-   %config(noreplace)	/etc/sysconfig/rc.site
-   %config(noreplace)	/etc/ld.so.conf
-   %config(noreplace)	/etc/nsswitch.conf
-   /etc/mtab
-   /var/log/faillog
-   /var/lock
-   /var/run
+	%config(noreplace)	/etc/group
+	%config(noreplace)	/etc/passwd
+	%config(noreplace)	/etc/syslog.conf
+	%config(noreplace)	/etc/fstab
+	%config(noreplace)	/etc/hostname
+	%config(noreplace)	/etc/hosts
+	%config(noreplace)	/etc/inittab
+	%config(noreplace)	/etc/inputrc
+	%config(noreplace)	/etc/lfs-release
+	%config(noreplace)	/etc/lsb-release
+	%config(noreplace)	/etc/modprobe.d/usb.conf
+	%config(noreplace)	/etc/profile
+	%config(noreplace)	/etc/resolv.conf
+	%config(noreplace)	/etc/shells
+	%config(noreplace)	/etc/sysconfig/clock
+	%config(noreplace)	/etc/sysconfig/ifconfig.eth0
+	%config(noreplace)	/etc/sysconfig/rc.site
+	%config(noreplace)	/etc/ld.so.conf
+	%config(noreplace)	/etc/nsswitch.conf
+	/etc/mtab
+	/var/log/faillog
+	/var/lock
+	/var/run
+	/etc/bashrc
+	/etc/profile.d/bash_completion.sh
+	/etc/profile.d/dircolors.sh
+	/etc/profile.d/extrapaths.sh
+	/etc/profile.d/i18n.sh
+	/etc/profile.d/readline.sh
+	/etc/profile.d/umask.sh
+	/etc/skel/.bash_logout
+	/etc/skel/.bash_profile
+	/etc/skel/.bashrc
+	/etc/skel/.profile
+	/etc/vimrc
 #-----------------------------------------------------------------------------
 %changelog
 *	Tue Dec 12 2017 baho-utot <baho-utot@columbus.rr.com> 8.1-1

@@ -1,3 +1,5 @@
+#TARBALL:	http://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz
+#MD5SUM:	12e517cac2b57a0121cda351570f1e63;SOURCES/intltool-0.51.0.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The Intltool is an internationalization tool used for extracting translatable strings from source files.
 Name:		intltool
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://launchpad.net/intltool/trunk/0.51.0/+download/%{name}-%{version}.tar.gz
-BuildRequires:	XML-Parser
 %description
-	The Intltool is an internationalization tool used for extracting translatable strings from source files.
+The Intltool is an internationalization tool used for extracting translatable strings from source files.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

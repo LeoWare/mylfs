@@ -1,3 +1,5 @@
+#TARBALL:	http://sourceforge.net/projects/procps-ng/files/Production/procps-ng-3.3.12.tar.xz
+#MD5SUM:	957e42e8b193490b2111252e4a2b443c;SOURCES/procps-ng-3.3.12.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Procps-ng package contains programs for monitoring processes.
 Name:		procps-ng
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://sourceforge.net/projects/procps-ng/files/Production/%{name}-%{version}.tar.xz
-BuildRequires:	meson
 %description
-	The Procps-ng package contains programs for monitoring processes.
+The Procps-ng package contains programs for monitoring processes.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://ftp.gnu.org/gnu/glibc/glibc-2.27.tar.xz
 #MD5SUM:	898cd5656519ffbc3a03fe811dd89e82;SOURCES/glibc-2.27.tar.xz
-#PATCHES:
-#FILE:		glibc-2.27.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Glibc package contains the main C library.
 Name:		tools-glibc

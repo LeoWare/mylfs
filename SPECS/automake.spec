@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/automake/automake-1.15.1.tar.xz
+#MD5SUM:	24cd3501b6ad8cd4d7e2546f07e8b4d4;SOURCES/automake-1.15.1.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Automake package contains programs for generating Makefiles for use with Autoconf
 Name:		automake
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/automake/%{name}-%{version}.tar.xz
-BuildRequires:	autoconf
 %description
-	The Automake package contains programs for generating Makefiles for use with Autoconf
+The Automake package contains programs for generating Makefiles for use with Autoconf
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

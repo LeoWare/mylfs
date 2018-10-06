@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/libtool/libtool-2.4.6.tar.xz
+#MD5SUM:	1bfb9b923f2c1339b4d2ce1807064aa5;SOURCES/libtool-2.4.6.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Libtool package contains the GNU generic library support script
 Name:		libtool
@@ -6,12 +8,11 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/libtool/%{name}-%{version}.tar.xz
-BuildRequires:	bash
 %description
-	The Libtool package contains the GNU generic library support script. It wraps the
-	complexity of using shared libraries in a consistent, portable interface.
+The Libtool package contains the GNU generic library support script. It wraps the
+complexity of using shared libraries in a consistent, portable interface.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

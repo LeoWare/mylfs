@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://ftp.gnu.org/gnu/diffutils/diffutils-3.6.tar.xz
 #MD5SUM:	07cf286672ced26fba54cd0313bdc071;SOURCES/diffutils-3.6.tar.xz
-#PATCHES:
-#FILE:		diffutils-3.6.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Diffutils package contains programs that show the differences between files or directories.
 Name:		tools-diffutils

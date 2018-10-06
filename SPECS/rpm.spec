@@ -1,3 +1,7 @@
+#TARBALL:	http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.1.tar.bz2
+#TARBALL:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
+#MD5SUM:	1058b1a8e96b42b4fc31afc6719c8239;SOURCES/rpm-4.14.1.tar.bz2
+#MD5SUM:	f73afcb308aefde7e6ece4caa87b22a9;SOURCES/db-6.0.20.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	Package manager
 Name:		rpm
@@ -10,9 +14,8 @@ Vendor:	Octothorpe
 Source0:	http://ftp.rpm.org/releases/rpm-4.14.x/%{name}-%{version}.tar.bz2
 Source1:	http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
 Source2:	macros
-BuildRequires:	python2
 %description
-	Package manager
+Package manager
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{name}-%{version}
@@ -26,7 +29,7 @@ sed -i 's/--srcdir=$db_dist/--srcdir=$db_dist --with-pic/' db3/configure
 		--sysconfdir=/etc \
 		--with-crypto=openssl \
 		--with-cap \
-		--with-acl  \
+		--with-acl \
 		--enable-python \
 		--without-external-db \
 		--without-archive \
@@ -35,6 +38,8 @@ sed -i 's/--srcdir=$db_dist/--srcdir=$db_dist --with-pic/' db3/configure
 		--disable-silent-rules \
 		--disable-rpath
 #		--disable-plugins
+#		--with-archive          build rpm2archive - requires libarchive
+#		--with-lua              build with lua support
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install

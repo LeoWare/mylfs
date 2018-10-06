@@ -1,9 +1,9 @@
 %global debug_package %{nil}
 %define	_optflags -march=x86-64 -mtune=generic -O2 -pipe -fPIC
 #TARBALL:	http://anduin.linuxfromscratch.org/LFS/bzip2-1.0.6.tar.gz
+#TARBALL:	http://www.linuxfromscratch.org/patches/lfs/8.2/bzip2-1.0.6-install_docs-1.patch
 #MD5SUM:	00b516f4704d4a7cb50a1d97e6e8e15b;SOURCES/bzip2-1.0.6.tar.gz
-#PATCHES:
-#FILE:		bzip2-1.0.6.tar.gz.md5sum
+#MD5SUM:	6a5ac7e89b791aae556de0f745916f7f;SOURCES/bzip2-1.0.6-install_docs-1.patch
 #-----------------------------------------------------------------------------
 Summary:	The Bzip2 package contains programs for compressing and decompressing files.
 Name:		tools-bzip2

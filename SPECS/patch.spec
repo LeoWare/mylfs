@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/patch/patch-2.7.6.tar.xz
+#MD5SUM:	78ad9937e4caadcba1526ef1853730d5;SOURCES/patch-2.7.6.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Patch package contains a program for modifying or creating files.
 Name:		patch
@@ -6,12 +8,11 @@ Release:	1
 License:	GPLv3
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/patch/%{name}-%{version}.tar.xz
-BuildRequires:	make
 %description
-	The Patch package contains a program for modifying or creating
-	files by applying a patch file typically created by the diff program.
+The Patch package contains a program for modifying or creating
+files by applying a patch file typically created by the diff program.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

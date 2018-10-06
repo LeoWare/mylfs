@@ -1,4 +1,6 @@
 %define blddir	%{name}-%{version}
+#TARBALL:	http://www.iana.org/time-zones/repository/releases/tzdata2018c.tar.gz
+#MD5SUM:	c412b1531adef1be7a645ab734f86acc;SOURCES/tzdata2018c.tar.gz
 #-----------------------------------------------------------------------------
 Summary:		Time zone data
 Name:			tzdata
@@ -9,9 +11,8 @@ License	:   	public-domain
 Group:			LFS/Base
 Vendor:	        Octothorpe
 Source0:		http://www.iana.org//time-zones/repository/releases/%{name}%{version}.tar.gz
-BuildRequires:	glibc
 %description
-	Sources for time zone and daylight saving time data
+Sources for time zone and daylight saving time data
 #-----------------------------------------------------------------------------
 %prep
 	rm -rf %{blddir}

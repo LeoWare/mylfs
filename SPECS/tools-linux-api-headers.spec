@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.15.3.tar.xz
 #MD5SUM:	c74d30ec13491aeb24c237d703eace3e;SOURCES/linux-4.15.3.tar.xz
-#PATCHES:
-#FILE:		linux-4.15.3.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Linux API Headers expose the kernel's API for use by Glibc.
 Name:		tools-linux-api-headers

@@ -6,10 +6,9 @@ Release:	1
 License:	Any
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-BuildRequires:	gcc
+Vendor:	Octothorpe
 %description
-	Test tool chain, this is a place holder for build
+Test tool chain, this is a place holder for build
 #-----------------------------------------------------------------------------
 %prep
 %build
@@ -18,5 +17,5 @@ BuildRequires:	gcc
 %files
 #-----------------------------------------------------------------------------
 %changelog
-*	Sat Sep 08 2018 baho-utot <baho-utot@columbus.rr.com> -1
+*	Sat Sep 08 2018 baho-utot <baho-utot@columbus.rr.com> 8.2-1
 -	Initial build.	First version

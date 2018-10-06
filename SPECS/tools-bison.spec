@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://ftp.gnu.org/gnu/bison/bison-3.0.4.tar.xz
 #MD5SUM:	c342201de104cc9ce0a21e0ad10d4021;SOURCES/bison-3.0.4.tar.xz
-#PATCHES:
-#FILE:		bison-3.0.4.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The Bison package contains a parser generator.
 Name:		tools-bison

@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu//ncurses/ncurses-6.1.tar.gz
+#MD5SUM:	98c889aaf8d23910d2b92d65be2e737a;SOURCES/ncurses-6.1.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The Ncurses package contains libraries for terminal-independent handling of character screens.
 Name:		ncurses
@@ -6,11 +8,10 @@ Release:	1
 License:	GPL
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu//ncurses/%{name}-%{version}.tar.gz
-BuildRequires:	pkg-config
 %description
-	The Ncurses package contains libraries for terminal-independent handling of character screens.
+The Ncurses package contains libraries for terminal-independent handling of character screens.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

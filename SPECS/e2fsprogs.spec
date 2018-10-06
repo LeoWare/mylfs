@@ -1,3 +1,5 @@
+#TARBALL:	http://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.43.9/e2fsprogs-1.43.9.tar.gz
+#MD5SUM:	8749ba4fbc25d1b13753b79f1f84b69d;SOURCES/e2fsprogs-1.43.9.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The E2fsprogs package contains the utilities for handling the ext2 file system.
 Name:		e2fsprogs
@@ -6,12 +8,11 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.43.5/%{name}-%{version}.tar.gz
-BuildRequires:	procps-ng
 %description
-	The E2fsprogs package contains the utilities for handling the ext2 file system.
-	It also supports the ext3 and ext4 journaling file systems.
+The E2fsprogs package contains the utilities for handling the ext2 file system.
+It also supports the ext3 and ext4 journaling file systems.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

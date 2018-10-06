@@ -1,8 +1,6 @@
 %global debug_package %{nil}
 #TARBALL:	http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.xz
 #MD5SUM:	730bb15d96fffe47e148d1e09235af82;SOURCES/m4-1.4.18.tar.xz
-#PATCHES:
-#FILE:		m4-1.4.18.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The M4 package contains a macro processor.
 Name:		tools-m4

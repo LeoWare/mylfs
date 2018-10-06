@@ -1,3 +1,5 @@
+#TARBALL:	http://download.savannah.gnu.org/releases/attr/attr-2.4.47.src.tar.gz
+#MD5SUM:	84f58dec00b60f2dc8fd1c9709291cc7;SOURCES/attr-2.4.47.src.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The attr package contains utilities to administer the extended attributes on filesystem objects.
 Name:		attr
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv2
 URL:		http://savannah.nongnu.org/projects/attr
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.src.tar.gz
-BuildRequires:	ncurses
 %description
-	The attr package contains utilities to administer the extended attributes on filesystem objects.
+The attr package contains utilities to administer the extended attributes on filesystem objects.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

@@ -6,9 +6,16 @@
 #	Author: 	baho-utot@columbus.rr.com
 #	Options:
 #-----------------------------------------------------------------------------
-set -o errexit		# exit if error...insurance ;)
-set -o nounset		# exit if variable not initalized
-set +h				# disable hashall
+
+
+#TARBALL:	http://anduin.linuxfromscratch.org/BLFS/blfs-bootscripts/blfs-bootscripts-20170731.tar.xz
+#MD5SUM:	feeffb543c42d3a9790d4e77437b57db;SOURCES/blfs-bootscripts-20170731.tar.xz
+
+
+
+set -o errexit	# exit if error...insurance ;)
+set -o nounset	# exit if variable not initalized
+set +h			# disable hashall
 PRGNAME=${0##*/}	# script name minus the path
 TOPDIR=${PWD}		# script lives here
 #-----------------------------------------------------------------------------
@@ -182,6 +189,7 @@ _cleanup() {
 	msg "	Cleanup processing:"
 	if [ ! -e ${_log} ]; then
 		msg_line "	Removing tool chain rpms: "
+			_list+="tools-fetch "
 			_list+="tools-binutils-pass-1 tools-gcc-pass-1 tools-linux-api-headers "
 			_list+="tools-glibc tools-libstdc tools-binutils-pass-2 "
 			_list+="tools-gcc-pass-2 tools-tcl-core tools-expect tools-dejagnu "
@@ -194,7 +202,7 @@ _cleanup() {
 		done
 		msg_success
 		msg_line "	Removing Builder helper rpms: "
-			_list+="adjust-tool-chain locales gcc-test "
+			_list+="prepare adjust-tool-chain locales gcc-test "
 		for i in ${_list};do
 			rpm -e --nodeps ${i} > /dev/null 2>&1 || true
 		done

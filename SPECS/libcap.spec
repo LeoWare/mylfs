@@ -1,3 +1,5 @@
+#TARBALL:	https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.25.tar.xz
+#MD5SUM:	6666b839e5d46c2ad33fc8aa2ceb5f77;SOURCES/libcap-2.25.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The Libcap package implements the user-space interfaces to the POSIX 1003.1e
 Name:		libcap
@@ -6,13 +8,12 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:	    Octothorpe
+Vendor:	Octothorpe
 Source0:	https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/%{name}-%{version}.tar.xz
-BuildRequires:	acl
 %description
-	The Libcap package implements the user-space interfaces to the POSIX 1003.1e
-	capabilities available in Linux kernels. These capabilities are a partitioning
-	of the all powerful root privilege into a set of distinct privileges.
+The Libcap package implements the user-space interfaces to the POSIX 1003.1e
+capabilities available in Linux kernels. These capabilities are a partitioning
+of the all powerful root privilege into a set of distinct privileges.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

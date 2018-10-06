@@ -1,3 +1,5 @@
+#TARBALL:	https://openssl.org/source/openssl-1.1.0g.tar.gz
+#MD5SUM:	ba5f1b8b835b88cadbce9b35ed9531a6;SOURCES/openssl-1.1.0g.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The OpenSSL package contains management tools and libraries relating to cryptography	
 Name:		openssl
@@ -6,13 +8,12 @@ Release:	1
 License:	GPL
 URL:		https://openssl.org/source
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	https://openssl.org/source/%{name}-%{version}.tar.gz
-BuildRequires:	libffi
 %description
-	The OpenSSL package contains management tools and libraries relating to cryptography.
-	These are useful for providing cryptographic functions to other packages, such as OpenSSH,
-	email applications and web browsers (for accessing HTTPS sites).
+The OpenSSL package contains management tools and libraries relating to cryptography.
+These are useful for providing cryptographic functions to other packages, such as OpenSSH,
+email applications and web browsers (for accessing HTTPS sites).
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{name}-%{version}

@@ -1,3 +1,5 @@
+#TARBALL:	http://dev.gentoo.org/~blueness/eudev/eudev-3.2.5.tar.gz
+#MD5SUM:	6ca08c0e14380f87df8e8aceac123671;SOURCES/eudev-3.2.5.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	The Eudev package contains programs for dynamic creation of device nodes.
 Name:		eudev
@@ -6,12 +8,11 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://dev.gentoo.org/~blueness/eudev/%{name}-%{version}.tar.gz
 Source1:	http://anduin.linuxfromscratch.org/LFS/udev-lfs-20171102.tar.bz2
-BuildRequires:	sysvinit
 %description
-	The Eudev package contains programs for dynamic creation of device nodes.
+The Eudev package contains programs for dynamic creation of device nodes.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

@@ -1,4 +1,6 @@
 # %%define	_optflags	-march=x86-64 -mtune=generic -O2 -pipe -fPIC
+#TARBALL:	ftp://ftp.vim.org/pub/vim/unix/vim-8.0.586.tar.bz2
+#MD5SUM:	b35e794140c196ff59b492b56c1e73db;SOURCES/vim-8.0.586.tar.bz2
 #-----------------------------------------------------------------------------
 Summary:	The Vim package contains a powerful text editor.
 Name:		vim
@@ -7,11 +9,10 @@ Release:	1
 License:	Charityware
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	ftp://ftp.vim.org/pub/vim/unix/%{name}-%{version}.tar.bz2
-BuildRequires:	texinfo
 %description
-	The Vim package contains a powerful text editor.
+The Vim package contains a powerful text editor.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}80

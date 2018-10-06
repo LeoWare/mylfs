@@ -1,3 +1,5 @@
+#TARBALL:	https://github.com/libcheck/check/releases/download/0.12.0/check-0.12.0.tar.gz
+#MD5SUM:	31b17c6075820a434119592941186f70;SOURCES/check-0.12.0.tar.gz
 #-----------------------------------------------------------------------------
 Summary:	Check is a unit testing framework for C.
 Name:		check
@@ -6,11 +8,10 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
-Source:		%{name}-%{version}.tar.gz
-BuildRequires:	gawk
+Vendor:	Octothorpe
+Source:	%{name}-%{version}.tar.gz
 %description
-	Check is a unit testing framework for C.
+Check is a unit testing framework for C.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

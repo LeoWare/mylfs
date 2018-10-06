@@ -7,8 +7,6 @@
 #MD5SUM:	f58fa8001d60c4c77595fbbb62b63c1d;SOURCES/gmp-6.1.2.tar.xz
 #MD5SUM:	4125404e41e482ec68282a2e687f6c73;SOURCES/mpc-1.1.0.tar.gz
 #MD5SUM:	b8dd19bd9bb1ec8831a6a582a7308073;SOURCES/mpfr-4.0.1.tar.xz
-#PATCHES:
-#FILE:		gcc-7.3.0.tar.xz.md5sum
 #-----------------------------------------------------------------------------
 Summary:	The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
 Name:		tools-gcc-pass-2

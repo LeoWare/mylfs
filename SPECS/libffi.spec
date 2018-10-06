@@ -1,17 +1,18 @@
+#TARBALL:	ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz
+#MD5SUM:	83b89587607e3eb65c70d361f13bab43;SOURCES/libffi-3.2.1.tar.gz
 #-----------------------------------------------------------------------------
-Summary:	The Libcap package implements the user-space interfaces to the POSIX 1003.1e
+Summary:	The Libffi library provides a portable, high level programming interface to various calling conventions.
 Name:		libffi
 Version:	3.2.1
 Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:	    Octothorpe
+Vendor:    Octothorpe
 Source0:	%{name}-%{version}.tar.gz
-BuildRequires:	libelf
 %description
-	The Libffi library provides a portable, high level programming interface to various calling conventions.
-	This allows a programmer to call any function specified by a call interface description at run time.
+The Libffi library provides a portable, high level programming interface to various calling conventions.
+This allows a programmer to call any function specified by a call interface description at run time.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}

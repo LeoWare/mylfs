@@ -1,3 +1,5 @@
+#TARBALL:	http://ftp.gnu.org/gnu/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz
+#MD5SUM:	be2da21680f27624f3a87055c4ba5af2;SOURCES/gcc-7.3.0.tar.xz
 #-----------------------------------------------------------------------------
 Summary:	The GCC package contains the GNU compiler collection
 Name:		gcc
@@ -6,15 +8,14 @@ Release:	1
 License:	GPLv2
 URL:		Any
 Group:		LFS/Base
-Vendor:		Octothorpe
+Vendor:	Octothorpe
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}/%{name}-%{version}.tar.xz
-BuildRequires:	mpc
 #Provides:	libgcc_s.so.1()(64bit)
 #Provides:	libgcc_s.so.1(GCC_3.0)(64bit)
 #Provides:	libgcc_s.so.1(GCC_3.3)(64bit)
 #Provides:	libgcc_s.so.1(GCC_4.2.0)(64bit)
 %description
-			The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
+The GCC package contains the GNU compiler collection, which includes the C and C++ compilers.
 #-----------------------------------------------------------------------------
 %prep
 %setup -q -n %{NAME}-%{VERSION}
