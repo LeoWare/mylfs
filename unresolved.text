@@ -1,3 +1,4 @@
+
 Unsatisfied dependencies for openssl-1.1.0g-1.x86_64:
 	perl(WWW::Curl::Easy) is needed by (installed) openssl-1.1.0g-1.x86_64
 
@@ -5,4 +6,4 @@ Unsatisfied dependencies for groff-1.22.3-1.x86_64:
 	perl(File::HomeDir) is needed by (installed) groff-1.22.3-1.x86_64
 
 Unsatisfied dependencies for vim-8.0.586-1.x86_64:
-	/bin/csh is needed by (installed) vim-8.0.586-1.x86_64 --> Tcsh-6.20.00 
+	/bin/csh is needed by (installed) vim-8.0.586-1.x86_64 --> BLFS - Tcsh-6.20.00

@@ -103,6 +103,8 @@ cd /usr/src/LFS-RPM	change to build directory
 The last step will remove the toolchain and use vim to make
 modification to the conf files so when you reboot it will do the
 right thingy.
+rpm -e config lfs		remove the buld rpms not needed
+passwd root			if you need to set a password for root
 #-----------------------------------------------------------------------------
 Build at this point is complete.
 All that is needed is to install grub and/or add a menu item in the
