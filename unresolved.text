@@ -1,6 +1,4 @@
 Unsatisfied dependencies for perl-5.26.1-1.x86_64:
-
-	Locale-Codes-3.58.tar.gz
 	perl(Locale::Codes::Country_Codes) is needed by (installed) perl-5.26.1-1.x86_64
 	perl(Locale::Codes::Country_Retired) is needed by (installed) perl-5.26.1-1.x86_64
 	perl(Locale::Codes::Currency_Codes) is needed by (installed) perl-5.26.1-1.x86_64
@@ -15,37 +13,17 @@ Unsatisfied dependencies for perl-5.26.1-1.x86_64:
 	perl(Locale::Codes::Language_Retired) is needed by (installed) perl-5.26.1-1.x86_64
 	perl(Locale::Codes::Script_Codes) is needed by (installed) perl-5.26.1-1.x86_64
 	perl(Locale::Codes::Script_Retired) is needed by (installed) perl-5.26.1-1.x86_64
-	
 	perl(Mac::BuildTools) is needed by (installed) perl-5.26.1-1.x86_64
 	perl(Mac::InternetConfig) is needed by (installed) perl-5.26.1-1.x86_64
 	perl(VMS::Filespec) is needed by (installed) perl-5.26.1-1.x86_64
 	perl(VMS::Stdio) is needed by (installed) perl-5.26.1-1.x86_64
 	perl(unicore::Name) is needed by (installed) perl-5.26.1-1.x86_64
-
-	
-	
 Unsatisfied dependencies for openssl-1.1.0g-1.x86_64:
-	perl(WWW::Curl::Easy) is needed by (installed) openssl-1.1.0g-1.x86_64	cpan WWW::Curl::Easy
-	
+	perl(WWW::Curl::Easy) is needed by (installed) openssl-1.1.0g-1.x86_64
 Unsatisfied dependencies for texinfo-6.5-1.x86_64:
-	perl(Locale::gettext_xs) is needed by (installed) texinfo-6.5-1.x86_64	cpan > install Locale::gettext_xs
-	
+	perl(Locale::gettext_xs) is needed by (installed) texinfo-6.5-1.x86_64
 Unsatisfied dependencies for groff-1.22.3-1.x86_64:
-	perl(File::HomeDir) is needed by (installed) groff-1.22.3-1.x86_64		cpan > install File::HomeDir
-	perl(main_subs.pl) is needed by (installed) groff-1.22.3-1.x86_64
-	perl(man.pl) is needed by (installed) groff-1.22.3-1.x86_64
-	perl(oop_fh.pl) is needed by (installed) groff-1.22.3-1.x86_64
-	perl(subs.pl) is needed by (installed) groff-1.22.3-1.x86_64
-	
+	perl(File::HomeDir) is needed by (installed) groff-1.22.3-1.x86_64
 Unsatisfied dependencies for vim-8.0.586-1.x86_64:
 	/bin/csh is needed by (installed) vim-8.0.586-1.x86_64
-	perl(getopts.pl) is needed by (installed) vim-8.0.586-1.x86_64			cpan > install Perl4::CoreLibs
-
-
-###		WIP		###
-Unsatisfied dependencies for libelf-0.170-1.x86_64:
-	pkgconfig(zlib) is needed by (installed) libelf-0.170-1.x86_64
-	
-###		FIXED		###
-Unsatisfied dependencies for python2-2.7.14-1.x86_64:
-	/usr/local/bin/python is needed by (installed) python2-2.7.14-1.x86_64
+	perl(getopts.pl) is needed by (installed) vim-8.0.586-1.x86_64

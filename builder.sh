@@ -289,20 +289,6 @@ rpm_build() {
 				EOF
 			msg_success
 			msg_line "Creating Filesystem: "
-#				mkdir -p /{bin,boot,etc/{opt,sysconfig},home,lib/firmware,mnt,opt}
-#				mkdir -p /{media/{floppy,cdrom},sbin,srv,var}
-#				install -d -m 0750 /root
-#				install -d -m 1777 /tmp /var/tmp
-#				mkdir -p /usr/{,local/}{bin,include,lib,sbin,src}
-#				mkdir -p /usr/{,local/}share/{color,dict,doc,info,locale,man}
-#				mkdir -p  /usr/{,local/}share/{misc,terminfo,zoneinfo}
-#				mkdir -p  /usr/libexec
-#				mkdir -p /usr/{,local/}share/man/man{1..8}
-#				mkdir -p /lib64
-#				mkdir -p /var/{log,mail,spool}
-#				ln -sf /run /var/run
-#				ln -sf /run/lock /var/lock
-#				mkdir -p /var/{opt,cache,lib/{color,misc,locate},local}
 				install -vdm 755 /bin /etc /usr/bin /usr/lib
 				install -d -m 1777 /tmp /var/tmp
 			msg_success
@@ -315,10 +301,6 @@ rpm_build() {
 				ln -sf /proc/self/mounts /etc/mtab
 				ln -sf /tools/bin/getconf /usr/bin/getconf
 			msg_success
-#				touch /var/log/{btmp,lastlog,faillog,wtmp}
-#				chgrp utmp /var/log/lastlog
-#				chmod 664  /var/log/lastlog
-#				chmod 600  /var/log/btmp
 			;;
 		"cleanup")		#	Cleanup chapter 6 build
 			local _list=""
@@ -333,10 +315,11 @@ rpm_build() {
 				_list+="tools-diffutils tools-file tools-findutils tools-gawk tools-gettext "
 				_list+="tools-grep tools-gzip tools-m4 tools-make tools-patch tools-perl tools-sed "
 				_list+="tools-tar tools-texinfo tools-util-linux tools-xz "
+				_list+="tools-post tools "
 				for i in ${_list};do rpm -e --nodeps ${i} > /dev/null 2>&1 || true;done
 			msg_success
 			msg_line "	Removing Builder helper rpms: "
-				_list+="prepare adjust-tool-chain locales gcc-test "
+				_list+="prepare adjust-tool-chain locales gcc-test lfs"
 				for i in ${_list};do rpm -e --nodeps ${i} > /dev/null 2>&1 || true;done
 			msg_success
 			msg_line "	Removing /tools directory: "; rm -rf /tools;msg_success
@@ -351,7 +334,7 @@ rpm_build() {
 				_list+="/etc/hosts "
 				_list+="/etc/hostname "
 				_list+="/etc/fstab "
-				_list+="/etc/sysconfig/ifconfig.eth0 "				
+				_list+="/etc/sysconfig/ifconfig.eth0 "
 				_list+="/etc/resolv.conf "
 				_list+="/etc/lsb-release "
 				_list+="/etc/sysconfig/rc.site"
