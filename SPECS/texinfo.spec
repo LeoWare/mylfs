@@ -1,5 +1,6 @@
 #TARBALL:	http://ftp.gnu.org/gnu/texinfo/texinfo-6.5.tar.xz
 #MD5SUM:	3715197e62e0e07f85860b3d7aab55ed;SOURCES/texinfo-6.5.tar.xz
+%define __requires_exclude perl\\(Locale::gettext_xs\\)
 #-----------------------------------------------------------------------------
 Summary:	The Texinfo package contains programs for reading, writing, and converting info pages.
 Name:		texinfo

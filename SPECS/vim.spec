@@ -1,3 +1,4 @@
+%global __requires_exclude perl\\(getopts.pl\\)
 # %%define	_optflags	-march=x86-64 -mtune=generic -O2 -pipe -fPIC
 #TARBALL:	ftp://ftp.vim.org/pub/vim/unix/vim-8.0.586.tar.bz2
 #MD5SUM:	b35e794140c196ff59b492b56c1e73db;SOURCES/vim-8.0.586.tar.bz2

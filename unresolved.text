@@ -1,29 +1,8 @@
-Unsatisfied dependencies for perl-5.26.1-1.x86_64:
-	perl(Locale::Codes::Country_Codes) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Locale::Codes::Country_Retired) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Locale::Codes::Currency_Codes) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Locale::Codes::Currency_Retired) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Locale::Codes::LangExt_Codes) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Locale::Codes::LangExt_Retired) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Locale::Codes::LangFam_Codes) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Locale::Codes::LangFam_Retired) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Locale::Codes::LangVar_Codes) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Locale::Codes::LangVar_Retired) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Locale::Codes::Language_Codes) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Locale::Codes::Language_Retired) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Locale::Codes::Script_Codes) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Locale::Codes::Script_Retired) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Mac::BuildTools) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(Mac::InternetConfig) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(VMS::Filespec) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(VMS::Stdio) is needed by (installed) perl-5.26.1-1.x86_64
-	perl(unicore::Name) is needed by (installed) perl-5.26.1-1.x86_64
 Unsatisfied dependencies for openssl-1.1.0g-1.x86_64:
 	perl(WWW::Curl::Easy) is needed by (installed) openssl-1.1.0g-1.x86_64
-Unsatisfied dependencies for texinfo-6.5-1.x86_64:
-	perl(Locale::gettext_xs) is needed by (installed) texinfo-6.5-1.x86_64
+
 Unsatisfied dependencies for groff-1.22.3-1.x86_64:
 	perl(File::HomeDir) is needed by (installed) groff-1.22.3-1.x86_64
+
 Unsatisfied dependencies for vim-8.0.586-1.x86_64:
-	/bin/csh is needed by (installed) vim-8.0.586-1.x86_64
-	perl(getopts.pl) is needed by (installed) vim-8.0.586-1.x86_64
+	/bin/csh is needed by (installed) vim-8.0.586-1.x86_64 --> Tcsh-6.20.00 

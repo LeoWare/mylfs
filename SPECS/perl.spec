@@ -1,5 +1,6 @@
 #TARBALL:	http://www.cpan.org/src/5.0/perl-5.26.1.tar.xz
 #MD5SUM:	70e988b4318739b0cf3ad5e120bfde88;SOURCES/perl-5.26.1.tar.xz
+%define __requires_exclude perl\\((VMS|BSD::|Win32|Tk|Mac::|Your::Module::Here|unicore::Name|FCGI|Locale::Codes::.*(Code|Retired))
 #-----------------------------------------------------------------------------
 Summary:	The Perl package contains the Practical Extraction and Report Language.
 Name:		perl
@@ -66,8 +67,8 @@ The Perl package contains the Practical Extraction and Report Language.
 	%defattr(-,root,root)
 	%{_mandir}/man1/*.gz
 	%{_mandir}/man3/*.gz
-	%{_bindir}/%{NAME}%{VERSION}
-	%{_libdir}/%{NAME}5/%{VERSION}/*.pm
+#	%{_bindir}/%{NAME}%{VERSION}
+#	%%{_libdir}/%{NAME}5/%{VERSION}/*.pm
 #-----------------------------------------------------------------------------
 %changelog
 *	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 5.26.1-1
