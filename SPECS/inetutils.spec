@@ -1,13 +1,13 @@
 Summary:	Programs for basic networking
 Name:		inetutils
-Version:	1.9.2
+Version:	1.9.4
 Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/inetutils
 Group:		Applications/Communications
 Vendor:		LeoWare
 Distribution:	MyLFS
-Source:		http://ftp.gnu.org/gnu/inetutils/%{name}-%{version}.tar.gz
+Source:		http://ftp.gnu.org/gnu/inetutils/%{name}-%{version}.tar.xz
 %description
 The Inetutils package contains programs for basic networking.
 
@@ -29,13 +29,13 @@ echo '#define PATH_PROCNET_DEV "/proc/net/dev"' >> ifconfig/system/linux.h
 make %{?_smp_mflags}
 
 %install
-make DESTDIR=%{buildroot} install
+rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
 install -vdm 755 %{buildroot}/{bin,sbin}
-mv -v %{buildroot}%{_bindir}/{hostname,ifconfig,ping,ping6,traceroute} %{buildroot}/bin
+mv -v %{buildroot}%{_bindir}/{hostname,ping,ping6,traceroute} %{buildroot}/bin
 rm -rf %{buildroot}%{_infodir}
 
-mv -v %{buildroot}/usr/bin/{hostname,ping,ping6,traceroute} %{buildroot}/bin
-mv -v %{buildrooot}/usr/bin/ifconfig %{buildroot}/sbin
+mv -v %{buildroot}/usr/bin/ifconfig %{buildroot}/sbin
 
 %check
 make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
@@ -43,6 +43,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %files
 %defattr(-,root,root)
 /bin/*
+/sbin/*
 %{_bindir}/*
 %{_mandir}/man1/*
 

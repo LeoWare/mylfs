@@ -7,7 +7,7 @@ URL:		http://flex.sourceforge.net
 Group:		Applications/System
 Vendor:		LeoWare
 Distribution:	MyLFS
-Source:		http://prdownloads.sourceforge.net/flex/%{name}-%{version}.tar.bz2
+Source:		http://prdownloads.sourceforge.net/flex/%{name}-%{version}.tar.gz
 %description
 The Flex package contains a utility for generating programs
 that recognize patterns in text.

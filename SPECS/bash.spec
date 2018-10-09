@@ -23,12 +23,16 @@ The package contains the Bourne-Again SHell
 make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install
+install -vdm 755 %{buildroot}/bin
 ln -s bash %{buildroot}/bin/sh
 %find_lang %{name}
 rm -rf %{buildroot}/%{_infodir}
 %files -f %{name}.lang
 %defattr(-,root,root)
-/bin/*
+/bin/sh
+%{_bindir}/*
+%{_libdir}/*
+%{_includedir}/*
 %{_defaultdocdir}/%{name}-%{version}/*
 %{_mandir}/*/*
 %changelog
