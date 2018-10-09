@@ -1,47 +1,44 @@
-Summary:	The Wget package contains a utility useful for non-interactive downloading of files from the Web. 
-Name:		wget
-Version:	1.19.1
-Release:	1
-License:	Any
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source0:	%{name}-%{version}.tar.xz
+Name:           wget
+Version:        1.19.4
+Release:        1%{?dist}
+Summary:        The Wget package contains a utility useful for non-interactive downloading of files from the Web.
+Vendor:			LeoWare
+Distribution:	MyLFS
+
+Group:          Applications/System
+License:        GPLv3
+URL:            https://www.gnu.org/software/wget/
+Source0:        ftp://ftp.gnu.org/gnu/wget/wget-1.19.4.tar.gz
+
 %description
-	The Wget package contains a utility useful for non-interactive downloading of files from the Web. 
+GNU Wget is a free utility for non-interactive download of files from
+the Web.  It supports HTTP, HTTPS, and FTP protocols, as well as
+retrieval through HTTP proxies.
+
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
+
+
 %build
-	./configure \
-		--prefix=%{_prefix} \
-		--sysconfdir=/etc \
-		--with-ssl=openssl
-	make %{?_smp_mflags}
+%configure --with-ssl=openssl
+make %{?_smp_mflags}
+
 %install
-	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file 
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
-	%{_mandir}/man1/*.gz
-%post
-	pushd /usr/share/info
-	rm -v dir
-	for f in *; do install-info $f dir 2>/dev/null; done
-	popd
-%postun
-	pushd /usr/share/info
-	rm -v dir
-	for f in *; do install-info $f dir 2>/dev/null; done
-	popd
+rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
+
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+
+%files
+%config(noreplace) /etc/wgetrc
+%{_bindir}/*
+%{_datadir}/locale*
+%{_mandir}/*/*
+%{_infodir}/*
+
+
+
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> -1
--	Initial build.	First version
