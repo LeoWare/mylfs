@@ -7,7 +7,7 @@ URL:		http://psmisc.sourceforge.net/
 Group:		Applications/System
 Vendor:		LeoWare
 Distribution:	MyLFS
-Source:		http://prdownloads.sourceforge.net/psmisc/%{name}-%{version}.tar.gz
+Source:		http://prdownloads.sourceforge.net/psmisc/%{name}-%{version}.tar.xz
 %description
 The Psmisc package contains programs for displaying information
 about running processes.

@@ -1,34 +1,38 @@
 Summary:	Practical Extraction and Report Language
 Name:		perl
-Version:	5.18.2
+Version:	5.26.1
 Release:	1
 License:	GPLv1
 URL:		http://www.perl.org/
 Group:		Development/Languages
 Vendor:		LeoWare
 Distribution:	MyLFS
-Source:		http://www.cpan.org/src/5.0/%{name}-%{version}.tar.bz2
+Source:		http://www.cpan.org/src/5.0/%{name}-%{version}.tar.xz
 Provides:	perl >= 0:5.003000
 %description
 The Perl package contains the Practical Extraction and
 Report Language.
 %prep
 %setup -q
-sed -i -e "s|BUILD_ZLIB\s*= True|BUILD_ZLIB = False|" \
-	-e "s|INCLUDE\s*= ./zlib-src|INCLUDE = /usr/include|" \
-	-e "s|LIB\s*= ./zlib-src|LIB = /usr/lib|" \
-	cpan/Compress-Raw-Zlib/config.in
+echo "127.0.0.1 localhost $(hostname)" > /etc/hosts
+export BUILD_ZLIB=False
+export BUILD_BZIP2=0
+#sed -i -e "s|BUILD_ZLIB\s*= True|BUILD_ZLIB = False|" \
+#	-e "s|INCLUDE\s*= ./zlib-src|INCLUDE = /usr/include|" \
+#	-e "s|LIB\s*= ./zlib-src|LIB = /usr/lib|" \
+#	cpan/Compress-Raw-Zlib/config.in
 %build
 CFLAGS="%{_optflags}"
-sh Configure -des \
-	-Dprefix=%{_prefix} \
-	-Dvendorprefix=%{_prefix} \
-	-Dman1dir=%{_mandir}/man1 \
-	-Dman3dir=%{_mandir}/man3 \
-	-Dpager=%{_bindir}"/less -isR" \
-	-Duseshrplib
-make VERBOSE=1 %{?_smp_mflags}
+sh Configure -des -Dprefix=%{_prefix}                 \
+        -Dvendorprefix=%{_prefix}           \
+        -Dman1dir=%{_mandir}/man1 \
+        -Dman3dir=%{_mandir}/man3 \
+        -Dpager="/usr/bin/less -isR"  \
+        -Duseshrplib                  \
+        -Dusethreads
+make %{?_smp_mflags}
 %install
+rm -rf %{buildroot}/*
 make DESTDIR=%{buildroot} install
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig

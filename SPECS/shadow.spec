@@ -40,6 +40,7 @@ sed -i 's/yes/no/' %{buildroot}/etc/default/useradd
 %config(noreplace) /etc/login.access
 %config(noreplace) /etc/default/useradd
 %config(noreplace) /etc/limits
+%config(noreplace) /etc/pam.d/*
 /bin/*
 /sbin/nologin
 %{_bindir}/*

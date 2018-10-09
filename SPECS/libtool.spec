@@ -7,7 +7,7 @@ URL:		http://www.gnu.org/software/libtool
 Group:		Development/Tools
 Vendor:		LeoWare
 Distribution:	MyLFS
-Source:		http://ftp.gnu.org/gnu/libtool/%{name}-%{version}.tar.gz
+Source:		http://ftp.gnu.org/gnu/libtool/%{name}-%{version}.tar.xz
 %description
 It wraps the complexity of using shared libraries in a 
 consistent, portable interface.

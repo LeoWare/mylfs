@@ -36,16 +36,18 @@ mv db-6.0.20 db
         --infodir=%{_infodir} \
         --disable-dependency-tracking \
        	--disable-static \
-	--with-lua \
-	--disable-silent-rules
+	--without-lua \
+	--disable-silent-rules \
+	--enable-python
+
 make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install
 find %{buildroot} -name '*.la' -delete
 %find_lang %{name}
 #	System macros and prefix
-install -dm 755 %{buildroot}%{_sysconfdir}/rpm
-install -vm644 %{_topdir}/macros %{buildroot}%{_sysconfdir}/rpm/
+#install -dm 755 %{buildroot}%{_sysconfdir}/rpm
+#install -vm644 %{_topdir}/macros %{buildroot}%{_sysconfdir}/rpm/
 %post -p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 %clean
@@ -53,18 +55,18 @@ rm -rf %{buildroot}
 %files -f %{name}.lang
 %defattr(-,root,root)
 /bin/rpm
-%{_sysconfdir}/rpm/macros
+%config(noreplace) %{_sysconfdir}/rpm/macros
 %{_bindir}/*
 %{_includedir}/*
 %{_libdir}/*
-%{_mandir}/fr/man8/*.gz
-%{_mandir}/ja/man8/*.gz
-%{_mandir}/ko/man8/*.gz
-%{_mandir}/*/*.gz
-%{_mandir}/pl/man1/*.gz
-%{_mandir}/pl/man8/*.gz
-%{_mandir}/ru/man8/*.gz
-%{_mandir}/sk/man8/*.gz
+%{_mandir}/fr/man8/*
+%{_mandir}/ja/man8/*
+%{_mandir}/ko/man8/*
+%{_mandir}/*/*
+%{_mandir}/pl/man1/*
+%{_mandir}/pl/man8/*
+%{_mandir}/ru/man8/*
+%{_mandir}/sk/man8/*
 %changelog
 *	Thu Apr 10 2014 baho-utot <baho-utot@columbus.rr.com> 4.11.2-1
 *	Thu Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 4.11.0.1-1

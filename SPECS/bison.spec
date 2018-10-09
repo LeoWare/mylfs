@@ -64,6 +64,7 @@ rm -rf %{buildroot}%{_infodir}
 make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %files -f %{name}.lang
 %defattr(-,root,root)
+%{_defaultdocdir}/*
 %{_bindir}/*
 %{_libdir}/*
 %{_datarootdir}/%{name}/*
