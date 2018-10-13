@@ -1,41 +1,53 @@
 Summary:	Utilities for internationalization and localization
 Name:		gettext
-Version:	0.18.3.2
+Version:	0.19.8.1
 Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/gettext
 Group:		Applications/System
 Vendor:		LeoWare
 Distribution:	MyLFS
-Source:		http://ftp.gnu.org/gnu/gettext/%{name}-%{version}.tar.gz
+Source:		http://ftp.gnu.org/gnu/gettext/%{name}-%{version}.tar.xz
+
 %description
 These allow programs to be compiled with NLS
 (Native Language Support), enabling them to output
 messages in the user's native language.
+
 %prep
 %setup -q
+sed -i '/^TESTS =/d' gettext-runtime/tests/Makefile.in &&
+sed -i 's/test-lock..EXEEXT.//' gettext-tools/gnulib-tests/Makefile.in
+
 %build
 ./configure \
 	--prefix=%{_prefix} \
 	--docdir=%{_defaultdocdir}/%{name}-%{version} \
-	--disable-silent-rules
+	--disable-static
 make %{?_smp_mflags}
+
 %install
+rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
+chmod -v 0755 %{buildroot}/usr/lib/preloadable_libintl.so
 find %{buildroot}%{_libdir} -name '*.la' -delete
 rm -rf %{buildroot}/usr/share/doc/gettext-%{version}/examples
-rm -rf %{buildroot}%{_infodir}
+rm -rf %{buildroot}%{_infodir}/dir
+
 %check
-make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+make check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
+
 %files
 %defattr(-,root,root)
 %{_bindir}/*
 %{_includedir}/*
 %{_libdir}/*
 %{_datarootdir}/aclocal/*
-%{_defaultdocdir}/%{name}-%{version}/*
+%doc %{_docdir}/%{name}-%{version}/*
+%{_datarootdir}/%{name}-0.19.8/its/*
 %{_datarootdir}/%{name}/*
 %lang(be) %{_datarootdir}/locale/be/LC_MESSAGES/gettext-runtime.mo
 %lang(be) %{_datarootdir}/locale/be/LC_MESSAGES/gettext-tools.mo
@@ -69,6 +81,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %lang(gl) %{_datarootdir}/locale/gl/LC_MESSAGES/gettext-runtime.mo
 %lang(gl) %{_datarootdir}/locale/gl/LC_MESSAGES/gettext-tools.mo
 %lang(hr) %{_datarootdir}/locale/hr/LC_MESSAGES/gettext-runtime.mo
+%lang(hu) %{_datarootdir}/locale/hu/LC_MESSAGES/gettext-runtime.mo
 %lang(id) %{_datarootdir}/locale/id/LC_MESSAGES/gettext-runtime.mo
 %lang(id) %{_datarootdir}/locale/id/LC_MESSAGES/gettext-tools.mo
 %lang(it) %{_datarootdir}/locale/it/LC_MESSAGES/gettext-runtime.mo
@@ -113,8 +126,12 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %lang(zh_HK) %{_datarootdir}/locale/zh_HK/LC_MESSAGES/gettext-runtime.mo
 %lang(zh_TW) %{_datarootdir}/locale/zh_TW/LC_MESSAGES/gettext-runtime.mo
 %lang(zh_TW) %{_datarootdir}/locale/zh_TW/LC_MESSAGES/gettext-tools.mo
-%{_mandir}/*/*
+%doc %{_mandir}/*/*
+%doc %{_infodir}/*
+
 %changelog
+*	Wed	Oct 10 2018 Samuel Raynor <samuel@samuelraynor.com> 0.19.8.1-1
 *	Tue Jun 10 2014 baho-utot <baho-utot@columbus.rr.com> 0.18.3.2-1
 *	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 0.18.3-1
 -	Upgrade version
+

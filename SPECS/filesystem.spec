@@ -15,6 +15,7 @@ for the directories.
 %prep
 %build
 %install
+rm -rf $RPM_BUILD_ROOT
 #
 #	6.5.  Creating Directories
 #
@@ -31,9 +32,10 @@ install -vdm 755 %{buildroot}/usr/{,local/}share/man/man{1..8}
 
 #	Symlinks for x86_64
 %ifarch x86_64
-	ln -sv lib %{buildroot}/lib64
-	ln -sv lib %{buildroot}/usr/lib64
-	ln -sv lib %{buildroot}/usr/local/lib64
+#	ln -sv lib %{buildroot}/lib64
+#	ln -sv lib %{buildroot}/usr/lib64
+#	ln -sv lib %{buildroot}/usr/local/lib64
+install -vdm 755 %{buildroot}/lib64
 %endif
 
 install -vdm 755 %{buildroot}/var/{log,mail,spool}
@@ -44,19 +46,19 @@ install -vdm 755 %{buildroot}/var/{opt,cache,lib/{color,misc,locate},local}
 #	6.6. Creating Essential Files and Symlinks
 #
 
-ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} %{buildroot}/bin
-ln -sv /tools/bin/{install,perl} %{buildroot}/usr/bin
-
-sed 's/tools/usr/' /tools/lib/libstdc++.la > %{buildroot}/usr/lib/libstdc++.la
-for lib in blkid lzma mount uuid
-do
-    ln -sv /tools/lib/lib$lib.{a,so*} %{buildroot}/usr/lib
-    sed 's/tools/usr/' /tools/lib/lib${lib}.la > %{buildroot}/usr/lib/lib${lib}.la
-done
-ln -sv bash %{buildroot}/bin/sh
-
-ln -sv /proc/self/mounts %{buildroot}/etc/mtab
-touch %{buildroot}/etc/mtab
+#ln -sv /tools/bin/{bash,cat,dd,echo,ln,pwd,rm,stty} %{buildroot}/bin
+#ln -sv /tools/bin/{install,perl} %{buildroot}/usr/bin
+#
+#sed 's/tools/usr/' /tools/lib/libstdc++.la > %{buildroot}/usr/lib/libstdc++.la
+#for lib in blkid lzma mount uuid
+#do
+#    ln -sv /tools/lib/lib$lib.{a,so*} %{buildroot}/usr/lib
+#    sed 's/tools/usr/' /tools/lib/lib${lib}.la > %{buildroot}/usr/lib/lib${lib}.la
+#done
+#ln -sv bash %{buildroot}/bin/sh
+#
+#ln -sv /proc/self/mounts %{buildroot}/etc/mtab
+#touch %{buildroot}/etc/mtab
 touch %{buildroot}/var/log/{btmp,lastlog,faillog,wtmp}
 chgrp -v utmp %{buildroot}/var/log/lastlog
 chmod -v 664  %{buildroot}/var/log/lastlog
@@ -430,50 +432,50 @@ ln -sv /tools/lib/libstdc++.{a,so{,.6}} /usr/lib
 /var/lock
 /var/run
 /var/run/lock
-/bin/bash
-/bin/cat
-/bin/dd
-/bin/echo
-/bin/ln
-/bin/pwd
-/bin/rm
-/bin/sh
-/bin/stty
+#/bin/bash
+#/bin/cat
+#/bin/dd
+#/bin/echo
+#/bin/ln
+#/bin/pwd
+#/bin/rm
+#/bin/sh
+#/bin/stty
 
-/usr/bin/install
-/usr/bin/perl
-/usr/lib/libblkid.a
-/usr/lib/libblkid.la
-/usr/lib/libblkid.so
-/usr/lib/libblkid.so.1
-/usr/lib/libblkid.so.1.1.0
+#/usr/bin/install
+#/usr/bin/perl
+#/usr/lib/libblkid.a
+#/usr/lib/libblkid.la
+#/usr/lib/libblkid.so
+#/usr/lib/libblkid.so.1
+#/usr/lib/libblkid.so.1.1.0
 #/usr/lib/libgcc_s.so
 #/usr/lib/libgcc_s.so.1
-/usr/lib/liblzma.a
-/usr/lib/liblzma.la
-/usr/lib/liblzma.so
-/usr/lib/liblzma.so.5
-/usr/lib/liblzma.so.5.2.3
-/usr/lib/libmount.a
-/usr/lib/libmount.la
-/usr/lib/libmount.so
-/usr/lib/libmount.so.1
-/usr/lib/libmount.so.1.1.0
+#/usr/lib/liblzma.a
+#/usr/lib/liblzma.la
+#/usr/lib/liblzma.so
+#/usr/lib/liblzma.so.5
+#/usr/lib/liblzma.so.5.2.3
+#/usr/lib/libmount.a
+#/usr/lib/libmount.la
+#/usr/lib/libmount.so
+#/usr/lib/libmount.so.1
+#/usr/lib/libmount.so.1.1.0
 #/usr/lib/libstdc++.a
-/usr/lib/libstdc++.la
+#/usr/lib/libstdc++.la
 #/usr/lib/libstdc++.so
 #/usr/lib/libstdc++.so.6
-/usr/lib/libuuid.a
-/usr/lib/libuuid.la
-/usr/lib/libuuid.so
-/usr/lib/libuuid.so.1
-/usr/lib/libuuid.so.1.3.0
+#/usr/lib/libuuid.a
+#/usr/lib/libuuid.la
+#/usr/lib/libuuid.so
+#/usr/lib/libuuid.so.1
+#/usr/lib/libuuid.so.1.3.0
 /var/log/faillog
 #	Symlinks for x86_64
 %ifarch x86_64
 /lib64
-/usr/lib64
-/usr/local/lib64
+#/usr/lib64
+#/usr/local/lib64
 %endif
 %changelog
 *	Tue Jun 17 2014 baho-utot <baho-utot@columbus.rr.com> 7.5-1

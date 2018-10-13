@@ -1,35 +1,46 @@
-Summary:	Ninja is a small build system with a focus on speed.
-Name:		ninja
-Version:	1.8.2
-Release:	1
-License:	Any
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source:		%{name}-%{version}.tar.gz
+Name:           ninja
+Version:        1.8.2
+Release:        1%{?dist}
+Summary:        Ninja is a small build system with a focus on speed.
+Vendor:			LeoWare
+Distribution:	MyLFS
+
+Group:          Development/Tools
+License:        Apache v2
+URL:            https://ninja-build.org/
+Source0:        https://github.com/ninja-build/ninja/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:			http://www.linuxfromscratch.org/patches/lfs/8.2/%{name}-%{version}-add_NINJAJOBS_var-1.patch
+
 %description
-	Ninja is a small build system with a focus on speed.
+Ninja is a small build system with a focus on speed.
+
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
+%{__patch} -Np1 -i %{_sourcedir}/%{name}-%{version}-add_NINJAJOBS_var-1.patch
+
 %build
-	python3 configure.py --bootstrap
+python3 configure.py --bootstrap
+
+%check
+python3 configure.py
+./ninja ninja_test
+./ninja_test --gtest_filter=-SubprocessTest.SetWithLots
+
 %install
-	install -vdm 755 %{buildroot}/usr/bin/
-	install -vm 644	ninja %{buildroot}/usr/bin/
-	install -vDm644 misc/bash-completion %{buildroot}/usr/share/bash-completion/completions/ninja
-	install -vDm644 misc/zsh-completion %{buildroot}/usr/share/zsh/site-functions/_ninja
-	#	Copy license/copying file 
-	#	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
+rm -rf $RPM_BUILD_ROOT
+install -vdm755 $RPM_BUILD_ROOT%{_bindir}
+install -vm755 ninja $RPM_BUILD_ROOT%{_bindir}/
+install -vDm644 misc/bash-completion $RPM_BUILD_ROOT%{_datadir}/bash-completion/completions/ninja
+install -vDm644 misc/zsh-completion  $RPM_BUILD_ROOT%{_datadir}/zsh/site-functions/_ninja
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%{_bindir}/%{name}
+%{_datadir}/bash-completion/completions/%{name}
+%{_datadir}/zsh/site-functions/_%{name}
+
 %changelog
-*	Wed Jul 25 2018 baho-utot <baho-utot@columbus.rr.com> 1.8.2-1
--	Initial build.	First version
+*	Wed Oct 10 2018 Samuel Raynor <samuel@samuelraynor.com> 1.8.2-1
+-	Initial build.

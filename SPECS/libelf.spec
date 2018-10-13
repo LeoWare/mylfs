@@ -1,36 +1,48 @@
-Summary:	The elfutils package contains a set of utilities and libraries for handling ELF files
-Name:		libelf
-Version:	0.170
-Release:	1
-License:	GPLv3
-URL:		https://sourceware.org/ftp/elfutils
-Group:		LFS/BASE
-Vendor:		Octothorpe
-Source0:	https://sourceware.org/ftp/elfutils/0.170/elfutils-%{version}.tar.bz2
+Name:           libelf
+Version:        0.170
+Release:        1%{?dist}
+Summary:        Libelf is a library for handling ELF (Executable and Linkable Format) files.
+Vendor:			LeoWare
+Distribution:	MyLFS
+
+Group:          System Environment/Libraries
+License:        GPLv3
+URL:            https://sourceware.org/elfutils/
+Source0:        https://sourceware.org/ftp/elfutils/0.170/elfutils-0.170.tar.bz2
+
 %description
-	The elfutils package contains a set of utilities and libraries for handling ELF
-	(Executable and Linkable Format) files.
+Libelf is a library for handling ELF (Executable and Linkable Format) files.
+
 %prep
 %setup -q -n elfutils-%{version}
+
+
 %build
-	./configure \
-		--prefix=%{_prefix}
-	make %{?_smp_mflags}
+%configure
+make %{?_smp_mflags}
+
 %install
-	#	make DESTDIR=%{buildroot} install
-	make DESTDIR=%{buildroot} -C libelf install
-	install -vDm644 config/libelf.pc %{buildroot}%{_libdir}/pkgconfig/libelf.pc
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-   %defattr(-,root,root)
+rm -rf $RPM_BUILD_ROOT
+make -C libelf install DESTDIR=$RPM_BUILD_ROOT
+install -vdm 755 $RPM_BUILD_ROOT%{_libdir}/pkgconfig
+install -vm644 config/libelf.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig/libelf.pc
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%{_libdir}/lib*
+%{_libdir}/pkgconfig/*.pc
+
+%package devel
+Summary: libelf development headers
+
+%description devel
+libelf development headers
+
+%files devel
+%{_includedir}/*.h
+%{_includedir}/elfutils/*.h
 %changelog
-*	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 0.170-1
--	LFS-8.1
+*	Wed Oct 10 2018 Samuel Raynor <samuel@samuelraynor.com> 0.170-1
+-	Initial build.

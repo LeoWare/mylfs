@@ -1,6 +1,6 @@
 Summary:	Programs for compressing and decompressing files
 Name:		xz
-Version:	5.0.5
+Version:	5.2.3
 Release:	1
 URL:		http://tukaani.org/xz
 License:	GPLv2
@@ -16,15 +16,16 @@ decompressing files
 %build
 ./configure \
 	--prefix=%{_prefix} \
-	--docdir=%{_defaultdocdir}/%{name}-%{version} \
-	--disable-silent-rules
+	--docdir=%{_docdir}/%{name}-%{version} \
+	--disable-static
 make %{?_smp_mflags}
 %install
-make DESTDIR=%{buildroot} pkgconfigdir=%{_libdir}/pkgconfig install
-install -vdm 755 %{buildroot}/{bin,%_lib}
-mv -v   %{buildroot}%{_bindir}/{lzma,unlzma,lzcat,xz,unxz,xzcat} %{buildroot}/bin
+rm -rf $RPM_BUILD_ROOT
+make DESTDIR=$RPM_BUILD_ROOT install
+install -vdm 755 %{buildroot}{/bin,%{_lib}}
+mv -v %{buildroot}%{_bindir}/{lzma,unlzma,lzcat,xz,unxz,xzcat} %{buildroot}/bin
 mv -v %{buildroot}%{_libdir}/liblzma.so.* %{buildroot}%{_lib}
-ln -svf "../..%{_lib}/$(readlink %{buildroot}%{_libdir}/liblzma.so)" %{buildroot}%{_libdir}/liblzma.so
+ln -svf ../..%{_lib}/$(readlink %{buildroot}%{_libdir}/liblzma.so) %{buildroot}%{_libdir}/liblzma.so
 find %{buildroot}%{_libdir} -name '*.la' -delete
 %find_lang %{name}
 %check
@@ -38,7 +39,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_bindir}/*
 %{_includedir}/*
 %{_libdir}/*
-%{_defaultdocdir}/%{name}-%{version}/*
+%{_docdir}/%{name}-%{version}/*
 %{_mandir}/*/*
 %{_libdir}/pkgconfig/liblzma.pc
 %changelog
@@ -46,3 +47,4 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 -	Update version
 *	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 5.0.4-1
 -	Initial build.	First version
+

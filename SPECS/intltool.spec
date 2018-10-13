@@ -1,37 +1,47 @@
-Summary:	The Intltool is an internationalization tool used for extracting translatable strings from source files.
-Name:		intltool
-Version:	0.51.0
-Release:	1
-License:	GPLv2
-URL:		Any
-Group:		LFS/Base
-Vendor:	Octothorpe
-Source0:	http://launchpad.net/intltool/trunk/0.51.0/+download/%{name}-%{version}.tar.gz
+Name:           intltool
+Version:        0.51.0
+Release:        1%{?dist}
+Summary:        The Intltool is an internationalization tool used for extracting translatable strings from source files.
+Vendor:			LeoWare
+Distribution:	MyLFS
+
+Group:          Applications/Text
+License:        GPLv2
+URL:            https://freedesktop.org/wiki/Software/intltool/
+Source0:        https://launchpad.net/intltool/trunk/%{version}/+download/%{name}-%{version}.tar.gz  
+
 %description
-	The Intltool is an internationalization tool used for extracting translatable strings from source files.
+The Intltool is an internationalization tool used for extracting translatable strings from source files.
+
 %prep
-%setup -q -n %{NAME}-%{VERSION}
-	sed -i 's:\\\${:\\\$\\{:' intltool-update.in
+%setup -q
+sed -i 's:\\\${:\\\$\\{:' intltool-update.in
+
 %build
-	./configure \
-		--prefix=%{_prefix}
-	make %{?_smp_mflags}
+%configure
+make %{?_smp_mflags}
+
+%check
+make check
+
 %install
-	make DESTDIR=%{buildroot} install
-	install -vDm 644 doc/I18N-HOWTO %{buildroot}%{_docdir}/%{name}-%{version}/I18N-HOWTO
-	#	Copy license/copying file
-	install -D -m644 COPYING %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	
-	#	Create file list
-	#	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_mandir}/man8/*.gz
+rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
+install -v -Dm644 doc/I18N-HOWTO $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/I18N-HOWTO
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%{_bindir}/*
+%{_mandir}/*/*
+%{_datadir}/aclocal/*
+%{_datadir}/%{name}/*
+%doc %{_docdir}/%{name}-%{version}/*
+
+
+
+
 %changelog
-*	Tue Jan 09 2018 baho-utot <baho-utot@columbus.rr.com> 0.51.0-1
--	Initial build.	First version
+*	Tue Oct 9 2018 Samuel Raynor <samuel@samuelraynor.com> 0.51.0-1
+-	Initial build.
