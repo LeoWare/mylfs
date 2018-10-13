@@ -15,17 +15,21 @@ automatically configure source code.
 %setup -q
 %build
 ./configure \
-	--prefix=%{_prefix} \
-	--disable-silent-rules
+	--prefix=%{_prefix}
 make %{?_smp_mflags}
 %install
-make DESTDIR=%{buildroot} install
-rm -rf %{buildroot}%{_infodir}
+rm -rf $RPM_BUILD_ROOT
+make DESTDIR=$RPM_BUILD_ROOT install
+rm -v $RPM_BUILD_ROOT%{_infodir}/dir
+
 %files
 %defattr(-,root,root)
 %{_bindir}/*
-%{_mandir}/*/*
+%doc %{_mandir}/*/*
+%doc %{_infodir}/*
 %{_datarootdir}/autoconf/*
+
 %changelog
 *	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.69-1
 -	Initial build.	First version
+
