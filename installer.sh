@@ -11,38 +11,17 @@
 #-----------------------------------------------------------------------------
 set -o errexit	# exit if error...insurance ;)
 set -o nounset	# exit if variable not initalized
-set +h		# disable hashall
+set +h			# disable hashall
 #-----------------------------------------------------------------------------
-PRGNAME=${0##*/}	#	script name minus the path
-REPOPATH="RPMS/x86_64"	#	path to the binary rpms
+PRGNAME=${0##*/}		#	script name minus the path
+PARENT=/usr/src/LFS-RPM	#	rpm build directory
+ARCH=$(umane -m)		#	fetch arch type
+REPOPATH="RPMS/${ARCH}"	#	path to the binary rpms
 ROOTPATH="/mnt"		#	path to install filesystem
 DBPATH="/var/lib/rpm"	#	path to the rpm database rel to ROOTPATH
+LIST=""			#	list of rpms from lfs-base.spec
 #-----------------------------------------------------------------------------
 #	filesystem rpm should be installed first
-LIST="filesystem "
-LIST+="acl attr autoconf automake "
-LIST+="bash bc binutils bison bzip2 "
-LIST+="check coreutils cpio "
-LIST+="diffutils "
-LIST+="e2fsprogs eudev expat "
-LIST+="file findutils firmware-radeon firmware-realtek flex "
-LIST+="gawk gcc gdbm gettext glibc gmp gperf grep groff grub gzip "
-LIST+="iana-etc inetutils intltool iproute2 "
-LIST+="kbd kmod "
-LIST+="less lfs-bootscripts libcap libelf libffi libpipeline libtool "
-LIST+="mkinitramfs linux linux-api-headers "
-LIST+="m4 make man-db man-pages meson mpc mpfr "
-LIST+="ncurses ninja "
-LIST+="openssl "
-LIST+="patch perl pkg-config popt procps-ng psmisc python3 "
-LIST+="readline rpm "
-LIST+="sed shadow sysklogd sysvinit "
-LIST+="tar texinfo tzdata "
-LIST+="util-linux "
-LIST+="vim "
-LIST+="wget "
-LIST+="XML-Parser xz "
-LIST+="zlib "
 #-----------------------------------------------------------------------------
 die() {
 	local _red="\\033[1;31m"
@@ -50,14 +29,33 @@ die() {
 	[ -n "$*" ] && printf "${_red}$*${_normal}\n"
 	exit 1
 }
+get_list() {
+	local i=""
+	local spec="${1}"
+	if [ -e ${spec} ]; then
+		while  read i; do
+			i=$(echo ${i} | tr -d '[:cntrl:][:space:]')
+			case ${i} in
+				Requires:*)	LIST+="${i##Requires:} "	;;
+				*)						;;
+			esac
+		done < ${spec}
+		#	remove trailing whitespace
+		LIST=${LIST## }
+	else
+		die "ERROR: get_list: ${spec}: does not exist"
+	fi
+	return
+}
 #-----------------------------------------------------------------------------
 [ ${EUID} -eq 0 ] || die
 if [ ! /usr/bin/mountpoint ${ROOTPATH} > /dev/null 2>&1 ]; then die "Hey ${ROOTPATH} is not mounted"; fi
 /usr/bin/install -vdm 755 "${ROOTPATH}/${DBPATH}"
 /usr/bin/rpmdb --verbose --initdb --dbpath=${ROOTPATH}/${DBPATH}
+cd ${PARENT} || die "Error: Can not change directory to ${PARENT}"
 for i in ${LIST}; do
 	/bin/rpm --upgrade --nodeps --noscripts --root ${ROOTPATH} --dbpath ${DBPATH} ${REPOPATH}/${i}-[0-9]*-*.*.rpm
-	/bin/echo ${i}
+	/bin/printf "%s\n" ${i}
 done
 /bin/cat > ${ROOTPATH}/tmp/script.sh <<- EOF
 	/sbin/ldconfig

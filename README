@@ -81,11 +81,13 @@ mkdir /mnt/lfs		create work directory
 mount /dev/sdxx /mnt/lfs	mount partition to work directory
 #-----------------------------------------------------------------------------
 Install build system
+#-----------------------------------------------------------------------------
 login as root user
 cd to directory where you placed and extracted the build system.
 ./setup.sh
 #-----------------------------------------------------------------------------
 Build tool chain one go with tests
+#-----------------------------------------------------------------------------
 login as lfs user
 su - lfs
 ./builder.sh tools
@@ -95,6 +97,7 @@ return to root user
 exit
 #-----------------------------------------------------------------------------
 Build LFS system
+#-----------------------------------------------------------------------------
 login as root
 cd /mnt/lfs/usr/src/LFS-RPM
 chroot.sh
@@ -103,8 +106,9 @@ cd /usr/src/LFS-RPM	change to build directory
 The last step will remove the toolchain and use vim to make
 modification to the conf files so when you reboot it will do the
 right thingy.
-rpm -e config lfs		remove the buld rpms not needed
-passwd root			if you need to set a password for root
+rpm -e config lfs	remove the build rpms not needed
+passwd root		if you need to set a password for root
+exit
 #-----------------------------------------------------------------------------
 Build at this point is complete.
 All that is needed is to install grub and/or add a menu item in the
