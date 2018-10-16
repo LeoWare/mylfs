@@ -90,6 +90,7 @@ Build tool chain one go with tests
 #-----------------------------------------------------------------------------
 login as lfs user
 su - lfs
+cd /mnt/lfs/usr/src/LFS-RPM
 ./builder.sh tools
 if you need to restart the "tools" build run:
 rpm -e $(rpm -qa | grep tools);./builder.sh tools
