@@ -1,6 +1,6 @@
 Summary:	Program for compiling packages
 Name:		make
-Version:	4.0
+Version:	4.2.1
 Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/make
@@ -8,27 +8,42 @@ Group:		Development/Tools
 Vendor:		LeoWare
 Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/make/%{name}-%{version}.tar.bz2
+
 %description
 The Make package contains a program for compiling packages.
+
 %prep
 %setup -q
+sed -i '211,217 d; 219,229 d; 232 d' glob/glob.c
+
 %build
 ./configure \
-	--prefix=%{_prefix} \
-	--disable-silent-rules
+	--prefix=%{_prefix}
 make %{?_smp_mflags}
+
 %install
+rm -rf $RPM_BUILD_ROOT
 make DESTDIR=%{buildroot} install
 rm -rf %{buildroot}%{_infodir}
 %find_lang %{name}
+
 %check
-make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+make PERL5LIB=$PWD/tests/ -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+
 %files -f %{name}.lang
 %defattr(-,root,root)
 %{_bindir}/*
+%doc %{_mandir}/*/*
+
+%package devel
+Summary: Development files for %{name}-%{version}.
+
+%description devel
+Development files for %{name}-%{version}.
+
+%files devel
 %{_includedir}/gnumake.h
-%{_mandir}/*/*
+
 %changelog
-*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 4.0-1
-*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 3.82-1
--	Initial build.	First version
+*	Tue Oct 16 2018 Samuel Raynor <samuel@samuelraynor.com> 4.2.1-1
+-	Initial build.

@@ -1,6 +1,6 @@
 Summary:	Basic and advanced IPV4-based networking
 Name:		iproute2
-Version:	3.12.0
+Version:	4.15.0
 Release:	1
 License:	GPLv2
 URL:		http://www.kernel.org/pub/linux/utils/net/iproute2
@@ -8,33 +8,47 @@ Group:		Applications/System
 Vendor:		LeoWare
 Distribution:	MyLFS
 Source:		http://www.kernel.org/pub/linux/utils/net/iproute2/%{name}-%{version}.tar.xz
+
 %description
 The IPRoute2 package contains programs for basic and advanced
 IPV4-based networking.
+
 %prep
 %setup -q
-sed -i '/^TARGETS/s@arpd@@g' misc/Makefile
 sed -i /ARPD/d Makefile
-sed -i 's/arpd.8//' man/man8/Makefile
+rm -fv man/man8/arpd.8
+sed -i 's/m_ipt.o//' tc/Makefile
+
 %build
-make VERBOSE=1 %{?_smp_mflags} DESTDIR= LIBDIR=%{_libdir}
+make %{?_smp_mflags}
+
 %install
-make	DESTDIR=%{buildroot} \
-	MANDIR=%{_mandir} \
-	LIBDIR=%{_libdir} \
-	DOCDIR=%{_defaultdocdir}/%{name}-%{version} install
+rm -rf $RFM_BUILD_ROOT
+make DESTDIR=%{buildroot} \
+	DOCDIR=%{_docdir}/%{name}-%{version} \
+	install
+
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
+
 %files
 %defattr(-,root,root)
 %{_sysconfdir}/%{name}/*
 /sbin/*
 %{_libdir}/*
-%{_defaultdocdir}/%{name}-%{version}/*
-%{_mandir}/*/*
+%doc %{_docdir}/%{name}-%{version}/*
+%doc %{_mandir}/*/*
+%{_datadir}/bash-completion/*
+
+%package devel
+Summary: Development files for %{name}-%{version}.
+
+%description devel
+Development files for %{name}-%{version}.
+
+%files devel
+%{_includedir}/*
+
 %changelog
-*	Sun Apr 06 2014 baho-utot <baho-utot@columbus.rr.com> 3.12.0-1
-*	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 3.10.0-1
-*	Fri May 10 2013 baho-utot <baho-utot@columbus.rr.com> 3.9.0-1
-*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 3.8.0-1
--	Upgrade version
+*	Tue Oct 16 2018 Samuel Raynor <samuel@samuelraynor.com> 4.15.0-1
+-	Initial build.

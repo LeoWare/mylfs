@@ -1,6 +1,6 @@
 Summary:	Programs for finding and viewing man pages
 Name:		man-db
-Version:	2.6.6
+Version:	2.8.1
 Release:	1
 License:	GPLv2
 URL:		http://www.nongnu.org/man-db
@@ -8,29 +8,38 @@ Group:		Applications/System
 Vendor:		LeoWare
 Distribution:	MyLFS
 Source:		%{name}-%{version}.tar.xz
+
 %description
 The Man-DB package contains programs for finding and viewing man pages.
+
 %prep
 %setup -q
+
 %build
 ./configure \
 	--prefix=%{_prefix} \
 	--docdir=%{_defaultdocdir}/%{name}-%{version} \
 	--sysconfdir=%{_sysconfdir} \
 	--disable-setuid \
+	--enable-cache-owner=bin \
 	--with-browser=%{_bindir}/lynx \
 	--with-vgrind=%{_bindir}/vgrind \
-	--with-grap=%{_bindir}/grap \
-	--disable-silent-rules
+	--with-grap=%{_bindir}/grap
 make %{?_smp_mflags}
+
 %install
+rm -rf $RPM_BUILD_ROOT
 make DESTDIR=%{buildroot} install
+sed -i "s:man man:root root:g" $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/man-db.conf
 find %{buildroot}%{_libdir} -name '*.la' -delete
 %find_lang %{name}
+
 %check
 make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
+
 %files -f %{name}.lang
 %defattr(-,root,root)
 %{_sysconfdir}/man_db.conf
@@ -38,6 +47,7 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_sbindir}/*
 %{_libexecdir}/man-db/*
 %{_libdir}/man-db/*
+%config() %{_libdir}/tmpfiles.d/*.conf
 %{_defaultdocdir}/%{name}-%{version}/*
 %{_mandir}/*/*
 %lang(af) %{_datarootdir}/locale/af/LC_MESSAGES/man-db-gnulib.mo
@@ -79,8 +89,5 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %lang(zh_CN) %{_datarootdir}/locale/zh_CN/LC_MESSAGES/man-db-gnulib.mo
 %lang(zh_TW) %{_datarootdir}/locale/zh_TW/LC_MESSAGES/man-db-gnulib.mo
 %changelog
-*	Wed Apr 09 2014 baho-utot <baho-utot@columbus.rr.com> 2.6.6-1
-*	Sat Aug 24 2013 baho-utot <baho-utot@columbus.rr.com> 2.6.5-1
-*	Fri Jun 28 2013 baho-utot <baho-utot@columbus.rr.com> 2.6.4-1
-*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 2.6.3-1
--	Upgrade version
+*	Tue Oct 16 2018 Samuel Raynor <samuel@samuelraynor.com> 2.8.1-1
+-	Initial build.

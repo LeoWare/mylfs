@@ -1,6 +1,6 @@
 Summary:	Programs for processing and formatting text
 Name:		groff
-Version:	1.22.2
+Version:	1.22.3
 Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/groff
@@ -8,30 +8,35 @@ Group:		Applications/Text
 Vendor:		LeoWare
 Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
+
 %description
 The Groff package contains programs for processing
 and formatting text.
+
 %prep
 %setup -q
+
 %build
-PAGE=letter ./configure \
-	--prefix=%{_prefix} 
-make %{?_smp_mflags}
+PAGE=letter %configure
+make -j1
+
 %install
-install -vdm 755 %{_defaultdocdir}/%{name}-1.22/pdf
+rm -rf $RPM_BUILD_ROOT
 make DESTDIR=%{buildroot} install
-ln -sv eqn %{buildroot}%{_bindir}/geqn
-ln -sv tbl %{buildroot}%{_bindir}/gtbl
-rm -rf %{buildroot}%{_infodir}
+rm -f %{buildroot}%{_infodir}/dir
+
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
+
 %files
 %defattr(-,root,root)
 %{_bindir}/*
 %{_libdir}/*
-%{_defaultdocdir}/%{name}-%{version}/*
+%{_docdir}/%{name}-%{version}/*
 %{_datarootdir}/%{name}/*
-%{_mandir}/*/*
+%doc %{_mandir}/*/*
+%doc %{_infodir}/*
+
 %changelog
-*	Wed Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 1.22.2-1
--	Upgrade version
+*	Tue Oct 16 2018 Samuel Raynor <samuel@samuelraynor.com> 4.6.0-1
+-	Initial build.
