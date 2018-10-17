@@ -1,36 +1,61 @@
-Summary:	Check is a unit testing framework for C.
-Name:		check
-Version:	0.12.0
-Release:	1
-License:	GPLv2
-URL:		Any
-Group:		LFS/Base
-Vendor:		Octothorpe
-Source:		%{name}-%{version}.tar.gz
+Name:           check
+Version:        0.12.0
+Release:        1%{?dist}
+Summary:        Check is a unit testing framework for C.
+Vendor:			LeoWare
+Distribution:	MyLFS
+
+Group:          Development/Tools
+License:        Lesser GPLv2.1
+URL:            https://libcheck.github.io/check
+Source0:        https://github.com/libcheck/check/releases/download/0.12.0/check-0.12.0.tar.gz
+
 %description
-	Check is a unit testing framework for C.
+Check is a unit testing framework for C.
+
 %prep
-%setup -q -n %{NAME}-%{VERSION}
+%setup -q
+
+
 %build
-	./configure \
-		--prefix=%{_prefix}
-	make %{?_smp_mflags}
+%configure
+make %{?_smp_mflags}
+
+%check
+make check
+
 %install
-	make DESTDIR=%{buildroot} install
-	#	Copy license/copying file 
-	#	install -D -m644 LICENSE %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	install -D -m644 COPYING.LESSER %{buildroot}/usr/share/licenses/%{name}/LICENSE
-	#	Create file list
-	rm  %{buildroot}%{_infodir}/dir
-	find %{buildroot} -name '*.la' -delete
-	find "${RPM_BUILD_ROOT}" -not -type d -print > filelist.rpm
-	sed -i "s|^${RPM_BUILD_ROOT}||" filelist.rpm
-	sed -i '/man\/man/d' filelist.rpm
-	sed -i '/\/usr\/share\/info/d' filelist.rpm
-%files -f filelist.rpm
-	%defattr(-,root,root)
-	%{_infodir}/*.gz
-	%{_mandir}/man1/*.gz
+rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
+find $RPM_BUILD_ROOT -name \*.la -delete
+rm -v $RPM_BUILD_ROOT%{_infodir}/dir
+mv -v $RPM_BUILD_ROOT%{_docdir}/%{name} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+
+%files
+%{_bindir}/*
+%{_libdir}/*
+%doc %{_docdir}/%{name}-%{version}/*
+%doc %{_infodir}/*
+%doc %{_mandir}/*/*
+%license %{_docdir}/%{name}-%{version}/COPYING.LESSER
+
+%package devel
+Summary: Development files for check.
+
+%description devel
+Development files for check.
+
+%files devel
+%{_includedir}/*
+%{_libdir}/pkgconfig/*
+%{_datadir}/aclocal/*
+
 %changelog
-*	Sat Jul 28 2018 baho-utot <baho-utot@columbus.rr.com> 0.12.0-1
--	Initial build.	First version
+*	Tue Oct 16 2018 Samuel Raynor <samuel@samuelraynor.com> 0.12.0-1
+-	Initial build.

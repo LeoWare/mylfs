@@ -31,7 +31,7 @@ meson --prefix=/usr                \
       -Dblkid=true                 \
       -Dbuildtype=release          \
       -Ddefault-dnssec=no          \
-      -Dfirstboot=false            \
+      -Dfirstboot=false          \
       -Dinstall-tests=false        \
       -Dkill-path=/bin/kill        \
       -Dkmod-path=/bin/kmod        \
@@ -58,7 +58,7 @@ for tool in runlevel reboot shutdown poweroff halt telinit; do
      ln -sfv ../bin/systemctl $RPM_BUILD_ROOT/sbin/${tool}
 done
 ln -sfv ../lib/systemd/systemd $RPM_BUILD_ROOT/sbin/init
-
+#%find_lang %{name}.lang
 #cat > $RPM_BUILD_ROOT/%{_lib}/systemd/systemd-user-sessions << "EOF"
 ##!/bin/bash
 #rm -f /run/nologin
@@ -71,6 +71,76 @@ rm -vf %{_bindir}/xsltproc
 
 
 %files
+/bin/*
+%{_sysconfdir}/X11/xinit/xinitrc.d/*.sh
+%{_sysconfdir}/init.d/README
+%config(noreplace) %{_sysconfdir}/pam.d/*
+%config(noreplace) %{_sysconfdir}/systemd/*.conf
+%{_sysconfdir}/systemd/system/*
+%{_sysconfdir}/udev/*.conf
+%{_sysconfdir}/xdg/systemd/user
+/lib/libnss*
+/lib/libsystemd*
+/lib/libudev*
+%config(noreplace) /lib/modprobe.d/systemd.conf
+/lib/security/*.so
+/lib/systemd/*
+/lib/udev/*
+/sbin/*
+%{_bindir}/*
+%{_libdir}/systemd/*
+%{_libdir}/tmpfiles.d/*
+%{_libdir}/environment.d/*
+%{_libdir}/kernel/*
+%{_libdir}/sysctl.d/*
+%{_datadir}/bash-completion/completions/*
+%{_datadir}/dbus-1/*
+%doc %{_docdir}/systemd/*
+%{_datadir}/factory/*
+%{_mandir}/*/*
+%{_datadir}/polkit-1/*
+%{_datadir}/systemd/*
+%{_datadir}/zsh/*
+%{_var}/log/README
+%lang(be) %{_datadir}/locale/be/LC_MESSAGES/systemd.mo
+%lang(be@latin) %{_datadir}/locale/be@latin/LC_MESSAGES/systemd.mo
+%lang(bg) %{_datadir}/locale/bg/LC_MESSAGES/systemd.mo
+%lang(ca) %{_datadir}/locale/ca/LC_MESSAGES/systemd.mo
+%lang(cs) %{_datadir}/locale/cs/LC_MESSAGES/systemd.mo
+%lang(da) %{_datadir}/locale/da/LC_MESSAGES/systemd.mo
+%lang(de) %{_datadir}/locale/de/LC_MESSAGES/systemd.mo
+%lang(el) %{_datadir}/locale/el/LC_MESSAGES/systemd.mo
+%lang(es) %{_datadir}/locale/es/LC_MESSAGES/systemd.mo
+%lang(fr) %{_datadir}/locale/fr/LC_MESSAGES/systemd.mo
+%lang(gr) %{_datadir}/locale/gl/LC_MESSAGES/systemd.mo
+%lang(hr) %{_datadir}/locale/hr/LC_MESSAGES/systemd.mo
+%lang(hu) %{_datadir}/locale/hu/LC_MESSAGES/systemd.mo
+%lang(id) %{_datadir}/locale/id/LC_MESSAGES/systemd.mo
+%lang(it) %{_datadir}/locale/it/LC_MESSAGES/systemd.mo
+%lang(ko) %{_datadir}/locale/ko/LC_MESSAGES/systemd.mo
+%lang(pl) %{_datadir}/locale/pl/LC_MESSAGES/systemd.mo
+%lang(pt_BR) %{_datadir}/locale/pt_BR/LC_MESSAGES/systemd.mo
+%lang(ro) %{_datadir}/locale/ro/LC_MESSAGES/systemd.mo
+%lang(ru) %{_datadir}/locale/ru/LC_MESSAGES/systemd.mo
+%lang(sk) %{_datadir}/locale/sk/LC_MESSAGES/systemd.mo
+%lang(sr) %{_datadir}/locale/sr/LC_MESSAGES/systemd.mo
+%lang(sv) %{_datadir}/locale/sv/LC_MESSAGES/systemd.mo
+%lang(tr) %{_datadir}/locale/tr/LC_MESSAGES/systemd.mo
+%lang(uk) %{_datadir}/locale/uk/LC_MESSAGES/systemd.mo
+%lang(zh_CN) %{_datadir}/locale/zh_CN/LC_MESSAGES/systemd.mo
+%lang(zh_TW) %{_datadir}/locale/zh_TW/LC_MESSAGES/systemd.mo
+
+%package devel
+Summary: Development files for %{name}-%{version}.
+
+%description devel
+Development files for %{name}-%{version}.
+
+%files devel
+%{_includedir}/*
+%{_libdir}/pkgconfig/*.pc
+%{_datadir}/pkgconfig/*.pc
+%{_libdir}/rpm/*
 
 
 %changelog

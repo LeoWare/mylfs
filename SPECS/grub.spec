@@ -1,6 +1,6 @@
 Summary:	GRand Unified Bootloader
 Name:		grub
-Version:	2.00
+Version:	2.02
 Release:	1
 License:	GPLv3
 URL:		http://www.gnu.org/software/grub
@@ -8,29 +8,34 @@ Group:		Applications/System
 Vendor:		LeoWare
 Distribution:	MyLFS
 Source:		http://ftp.gnu.org/gnu/grub/%{name}-%{version}.tar.xz
+
 %description
 The GRUB package contains the GRand Unified Bootloader.
+
 %prep
 %setup -q
-sed -i -e '/gets is a/d' grub-core/gnulib/stdio.in.h
+
 %build
 ./configure \
 	--prefix=%{_prefix} \
 	--sbindir=/sbin \
 	--sysconfdir=%{_sysconfdir} \
-	--disable-grub-emu-usb \
 	--disable-efiemu \
-	--disable-werror \
-	--disable-silent-rules
+	--disable-werror
 make %{?_smp_mflags}
+
 %install
+rm -rf $RPM_BUILD_ROOT
 make DESTDIR=%{buildroot} install
-rm -rf %{buildroot}%{_infodir}
+rm -f %{buildroot}%{_infodir}/dir
 %find_lang %{name}
+
 %check
 make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
+
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
+
 %files -f %{name}.lang
 %defattr(-,root,root)
 %dir %{_sysconfdir}/grub.d
@@ -45,7 +50,9 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 /sbin/*
 %{_bindir}/*
 %{_libdir}/*
-%{_datarootdir}/%{name}/*
+%{_datadir}/%{name}/*
+%{_infodir}/*
+
 %changelog
-*	Wed Jan 30 2013 baho-utot <baho-utot@columbus.rr.com> 2.00-1
--	Initial build.	First version
+*	Tue Oct 16 2018 Samuel Raynor <samuel@samuelraynor.com> 2.02-1
+-	Initial build.
