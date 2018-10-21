@@ -31,6 +31,7 @@ sed -i 's/--srcdir=$db_dist/--srcdir=$db_dist --with-pic/' db3/configure
 		--with-cap \
 		--with-acl \
 		--enable-python \
+		--with-python=2.7 \
 		--without-external-db \
 		--without-archive \
 		--without-lua \
@@ -40,6 +41,7 @@ sed -i 's/--srcdir=$db_dist/--srcdir=$db_dist --with-pic/' db3/configure
 #		--disable-plugins
 #		--with-archive          build rpm2archive - requires libarchive
 #		--with-lua              build with lua support
+#		--with-python=<version>
 	make %{?_smp_mflags}
 %install
 	make DESTDIR=%{buildroot} install
@@ -85,3 +87,4 @@ sed -i 's/--srcdir=$db_dist/--srcdir=$db_dist --with-pic/' db3/configure
 -	Added python bindings for rpmlint
 *	Mon Jan 01 2018 baho-utot <baho-utot@columbus.rr.com> 4.14.0-1
 -	LFS-8.1
+/

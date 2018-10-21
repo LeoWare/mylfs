@@ -101,13 +101,13 @@ Build LFS system
 #-----------------------------------------------------------------------------
 login as root
 cd /mnt/lfs/usr/src/LFS-RPM
-chroot.sh
+./chroot.sh
 cd /usr/src/LFS-RPM	change to build directory
 ./builder.sh lfs
 The last step will remove the toolchain and use vim to make
 modification to the conf files so when you reboot it will do the
 right thingy.
-rpm -e config lfs	remove the build rpms not needed
+rpm -e cleanup config lfs	remove the build rpms not needed
 passwd root		if you need to set a password for root
 exit
 #-----------------------------------------------------------------------------

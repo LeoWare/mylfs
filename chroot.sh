@@ -54,19 +54,19 @@ _virtual() {	#	6.2. Preparing Virtual Kernel File Systems
 	return
 }
 _umount(){
-	/bin/mountpoint -q ${LFS}/run &&		/bin/umount ${LFS}/run
-	/bin/mountpoint -q ${LFS}/sys &&		/bin/umount ${LFS}/sys
-	/bin/mountpoint -q ${LFS}/proc &&		/bin/umount ${LFS}/proc
-	/bin/mountpoint -q ${LFS}/dev/pts &&	/bin/umount ${LFS}/dev/pts
-	/bin/mountpoint -q ${LFS}/dev &&		/bin/umount ${LFS}/dev
+	/bin/mountpoint -q ${LFS}/run	&&	/bin/umount ${LFS}/run
+	/bin/mountpoint -q ${LFS}/sys	&&	/bin/umount ${LFS}/sys
+	/bin/mountpoint -q ${LFS}/proc	&&	/bin/umount ${LFS}/proc
+	/bin/mountpoint -q ${LFS}/dev/pts	&&	/bin/umount ${LFS}/dev/pts
+	/bin/mountpoint -q ${LFS}/dev	&&	/bin/umount ${LFS}/dev
 	return
 }
 _mount() {
-	/bin/mountpoint -q ${LFS}/dev ||		/bin/mount --bind /dev ${LFS}/dev
-	/bin/mountpoint -q ${LFS}/dev/pts ||	/bin/mount -t devpts devpts ${LFS}/dev/pts -o gid=5,mode=620
-	/bin/mountpoint -q ${LFS}/proc ||		/bin/mount -t proc proc ${LFS}/proc
-	/bin/mountpoint -q ${LFS}/sys ||		/bin/mount -t sysfs sysfs ${LFS}/sys
-	/bin/mountpoint -q ${LFS}/run ||		/bin/mount -t tmpfs tmpfs ${LFS}/run
+	/bin/mountpoint -q ${LFS}/dev	||	/bin/mount --bind /dev ${LFS}/dev
+	/bin/mountpoint -q ${LFS}/dev/pts	||	/bin/mount -t devpts devpts ${LFS}/dev/pts -o gid=5,mode=620
+	/bin/mountpoint -q ${LFS}/proc	||	/bin/mount -t proc proc ${LFS}/proc
+	/bin/mountpoint -q ${LFS}/sys	||	/bin/mount -t sysfs sysfs ${LFS}/sys
+	/bin/mountpoint -q ${LFS}/run	||	/bin/mount -t tmpfs tmpfs ${LFS}/run
 	[ -h ${LFS}/dev/shm ] &&			/bin/mkdir -p ${LFS}/$(readlink ${LFS}/dev/shm)
 	return
 }
@@ -87,6 +87,4 @@ return
 #	Main line
 [ ${EUID} -eq 0 ] 	|| die "${PRGNAME}: Need to be root user: FAILURE"
 LIST+="_chown _virtual _umount _mount _chroot"
-for i in ${LIST};do
-	${i}
-done
+for i in ${LIST};do ${i};done
