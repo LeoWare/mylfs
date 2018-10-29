@@ -137,7 +137,7 @@ _setup_user() {
 _fetch () {
 	local i=""
 	local filespec=""
-	[ -z "${RPM_TARBALLS}" ] && return
+	[ -z "${TARBALL}" ] && return
 	for i in ${TARBALL}; do
 		filespec=${i##*/}
 		if [ ! -e "SOURCES/${filespec}" ]; then
