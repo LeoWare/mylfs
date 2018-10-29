@@ -426,10 +426,10 @@ for the directories.
 	#
 	#	9.1. The End
 	#
-	echo 8.1 > %{buildroot}/etc/lfs-release
+	echo %{version} > %{buildroot}/etc/lfs-release
 	cat > %{buildroot}/etc/lsb-release <<- "EOF"
 		DISTRIB_ID="Linux From Scratch"
-		DISTRIB_RELEASE="8.2"
+		DISTRIB_RELEASE=%{version}
 		DISTRIB_CODENAME="Octothorpe"
 		DISTRIB_DESCRIPTION="Linux From Scratch"
 	EOF
@@ -791,6 +791,7 @@ for the directories.
 	/etc/vimrc
 #-----------------------------------------------------------------------------
 %changelog
+*	Sun Oct 28 2018 baho-utot <baho-utot@columbus.rr.com> 8.2-1
 *	Tue Dec 12 2017 baho-utot <baho-utot@columbus.rr.com> 8.1-1
 -	Update to LFS-8.1
 *	Tue Jun 17 2014 baho-utot <baho-utot@columbus.rr.com> 7.5-1
