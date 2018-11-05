@@ -61,8 +61,8 @@ GENERAL NOTES:
 
 	This build has a mkinitramfs step ( which requires cpio ) so if you
 	need a	initrd to boot it creates one.  If your kernel must be
-	configured to	use this. If initrd is not required the initrd is still
-	created just ignore it when	you make the entry into grub.cfg
+	configured to use this. If initrd is not required the initrd is still
+	created just ignore it when you make the entry into grub.cfg
 
 	This build has Microcode updates for AMD CPUs.
 	To use it make a link to the proper cpu family.
@@ -99,9 +99,9 @@ GENERAL NOTES:
 
 INSTALLER SCRIPT:
 	The installer.sh script will take the binary rpms ( chapter 6 ) and
-	installcthem into a partition that YOU mounted on /mnt.  If you want
-	to install elseware then change ROOTPATH="/mnt" to the installation
-	partitionvmounted by YOU.
+	install them into a partition that YOU mounted on /mnt.  If you want
+	to install else where then change ROOTPATH="/mnt" to the installation
+	partition mounted by YOU.
 
 TODO:
 	I am presently working on adding yum to the base build, I will add it

@@ -40,7 +40,7 @@ The GCC package contains the GNU compiler collection, which includes the C and C
 	install -vdm 755 %{buildroot}%{_bindir}
 	ln -sv gcc %{buildroot}%{_bindir}/cc
 	install -vdm 755 %{buildroot}%{_libdir}/bfd-plugins
-	ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/7.2.0/liblto_plugin.so %{buildroot}%{_libdir}/bfd-plugins/
+	ln -sfv ../../libexec/gcc/$(gcc -dumpmachine)/%{version}/liblto_plugin.so %{buildroot}%{_libdir}/bfd-plugins/
 	cd -
 	install -vd 755 %{buildroot}/usr/share/gdb/auto-load/usr/lib
 	mv -v %{buildroot}/usr/lib/*gdb.py %{buildroot}/usr/share/gdb/auto-load/usr/lib
