@@ -105,7 +105,7 @@ INSTALLER SCRIPT:
 
 TODO:
 	I am presently working on adding yum to the base build, I will add it
-	to thevend of the build order so it can be skipped if not
+	to the end of the build order so it can be skipped if not
 	needed/wanted.
 	To be completed after I finish BLFS-8.2
 
