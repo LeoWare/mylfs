@@ -126,3 +126,4 @@ rpm.spec                    *
 wget.spec                   B
 firmware-radeon.spec        B
 firmware-realtek.spec       B
+firmware-amd-ucode.spec     B
