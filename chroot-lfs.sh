@@ -14,7 +14,7 @@ PARENT=/usr/src/LFS-RPM
 #	Functions
 _mount_partitions() {
 	[ mountpoint '/mnt' > /dev/null 2>&1 ]		|| /bin/mount ${HOST} /mnt
-	[ mountpoint '/mnt/mnt/lfs' > /dev/null 2>&1 ]	|| /bin/mount ${LFS} /mnt/mnt/lfs
+#	[ mountpoint '/mnt/mnt/lfs' > /dev/null 2>&1 ]	|| /bin/mount ${LFS} /mnt/mnt/lfs
 	return
 }
 _mount_kernel_filesystems () {
@@ -24,7 +24,7 @@ _mount_kernel_filesystems () {
 	/bin/mount -vt proc proc /mnt/proc
 	/bin/mount -vt sysfs sysfs /mnt/sys
 	/bin/mount -vt tmpfs tmpfs /mnt/run
-	/bin/mount -v --bind ${MASTER} ${ROOT}${PARENT}
+#	/bin/mount -v --bind ${MASTER} ${ROOT}${PARENT}
 	return
 }
 _chroot() {
@@ -43,8 +43,8 @@ _cleanup() {
 	/bin/umount /mnt/proc
 	/bin/umount /mnt/dev/pts
 	/bin/umount /mnt/dev
-	/bin/umount /mnt/mnt/lfs
-	/bin/umount ${ROOT}${PARENT}
+#	/bin/umount /mnt/mnt/lfs
+#	/bin/umount ${ROOT}${PARENT}
 	/bin/umount /mnt
 	return
 }

@@ -154,7 +154,7 @@ for the directories.
 	#
 	#	7.5.3. Configuring the system hostname
 	#
-	echo "<lfs.example.org>" > %{buildroot}/etc/hostname
+	echo "lfs.example.org" > %{buildroot}/etc/hostname
 	#
 	#	7.5.4. Customizing the /etc/hosts File
 	#
@@ -597,6 +597,13 @@ for the directories.
 		set ruler
 		" End .vimrc
 	EOF
+	cat > %{buildroot}/etc/skel/.vimrc <<- "EOF"
+		" Begin .vimrc
+		set columns=80
+		set wrapmargin=8
+		set ruler
+		" End .vimrc
+	EOF
 	cat > %{buildroot}/etc/skel/.bash_profile <<- "EOF"
 		# Begin ~/.bash_profile
 		# Written for Beyond Linux From Scratch
@@ -623,13 +630,17 @@ for the directories.
 	cat > %{buildroot}/etc/skel/.profile <<- "EOF"
 		# Begin ~/.profile
 		# Personal environment variables and startup programs.
+
 		if [ -d "$HOME/bin" ] ; then
 			pathprepend $HOME/bin
 		fi
+
 		# Set up user specific i18n variables
 		#export LANG=<ll>_<CC>.<charmap><@modifiers>
+
 		# End ~/.profile
 	EOF
+	
 	cat > %{buildroot}/etc/skel/.bashrc <<- "EOF"
 		# Begin ~/.bashrc
 		# Written for Beyond Linux From Scratch
@@ -788,6 +799,7 @@ for the directories.
 	/etc/skel/.bash_profile
 	/etc/skel/.bashrc
 	/etc/skel/.profile
+	/etc/skel/.vimrc
 	/etc/vimrc
 #-----------------------------------------------------------------------------
 %changelog
