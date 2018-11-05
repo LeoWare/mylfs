@@ -1,7 +1,11 @@
+OVERVIEW:
+	This build tracks linux from scratch version 8.2
 
-This build tracks linux from scratch version 8.2
-
-This build system requires the following:
+REQUIREMENTS:
+	1. build system from github
+	2. partition and filesystem mount at /mnt/lfs
+	3. wget on host system
+	4. rpm on host system
 
 	1. Fetch build system from:
 		https://www.github.com/baho-utot/LFS-RPM
@@ -20,12 +24,6 @@ This build system requires the following:
 		The build system installs to:
 		/mnt/lfs/usr/src/LFS-RPM
 
-	REQUIREMENTS:
-		1. build system from github
-		2. partition and filesystem mount at /mnt/lfs
-		3. wget on host system
-		4. rpm on host system
-
 	I have installed rpm macro files in:
 	/home/lfs/.rpmmacros and in the base directory:
 	/etc/rpm/macros.
@@ -35,128 +33,120 @@ This build system requires the following:
 	toolchain so as not to have any impact upon the base
 	build.
 
-	WARNING:
+WARNING:
 	This build system is designed in such a way to not be
 	able to trash your host system.  Mistakes can happen.
 	Not responsible for trashed host system.  You
 	bear all responsibilities for any failures.
 	
-	ADDITIONS:
-		cpio			# needed for mkinitramfs
-		mkinitramfs		# to create initrd
-		popt			# needed for rpm
-		python2		# needed for rpm
-		rpm			# package manager
-		wget			# needed to fetch packages
-		firmware-radeon	# firmaware for radeon graphics
-		firmware-realtek	# firmaware for realtek network
-		firmware-amd-ucode	# microcode updates for AMD CPUs
+ADDITIONS:
+	cpio			# needed for mkinitramfs
+	mkinitramfs		# to create initrd
+	popt			# needed for rpm
+	python2		# needed for rpm
+	rpm			# package manager
+	wget			# needed to fetch packages
+	firmware-radeon	# firmaware for radeon graphics
+	firmware-realtek	# firmaware for realtek network
+	firmware-amd-ucode	# microcode updates for AMD CPUs
 
-General Notes:
-		
-The build process has been changed to be recursive.  This was done so
-I can use the same bash script to build lfs and blfs.  
+GENERAL NOTES:
+	The build process has been changed to be recursive.
+	This was done so I can use the same bash script to build
+	lfs and blfs.
 
-To change the build order or to add packages:
-edit SPECS/tools.spec or lfs.spec and change the
-"Requires: <xxxxxx>" parameter(s) to suit.
+	To change the build order or to add packages:
+	edit SPECS/tools.spec or lfs.spec and change the
+	"Requires: <xxxxxx>" parameter(s) to suit.
 
-This build has a mkinitramfs step ( which requires cpio ) so if you need a
-initrd to boot it creates one.  If your kernel must be configured to use this.
-If initrd is not required the initrd is still created just ignore it when
-you make the entry into grub.cfg
+	This build has a mkinitramfs step ( which requires cpio ) so if you
+	need a	initrd to boot it creates one.  If your kernel must be
+	configured to	use this. If initrd is not required the initrd is still
+	created just ignore it when	you make the entry into grub.cfg
 
-This build has Microcode updates for AMD CPUs.
-To use it make a link to the proper cpu family.
-See BLFS book for more information.
+	This build has Microcode updates for AMD CPUs.
+	To use it make a link to the proper cpu family.
+	See BLFS book for more information.
+	The initrd must be named microcode.img
+	To use AMD cpu updates:
+	cd /boot
+	ln -vs microcode_amd_famxxh.img microcode.img
+	Change xxh to the proper family to 15h, 16h or 17h
 
-cd /boot
-The initrd must be named microcode.img
-
-ln -vs microcode_amd_famxxh.img microcode.img
-Change xxh to the proper family to 15h, 16h or 17h
-
-Add/change to grub.cfg
-initrd /boot/microcode.img /boot/initrd.img-4.15.3
-Or if you don't use initrd.img-4.15.3
-initrd /boot/microcode.img
-
-Example for GPT partitioned drive
-menuentry 'Linux From Scratch (8.2) (on /dev/sdxx)' {
-	insmod part_gpt
-	insmod ext2
-	set root='hdx,gptx'
-	linux /boot/vmlinuz-4.15.3 root=/dev/sdxx
+	Add/change to grub.cfg
 	initrd /boot/microcode.img /boot/initrd.img-4.15.3
-}
-Or MSDOS/BIOS partitioned drive
-menuentry 'Linux From Scratch (8.2) (on /dev/sdxx)' {
-	insmod part_msdos
-	insmod ext2
-	set root='hdx,msdosx'
-	linux /boot/vmlinuz-4.15.3 root=/dev/sdxx
-	initrd /boot/microcode.img initrd /boot/initrd.img-4.15.3
-}
+	Or if you don't use initrd.img-4.15.3
+	initrd /boot/microcode.img
 
-Change the x's to the proper drives and partition
+	Example for GPT partitioned drive
+	menuentry 'Linux From Scratch (8.2) (on /dev/sdxx)' {
+		insmod part_gpt
+		insmod ext2
+		set root='hdx,gptx'
+		linux /boot/vmlinuz-4.15.3 root=/dev/sdxx
+		initrd /boot/microcode.img /boot/initrd.img-4.15.3
+	}
+	
+	Or MSDOS/BIOS partitioned drive
+		menuentry 'Linux From Scratch (8.2) (on /dev/sdxx)' {
+		insmod part_msdos
+		insmod ext2
+		set root='hdx,msdosx'
+		linux /boot/vmlinuz-4.15.3 root=/dev/sdxx
+		initrd /boot/microcode.img initrd /boot/initrd.img-4.15.3
+	}
+	Change the x's to the proper drives and partition
 
-The installer.sh script will take the binary rpms ( chapter 6 ) and install
-them into a partition that YOU mounted on /mnt.  If you want to install 
-elseware then change ROOTPATH="/mnt" to the installation partition
-mounted by YOU.
+INSTALLER SCRIPT:
+	The installer.sh script will take the binary rpms ( chapter 6 ) and
+	installcthem into a partition that YOU mounted on /mnt.  If you want
+	to install elseware then change ROOTPATH="/mnt" to the installation
+	partitionvmounted by YOU.
 
-###		TODO	###
-I am presently working on adding yum to the base build, I will add it to the
-end of the build order so it can be skipped if not needed/wanted.
-To be completed after I finish BLFS-8.2
-###		TODO	###
+TODO:
+	I am presently working on adding yum to the base build, I will add it
+	to thevend of the build order so it can be skipped if not
+	needed/wanted.
+	To be completed after I finish BLFS-8.2
 
-Build Procedure:
+BUILD PROCEDURE:
 
-Preprare for build
-download the tarball from https://www.github.com/baho-utot/LFS-RPM
-extract it to your HOME directory
-#-----------------------------------------------------------------------------
-You are responsible for the next four steps,  make sure you knowed
-what you are doing!
-fdisk /dev/sdx		partition drive, you need to do this
-mkfs.ext4 /dev/sdxx		create ext4 filesystem
-mkdir /mnt/lfs		create work directory
-mount /dev/sdxx /mnt/lfs	mount partition to work directory
-#-----------------------------------------------------------------------------
-Install build system
-#-----------------------------------------------------------------------------
-login as root user
-cd to directory where you placed and extracted the build system.
-./setup.sh
-#-----------------------------------------------------------------------------
-Build tool chain one go with tests
-#-----------------------------------------------------------------------------
-login as lfs user
-su - lfs
-cd /mnt/lfs/usr/src/LFS-RPM
-./builder.sh tools
-if you need to restart the "tools" build run:
-rpm -e $(rpm -qa | grep tools);./builder.sh tools
-return to root user
-exit
-#-----------------------------------------------------------------------------
-Build LFS system
-#-----------------------------------------------------------------------------
-login as root if needed
-cd /mnt/lfs/usr/src/LFS-RPM
-./chroot.sh
-cd /usr/src/LFS-RPM	change to build directory
-./builder.sh lfs
-The last step will remove the toolchain and use vim to make
-modification to the conf files so when you reboot it will do the
-right thingy.
-rpm -e cleanup config lfs	remove the build rpms not needed
-passwd root		if you need to set a password for root
-exit
-#-----------------------------------------------------------------------------
-Build at this point is complete.
-All that is needed is to install grub and/or add a menu item in the
-the grub configuration file /boot/grub.cfg
+	Preprare for build by downloading the tarball from:
+	https://www.github.com/baho-utot/LFS-RPM
+	Extract it to your HOME directory
+	You are responsible for the next four steps,  make sure you knowed
+	what you are doing!
+	fdisk /dev/sdx		partition drive, you need to do this
+	mkfs.ext4 /dev/sdxx		create ext4 filesystem
+	mkdir /mnt/lfs		create work directory
+	mount /dev/sdxx /mnt/lfs	mount partition to work directory
+
+	Install build system
+	login as root user
+	cd to directory where you placed and extracted the build system.
+	./setup.sh
+
+	Build tool chain in one go
+	su - lfs
+	cd /mnt/lfs/usr/src/LFS-RPM
+	./builder.sh tools
+	exit
+	If you need to restart the "tools" build run:
+	rpm -e $(rpm -qa | grep tools);./builder.sh tools
+	instead of just ./builder.sh tools
+
+	Build LFS system
+	login as root if needed
+	cd /mnt/lfs/usr/src/LFS-RPM
+	./chroot.sh
+	cd /usr/src/LFS-RPM
+	./builder.sh lfs
+	rpm -e cleanup config lfs
+	passwd root
+	exit
+
+	Build at this point is complete.
+	All that is needed is to install grub and/or add a menu item in the
+	the grub configuration file /boot/grub.cfg
 
 This completes the build.
