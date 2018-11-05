@@ -94,6 +94,7 @@ Requires:	rpm
 Requires:	wget
 Requires:	firmware-radeon
 Requires:	firmware-realtek
+Requires:	firmware-amd-ucode
 %description
 Summary:	Meta package for LFS Base installation
 #-----------------------------------------------------------------------------

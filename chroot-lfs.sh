@@ -5,7 +5,7 @@ set +h			# disable hashall
 #
 #   Partition to mount @ /mnt
 #
-PARTITION=/dev/sda5
+HOST=/dev/sda5
 LFS=/dev/sdb3
 MASTER=/home/scrat/Desktop/LFS-RPM
 ROOT=/mnt
@@ -13,7 +13,7 @@ PARENT=/usr/src/LFS-RPM
 #-----------------------------------------------------------------------------
 #	Functions
 _mount_partitions() {
-	[ mountpoint '/mnt' > /dev/null 2>&1 ]		|| /bin/mount ${PARTITION} /mnt
+	[ mountpoint '/mnt' > /dev/null 2>&1 ]		|| /bin/mount ${HOST} /mnt
 	[ mountpoint '/mnt/mnt/lfs' > /dev/null 2>&1 ]	|| /bin/mount ${LFS} /mnt/mnt/lfs
 	return
 }

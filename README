@@ -56,6 +56,41 @@ initrd to boot it creates one.  If your kernel configured so a initrd is not
 required the inird is still created just ignore it when you make the entry into
 grub.cfg
 
+This build has Microcode updates for AMD CPUs.
+To use it make a link to the proper cpu family.
+See BLFS book for more information.
+
+cd /boot
+the initrd must be named microcode.img
+
+ln -vs microcode_amd_famxxh.img microcode.img
+change xxh to the proper family to 15h, 16h or 17h
+
+add/change to grub.cfg
+initrd /boot/microcode.img /boot/initrd.img-4.15.3
+or if you don't use initrd.img-4.15.3
+initrd /boot/microcode.img
+
+example for GPT partitioned drive
+menuentry 'Linux From Scratch (8.2) (on /dev/sdxx)' {
+	insmod part_gpt
+	insmod ext2
+	set root='hdx,gptx'
+	linux /boot/vmlinuz-4.15.3 root=/dev/sdxx
+	initrd /boot/microcode.img /boot/initrd.img-4.15.3
+}
+or MSDOS/BIOS partitioned drive
+menuentry 'Linux From Scratch (8.2) (on /dev/sdxx)' {
+	insmod part_msdos
+	insmod ext2
+	set root='hdx,msdosx'
+	linux /boot/vmlinuz-4.15.3 root=/dev/sdxx
+	initrd /boot/microcode.img initrd /boot/initrd.img-4.15.3
+}
+
+change the x's to the proper drives and partition
+
+
 The installer.sh script will take the binary rpms ( chapter 6 ) and install them
 into a partition that YOU mounted on /mnt.  If you want to install elseware then
 change ROOTPATH="/mnt" to the installation partition mounted by YOU.
@@ -63,6 +98,7 @@ change ROOTPATH="/mnt" to the installation partition mounted by YOU.
 ###		TODO	###
 I am presently working on adding yum to the base build, I will add it to the
 end of the build order so it can be skipped if not needed/wanted.
+To be completed after I finish BLFS-8.2
 ###		TODO	###
 
 Build Procedure goes as follows:
@@ -111,8 +147,17 @@ rpm -e cleanup config lfs	remove the build rpms not needed
 passwd root		if you need to set a password for root
 exit
 #-----------------------------------------------------------------------------
+
+        menuentry 'Linux From Scratch (8.2) (on /dev/sdb3)' {
+                insmod part_gpt
+                insmod ext2
+                set root='hd1,gpt3'
+                linux /boot/vmlinuz-4.15.3 root=/dev/sdb3
+                initrd /boot/microcode.img /boot/initrd.img-4.15.3
+
+
 Build at this point is complete.
 All that is needed is to install grub and/or add a menu item in the
-the grub configureation file /boot/grub.cfg
+the grub configuration file /boot/grub.cfg
 
 This completes the build.

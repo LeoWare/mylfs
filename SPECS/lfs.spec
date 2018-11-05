@@ -97,6 +97,7 @@ Requires:	rpm
 Requires:	wget
 Requires:	firmware-radeon
 Requires:	firmware-realtek
+Requires:	firmware-amd-ucode
 Requires:	cleanup
 Requires:	config
 %description
