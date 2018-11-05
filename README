@@ -41,8 +41,18 @@ This build system requires the following:
 	Not responsible for trashed host system.  You
 	bear all responsibilities for any failures.
 	
-	wget is added to this build so you can fetch BLFS packages if your
-	network is setup and working
+	ADDITIONS:
+		cpio			# needed for mkinitramfs
+		mkinitramfs		# to create initrd
+		popt			# needed for rpm
+		python2		# needed for rpm
+		rpm			# package manager
+		wget			# needed to fetch packages
+		firmware-radeon	# firmaware for radeon graphics
+		firmware-realtek	# firmaware for realtek network
+		firmware-amd-ucode	# microcode updates for AMD CPUs
+
+General Notes:
 		
 The build process has been changed to be recursive.  This was done so
 I can use the same bash script to build lfs and blfs.  
@@ -51,10 +61,10 @@ To change the build order or to add packages:
 edit SPECS/tools.spec or lfs.spec and change the
 "Requires: <xxxxxx>" parameter(s) to suit.
 
-I have also added a mkinitramfs step ( which requires cpio ) so if you need a
-initrd to boot it creates one.  If your kernel configured so a initrd is not
-required the inird is still created just ignore it when you make the entry into
-grub.cfg
+This build has a mkinitramfs step ( which requires cpio ) so if you need a
+initrd to boot it creates one.  If your kernel must be configured to use this.
+if initrd is not required the initrd is still created just ignore it when
+you make the entry into grub.cfg
 
 This build has Microcode updates for AMD CPUs.
 To use it make a link to the proper cpu family.
@@ -90,7 +100,6 @@ menuentry 'Linux From Scratch (8.2) (on /dev/sdxx)' {
 
 change the x's to the proper drives and partition
 
-
 The installer.sh script will take the binary rpms ( chapter 6 ) and install them
 into a partition that YOU mounted on /mnt.  If you want to install elseware then
 change ROOTPATH="/mnt" to the installation partition mounted by YOU.
@@ -101,10 +110,8 @@ end of the build order so it can be skipped if not needed/wanted.
 To be completed after I finish BLFS-8.2
 ###		TODO	###
 
-Build Procedure goes as follows:
+Build Procedure:
 
-Command to run			Comments don't enter these
-------------------------------	-------------------------------------
 Preprare for build
 download the tarball from https://www.github.com/baho-utot/LFS-RPM
 extract it to your HOME directory
@@ -135,7 +142,7 @@ exit
 #-----------------------------------------------------------------------------
 Build LFS system
 #-----------------------------------------------------------------------------
-login as root
+login as root if needed
 cd /mnt/lfs/usr/src/LFS-RPM
 ./chroot.sh
 cd /usr/src/LFS-RPM	change to build directory
@@ -147,15 +154,6 @@ rpm -e cleanup config lfs	remove the build rpms not needed
 passwd root		if you need to set a password for root
 exit
 #-----------------------------------------------------------------------------
-
-        menuentry 'Linux From Scratch (8.2) (on /dev/sdb3)' {
-                insmod part_gpt
-                insmod ext2
-                set root='hd1,gpt3'
-                linux /boot/vmlinuz-4.15.3 root=/dev/sdb3
-                initrd /boot/microcode.img /boot/initrd.img-4.15.3
-
-
 Build at this point is complete.
 All that is needed is to install grub and/or add a menu item in the
 the grub configuration file /boot/grub.cfg
