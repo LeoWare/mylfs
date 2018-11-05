@@ -63,7 +63,7 @@ edit SPECS/tools.spec or lfs.spec and change the
 
 This build has a mkinitramfs step ( which requires cpio ) so if you need a
 initrd to boot it creates one.  If your kernel must be configured to use this.
-if initrd is not required the initrd is still created just ignore it when
+If initrd is not required the initrd is still created just ignore it when
 you make the entry into grub.cfg
 
 This build has Microcode updates for AMD CPUs.
@@ -71,17 +71,17 @@ To use it make a link to the proper cpu family.
 See BLFS book for more information.
 
 cd /boot
-the initrd must be named microcode.img
+The initrd must be named microcode.img
 
 ln -vs microcode_amd_famxxh.img microcode.img
-change xxh to the proper family to 15h, 16h or 17h
+Change xxh to the proper family to 15h, 16h or 17h
 
-add/change to grub.cfg
+Add/change to grub.cfg
 initrd /boot/microcode.img /boot/initrd.img-4.15.3
-or if you don't use initrd.img-4.15.3
+Or if you don't use initrd.img-4.15.3
 initrd /boot/microcode.img
 
-example for GPT partitioned drive
+Example for GPT partitioned drive
 menuentry 'Linux From Scratch (8.2) (on /dev/sdxx)' {
 	insmod part_gpt
 	insmod ext2
@@ -89,7 +89,7 @@ menuentry 'Linux From Scratch (8.2) (on /dev/sdxx)' {
 	linux /boot/vmlinuz-4.15.3 root=/dev/sdxx
 	initrd /boot/microcode.img /boot/initrd.img-4.15.3
 }
-or MSDOS/BIOS partitioned drive
+Or MSDOS/BIOS partitioned drive
 menuentry 'Linux From Scratch (8.2) (on /dev/sdxx)' {
 	insmod part_msdos
 	insmod ext2
@@ -98,11 +98,12 @@ menuentry 'Linux From Scratch (8.2) (on /dev/sdxx)' {
 	initrd /boot/microcode.img initrd /boot/initrd.img-4.15.3
 }
 
-change the x's to the proper drives and partition
+Change the x's to the proper drives and partition
 
-The installer.sh script will take the binary rpms ( chapter 6 ) and install them
-into a partition that YOU mounted on /mnt.  If you want to install elseware then
-change ROOTPATH="/mnt" to the installation partition mounted by YOU.
+The installer.sh script will take the binary rpms ( chapter 6 ) and install
+them into a partition that YOU mounted on /mnt.  If you want to install 
+elseware then change ROOTPATH="/mnt" to the installation partition
+mounted by YOU.
 
 ###		TODO	###
 I am presently working on adding yum to the base build, I will add it to the
