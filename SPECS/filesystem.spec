@@ -25,6 +25,9 @@ for the directories.
 	install -vdm 755 %{buildroot}/{bin,boot,dev,etc,home,lib,lib64,media,mnt,opt,proc,root,run,sbin,srv,sys,tmp,usr,var}
 	#	etc directories
 	install -vdm 755 %{buildroot}/etc/{ld.so.conf.d,opt,profile.d,skel,sysconfig}
+	#	init script directories - this is for chkconfig
+	install -vdm 755 %{buildroot}/etc/rc.d/{init.d,rc0.d,rc1.d,rc2.d,rc3.d,rc4.d,rc5.d,rc6.d,rc7.d}
+	ln -vs rc7.d %{buildroot}/etc/rc.d/rcS.d
 	#	lib directories
 	install -vdm 755 %{buildroot}/lib/firmware
 	#	media directories
@@ -695,6 +698,18 @@ for the directories.
 	%dir	/var/lib/color
 	%dir	/var/opt
 	%dir	/etc
+#	/etc init script directories	
+	%dir	/etc/rc.d
+	%dir	/etc/rc.d/init.d
+	%dir	/etc/rc.d/rc0.d
+	%dir	/etc/rc.d/rc1.d
+	%dir	/etc/rc.d/rc2.d
+	%dir	/etc/rc.d/rc3.d
+	%dir	/etc/rc.d/rc4.d
+	%dir	/etc/rc.d/rc5.d
+	%dir	/etc/rc.d/rc6.d
+	%dir	/etc/rc.d/rc7.d
+		/etc/rc.d/rcS.d
 	%dir	/etc/sysconfig
 	%dir	/etc/ld.so.conf.d
 	%dir	/etc/opt
