@@ -46,8 +46,8 @@ ADDITIONS:
 	python2		# needed for rpm
 	rpm			# package manager
 	wget			# needed to fetch packages
-	firmware-radeon	# firmaware for radeon graphics
-	firmware-realtek	# firmaware for realtek network
+	firmware-radeon	# firmware for radeon graphics
+	firmware-realtek	# firmware for realtek network
 	firmware-amd-ucode	# microcode updates for AMD CPUs
 
 GENERAL NOTES:
