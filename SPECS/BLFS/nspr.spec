@@ -1,6 +1,6 @@
 Summary:	Platform-neutral API
 Name:		nspr
-Version:	4.10.3
+Version:	4.18
 Release:	1
 License:	MPLv2.0
 URL:		http://ftp.mozilla.org/pub/mozilla.org

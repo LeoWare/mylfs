@@ -44,3 +44,4 @@ RPMSDIR="RPMS"
 SRPMSDIR="SRPMS"
 LOGDIR="LOGS"
 
+# vim: syntax=sh:ts=4:sw=4:

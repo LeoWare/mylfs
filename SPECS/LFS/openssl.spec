@@ -1,6 +1,6 @@
 Name:           openssl
 Version:        1.1.0g
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The OpenSSL package contains management tools and libraries relating to cryptography.
 Vendor:			LeoWare
 Distribution:	MyLFS
@@ -10,6 +10,8 @@ License:        OpenSSL
 URL:            https://www.openssl.org/
 Source0:        https://openssl.org/source/%{name}-%{version}.tar.gz
 
+Provides:		libssl.so.1.1()(64bit) libssl.so.1.1(OPENSSL_1_1_0)(64bit) libcrypto.so.1.1()(64bit) libcrypto.so.1.1(OPENSSL_1_1_0)(64bit)
+
 %description
 The OpenSSL package contains management tools and libraries relating to cryptography. These are useful for providing cryptographic functions to other packages, such as OpenSSH, email applications and web browsers (for accessing HTTPS sites).
 
@@ -18,6 +20,7 @@ The OpenSSL package contains management tools and libraries relating to cryptogr
 
 
 %build
+HOST=x86_64-pc-linux-gnu BUILD=x86_64-pc-linux-gnu TARGET=x86_64-pc-linux-gnu \
 ./config --prefix=/usr         \
          --openssldir=/etc/ssl \
          --libdir=lib          \
@@ -25,8 +28,8 @@ The OpenSSL package contains management tools and libraries relating to cryptogr
          zlib-dynamic
 make %{?_smp_mflags}
 
-%check
-make test
+#check
+#make test
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -64,5 +67,7 @@ Development headers for libssl and libcrypto
 
 
 %changelog
+*	Fri	Oct	19 2018 Samuel Raynor <samuel@samuelraynor.com> 1.1.0g-2
+-	Added Provides:
 *	Wed Oct 10 2018 Samuel Raynor <samuel@samuelraynor.com> 1.1.0g-1
 -	Initial build.
