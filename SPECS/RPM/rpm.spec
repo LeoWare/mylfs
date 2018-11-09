@@ -1,6 +1,6 @@
 Summary:	Package manager
 Name:		rpm
-Version:	4.11.2
+Version:	4.14.2
 Release:	1
 License:	GPLv2
 URL:		http://rpm.org
@@ -15,7 +15,13 @@ RPM package manager
 %prep
 %setup -q
 %setup -q -T -D -a 1
-mv db-6.0.20 db
+ln -svf db-6.0.20 db
+cd m4
+for f in *.m4;
+do
+	sed -i "s/AM_PROG_MKDIR_P/AC_PROG_MKDIR_P/g" $f
+done
+
 %build
 ./autogen.sh --noconfigure
 ./configure \
@@ -36,9 +42,16 @@ mv db-6.0.20 db
         --infodir=%{_infodir} \
         --disable-dependency-tracking \
        	--disable-static \
-	--without-lua \
-	--disable-silent-rules \
-	--enable-python
+		--without-lua \
+		--disable-silent-rules \
+		--enable-python \
+		--disable-rpath \
+		--with-pic=yes \
+		--with-cap \
+		--with-acl \
+		--without-selinux \
+		--with-external-db=no \
+		--with-crypto=nss
 
 make %{?_smp_mflags}
 %install
@@ -54,8 +67,7 @@ find %{buildroot} -name '*.la' -delete
 rm -rf %{buildroot}
 %files -f %{name}.lang
 %defattr(-,root,root)
-/bin/rpm
-%config(noreplace) %{_sysconfdir}/rpm/macros
+#%config(noreplace) %{_sysconfdir}/rpm/macros
 %{_bindir}/*
 %{_includedir}/*
 %{_libdir}/*
@@ -67,7 +79,17 @@ rm -rf %{buildroot}
 %{_mandir}/pl/man8/*
 %{_mandir}/ru/man8/*
 %{_mandir}/sk/man8/*
+
+%package devel
+Summary: Development files for %{name}-%{version}
+
+%description devel
+Development files for %{name}-%{version}
+
+%files devel
+%{_includedir}/*
+%{_libdir}/pkgconfig/*
+
 %changelog
-*	Thu Apr 10 2014 baho-utot <baho-utot@columbus.rr.com> 4.11.2-1
-*	Thu Mar 21 2013 baho-utot <baho-utot@columbus.rr.com> 4.11.0.1-1
--	Upgrade version
+*	Fri Oct 19 2018 Samuel Raynor <samuel@samuelraynor.com> 4.14.2-1
+-	Initial build.

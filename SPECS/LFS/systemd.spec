@@ -46,6 +46,7 @@ meson --prefix=/usr                \
       -Db_lto=false                \
 	  -Defi=true \
 	  -Dgnu-efi=true \
+	  -Dseccomp=true \
       ..
 LANG=en_US.UTF-8 %{_bindir}/ninja
 
@@ -64,6 +65,7 @@ ln -sfv ../lib/systemd/systemd $RPM_BUILD_ROOT/sbin/init
 #rm -f /run/nologin
 #EOF
 #chmod -v 755 $RPM_BUILD_ROOT/lib/systemd/systemd-user-sessions
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -138,7 +140,7 @@ Development files for %{name}-%{version}.
 
 %files devel
 %{_includedir}/*
-%{_libdir}/pkgconfig/*.pc
+%{_lib64dir}/pkgconfig/*.pc
 %{_datadir}/pkgconfig/*.pc
 %{_libdir}/rpm/*
 
