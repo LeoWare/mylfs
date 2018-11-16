@@ -2,8 +2,8 @@
 set -o errexit
 set -o nounset
 set +h
-source ./config.inc
-source ./function.inc
+source ./config.inc.sh
+source ./function.inc.sh
 
 PRGNAME=${0##*/}	# script name minus the path
 LOGFILE="${LOGDIR}/${PRGNAME}-${LOGFILE}"	# set log file name

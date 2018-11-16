@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./function.inc
+source ./function.inc.sh
 
 msg_line "Mounting kernel virtual filesystems: "
 mount_kernel_vfs

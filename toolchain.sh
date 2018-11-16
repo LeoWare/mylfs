@@ -1,19 +1,11 @@
 #!/bin/bash
-#################################################
-#	Title:	mk-tools			#
-#        Date:	2014-06-18			#
-#     Version:	1.0				#
-#      Author:	baho-utot@columbus.rr.com	#
-#     Options:					#
-#################################################
-#[ -z ${PARENT} ]	&& PARENT=/usr/src/Octothorpe
-#[ -z ${LFS} ]		&& LFS=/mnt/lfs
 set -o errexit		# exit if error...insurance ;)
 set -o nounset		# exit if variable not initalized
 set +h			# disable hashall
-source config.inc
-source function.inc
+source config.inc.sh
+source function.inc.sh
 PRGNAME=${0##*/}	# script name minus the path
+
 chapter-05-04() {
 	local	_pkgname="binutils"
 	local	_pkgver="2.30"
