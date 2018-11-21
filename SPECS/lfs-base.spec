@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 #-----------------------------------------------------------------------------
 Summary:	Meta package for LFS Base installation
-Name:		lfs
+Name:		lfs-base
 Version:	8.2
 Release:	1
 License:	None
