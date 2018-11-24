@@ -14,22 +14,28 @@
 # system is accessed with ${PARENT}
 PARENT=/usr/src/lfs
 
-# Mount point to build into
-# This should be the root of the new partition
-LFS=/mnt/lfs
-
 # LFS user name
 # System will build with this user
 LFS_USER="lfs"
 
 # LFS Partition
-DEVICE=/dev/sdb2
-
-# partition to mount to $LFS/boot/efi
-BOOT_DEVICE=/dev/sdb1
+DEVICE=/dev/loop1
 
 # Filesystem type
 FILESYSTEM=ext4
+
+# Mount point for DEVICE
+# This should be the root of the new partition
+LFS=/mnt/lfs
+
+# Boot Partition
+BOOT_DEVICE=/dev/loop0
+
+# Boot partition filesystem type
+BOOT_FS=vfat
+
+# Mount point for $BOOT_DEVICE
+BOOT=/boot/efi
 
 ### STOP EDITING HERE ###
 #
